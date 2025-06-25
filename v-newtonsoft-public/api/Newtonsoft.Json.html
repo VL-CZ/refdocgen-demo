@@ -1,0 +1,449 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Reference documentation</title>
+
+    <script>
+
+        // use IIFE in order to avoid polluting global context with functions & variables
+        // https://developer.mozilla.org/en-US/docs/Glossary/IIFE
+        (function() {
+            const isLocalFile = location.protocol === "file:";
+            const defaultTheme = "dark";
+            const defaultLang = "csharp-lang";
+
+            if(isLocalFile){
+                const urlParams = new URLSearchParams(window.location.search);
+
+                let redirect = false;
+
+                // set 'theme' URL param if not found
+                if(!urlParams.has("theme")){
+                    urlParams.set("theme", defaultTheme);
+                    redirect = true;
+                }
+
+                // set 'lang' URL param if not found
+                if(!urlParams.has("lang")){
+                    urlParams.set("lang", defaultLang);
+                    redirect = true;
+                }
+
+                // redirect, if some of the URL parameters are missing
+                if(redirect){
+                    const newUrl = new URL(window.location.href);
+                    newUrl.search = urlParams.toString();
+
+                    window.location.href = newUrl;
+                }
+                else {
+                    document.documentElement.setAttribute("data-bs-theme", urlParams.get("theme")); // set the 'data-bs-theme' attribute
+                    document.documentElement.setAttribute("data-language", urlParams.get("lang")); // set the 'data-language' attribute
+                }
+            }
+            else { // no local file -> use localStorage
+                if (!localStorage.getItem("refdocgen-theme")) {
+                    localStorage.setItem("refdocgen-theme", defaultTheme);
+                }
+
+                if (!localStorage.getItem("refdocgen-language")) {
+                    localStorage.setItem("refdocgen-language", defaultLang);
+                }
+
+                document.documentElement.setAttribute("data-bs-theme", localStorage.getItem("refdocgen-theme")); // set the 'data-bs-theme' attribute
+                document.documentElement.setAttribute("data-language", localStorage.getItem("refdocgen-language")); // set the 'data-language' attribute
+            }
+        })();
+    </script>
+
+    
+    <link href="../Static/styles.css" rel="stylesheet"><style>html[data-language="csharp-lang"] [data-language="csharp-lang"] { display: inline !important; }
+html[data-language="todo-lang"] [data-language="todo-lang"] { display: inline !important; }
+</style></head>
+
+<body><nav class="navbar navbar-expand-lg sticky-top menu-bg"><div class="container"><a class="navbar-brand" href="../index.html">Project name</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup"><ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="../api/index.html">API</a></li></ul>
+            <ul class="navbar-nav ms-auto"><li class="nav-item d-flex align-items-center"><form class="me-2 mb-2 mb-lg-0"><select class="form-select" id="language-selector" aria-label="language"><option class="lang-option" value="csharp-lang">C#</option><option class="lang-option" value="todo-lang">TODO</option></select></form></li>
+
+                
+                <li class="nav-item d-flex align-items-center"><form role="search" class="me-2"><input class="form-control" autocomplete="off" type="search" placeholder="Search" aria-label="Search" id="menu-search-bar" url-target="../search.html" readonly=""></form></li>
+
+                
+                <li class="nav-item" id="theme-switcher"><button class="nav-link"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-brightness-high" viewBox="0 0 16 16"><path d="M8 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6m0 1a4 4 0 1 0 0-8 4 4 0 0 0 0 8M8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0m0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13m8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5M3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8m10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0m-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0m9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707M4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708"></path></svg></button></li></ul></div></div></nav>
+
+    <div class="container my-4" data-id="page-body"><h1 class="display-4" data-id="namespace-title"><samp><span class="refdocgen-text-tertiary">namespace</span>
+                        <span class="refdocgen-text-primary">Newtonsoft.Json</span></samp></h1>
+
+                <h6><samp data-id="type-assembly"><a href="Newtonsoft.Json-DLL.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">assembly</span>
+            <span class="refdocgen-text-secondary">Newtonsoft.Json</span></a></samp></h6>
+
+                <hr><h2 class="display-5 my-2">Classes</h2>
+                    <div data-id="namespace-classes"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./Newtonsoft.Json.DefaultJsonNameTable.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">DefaultJsonNameTable</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            The default JSON name table implementation.
+            </div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./Newtonsoft.Json.JsonArrayAttribute.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">JsonArrayAttribute</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Instructs the <code class="refdocgen-see-cref-not-found">JsonSerializer</code> how to serialize the collection.
+            </div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./Newtonsoft.Json.JsonConstructorAttribute.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">JsonConstructorAttribute</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Instructs the <code class="refdocgen-see-cref-not-found">JsonSerializer</code> to use the specified constructor when deserializing that object.
+            </div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./Newtonsoft.Json.JsonContainerAttribute.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">JsonContainerAttribute</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Instructs the <code class="refdocgen-see-cref-not-found">JsonSerializer</code> how to serialize the object.
+            </div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./Newtonsoft.Json.JsonConvert.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">JsonConvert</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Provides methods for converting between .NET types and JSON types.
+            </div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./Newtonsoft.Json.JsonConverter.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">JsonConverter</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Converts an object to and from JSON.
+            </div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./Newtonsoft.Json.JsonConverter-1.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">JsonConverter&lt;T&gt;</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Converts an object to and from JSON.
+            </div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./Newtonsoft.Json.JsonConverterAttribute.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">JsonConverterAttribute</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Instructs the <code class="refdocgen-see-cref-not-found">JsonSerializer</code> to use the specified <code class="refdocgen-see-cref-not-found">JsonConverter</code> when serializing the member or class.
+            </div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./Newtonsoft.Json.JsonConverterCollection.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">JsonConverterCollection</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Represents a collection of <code class="refdocgen-see-cref-not-found">JsonConverter</code>.
+            </div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./Newtonsoft.Json.JsonDictionaryAttribute.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">JsonDictionaryAttribute</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Instructs the <code class="refdocgen-see-cref-not-found">JsonSerializer</code> how to serialize the collection.
+            </div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./Newtonsoft.Json.JsonException.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">JsonException</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            The exception thrown when an error occurs during JSON serialization or deserialization.
+            </div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./Newtonsoft.Json.JsonExtensionDataAttribute.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">JsonExtensionDataAttribute</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Instructs the <code class="refdocgen-see-cref-not-found">JsonSerializer</code> to deserialize properties with no matching class member into the specified collection
+            and write values during serialization.
+            </div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./Newtonsoft.Json.JsonIgnoreAttribute.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">JsonIgnoreAttribute</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Instructs the <code class="refdocgen-see-cref-not-found">JsonSerializer</code> not to serialize the public field or public read/write property value.
+            </div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./Newtonsoft.Json.JsonNameTable.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">JsonNameTable</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Base class for a table of atomized string objects.
+            </div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./Newtonsoft.Json.JsonObjectAttribute.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">JsonObjectAttribute</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Instructs the <code class="refdocgen-see-cref-not-found">JsonSerializer</code> how to serialize the object.
+            </div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./Newtonsoft.Json.JsonPropertyAttribute.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">JsonPropertyAttribute</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Instructs the <code class="refdocgen-see-cref-not-found">JsonSerializer</code> to always serialize the member with the specified name.
+            </div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./Newtonsoft.Json.JsonReader.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">JsonReader</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Represents a reader that provides fast, non-cached, forward-only access to serialized JSON data.
+            </div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./Newtonsoft.Json.JsonReaderException.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">JsonReaderException</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            The exception thrown when an error occurs while reading JSON text.
+            </div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./Newtonsoft.Json.JsonRequiredAttribute.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">JsonRequiredAttribute</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Instructs the <code class="refdocgen-see-cref-not-found">JsonSerializer</code> to always serialize the member, and to require that the member has a value.
+            </div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./Newtonsoft.Json.JsonSerializationException.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">JsonSerializationException</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            The exception thrown when an error occurs during JSON serialization or deserialization.
+            </div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./Newtonsoft.Json.JsonSerializer.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">JsonSerializer</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Serializes and deserializes objects into and from the JSON format.
+            The <code class="refdocgen-see-cref-not-found">JsonSerializer</code> enables you to control how objects are encoded into JSON.
+            </div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./Newtonsoft.Json.JsonSerializerSettings.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">JsonSerializerSettings</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Specifies the settings on a <code class="refdocgen-see-cref-not-found">JsonSerializer</code> object.
+            </div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./Newtonsoft.Json.JsonTextReader.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">JsonTextReader</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Represents a reader that provides fast, non-cached, forward-only access to JSON text data.
+            </div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./Newtonsoft.Json.JsonTextWriter.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">JsonTextWriter</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Represents a writer that provides a fast, non-cached, forward-only way of generating JSON data.
+            </div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./Newtonsoft.Json.JsonValidatingReader.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">JsonValidatingReader</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            
+            Represents a reader that provides <code class="refdocgen-see-cref-not-found">JsonSchema</code> validation.
+            
+            <note type="caution">
+            JSON Schema validation has been moved to its own package. See <code class="refdocgen-see-cref-not-found">https://www.newtonsoft.com/jsonschema</code> for more details.
+            </note>
+            </div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./Newtonsoft.Json.JsonWriter.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">JsonWriter</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Represents a writer that provides a fast, non-cached, forward-only way of generating JSON data.
+            </div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./Newtonsoft.Json.JsonWriterException.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">JsonWriterException</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            The exception thrown when an error occurs while writing JSON text.
+            </div></div>
+<hr class="my-2"></div><h2 class="display-5 my-2">Interfaces</h2>
+                    <div data-id="namespace-interfaces"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./Newtonsoft.Json.IArrayPool-1.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">interface</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">IArrayPool&lt;T&gt;</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Provides an interface for using pooled arrays.
+            </div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./Newtonsoft.Json.IJsonLineInfo.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">interface</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">IJsonLineInfo</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Provides an interface to enable a class to return line and position information.
+            </div></div>
+<hr class="my-2"></div><h2 class="display-5 my-2">Enums</h2>
+                    <div data-id="namespace-enums"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./Newtonsoft.Json.ConstructorHandling.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">enum</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">ConstructorHandling</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Specifies how constructors are used when initializing objects during deserialization by the <code class="refdocgen-see-cref-not-found">JsonSerializer</code>.
+            </div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./Newtonsoft.Json.DateFormatHandling.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">enum</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">DateFormatHandling</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Specifies how dates are formatted when writing JSON text.
+            </div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./Newtonsoft.Json.DateParseHandling.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">enum</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">DateParseHandling</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Specifies how date formatted strings, e.g. <code class="refdocgen-inline-code">"\/Date(1198908717056)\/"</code> and <code class="refdocgen-inline-code">"2012-03-21T05:40Z"</code>, are parsed when reading JSON text.
+            </div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./Newtonsoft.Json.DateTimeZoneHandling.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">enum</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">DateTimeZoneHandling</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Specifies how to treat the time value when converting between string and <code class="refdocgen-see-cref-not-found">DateTime</code>.
+            </div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./Newtonsoft.Json.DefaultValueHandling.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">enum</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">DefaultValueHandling</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Specifies default value handling options for the <code class="refdocgen-see-cref-not-found">JsonSerializer</code>.
+            </div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./Newtonsoft.Json.FloatFormatHandling.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">enum</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">FloatFormatHandling</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Specifies float format handling options when writing special floating point numbers, e.g. <code class="refdocgen-see-cref-not-found">double.NaN</code>,
+            <code class="refdocgen-see-cref-not-found">double.PositiveInfinity</code> and <code class="refdocgen-see-cref-not-found">double.NegativeInfinity</code> with <code class="refdocgen-see-cref-not-found">JsonWriter</code>.
+            </div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./Newtonsoft.Json.FloatParseHandling.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">enum</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">FloatParseHandling</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Specifies how floating point numbers, e.g. 1.0 and 9.9, are parsed when reading JSON text.
+            </div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./Newtonsoft.Json.Formatting.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">enum</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">Formatting</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Specifies formatting options for the <code class="refdocgen-see-cref-not-found">JsonTextWriter</code>.
+            </div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./Newtonsoft.Json.JsonToken.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">enum</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">JsonToken</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Specifies the type of JSON token.
+            </div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./Newtonsoft.Json.MemberSerialization.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">enum</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">MemberSerialization</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Specifies the member serialization options for the <code class="refdocgen-see-cref-not-found">JsonSerializer</code>.
+            </div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./Newtonsoft.Json.MetadataPropertyHandling.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">enum</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">MetadataPropertyHandling</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Specifies metadata property handling options for the <code class="refdocgen-see-cref-not-found">JsonSerializer</code>.
+            </div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./Newtonsoft.Json.MissingMemberHandling.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">enum</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">MissingMemberHandling</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Specifies missing member handling options for the <code class="refdocgen-see-cref-not-found">JsonSerializer</code>.
+            </div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./Newtonsoft.Json.NullValueHandling.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">enum</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">NullValueHandling</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Specifies null value handling options for the <code class="refdocgen-see-cref-not-found">JsonSerializer</code>.
+            </div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./Newtonsoft.Json.ObjectCreationHandling.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">enum</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">ObjectCreationHandling</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Specifies how object creation is handled by the <code class="refdocgen-see-cref-not-found">JsonSerializer</code>.
+            </div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./Newtonsoft.Json.PreserveReferencesHandling.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">enum</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">PreserveReferencesHandling</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Specifies reference handling options for the <code class="refdocgen-see-cref-not-found">JsonSerializer</code>.
+            Note that references cannot be preserved when a value is set via a non-default constructor such as types that implement <code class="refdocgen-see-cref-not-found">ISerializable</code>.
+            </div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./Newtonsoft.Json.ReferenceLoopHandling.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">enum</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">ReferenceLoopHandling</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Specifies reference loop handling options for the <code class="refdocgen-see-cref-not-found">JsonSerializer</code>.
+            </div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./Newtonsoft.Json.Required.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">enum</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">Required</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Indicating whether a property is required.
+            </div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./Newtonsoft.Json.StringEscapeHandling.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">enum</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">StringEscapeHandling</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Specifies how strings are escaped when writing JSON text.
+            </div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./Newtonsoft.Json.TypeNameAssemblyFormatHandling.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">enum</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">TypeNameAssemblyFormatHandling</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Indicates the method that will be used during deserialization for locating and loading assemblies.
+            </div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./Newtonsoft.Json.TypeNameHandling.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">enum</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">TypeNameHandling</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Specifies type name handling options for the <code class="refdocgen-see-cref-not-found">JsonSerializer</code>.
+            </div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./Newtonsoft.Json.WriteState.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">enum</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">WriteState</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Specifies the state of the <code class="refdocgen-see-cref-not-found">JsonWriter</code>.
+            </div></div>
+<hr class="my-2"></div></div><nav class="navbar fixed-bottom menu-bg"><div class="container"><div class="dropup"><button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">v-newtonsoft-public</button>
+            <div id="current-version">v-newtonsoft-public</div>
+            <div id="version-list">["v-newtonsoft-public","v-newtonsoft-private"]</div>
+            <ul class="dropdown-menu" id="version-selector" data-id="version-selector"></ul></div></div></nav><script src="../Static/bootstrap-5.3.5-dist.bundle.min.js"></script>
+
+    
+    <script src="../Static/script.js"></script></body></html>

@@ -1,0 +1,2690 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Reference documentation</title>
+
+    <script>
+
+        // use IIFE in order to avoid polluting global context with functions & variables
+        // https://developer.mozilla.org/en-US/docs/Glossary/IIFE
+        (function() {
+            const isLocalFile = location.protocol === "file:";
+            const defaultTheme = "dark";
+            const defaultLang = "csharp-lang";
+
+            if(isLocalFile){
+                const urlParams = new URLSearchParams(window.location.search);
+
+                let redirect = false;
+
+                // set 'theme' URL param if not found
+                if(!urlParams.has("theme")){
+                    urlParams.set("theme", defaultTheme);
+                    redirect = true;
+                }
+
+                // set 'lang' URL param if not found
+                if(!urlParams.has("lang")){
+                    urlParams.set("lang", defaultLang);
+                    redirect = true;
+                }
+
+                // redirect, if some of the URL parameters are missing
+                if(redirect){
+                    const newUrl = new URL(window.location.href);
+                    newUrl.search = urlParams.toString();
+
+                    window.location.href = newUrl;
+                }
+                else {
+                    document.documentElement.setAttribute("data-bs-theme", urlParams.get("theme")); // set the 'data-bs-theme' attribute
+                    document.documentElement.setAttribute("data-language", urlParams.get("lang")); // set the 'data-language' attribute
+                }
+            }
+            else { // no local file -> use localStorage
+                if (!localStorage.getItem("refdocgen-theme")) {
+                    localStorage.setItem("refdocgen-theme", defaultTheme);
+                }
+
+                if (!localStorage.getItem("refdocgen-language")) {
+                    localStorage.setItem("refdocgen-language", defaultLang);
+                }
+
+                document.documentElement.setAttribute("data-bs-theme", localStorage.getItem("refdocgen-theme")); // set the 'data-bs-theme' attribute
+                document.documentElement.setAttribute("data-language", localStorage.getItem("refdocgen-language")); // set the 'data-language' attribute
+            }
+        })();
+    </script>
+
+    
+    <link href="../Static/styles.css" rel="stylesheet" /><style>html[data-language="csharp-lang"] [data-language="csharp-lang"] { display: inline !important; }
+html[data-language="todo-lang"] [data-language="todo-lang"] { display: inline !important; }
+</style></head>
+
+<body><nav class="navbar navbar-expand-lg sticky-top menu-bg"><div class="container"><a class="navbar-brand" href="../index.html">Project name</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup"><ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="../api/index.html">API</a></li></ul>
+            <ul class="navbar-nav ms-auto"><li class="nav-item d-flex align-items-center"><form class="me-2 mb-2 mb-lg-0"><select class="form-select" id="language-selector" aria-label="language"><option class="lang-option" value="csharp-lang">C#</option><option class="lang-option" value="todo-lang">TODO</option></select></form></li>
+
+                
+                <li class="nav-item d-flex align-items-center"><form role="search" class="me-2"><input class="form-control" autocomplete="off" type="search" placeholder="Search" aria-label="Search" id="menu-search-bar" url-target="../search.html" readonly /></form></li>
+
+                
+                <li class="nav-item" id="theme-switcher"><button class="nav-link"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-brightness-high" viewBox="0 0 16 16"><path d="M8 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6m0 1a4 4 0 1 0 0-8 4 4 0 0 0 0 8M8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0m0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13m8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5M3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8m10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0m-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0m9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707M4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708"></path></svg></button></li></ul></div></div></nav>
+
+    <div class="container my-4" data-id="page-body"><div data-id="declared-type-data"><h1 class="display-4" data-id="type-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">public class</span>
+<span class="refdocgen-text-primary">DefaultContractResolver</span></span><span class="not-visible" data-language="todo-lang"></span></samp></h1>
+
+                    
+
+                    <h6><samp data-id="type-assembly"><a href="Newtonsoft.Json-DLL.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">assembly</span>
+            <span class="refdocgen-text-secondary">Newtonsoft.Json</span></a></samp></h6>
+
+                    <h6><samp data-id="type-namespace"><a href="Newtonsoft.Json.Serialization.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">namespace</span>
+            <span class="refdocgen-text-secondary">Newtonsoft.Json.Serialization</span></a></samp></h6>
+
+                    <div data-id="base-type"><i>Base type:&nbsp;</i>
+        <samp class="refdocgen-text-secondary"><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.object" class="refdocgen-link-secondary">object</a></span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                    <div data-id="implemented-interfaces"><i>Implements:&nbsp;</i>
+        <samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="./Newtonsoft.Json.Serialization.IContractResolver.html" class="refdocgen-link-secondary">IContractResolver</a></span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                    
+
+                    <hr>
+
+                    
+                    <div class="text-body-secondary fst-italic mb-0" data-id="summary-doc"><div>
+            Used by <a class="refdocgen-see-cref" href="./Newtonsoft.Json.JsonSerializer.html">JsonSerializer</a> to resolve a <a class="refdocgen-see-cref" href="./Newtonsoft.Json.Serialization.JsonContract.html">JsonContract</a> for a given <a class="refdocgen-see-cref" href="https://learn.microsoft.com/dotnet/api/system.type">Type</a>.
+            </div></div><hr>
+
+                    
+
+                    <h3 class="lead mt-3">Nested types</h3>
+    <div class="mx-2" data-id="nested-types-section"><div data-id="nested-type-data"><samp data-id="nested-type-name"><a href="./Newtonsoft.Json.Serialization.DefaultContractResolver.EnumerableDictionaryWrapper-2.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                        <span></span>
+
+                        <span class="not-visible" data-language="csharp-lang">DefaultContractResolver.EnumerableDictionaryWrapper&lt;TEnumeratorKey, TEnumeratorValue&gt;</span><span class="not-visible" data-language="todo-lang"></span></a></samp>
+                <div class="text-body-secondary fst-italic mb-2" data-id="summary-doc"></div></div></div>
+
+                    
+                    
+
+                    <hr></div><h2 class="display-5 mt-2">Constructors</h2>
+<div class="row" data-id="constructors-section"><div class="col-md-12"><div class="border p-2 mb-2" id=".cctor" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">private static</span>
+<span class="refdocgen-text-primary">DefaultContractResolver</span><span>(</span><span>)</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#.cctor">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id=".ctor" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">public</span>
+<span class="refdocgen-text-primary">DefaultContractResolver</span><span>(</span><span>)</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#.ctor">#</a></samp></h6>
+
+                <div class="text-body-secondary fst-italic mb-0" data-id="summary-doc"><div>
+            Initializes a new instance of the <a class="refdocgen-see-cref" href="./Newtonsoft.Json.Serialization.DefaultContractResolver.html">DefaultContractResolver</a> class.
+            </div></div>
+
+                
+
+                
+
+                
+                
+
+                
+
+                </div></div></div><h2 class="display-5 mt-2">Fields</h2>
+<div class="row" data-id="fields-section"><div class="col-md-12"><div class="border p-2 mb-2" id="_contractCache" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">private readonly</span>
+
+<span class="refdocgen-text-secondary"><a href="./Newtonsoft.Json.Utilities.ThreadSafeStore-2.html" class="refdocgen-link-secondary">ThreadSafeStore</a></span><span class="text-body-secondary">&lt;</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.type" class="refdocgen-link-secondary">Type</a></span><span class="text-body-secondary">, </span><span class="refdocgen-text-secondary"><a href="./Newtonsoft.Json.Serialization.JsonContract.html" class="refdocgen-link-secondary">JsonContract</a></span><span class="text-body-secondary">&gt;</span>
+
+<span class="refdocgen-text-primary">_contractCache</span>
+
+</span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#_contractCache">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="_instance" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">private static readonly</span>
+
+<span class="refdocgen-text-secondary"><a href="./Newtonsoft.Json.Serialization.IContractResolver.html" class="refdocgen-link-secondary">IContractResolver</a></span>
+
+<span class="refdocgen-text-primary">_instance</span>
+
+</span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#_instance">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="_nameTable" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">private readonly</span>
+
+<span class="refdocgen-text-secondary"><a href="./Newtonsoft.Json.DefaultJsonNameTable.html" class="refdocgen-link-secondary">DefaultJsonNameTable</a></span>
+
+<span class="refdocgen-text-primary">_nameTable</span>
+
+</span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#_nameTable">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="BlacklistedTypeNames" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">private static readonly</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.string" class="refdocgen-link-secondary">string[]</a></span>
+
+<span class="refdocgen-text-primary">BlacklistedTypeNames</span>
+
+</span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#BlacklistedTypeNames">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="BuiltInConverters" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">private static readonly</span>
+
+<span class="refdocgen-text-secondary"><a href="./Newtonsoft.Json.JsonConverter.html" class="refdocgen-link-secondary">JsonConverter[]</a></span>
+
+<span class="refdocgen-text-primary">BuiltInConverters</span>
+
+</span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#BuiltInConverters">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                </div></div></div><h2 class="display-5 mt-2">Properties</h2>
+<div class="row" data-id="properties-section"><div class="col-md-12"><div class="border p-2 mb-2" id="DefaultMembersSearchFlags" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">public</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.reflection.bindingflags" class="refdocgen-link-secondary">BindingFlags</a></span>
+
+<span class="refdocgen-text-primary">DefaultMembersSearchFlags</span>
+
+<span> { </span><span class="refdocgen-text-tertiary"> get<span class="text-body">; </span></span><span class="refdocgen-text-tertiary"> set<span class="text-body">; </span></span><span> }</span>
+
+</span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#DefaultMembersSearchFlags">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                <div class="text-body-secondary fst-italic mb-0" data-id="summary-doc"><div>
+            Gets or sets the default members search flags.
+            </div></div>
+
+                <div class="mt-2"><div class="lead">Value</div>
+        <div data-id="value-doc" class="fst-italic text-body-secondary"><div>The default members search flags.</div></div></div>
+
+                <h3 class="lead mt-3">Attributes</h3>
+    <div class="mx-2" data-id="attributes-section"><div data-id="attribute-data"><samp><span class="not-visible" data-language="csharp-lang">
+
+[<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.obsoleteattribute" class="refdocgen-link-secondary">Obsolete</a></span><span>(</span><span class="refdocgen-text-green">&quot;DefaultMembersSearchFlags is obsolete. To modify the members serialized inherit from DefaultContractResolver and override the GetSerializableMembers method instead.&quot;</span><span>)</span><span>]</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div></div>
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="DynamicCodeGeneration" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">public</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.boolean" class="refdocgen-link-secondary">bool</a></span>
+
+<span class="refdocgen-text-primary">DynamicCodeGeneration</span>
+
+<span> { </span><span class="refdocgen-text-tertiary"> get<span class="text-body">; </span></span><span> }</span>
+
+</span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#DynamicCodeGeneration">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                <div class="text-body-secondary fst-italic mb-0" data-id="summary-doc"><div>
+            Gets a value indicating whether members are being get and set using dynamic code generation.
+            This value is determined by the runtime permissions available.
+            </div></div>
+
+                <div class="mt-2"><div class="lead">Value</div>
+        <div data-id="value-doc" class="fst-italic text-body-secondary"><div>
+            	<code class="refdocgen-inline-code">true</code> if using dynamic code generation; otherwise, <code class="refdocgen-inline-code">false</code>.
+            </div></div></div>
+
+                
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="IgnoreIsSpecifiedMembers" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">public</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.boolean" class="refdocgen-link-secondary">bool</a></span>
+
+<span class="refdocgen-text-primary">IgnoreIsSpecifiedMembers</span>
+
+<span> { </span><span class="refdocgen-text-tertiary"> get<span class="text-body">; </span></span><span class="refdocgen-text-tertiary"> set<span class="text-body">; </span></span><span> }</span>
+
+</span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#IgnoreIsSpecifiedMembers">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                <div class="text-body-secondary fst-italic mb-0" data-id="summary-doc"><div>
+            Gets or sets a value indicating whether to ignore IsSpecified members when serializing and deserializing types.
+            </div></div>
+
+                <div class="mt-2"><div class="lead">Value</div>
+        <div data-id="value-doc" class="fst-italic text-body-secondary"><div>
+                <code class="refdocgen-inline-code">true</code> if the IsSpecified members will be ignored when serializing and deserializing types; otherwise, <code class="refdocgen-inline-code">false</code>.
+            </div></div></div>
+
+                
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="IgnoreSerializableAttribute" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">public</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.boolean" class="refdocgen-link-secondary">bool</a></span>
+
+<span class="refdocgen-text-primary">IgnoreSerializableAttribute</span>
+
+<span> { </span><span class="refdocgen-text-tertiary"> get<span class="text-body">; </span></span><span class="refdocgen-text-tertiary"> set<span class="text-body">; </span></span><span> }</span>
+
+</span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#IgnoreSerializableAttribute">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                <div class="text-body-secondary fst-italic mb-0" data-id="summary-doc"><div>
+            Gets or sets a value indicating whether to ignore the <a class="refdocgen-see-cref" href="https://learn.microsoft.com/dotnet/api/system.serializableattribute">SerializableAttribute</a> attribute when serializing and deserializing types.
+            </div></div>
+
+                <div class="mt-2"><div class="lead">Value</div>
+        <div data-id="value-doc" class="fst-italic text-body-secondary"><div>
+            	<code class="refdocgen-inline-code">true</code> if the <a class="refdocgen-see-cref" href="https://learn.microsoft.com/dotnet/api/system.serializableattribute">SerializableAttribute</a> attribute will be ignored when serializing and deserializing types; otherwise, <code class="refdocgen-inline-code">false</code>.
+            </div></div></div>
+
+                
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="IgnoreSerializableInterface" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">public</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.boolean" class="refdocgen-link-secondary">bool</a></span>
+
+<span class="refdocgen-text-primary">IgnoreSerializableInterface</span>
+
+<span> { </span><span class="refdocgen-text-tertiary"> get<span class="text-body">; </span></span><span class="refdocgen-text-tertiary"> set<span class="text-body">; </span></span><span> }</span>
+
+</span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#IgnoreSerializableInterface">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                <div class="text-body-secondary fst-italic mb-0" data-id="summary-doc"><div>
+            Gets or sets a value indicating whether to ignore the <a class="refdocgen-see-cref" href="https://learn.microsoft.com/dotnet/api/system.runtime.serialization.iserializable">ISerializable</a> interface when serializing and deserializing types.
+            </div></div>
+
+                <div class="mt-2"><div class="lead">Value</div>
+        <div data-id="value-doc" class="fst-italic text-body-secondary"><div>
+            	<code class="refdocgen-inline-code">true</code> if the <a class="refdocgen-see-cref" href="https://learn.microsoft.com/dotnet/api/system.runtime.serialization.iserializable">ISerializable</a> interface will be ignored when serializing and deserializing types; otherwise, <code class="refdocgen-inline-code">false</code>.
+            </div></div></div>
+
+                
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="IgnoreShouldSerializeMembers" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">public</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.boolean" class="refdocgen-link-secondary">bool</a></span>
+
+<span class="refdocgen-text-primary">IgnoreShouldSerializeMembers</span>
+
+<span> { </span><span class="refdocgen-text-tertiary"> get<span class="text-body">; </span></span><span class="refdocgen-text-tertiary"> set<span class="text-body">; </span></span><span> }</span>
+
+</span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#IgnoreShouldSerializeMembers">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                <div class="text-body-secondary fst-italic mb-0" data-id="summary-doc"><div>
+            Gets or sets a value indicating whether to ignore ShouldSerialize members when serializing and deserializing types.
+            </div></div>
+
+                <div class="mt-2"><div class="lead">Value</div>
+        <div data-id="value-doc" class="fst-italic text-body-secondary"><div>
+                <code class="refdocgen-inline-code">true</code> if the ShouldSerialize members will be ignored when serializing and deserializing types; otherwise, <code class="refdocgen-inline-code">false</code>.
+            </div></div></div>
+
+                
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="Instance" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">internal static</span>
+
+<span class="refdocgen-text-secondary"><a href="./Newtonsoft.Json.Serialization.IContractResolver.html" class="refdocgen-link-secondary">IContractResolver</a></span>
+
+<span class="refdocgen-text-primary">Instance</span>
+
+<span> { </span><span class="refdocgen-text-tertiary"> get<span class="text-body">; </span></span><span> }</span>
+
+</span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#Instance">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="NamingStrategy" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">public</span>
+
+<span class="refdocgen-text-secondary"><a href="./Newtonsoft.Json.Serialization.NamingStrategy.html" class="refdocgen-link-secondary">NamingStrategy</a></span>
+
+<span class="refdocgen-text-primary">NamingStrategy</span>
+
+<span> { </span><span class="refdocgen-text-tertiary"> get<span class="text-body">; </span></span><span class="refdocgen-text-tertiary"> set<span class="text-body">; </span></span><span> }</span>
+
+</span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#NamingStrategy">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                <div class="text-body-secondary fst-italic mb-0" data-id="summary-doc"><div>
+            Gets or sets the naming strategy used to resolve how property names and dictionary keys are serialized.
+            </div></div>
+
+                <div class="mt-2"><div class="lead">Value</div>
+        <div data-id="value-doc" class="fst-italic text-body-secondary"><div>The naming strategy used to resolve how property names and dictionary keys are serialized.</div></div></div>
+
+                
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="SerializeCompilerGeneratedMembers" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">public</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.boolean" class="refdocgen-link-secondary">bool</a></span>
+
+<span class="refdocgen-text-primary">SerializeCompilerGeneratedMembers</span>
+
+<span> { </span><span class="refdocgen-text-tertiary"> get<span class="text-body">; </span></span><span class="refdocgen-text-tertiary"> set<span class="text-body">; </span></span><span> }</span>
+
+</span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#SerializeCompilerGeneratedMembers">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                <div class="text-body-secondary fst-italic mb-0" data-id="summary-doc"><div>
+            Gets or sets a value indicating whether compiler generated members should be serialized.
+            </div></div>
+
+                <div class="mt-2"><div class="lead">Value</div>
+        <div data-id="value-doc" class="fst-italic text-body-secondary"><div>
+            	<code class="refdocgen-inline-code">true</code> if serialized compiler generated members; otherwise, <code class="refdocgen-inline-code">false</code>.
+            </div></div></div>
+
+                
+
+                
+                
+
+                
+
+                </div></div></div><h2 class="display-5 mt-2">Methods</h2>
+<div class="row" data-id="methods-section"><div class="col-md-12"><div class="border p-2 mb-2" id="CanConvertToString(System.Type)" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">internal static</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.boolean" class="refdocgen-link-secondary">bool</a></span>
+
+<span class="refdocgen-text-primary">CanConvertToString</span><span>(</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.type" class="refdocgen-link-secondary">Type</a></span>
+
+<span>type</span><span>)</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#CanConvertToString(System.Type)">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                <h3 class="lead my-2">Parameters</h3>
+    <div class="mx-2" data-id="parameters-section"><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.type" class="refdocgen-link-secondary">Type</a></span>
+
+<span>type</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div></div><h3 class="lead my-2">Returns</h3>
+<div class="mx-2" data-id="returns-section"><samp data-id="return-type-name"><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.boolean" class="refdocgen-link-secondary">bool</a></span></span><span class="not-visible" data-language="todo-lang"></span></samp>
+    <div class="text-body-secondary fst-italic" data-id="returns-doc"></div></div>
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="CreateArrayContract(System.Type)" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">protected virtual</span>
+
+<span class="refdocgen-text-secondary"><a href="./Newtonsoft.Json.Serialization.JsonArrayContract.html" class="refdocgen-link-secondary">JsonArrayContract</a></span>
+
+<span class="refdocgen-text-primary">CreateArrayContract</span><span>(</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.type" class="refdocgen-link-secondary">Type</a></span>
+
+<span>objectType</span><span>)</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#CreateArrayContract(System.Type)">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                <div class="text-body-secondary fst-italic mb-0" data-id="summary-doc"><div>
+            Creates a <a class="refdocgen-see-cref" href="./Newtonsoft.Json.Serialization.JsonArrayContract.html">JsonArrayContract</a> for the given type.
+            </div></div>
+
+                
+
+                <h3 class="lead my-2">Parameters</h3>
+    <div class="mx-2" data-id="parameters-section"><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.type" class="refdocgen-link-secondary">Type</a></span>
+
+<span>objectType</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"><div>Type of the object.</div></div></div></div><h3 class="lead my-2">Returns</h3>
+<div class="mx-2" data-id="returns-section"><samp data-id="return-type-name"><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="./Newtonsoft.Json.Serialization.JsonArrayContract.html" class="refdocgen-link-secondary">JsonArrayContract</a></span></span><span class="not-visible" data-language="todo-lang"></span></samp>
+    <div class="text-body-secondary fst-italic" data-id="returns-doc"><div>A <a class="refdocgen-see-cref" href="./Newtonsoft.Json.Serialization.JsonArrayContract.html">JsonArrayContract</a> for the given type.</div></div></div>
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="CreateConstructorParameters(System.Reflection.ConstructorInfo,Newtonsoft.Json.Serialization.JsonPropertyCollection)" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">protected virtual</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ilist-1" class="refdocgen-link-secondary">IList</a></span><span class="text-body-secondary">&lt;</span><span class="refdocgen-text-secondary"><a href="./Newtonsoft.Json.Serialization.JsonProperty.html" class="refdocgen-link-secondary">JsonProperty</a></span><span class="text-body-secondary">&gt;</span>
+
+<span class="refdocgen-text-primary">CreateConstructorParameters</span><span>(</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.reflection.constructorinfo" class="refdocgen-link-secondary">ConstructorInfo</a></span>
+
+<span>constructor</span><span>, </span><span class="refdocgen-text-secondary"><a href="./Newtonsoft.Json.Serialization.JsonPropertyCollection.html" class="refdocgen-link-secondary">JsonPropertyCollection</a></span>
+
+<span>memberProperties</span><span>)</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#CreateConstructorParameters(System.Reflection.ConstructorInfo,Newtonsoft.Json.Serialization.JsonPropertyCollection)">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                <div class="text-body-secondary fst-italic mb-0" data-id="summary-doc"><div>
+            Creates the constructor parameters.
+            </div></div>
+
+                
+
+                <h3 class="lead my-2">Parameters</h3>
+    <div class="mx-2" data-id="parameters-section"><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.reflection.constructorinfo" class="refdocgen-link-secondary">ConstructorInfo</a></span>
+
+<span>constructor</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"><div>The constructor to create properties for.</div></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="./Newtonsoft.Json.Serialization.JsonPropertyCollection.html" class="refdocgen-link-secondary">JsonPropertyCollection</a></span>
+
+<span>memberProperties</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"><div>The type's member properties.</div></div></div></div><h3 class="lead my-2">Returns</h3>
+<div class="mx-2" data-id="returns-section"><samp data-id="return-type-name"><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ilist-1" class="refdocgen-link-secondary">IList</a></span><span class="text-body-secondary">&lt;</span><span class="refdocgen-text-secondary"><a href="./Newtonsoft.Json.Serialization.JsonProperty.html" class="refdocgen-link-secondary">JsonProperty</a></span><span class="text-body-secondary">&gt;</span></span><span class="not-visible" data-language="todo-lang"></span></samp>
+    <div class="text-body-secondary fst-italic" data-id="returns-doc"><div>Properties for the given <a class="refdocgen-see-cref" href="https://learn.microsoft.com/dotnet/api/system.reflection.constructorinfo">ConstructorInfo</a>.</div></div></div>
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="CreateContract(System.Type)" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">protected virtual</span>
+
+<span class="refdocgen-text-secondary"><a href="./Newtonsoft.Json.Serialization.JsonContract.html" class="refdocgen-link-secondary">JsonContract</a></span>
+
+<span class="refdocgen-text-primary">CreateContract</span><span>(</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.type" class="refdocgen-link-secondary">Type</a></span>
+
+<span>objectType</span><span>)</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#CreateContract(System.Type)">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                <div class="text-body-secondary fst-italic mb-0" data-id="summary-doc"><div>
+            Determines which contract type is created for the given type.
+            </div></div>
+
+                
+
+                <h3 class="lead my-2">Parameters</h3>
+    <div class="mx-2" data-id="parameters-section"><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.type" class="refdocgen-link-secondary">Type</a></span>
+
+<span>objectType</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"><div>Type of the object.</div></div></div></div><h3 class="lead my-2">Returns</h3>
+<div class="mx-2" data-id="returns-section"><samp data-id="return-type-name"><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="./Newtonsoft.Json.Serialization.JsonContract.html" class="refdocgen-link-secondary">JsonContract</a></span></span><span class="not-visible" data-language="todo-lang"></span></samp>
+    <div class="text-body-secondary fst-italic" data-id="returns-doc"><div>A <a class="refdocgen-see-cref" href="./Newtonsoft.Json.Serialization.JsonContract.html">JsonContract</a> for the given type.</div></div></div>
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="CreateDictionaryContract(System.Type)" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">protected virtual</span>
+
+<span class="refdocgen-text-secondary"><a href="./Newtonsoft.Json.Serialization.JsonDictionaryContract.html" class="refdocgen-link-secondary">JsonDictionaryContract</a></span>
+
+<span class="refdocgen-text-primary">CreateDictionaryContract</span><span>(</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.type" class="refdocgen-link-secondary">Type</a></span>
+
+<span>objectType</span><span>)</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#CreateDictionaryContract(System.Type)">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                <div class="text-body-secondary fst-italic mb-0" data-id="summary-doc"><div>
+            Creates a <a class="refdocgen-see-cref" href="./Newtonsoft.Json.Serialization.JsonDictionaryContract.html">JsonDictionaryContract</a> for the given type.
+            </div></div>
+
+                
+
+                <h3 class="lead my-2">Parameters</h3>
+    <div class="mx-2" data-id="parameters-section"><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.type" class="refdocgen-link-secondary">Type</a></span>
+
+<span>objectType</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"><div>Type of the object.</div></div></div></div><h3 class="lead my-2">Returns</h3>
+<div class="mx-2" data-id="returns-section"><samp data-id="return-type-name"><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="./Newtonsoft.Json.Serialization.JsonDictionaryContract.html" class="refdocgen-link-secondary">JsonDictionaryContract</a></span></span><span class="not-visible" data-language="todo-lang"></span></samp>
+    <div class="text-body-secondary fst-italic" data-id="returns-doc"><div>A <a class="refdocgen-see-cref" href="./Newtonsoft.Json.Serialization.JsonDictionaryContract.html">JsonDictionaryContract</a> for the given type.</div></div></div>
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="CreateDynamicContract(System.Type)" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">protected virtual</span>
+
+<span class="refdocgen-text-secondary"><a href="./Newtonsoft.Json.Serialization.JsonDynamicContract.html" class="refdocgen-link-secondary">JsonDynamicContract</a></span>
+
+<span class="refdocgen-text-primary">CreateDynamicContract</span><span>(</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.type" class="refdocgen-link-secondary">Type</a></span>
+
+<span>objectType</span><span>)</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#CreateDynamicContract(System.Type)">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                <div class="text-body-secondary fst-italic mb-0" data-id="summary-doc"><div>
+            Creates a <a class="refdocgen-see-cref" href="./Newtonsoft.Json.Serialization.JsonDynamicContract.html">JsonDynamicContract</a> for the given type.
+            </div></div>
+
+                
+
+                <h3 class="lead my-2">Parameters</h3>
+    <div class="mx-2" data-id="parameters-section"><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.type" class="refdocgen-link-secondary">Type</a></span>
+
+<span>objectType</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"><div>Type of the object.</div></div></div></div><h3 class="lead my-2">Returns</h3>
+<div class="mx-2" data-id="returns-section"><samp data-id="return-type-name"><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="./Newtonsoft.Json.Serialization.JsonDynamicContract.html" class="refdocgen-link-secondary">JsonDynamicContract</a></span></span><span class="not-visible" data-language="todo-lang"></span></samp>
+    <div class="text-body-secondary fst-italic" data-id="returns-doc"><div>A <a class="refdocgen-see-cref" href="./Newtonsoft.Json.Serialization.JsonDynamicContract.html">JsonDynamicContract</a> for the given type.</div></div></div>
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="CreateISerializableContract(System.Type)" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">protected virtual</span>
+
+<span class="refdocgen-text-secondary"><a href="./Newtonsoft.Json.Serialization.JsonISerializableContract.html" class="refdocgen-link-secondary">JsonISerializableContract</a></span>
+
+<span class="refdocgen-text-primary">CreateISerializableContract</span><span>(</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.type" class="refdocgen-link-secondary">Type</a></span>
+
+<span>objectType</span><span>)</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#CreateISerializableContract(System.Type)">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                <div class="text-body-secondary fst-italic mb-0" data-id="summary-doc"><div>
+            Creates a <a class="refdocgen-see-cref" href="./Newtonsoft.Json.Serialization.JsonISerializableContract.html">JsonISerializableContract</a> for the given type.
+            </div></div>
+
+                
+
+                <h3 class="lead my-2">Parameters</h3>
+    <div class="mx-2" data-id="parameters-section"><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.type" class="refdocgen-link-secondary">Type</a></span>
+
+<span>objectType</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"><div>Type of the object.</div></div></div></div><h3 class="lead my-2">Returns</h3>
+<div class="mx-2" data-id="returns-section"><samp data-id="return-type-name"><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="./Newtonsoft.Json.Serialization.JsonISerializableContract.html" class="refdocgen-link-secondary">JsonISerializableContract</a></span></span><span class="not-visible" data-language="todo-lang"></span></samp>
+    <div class="text-body-secondary fst-italic" data-id="returns-doc"><div>A <a class="refdocgen-see-cref" href="./Newtonsoft.Json.Serialization.JsonISerializableContract.html">JsonISerializableContract</a> for the given type.</div></div></div>
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="CreateLinqContract(System.Type)" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">protected virtual</span>
+
+<span class="refdocgen-text-secondary"><a href="./Newtonsoft.Json.Serialization.JsonLinqContract.html" class="refdocgen-link-secondary">JsonLinqContract</a></span>
+
+<span class="refdocgen-text-primary">CreateLinqContract</span><span>(</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.type" class="refdocgen-link-secondary">Type</a></span>
+
+<span>objectType</span><span>)</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#CreateLinqContract(System.Type)">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                <div class="text-body-secondary fst-italic mb-0" data-id="summary-doc"><div>
+            Creates a <a class="refdocgen-see-cref" href="./Newtonsoft.Json.Serialization.JsonLinqContract.html">JsonLinqContract</a> for the given type.
+            </div></div>
+
+                
+
+                <h3 class="lead my-2">Parameters</h3>
+    <div class="mx-2" data-id="parameters-section"><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.type" class="refdocgen-link-secondary">Type</a></span>
+
+<span>objectType</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"><div>Type of the object.</div></div></div></div><h3 class="lead my-2">Returns</h3>
+<div class="mx-2" data-id="returns-section"><samp data-id="return-type-name"><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="./Newtonsoft.Json.Serialization.JsonLinqContract.html" class="refdocgen-link-secondary">JsonLinqContract</a></span></span><span class="not-visible" data-language="todo-lang"></span></samp>
+    <div class="text-body-secondary fst-italic" data-id="returns-doc"><div>A <a class="refdocgen-see-cref" href="./Newtonsoft.Json.Serialization.JsonLinqContract.html">JsonLinqContract</a> for the given type.</div></div></div>
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="CreateMemberValueProvider(System.Reflection.MemberInfo)" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">protected virtual</span>
+
+<span class="refdocgen-text-secondary"><a href="./Newtonsoft.Json.Serialization.IValueProvider.html" class="refdocgen-link-secondary">IValueProvider</a></span>
+
+<span class="refdocgen-text-primary">CreateMemberValueProvider</span><span>(</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.reflection.memberinfo" class="refdocgen-link-secondary">MemberInfo</a></span>
+
+<span>member</span><span>)</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#CreateMemberValueProvider(System.Reflection.MemberInfo)">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                <div class="text-body-secondary fst-italic mb-0" data-id="summary-doc"><div>
+            Creates the <a class="refdocgen-see-cref" href="./Newtonsoft.Json.Serialization.IValueProvider.html">IValueProvider</a> used by the serializer to get and set values from a member.
+            </div></div>
+
+                
+
+                <h3 class="lead my-2">Parameters</h3>
+    <div class="mx-2" data-id="parameters-section"><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.reflection.memberinfo" class="refdocgen-link-secondary">MemberInfo</a></span>
+
+<span>member</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"><div>The member.</div></div></div></div><h3 class="lead my-2">Returns</h3>
+<div class="mx-2" data-id="returns-section"><samp data-id="return-type-name"><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="./Newtonsoft.Json.Serialization.IValueProvider.html" class="refdocgen-link-secondary">IValueProvider</a></span></span><span class="not-visible" data-language="todo-lang"></span></samp>
+    <div class="text-body-secondary fst-italic" data-id="returns-doc"><div>The <a class="refdocgen-see-cref" href="./Newtonsoft.Json.Serialization.IValueProvider.html">IValueProvider</a> used by the serializer to get and set values from a member.</div></div></div>
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="CreateObjectContract(System.Type)" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">protected virtual</span>
+
+<span class="refdocgen-text-secondary"><a href="./Newtonsoft.Json.Serialization.JsonObjectContract.html" class="refdocgen-link-secondary">JsonObjectContract</a></span>
+
+<span class="refdocgen-text-primary">CreateObjectContract</span><span>(</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.type" class="refdocgen-link-secondary">Type</a></span>
+
+<span>objectType</span><span>)</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#CreateObjectContract(System.Type)">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                <div class="text-body-secondary fst-italic mb-0" data-id="summary-doc"><div>
+            Creates a <a class="refdocgen-see-cref" href="./Newtonsoft.Json.Serialization.JsonObjectContract.html">JsonObjectContract</a> for the given type.
+            </div></div>
+
+                
+
+                <h3 class="lead my-2">Parameters</h3>
+    <div class="mx-2" data-id="parameters-section"><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.type" class="refdocgen-link-secondary">Type</a></span>
+
+<span>objectType</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"><div>Type of the object.</div></div></div></div><h3 class="lead my-2">Returns</h3>
+<div class="mx-2" data-id="returns-section"><samp data-id="return-type-name"><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="./Newtonsoft.Json.Serialization.JsonObjectContract.html" class="refdocgen-link-secondary">JsonObjectContract</a></span></span><span class="not-visible" data-language="todo-lang"></span></samp>
+    <div class="text-body-secondary fst-italic" data-id="returns-doc"><div>A <a class="refdocgen-see-cref" href="./Newtonsoft.Json.Serialization.JsonObjectContract.html">JsonObjectContract</a> for the given type.</div></div></div>
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="CreatePrimitiveContract(System.Type)" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">protected virtual</span>
+
+<span class="refdocgen-text-secondary"><a href="./Newtonsoft.Json.Serialization.JsonPrimitiveContract.html" class="refdocgen-link-secondary">JsonPrimitiveContract</a></span>
+
+<span class="refdocgen-text-primary">CreatePrimitiveContract</span><span>(</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.type" class="refdocgen-link-secondary">Type</a></span>
+
+<span>objectType</span><span>)</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#CreatePrimitiveContract(System.Type)">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                <div class="text-body-secondary fst-italic mb-0" data-id="summary-doc"><div>
+            Creates a <a class="refdocgen-see-cref" href="./Newtonsoft.Json.Serialization.JsonPrimitiveContract.html">JsonPrimitiveContract</a> for the given type.
+            </div></div>
+
+                
+
+                <h3 class="lead my-2">Parameters</h3>
+    <div class="mx-2" data-id="parameters-section"><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.type" class="refdocgen-link-secondary">Type</a></span>
+
+<span>objectType</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"><div>Type of the object.</div></div></div></div><h3 class="lead my-2">Returns</h3>
+<div class="mx-2" data-id="returns-section"><samp data-id="return-type-name"><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="./Newtonsoft.Json.Serialization.JsonPrimitiveContract.html" class="refdocgen-link-secondary">JsonPrimitiveContract</a></span></span><span class="not-visible" data-language="todo-lang"></span></samp>
+    <div class="text-body-secondary fst-italic" data-id="returns-doc"><div>A <a class="refdocgen-see-cref" href="./Newtonsoft.Json.Serialization.JsonPrimitiveContract.html">JsonPrimitiveContract</a> for the given type.</div></div></div>
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="CreateProperties(System.Type,Newtonsoft.Json.MemberSerialization)" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">protected virtual</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ilist-1" class="refdocgen-link-secondary">IList</a></span><span class="text-body-secondary">&lt;</span><span class="refdocgen-text-secondary"><a href="./Newtonsoft.Json.Serialization.JsonProperty.html" class="refdocgen-link-secondary">JsonProperty</a></span><span class="text-body-secondary">&gt;</span>
+
+<span class="refdocgen-text-primary">CreateProperties</span><span>(</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.type" class="refdocgen-link-secondary">Type</a></span>
+
+<span>type</span><span>, </span><span class="refdocgen-text-secondary"><a href="./Newtonsoft.Json.MemberSerialization.html" class="refdocgen-link-secondary">MemberSerialization</a></span>
+
+<span>memberSerialization</span><span>)</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#CreateProperties(System.Type,Newtonsoft.Json.MemberSerialization)">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                <div class="text-body-secondary fst-italic mb-0" data-id="summary-doc"><div>
+            Creates properties for the given <a class="refdocgen-see-cref" href="./Newtonsoft.Json.Serialization.JsonContract.html">JsonContract</a>.
+            </div></div>
+
+                
+
+                <h3 class="lead my-2">Parameters</h3>
+    <div class="mx-2" data-id="parameters-section"><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.type" class="refdocgen-link-secondary">Type</a></span>
+
+<span>type</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"><div>The type to create properties for.</div></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="./Newtonsoft.Json.MemberSerialization.html" class="refdocgen-link-secondary">MemberSerialization</a></span>
+
+<span>memberSerialization</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"><div>The member serialization mode for the type.</div></div></div></div><h3 class="lead my-2">Returns</h3>
+<div class="mx-2" data-id="returns-section"><samp data-id="return-type-name"><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ilist-1" class="refdocgen-link-secondary">IList</a></span><span class="text-body-secondary">&lt;</span><span class="refdocgen-text-secondary"><a href="./Newtonsoft.Json.Serialization.JsonProperty.html" class="refdocgen-link-secondary">JsonProperty</a></span><span class="text-body-secondary">&gt;</span></span><span class="not-visible" data-language="todo-lang"></span></samp>
+    <div class="text-body-secondary fst-italic" data-id="returns-doc"><div>Properties for the given <a class="refdocgen-see-cref" href="./Newtonsoft.Json.Serialization.JsonContract.html">JsonContract</a>.</div></div></div>
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="CreateProperty(System.Reflection.MemberInfo,Newtonsoft.Json.MemberSerialization)" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">protected virtual</span>
+
+<span class="refdocgen-text-secondary"><a href="./Newtonsoft.Json.Serialization.JsonProperty.html" class="refdocgen-link-secondary">JsonProperty</a></span>
+
+<span class="refdocgen-text-primary">CreateProperty</span><span>(</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.reflection.memberinfo" class="refdocgen-link-secondary">MemberInfo</a></span>
+
+<span>member</span><span>, </span><span class="refdocgen-text-secondary"><a href="./Newtonsoft.Json.MemberSerialization.html" class="refdocgen-link-secondary">MemberSerialization</a></span>
+
+<span>memberSerialization</span><span>)</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#CreateProperty(System.Reflection.MemberInfo,Newtonsoft.Json.MemberSerialization)">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                <div class="text-body-secondary fst-italic mb-0" data-id="summary-doc"><div>
+            Creates a <a class="refdocgen-see-cref" href="./Newtonsoft.Json.Serialization.JsonProperty.html">JsonProperty</a> for the given <a class="refdocgen-see-cref" href="https://learn.microsoft.com/dotnet/api/system.reflection.memberinfo">MemberInfo</a>.
+            </div></div>
+
+                
+
+                <h3 class="lead my-2">Parameters</h3>
+    <div class="mx-2" data-id="parameters-section"><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.reflection.memberinfo" class="refdocgen-link-secondary">MemberInfo</a></span>
+
+<span>member</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"><div>The member to create a <a class="refdocgen-see-cref" href="./Newtonsoft.Json.Serialization.JsonProperty.html">JsonProperty</a> for.</div></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="./Newtonsoft.Json.MemberSerialization.html" class="refdocgen-link-secondary">MemberSerialization</a></span>
+
+<span>memberSerialization</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"><div>The member's parent <a class="refdocgen-see-cref" href="./Newtonsoft.Json.MemberSerialization.html">MemberSerialization</a>.</div></div></div></div><h3 class="lead my-2">Returns</h3>
+<div class="mx-2" data-id="returns-section"><samp data-id="return-type-name"><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="./Newtonsoft.Json.Serialization.JsonProperty.html" class="refdocgen-link-secondary">JsonProperty</a></span></span><span class="not-visible" data-language="todo-lang"></span></samp>
+    <div class="text-body-secondary fst-italic" data-id="returns-doc"><div>A created <a class="refdocgen-see-cref" href="./Newtonsoft.Json.Serialization.JsonProperty.html">JsonProperty</a> for the given <a class="refdocgen-see-cref" href="https://learn.microsoft.com/dotnet/api/system.reflection.memberinfo">MemberInfo</a>.</div></div></div>
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="CreatePropertyFromConstructorParameter(Newtonsoft.Json.Serialization.JsonProperty,System.Reflection.ParameterInfo)" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">protected virtual</span>
+
+<span class="refdocgen-text-secondary"><a href="./Newtonsoft.Json.Serialization.JsonProperty.html" class="refdocgen-link-secondary">JsonProperty</a></span>
+
+<span class="refdocgen-text-primary">CreatePropertyFromConstructorParameter</span><span>(</span><span class="refdocgen-text-secondary"><a href="./Newtonsoft.Json.Serialization.JsonProperty.html" class="refdocgen-link-secondary">JsonProperty</a></span>
+
+<span>matchingMemberProperty</span><span>, </span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.reflection.parameterinfo" class="refdocgen-link-secondary">ParameterInfo</a></span>
+
+<span>parameterInfo</span><span>)</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#CreatePropertyFromConstructorParameter(Newtonsoft.Json.Serialization.JsonProperty,System.Reflection.ParameterInfo)">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                <div class="text-body-secondary fst-italic mb-0" data-id="summary-doc"><div>
+            Creates a <a class="refdocgen-see-cref" href="./Newtonsoft.Json.Serialization.JsonProperty.html">JsonProperty</a> for the given <a class="refdocgen-see-cref" href="https://learn.microsoft.com/dotnet/api/system.reflection.parameterinfo">ParameterInfo</a>.
+            </div></div>
+
+                
+
+                <h3 class="lead my-2">Parameters</h3>
+    <div class="mx-2" data-id="parameters-section"><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="./Newtonsoft.Json.Serialization.JsonProperty.html" class="refdocgen-link-secondary">JsonProperty</a></span>
+
+<span>matchingMemberProperty</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"><div>The matching member property.</div></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.reflection.parameterinfo" class="refdocgen-link-secondary">ParameterInfo</a></span>
+
+<span>parameterInfo</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"><div>The constructor parameter.</div></div></div></div><h3 class="lead my-2">Returns</h3>
+<div class="mx-2" data-id="returns-section"><samp data-id="return-type-name"><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="./Newtonsoft.Json.Serialization.JsonProperty.html" class="refdocgen-link-secondary">JsonProperty</a></span></span><span class="not-visible" data-language="todo-lang"></span></samp>
+    <div class="text-body-secondary fst-italic" data-id="returns-doc"><div>A created <a class="refdocgen-see-cref" href="./Newtonsoft.Json.Serialization.JsonProperty.html">JsonProperty</a> for the given <a class="refdocgen-see-cref" href="https://learn.microsoft.com/dotnet/api/system.reflection.parameterinfo">ParameterInfo</a>.</div></div></div>
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="CreateShouldSerializeTest(System.Reflection.MemberInfo)" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">private</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.predicate-1" class="refdocgen-link-secondary">Predicate</a></span><span class="text-body-secondary">&lt;</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.object" class="refdocgen-link-secondary">object</a></span><span class="text-body-secondary">&gt;</span>
+
+<span class="refdocgen-text-primary">CreateShouldSerializeTest</span><span>(</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.reflection.memberinfo" class="refdocgen-link-secondary">MemberInfo</a></span>
+
+<span>member</span><span>)</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#CreateShouldSerializeTest(System.Reflection.MemberInfo)">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                <h3 class="lead my-2">Parameters</h3>
+    <div class="mx-2" data-id="parameters-section"><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.reflection.memberinfo" class="refdocgen-link-secondary">MemberInfo</a></span>
+
+<span>member</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div></div><h3 class="lead my-2">Returns</h3>
+<div class="mx-2" data-id="returns-section"><samp data-id="return-type-name"><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.predicate-1" class="refdocgen-link-secondary">Predicate</a></span><span class="text-body-secondary">&lt;</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.object" class="refdocgen-link-secondary">object</a></span><span class="text-body-secondary">&gt;</span></span><span class="not-visible" data-language="todo-lang"></span></samp>
+    <div class="text-body-secondary fst-italic" data-id="returns-doc"></div></div>
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="CreateStringContract(System.Type)" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">protected virtual</span>
+
+<span class="refdocgen-text-secondary"><a href="./Newtonsoft.Json.Serialization.JsonStringContract.html" class="refdocgen-link-secondary">JsonStringContract</a></span>
+
+<span class="refdocgen-text-primary">CreateStringContract</span><span>(</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.type" class="refdocgen-link-secondary">Type</a></span>
+
+<span>objectType</span><span>)</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#CreateStringContract(System.Type)">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                <div class="text-body-secondary fst-italic mb-0" data-id="summary-doc"><div>
+            Creates a <a class="refdocgen-see-cref" href="./Newtonsoft.Json.Serialization.JsonStringContract.html">JsonStringContract</a> for the given type.
+            </div></div>
+
+                
+
+                <h3 class="lead my-2">Parameters</h3>
+    <div class="mx-2" data-id="parameters-section"><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.type" class="refdocgen-link-secondary">Type</a></span>
+
+<span>objectType</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"><div>Type of the object.</div></div></div></div><h3 class="lead my-2">Returns</h3>
+<div class="mx-2" data-id="returns-section"><samp data-id="return-type-name"><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="./Newtonsoft.Json.Serialization.JsonStringContract.html" class="refdocgen-link-secondary">JsonStringContract</a></span></span><span class="not-visible" data-language="todo-lang"></span></samp>
+    <div class="text-body-secondary fst-italic" data-id="returns-doc"><div>A <a class="refdocgen-see-cref" href="./Newtonsoft.Json.Serialization.JsonStringContract.html">JsonStringContract</a> for the given type.</div></div></div>
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="FilterMembers(System.Reflection.MemberInfo)" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">private static</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.boolean" class="refdocgen-link-secondary">bool</a></span>
+
+<span class="refdocgen-text-primary">FilterMembers</span><span>(</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.reflection.memberinfo" class="refdocgen-link-secondary">MemberInfo</a></span>
+
+<span>member</span><span>)</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#FilterMembers(System.Reflection.MemberInfo)">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                <h3 class="lead my-2">Parameters</h3>
+    <div class="mx-2" data-id="parameters-section"><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.reflection.memberinfo" class="refdocgen-link-secondary">MemberInfo</a></span>
+
+<span>member</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div></div><h3 class="lead my-2">Returns</h3>
+<div class="mx-2" data-id="returns-section"><samp data-id="return-type-name"><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.boolean" class="refdocgen-link-secondary">bool</a></span></span><span class="not-visible" data-language="todo-lang"></span></samp>
+    <div class="text-body-secondary fst-italic" data-id="returns-doc"></div></div>
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="GetAttributeConstructor(System.Type)" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">private</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.reflection.constructorinfo" class="refdocgen-link-secondary">ConstructorInfo</a></span>
+
+<span class="refdocgen-text-primary">GetAttributeConstructor</span><span>(</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.type" class="refdocgen-link-secondary">Type</a></span>
+
+<span>objectType</span><span>)</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#GetAttributeConstructor(System.Type)">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                <h3 class="lead my-2">Parameters</h3>
+    <div class="mx-2" data-id="parameters-section"><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.type" class="refdocgen-link-secondary">Type</a></span>
+
+<span>objectType</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div></div><h3 class="lead my-2">Returns</h3>
+<div class="mx-2" data-id="returns-section"><samp data-id="return-type-name"><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.reflection.constructorinfo" class="refdocgen-link-secondary">ConstructorInfo</a></span></span><span class="not-visible" data-language="todo-lang"></span></samp>
+    <div class="text-body-secondary fst-italic" data-id="returns-doc"></div></div>
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="GetCallbackMethodsForType(System.Type,System.Collections.Generic.List(Newtonsoft.Json.Serialization.SerializationCallback)-,System.Collections.Generic.List(Newtonsoft.Json.Serialization.SerializationCallback)-,System.Collections.Generic.List(Newtonsoft.Json.Serialization.SerializationCallback)-,System.Collections.Generic.List(Newtonsoft.Json.Serialization.SerializationCallback)-,System.Collections.Generic.List(Newtonsoft.Json.Serialization.SerializationErrorCallback)-)" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">private</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.void" class="refdocgen-link-secondary">void</a></span>
+
+<span class="refdocgen-text-primary">GetCallbackMethodsForType</span><span>(</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.type" class="refdocgen-link-secondary">Type</a></span>
+
+<span>type</span><span>, </span><span class="refdocgen-text-tertiary">out</span>
+    <span></span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1" class="refdocgen-link-secondary">List</a></span><span class="text-body-secondary">&lt;</span><span class="refdocgen-text-secondary"><a href="./Newtonsoft.Json.Serialization.SerializationCallback.html" class="refdocgen-link-secondary">SerializationCallback</a></span><span class="text-body-secondary">&gt;</span>
+
+<span>onSerializing</span><span>, </span><span class="refdocgen-text-tertiary">out</span>
+    <span></span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1" class="refdocgen-link-secondary">List</a></span><span class="text-body-secondary">&lt;</span><span class="refdocgen-text-secondary"><a href="./Newtonsoft.Json.Serialization.SerializationCallback.html" class="refdocgen-link-secondary">SerializationCallback</a></span><span class="text-body-secondary">&gt;</span>
+
+<span>onSerialized</span><span>, </span><span class="refdocgen-text-tertiary">out</span>
+    <span></span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1" class="refdocgen-link-secondary">List</a></span><span class="text-body-secondary">&lt;</span><span class="refdocgen-text-secondary"><a href="./Newtonsoft.Json.Serialization.SerializationCallback.html" class="refdocgen-link-secondary">SerializationCallback</a></span><span class="text-body-secondary">&gt;</span>
+
+<span>onDeserializing</span><span>, </span><span class="refdocgen-text-tertiary">out</span>
+    <span></span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1" class="refdocgen-link-secondary">List</a></span><span class="text-body-secondary">&lt;</span><span class="refdocgen-text-secondary"><a href="./Newtonsoft.Json.Serialization.SerializationCallback.html" class="refdocgen-link-secondary">SerializationCallback</a></span><span class="text-body-secondary">&gt;</span>
+
+<span>onDeserialized</span><span>, </span><span class="refdocgen-text-tertiary">out</span>
+    <span></span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1" class="refdocgen-link-secondary">List</a></span><span class="text-body-secondary">&lt;</span><span class="refdocgen-text-secondary"><a href="./Newtonsoft.Json.Serialization.SerializationErrorCallback.html" class="refdocgen-link-secondary">SerializationErrorCallback</a></span><span class="text-body-secondary">&gt;</span>
+
+<span>onError</span><span>)</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#GetCallbackMethodsForType(System.Type,System.Collections.Generic.List(Newtonsoft.Json.Serialization.SerializationCallback)-,System.Collections.Generic.List(Newtonsoft.Json.Serialization.SerializationCallback)-,System.Collections.Generic.List(Newtonsoft.Json.Serialization.SerializationCallback)-,System.Collections.Generic.List(Newtonsoft.Json.Serialization.SerializationCallback)-,System.Collections.Generic.List(Newtonsoft.Json.Serialization.SerializationErrorCallback)-)">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                <h3 class="lead my-2">Parameters</h3>
+    <div class="mx-2" data-id="parameters-section"><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.type" class="refdocgen-link-secondary">Type</a></span>
+
+<span>type</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">out</span>
+    <span></span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1" class="refdocgen-link-secondary">List</a></span><span class="text-body-secondary">&lt;</span><span class="refdocgen-text-secondary"><a href="./Newtonsoft.Json.Serialization.SerializationCallback.html" class="refdocgen-link-secondary">SerializationCallback</a></span><span class="text-body-secondary">&gt;</span>
+
+<span>onSerializing</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">out</span>
+    <span></span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1" class="refdocgen-link-secondary">List</a></span><span class="text-body-secondary">&lt;</span><span class="refdocgen-text-secondary"><a href="./Newtonsoft.Json.Serialization.SerializationCallback.html" class="refdocgen-link-secondary">SerializationCallback</a></span><span class="text-body-secondary">&gt;</span>
+
+<span>onSerialized</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">out</span>
+    <span></span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1" class="refdocgen-link-secondary">List</a></span><span class="text-body-secondary">&lt;</span><span class="refdocgen-text-secondary"><a href="./Newtonsoft.Json.Serialization.SerializationCallback.html" class="refdocgen-link-secondary">SerializationCallback</a></span><span class="text-body-secondary">&gt;</span>
+
+<span>onDeserializing</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">out</span>
+    <span></span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1" class="refdocgen-link-secondary">List</a></span><span class="text-body-secondary">&lt;</span><span class="refdocgen-text-secondary"><a href="./Newtonsoft.Json.Serialization.SerializationCallback.html" class="refdocgen-link-secondary">SerializationCallback</a></span><span class="text-body-secondary">&gt;</span>
+
+<span>onDeserialized</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">out</span>
+    <span></span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1" class="refdocgen-link-secondary">List</a></span><span class="text-body-secondary">&lt;</span><span class="refdocgen-text-secondary"><a href="./Newtonsoft.Json.Serialization.SerializationErrorCallback.html" class="refdocgen-link-secondary">SerializationErrorCallback</a></span><span class="text-body-secondary">&gt;</span>
+
+<span>onError</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div></div>
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="GetClassHierarchyForType(System.Type)" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">private</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1" class="refdocgen-link-secondary">List</a></span><span class="text-body-secondary">&lt;</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.type" class="refdocgen-link-secondary">Type</a></span><span class="text-body-secondary">&gt;</span>
+
+<span class="refdocgen-text-primary">GetClassHierarchyForType</span><span>(</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.type" class="refdocgen-link-secondary">Type</a></span>
+
+<span>type</span><span>)</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#GetClassHierarchyForType(System.Type)">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                <h3 class="lead my-2">Parameters</h3>
+    <div class="mx-2" data-id="parameters-section"><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.type" class="refdocgen-link-secondary">Type</a></span>
+
+<span>type</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div></div><h3 class="lead my-2">Returns</h3>
+<div class="mx-2" data-id="returns-section"><samp data-id="return-type-name"><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1" class="refdocgen-link-secondary">List</a></span><span class="text-body-secondary">&lt;</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.type" class="refdocgen-link-secondary">Type</a></span><span class="text-body-secondary">&gt;</span></span><span class="not-visible" data-language="todo-lang"></span></samp>
+    <div class="text-body-secondary fst-italic" data-id="returns-doc"></div></div>
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="GetClrTypeFullName(System.Type)" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">internal static</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.string" class="refdocgen-link-secondary">string</a></span>
+
+<span class="refdocgen-text-primary">GetClrTypeFullName</span><span>(</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.type" class="refdocgen-link-secondary">Type</a></span>
+
+<span>type</span><span>)</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#GetClrTypeFullName(System.Type)">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                <h3 class="lead my-2">Parameters</h3>
+    <div class="mx-2" data-id="parameters-section"><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.type" class="refdocgen-link-secondary">Type</a></span>
+
+<span>type</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div></div><h3 class="lead my-2">Returns</h3>
+<div class="mx-2" data-id="returns-section"><samp data-id="return-type-name"><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.string" class="refdocgen-link-secondary">string</a></span></span><span class="not-visible" data-language="todo-lang"></span></samp>
+    <div class="text-body-secondary fst-italic" data-id="returns-doc"></div></div>
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="GetDefaultCreator(System.Type)" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">private</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.func-1" class="refdocgen-link-secondary">Func</a></span><span class="text-body-secondary">&lt;</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.object" class="refdocgen-link-secondary">object</a></span><span class="text-body-secondary">&gt;</span>
+
+<span class="refdocgen-text-primary">GetDefaultCreator</span><span>(</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.type" class="refdocgen-link-secondary">Type</a></span>
+
+<span>createdType</span><span>)</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#GetDefaultCreator(System.Type)">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                <h3 class="lead my-2">Parameters</h3>
+    <div class="mx-2" data-id="parameters-section"><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.type" class="refdocgen-link-secondary">Type</a></span>
+
+<span>createdType</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div></div><h3 class="lead my-2">Returns</h3>
+<div class="mx-2" data-id="returns-section"><samp data-id="return-type-name"><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.func-1" class="refdocgen-link-secondary">Func</a></span><span class="text-body-secondary">&lt;</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.object" class="refdocgen-link-secondary">object</a></span><span class="text-body-secondary">&gt;</span></span><span class="not-visible" data-language="todo-lang"></span></samp>
+    <div class="text-body-secondary fst-italic" data-id="returns-doc"></div></div>
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="GetExtensionDataMemberForType(System.Type)" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">private</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.reflection.memberinfo" class="refdocgen-link-secondary">MemberInfo</a></span>
+
+<span class="refdocgen-text-primary">GetExtensionDataMemberForType</span><span>(</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.type" class="refdocgen-link-secondary">Type</a></span>
+
+<span>type</span><span>)</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#GetExtensionDataMemberForType(System.Type)">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                <h3 class="lead my-2">Parameters</h3>
+    <div class="mx-2" data-id="parameters-section"><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.type" class="refdocgen-link-secondary">Type</a></span>
+
+<span>type</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div></div><h3 class="lead my-2">Returns</h3>
+<div class="mx-2" data-id="returns-section"><samp data-id="return-type-name"><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.reflection.memberinfo" class="refdocgen-link-secondary">MemberInfo</a></span></span><span class="not-visible" data-language="todo-lang"></span></samp>
+    <div class="text-body-secondary fst-italic" data-id="returns-doc"></div></div>
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="GetImmutableConstructor(System.Type,Newtonsoft.Json.Serialization.JsonPropertyCollection)" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">private</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.reflection.constructorinfo" class="refdocgen-link-secondary">ConstructorInfo</a></span>
+
+<span class="refdocgen-text-primary">GetImmutableConstructor</span><span>(</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.type" class="refdocgen-link-secondary">Type</a></span>
+
+<span>objectType</span><span>, </span><span class="refdocgen-text-secondary"><a href="./Newtonsoft.Json.Serialization.JsonPropertyCollection.html" class="refdocgen-link-secondary">JsonPropertyCollection</a></span>
+
+<span>memberProperties</span><span>)</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#GetImmutableConstructor(System.Type,Newtonsoft.Json.Serialization.JsonPropertyCollection)">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                <h3 class="lead my-2">Parameters</h3>
+    <div class="mx-2" data-id="parameters-section"><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.type" class="refdocgen-link-secondary">Type</a></span>
+
+<span>objectType</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="./Newtonsoft.Json.Serialization.JsonPropertyCollection.html" class="refdocgen-link-secondary">JsonPropertyCollection</a></span>
+
+<span>memberProperties</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div></div><h3 class="lead my-2">Returns</h3>
+<div class="mx-2" data-id="returns-section"><samp data-id="return-type-name"><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.reflection.constructorinfo" class="refdocgen-link-secondary">ConstructorInfo</a></span></span><span class="not-visible" data-language="todo-lang"></span></samp>
+    <div class="text-body-secondary fst-italic" data-id="returns-doc"></div></div>
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="GetNameTable" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">internal virtual</span>
+
+<span class="refdocgen-text-secondary"><a href="./Newtonsoft.Json.DefaultJsonNameTable.html" class="refdocgen-link-secondary">DefaultJsonNameTable</a></span>
+
+<span class="refdocgen-text-primary">GetNameTable</span><span>(</span><span>)</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#GetNameTable">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                <h3 class="lead my-2">Returns</h3>
+<div class="mx-2" data-id="returns-section"><samp data-id="return-type-name"><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="./Newtonsoft.Json.DefaultJsonNameTable.html" class="refdocgen-link-secondary">DefaultJsonNameTable</a></span></span><span class="not-visible" data-language="todo-lang"></span></samp>
+    <div class="text-body-secondary fst-italic" data-id="returns-doc"></div></div>
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="GetParameterizedConstructor(System.Type)" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">private</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.reflection.constructorinfo" class="refdocgen-link-secondary">ConstructorInfo</a></span>
+
+<span class="refdocgen-text-primary">GetParameterizedConstructor</span><span>(</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.type" class="refdocgen-link-secondary">Type</a></span>
+
+<span>objectType</span><span>)</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#GetParameterizedConstructor(System.Type)">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                <h3 class="lead my-2">Parameters</h3>
+    <div class="mx-2" data-id="parameters-section"><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.type" class="refdocgen-link-secondary">Type</a></span>
+
+<span>objectType</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div></div><h3 class="lead my-2">Returns</h3>
+<div class="mx-2" data-id="returns-section"><samp data-id="return-type-name"><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.reflection.constructorinfo" class="refdocgen-link-secondary">ConstructorInfo</a></span></span><span class="not-visible" data-language="todo-lang"></span></samp>
+    <div class="text-body-secondary fst-italic" data-id="returns-doc"></div></div>
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="GetResolvedPropertyName(System.String)" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">public</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.string" class="refdocgen-link-secondary">string</a></span>
+
+<span class="refdocgen-text-primary">GetResolvedPropertyName</span><span>(</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.string" class="refdocgen-link-secondary">string</a></span>
+
+<span>propertyName</span><span>)</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#GetResolvedPropertyName(System.String)">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                <div class="text-body-secondary fst-italic mb-0" data-id="summary-doc"><div>
+            Gets the resolved name of the property.
+            </div></div>
+
+                
+
+                <h3 class="lead my-2">Parameters</h3>
+    <div class="mx-2" data-id="parameters-section"><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.string" class="refdocgen-link-secondary">string</a></span>
+
+<span>propertyName</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"><div>Name of the property.</div></div></div></div><h3 class="lead my-2">Returns</h3>
+<div class="mx-2" data-id="returns-section"><samp data-id="return-type-name"><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.string" class="refdocgen-link-secondary">string</a></span></span><span class="not-visible" data-language="todo-lang"></span></samp>
+    <div class="text-body-secondary fst-italic" data-id="returns-doc"><div>Name of the property.</div></div></div>
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="GetSerializableMembers(System.Type)" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">protected virtual</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1" class="refdocgen-link-secondary">List</a></span><span class="text-body-secondary">&lt;</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.reflection.memberinfo" class="refdocgen-link-secondary">MemberInfo</a></span><span class="text-body-secondary">&gt;</span>
+
+<span class="refdocgen-text-primary">GetSerializableMembers</span><span>(</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.type" class="refdocgen-link-secondary">Type</a></span>
+
+<span>objectType</span><span>)</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#GetSerializableMembers(System.Type)">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                <div class="text-body-secondary fst-italic mb-0" data-id="summary-doc"><div>
+            Gets the serializable members for the type.
+            </div></div>
+
+                
+
+                <h3 class="lead my-2">Parameters</h3>
+    <div class="mx-2" data-id="parameters-section"><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.type" class="refdocgen-link-secondary">Type</a></span>
+
+<span>objectType</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"><div>The type to get serializable members for.</div></div></div></div><h3 class="lead my-2">Returns</h3>
+<div class="mx-2" data-id="returns-section"><samp data-id="return-type-name"><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1" class="refdocgen-link-secondary">List</a></span><span class="text-body-secondary">&lt;</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.reflection.memberinfo" class="refdocgen-link-secondary">MemberInfo</a></span><span class="text-body-secondary">&gt;</span></span><span class="not-visible" data-language="todo-lang"></span></samp>
+    <div class="text-body-secondary fst-italic" data-id="returns-doc"><div>The serializable members for the type.</div></div></div>
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="InitializeContract(Newtonsoft.Json.Serialization.JsonContract)" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">private</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.void" class="refdocgen-link-secondary">void</a></span>
+
+<span class="refdocgen-text-primary">InitializeContract</span><span>(</span><span class="refdocgen-text-secondary"><a href="./Newtonsoft.Json.Serialization.JsonContract.html" class="refdocgen-link-secondary">JsonContract</a></span>
+
+<span>contract</span><span>)</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#InitializeContract(Newtonsoft.Json.Serialization.JsonContract)">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                <h3 class="lead my-2">Parameters</h3>
+    <div class="mx-2" data-id="parameters-section"><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="./Newtonsoft.Json.Serialization.JsonContract.html" class="refdocgen-link-secondary">JsonContract</a></span>
+
+<span>contract</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div></div>
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="IsConcurrentOrObservableCollection(System.Type)" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">private static</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.boolean" class="refdocgen-link-secondary">bool</a></span>
+
+<span class="refdocgen-text-primary">IsConcurrentOrObservableCollection</span><span>(</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.type" class="refdocgen-link-secondary">Type</a></span>
+
+<span>t</span><span>)</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#IsConcurrentOrObservableCollection(System.Type)">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                <h3 class="lead my-2">Parameters</h3>
+    <div class="mx-2" data-id="parameters-section"><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.type" class="refdocgen-link-secondary">Type</a></span>
+
+<span>t</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div></div><h3 class="lead my-2">Returns</h3>
+<div class="mx-2" data-id="returns-section"><samp data-id="return-type-name"><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.boolean" class="refdocgen-link-secondary">bool</a></span></span><span class="not-visible" data-language="todo-lang"></span></samp>
+    <div class="text-body-secondary fst-italic" data-id="returns-doc"></div></div>
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="IsIConvertible(System.Type)" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">internal static</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.boolean" class="refdocgen-link-secondary">bool</a></span>
+
+<span class="refdocgen-text-primary">IsIConvertible</span><span>(</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.type" class="refdocgen-link-secondary">Type</a></span>
+
+<span>t</span><span>)</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#IsIConvertible(System.Type)">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                <h3 class="lead my-2">Parameters</h3>
+    <div class="mx-2" data-id="parameters-section"><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.type" class="refdocgen-link-secondary">Type</a></span>
+
+<span>t</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div></div><h3 class="lead my-2">Returns</h3>
+<div class="mx-2" data-id="returns-section"><samp data-id="return-type-name"><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.boolean" class="refdocgen-link-secondary">bool</a></span></span><span class="not-visible" data-language="todo-lang"></span></samp>
+    <div class="text-body-secondary fst-italic" data-id="returns-doc"></div></div>
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="IsJsonPrimitiveType(System.Type)" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">internal static</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.boolean" class="refdocgen-link-secondary">bool</a></span>
+
+<span class="refdocgen-text-primary">IsJsonPrimitiveType</span><span>(</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.type" class="refdocgen-link-secondary">Type</a></span>
+
+<span>t</span><span>)</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#IsJsonPrimitiveType(System.Type)">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                <h3 class="lead my-2">Parameters</h3>
+    <div class="mx-2" data-id="parameters-section"><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.type" class="refdocgen-link-secondary">Type</a></span>
+
+<span>t</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div></div><h3 class="lead my-2">Returns</h3>
+<div class="mx-2" data-id="returns-section"><samp data-id="return-type-name"><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.boolean" class="refdocgen-link-secondary">bool</a></span></span><span class="not-visible" data-language="todo-lang"></span></samp>
+    <div class="text-body-secondary fst-italic" data-id="returns-doc"></div></div>
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="IsValidCallback(System.Reflection.MethodInfo,System.Reflection.ParameterInfo(),System.Type,System.Reflection.MethodInfo,System.Type-)" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">private static</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.boolean" class="refdocgen-link-secondary">bool</a></span>
+
+<span class="refdocgen-text-primary">IsValidCallback</span><span>(</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.reflection.methodinfo" class="refdocgen-link-secondary">MethodInfo</a></span>
+
+<span>method</span><span>, </span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.reflection.parameterinfo" class="refdocgen-link-secondary">ParameterInfo[]</a></span>
+
+<span>parameters</span><span>, </span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.type" class="refdocgen-link-secondary">Type</a></span>
+
+<span>attributeType</span><span>, </span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.reflection.methodinfo" class="refdocgen-link-secondary">MethodInfo</a></span>
+
+<span>currentCallback</span><span>, </span><span class="refdocgen-text-tertiary">ref</span>
+    <span></span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.type" class="refdocgen-link-secondary">Type</a></span>
+
+<span>prevAttributeType</span><span>)</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#IsValidCallback(System.Reflection.MethodInfo,System.Reflection.ParameterInfo(),System.Type,System.Reflection.MethodInfo,System.Type-)">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                <h3 class="lead my-2">Parameters</h3>
+    <div class="mx-2" data-id="parameters-section"><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.reflection.methodinfo" class="refdocgen-link-secondary">MethodInfo</a></span>
+
+<span>method</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.reflection.parameterinfo" class="refdocgen-link-secondary">ParameterInfo[]</a></span>
+
+<span>parameters</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.type" class="refdocgen-link-secondary">Type</a></span>
+
+<span>attributeType</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.reflection.methodinfo" class="refdocgen-link-secondary">MethodInfo</a></span>
+
+<span>currentCallback</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">ref</span>
+    <span></span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.type" class="refdocgen-link-secondary">Type</a></span>
+
+<span>prevAttributeType</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div></div><h3 class="lead my-2">Returns</h3>
+<div class="mx-2" data-id="returns-section"><samp data-id="return-type-name"><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.boolean" class="refdocgen-link-secondary">bool</a></span></span><span class="not-visible" data-language="todo-lang"></span></samp>
+    <div class="text-body-secondary fst-italic" data-id="returns-doc"></div></div>
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="MatchProperty(Newtonsoft.Json.Serialization.JsonPropertyCollection,System.String,System.Type)" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">private</span>
+
+<span class="refdocgen-text-secondary"><a href="./Newtonsoft.Json.Serialization.JsonProperty.html" class="refdocgen-link-secondary">JsonProperty</a></span>
+
+<span class="refdocgen-text-primary">MatchProperty</span><span>(</span><span class="refdocgen-text-secondary"><a href="./Newtonsoft.Json.Serialization.JsonPropertyCollection.html" class="refdocgen-link-secondary">JsonPropertyCollection</a></span>
+
+<span>properties</span><span>, </span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.string" class="refdocgen-link-secondary">string</a></span>
+
+<span>name</span><span>, </span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.type" class="refdocgen-link-secondary">Type</a></span>
+
+<span>type</span><span>)</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#MatchProperty(Newtonsoft.Json.Serialization.JsonPropertyCollection,System.String,System.Type)">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                <h3 class="lead my-2">Parameters</h3>
+    <div class="mx-2" data-id="parameters-section"><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="./Newtonsoft.Json.Serialization.JsonPropertyCollection.html" class="refdocgen-link-secondary">JsonPropertyCollection</a></span>
+
+<span>properties</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.string" class="refdocgen-link-secondary">string</a></span>
+
+<span>name</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.type" class="refdocgen-link-secondary">Type</a></span>
+
+<span>type</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div></div><h3 class="lead my-2">Returns</h3>
+<div class="mx-2" data-id="returns-section"><samp data-id="return-type-name"><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="./Newtonsoft.Json.Serialization.JsonProperty.html" class="refdocgen-link-secondary">JsonProperty</a></span></span><span class="not-visible" data-language="todo-lang"></span></samp>
+    <div class="text-body-secondary fst-italic" data-id="returns-doc"></div></div>
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="ResolveCallbackMethods(Newtonsoft.Json.Serialization.JsonContract,System.Type)" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">private</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.void" class="refdocgen-link-secondary">void</a></span>
+
+<span class="refdocgen-text-primary">ResolveCallbackMethods</span><span>(</span><span class="refdocgen-text-secondary"><a href="./Newtonsoft.Json.Serialization.JsonContract.html" class="refdocgen-link-secondary">JsonContract</a></span>
+
+<span>contract</span><span>, </span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.type" class="refdocgen-link-secondary">Type</a></span>
+
+<span>t</span><span>)</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#ResolveCallbackMethods(Newtonsoft.Json.Serialization.JsonContract,System.Type)">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                <h3 class="lead my-2">Parameters</h3>
+    <div class="mx-2" data-id="parameters-section"><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="./Newtonsoft.Json.Serialization.JsonContract.html" class="refdocgen-link-secondary">JsonContract</a></span>
+
+<span>contract</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.type" class="refdocgen-link-secondary">Type</a></span>
+
+<span>t</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div></div>
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="ResolveContract(System.Type)" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">public virtual</span>
+
+<span class="refdocgen-text-secondary"><a href="./Newtonsoft.Json.Serialization.JsonContract.html" class="refdocgen-link-secondary">JsonContract</a></span>
+
+<span class="refdocgen-text-primary">ResolveContract</span><span>(</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.type" class="refdocgen-link-secondary">Type</a></span>
+
+<span>type</span><span>)</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#ResolveContract(System.Type)">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                <div class="refdocgen-text-tertiary fst-italic ms-4" data-id="member-implements">
+                Implements
+                <span class="refdocgen-text-secondary"><a href="./Newtonsoft.Json.Serialization.IContractResolver.html#ResolveContract(System.Type)" class="refdocgen-link-secondary"><span class="not-visible" data-language="csharp-lang">IContractResolver.ResolveContract</span><span class="not-visible" data-language="todo-lang">.ResolveContract</span></a></span></div><div class="mb-2"></div>
+
+                <div class="text-body-secondary fst-italic mb-0" data-id="summary-doc"><div>
+            Resolves the contract for a given type.
+            </div></div>
+
+                
+
+                <h3 class="lead my-2">Parameters</h3>
+    <div class="mx-2" data-id="parameters-section"><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.type" class="refdocgen-link-secondary">Type</a></span>
+
+<span>type</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"><div>The type to resolve a contract for.</div></div></div></div><h3 class="lead my-2">Returns</h3>
+<div class="mx-2" data-id="returns-section"><samp data-id="return-type-name"><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="./Newtonsoft.Json.Serialization.JsonContract.html" class="refdocgen-link-secondary">JsonContract</a></span></span><span class="not-visible" data-language="todo-lang"></span></samp>
+    <div class="text-body-secondary fst-italic" data-id="returns-doc"><div>The contract for a given type.</div></div></div>
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="ResolveContractConverter(System.Type)" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">protected virtual</span>
+
+<span class="refdocgen-text-secondary"><a href="./Newtonsoft.Json.JsonConverter.html" class="refdocgen-link-secondary">JsonConverter</a></span>
+
+<span class="refdocgen-text-primary">ResolveContractConverter</span><span>(</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.type" class="refdocgen-link-secondary">Type</a></span>
+
+<span>objectType</span><span>)</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#ResolveContractConverter(System.Type)">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                <div class="text-body-secondary fst-italic mb-0" data-id="summary-doc"><div>
+            Resolves the default <a class="refdocgen-see-cref" href="./Newtonsoft.Json.JsonConverter.html">JsonConverter</a> for the contract.
+            </div></div>
+
+                
+
+                <h3 class="lead my-2">Parameters</h3>
+    <div class="mx-2" data-id="parameters-section"><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.type" class="refdocgen-link-secondary">Type</a></span>
+
+<span>objectType</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"><div>Type of the object.</div></div></div></div><h3 class="lead my-2">Returns</h3>
+<div class="mx-2" data-id="returns-section"><samp data-id="return-type-name"><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="./Newtonsoft.Json.JsonConverter.html" class="refdocgen-link-secondary">JsonConverter</a></span></span><span class="not-visible" data-language="todo-lang"></span></samp>
+    <div class="text-body-secondary fst-italic" data-id="returns-doc"><div>The contract's default <a class="refdocgen-see-cref" href="./Newtonsoft.Json.JsonConverter.html">JsonConverter</a>.</div></div></div>
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="ResolveDictionaryKey(System.String)" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">protected virtual</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.string" class="refdocgen-link-secondary">string</a></span>
+
+<span class="refdocgen-text-primary">ResolveDictionaryKey</span><span>(</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.string" class="refdocgen-link-secondary">string</a></span>
+
+<span>dictionaryKey</span><span>)</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#ResolveDictionaryKey(System.String)">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                <div class="text-body-secondary fst-italic mb-0" data-id="summary-doc"><div>
+            Resolves the key of the dictionary. By default <a class="refdocgen-see-cref" href="./Newtonsoft.Json.Serialization.DefaultContractResolver.html#ResolvePropertyName(System.String)">DefaultContractResolver.ResolvePropertyName</a> is used to resolve dictionary keys.
+            </div></div>
+
+                
+
+                <h3 class="lead my-2">Parameters</h3>
+    <div class="mx-2" data-id="parameters-section"><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.string" class="refdocgen-link-secondary">string</a></span>
+
+<span>dictionaryKey</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"><div>Key of the dictionary.</div></div></div></div><h3 class="lead my-2">Returns</h3>
+<div class="mx-2" data-id="returns-section"><samp data-id="return-type-name"><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.string" class="refdocgen-link-secondary">string</a></span></span><span class="not-visible" data-language="todo-lang"></span></samp>
+    <div class="text-body-secondary fst-italic" data-id="returns-doc"><div>Resolved key of the dictionary.</div></div></div>
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="ResolveExtensionDataName(System.String)" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">protected virtual</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.string" class="refdocgen-link-secondary">string</a></span>
+
+<span class="refdocgen-text-primary">ResolveExtensionDataName</span><span>(</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.string" class="refdocgen-link-secondary">string</a></span>
+
+<span>extensionDataName</span><span>)</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#ResolveExtensionDataName(System.String)">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                <div class="text-body-secondary fst-italic mb-0" data-id="summary-doc"><div>
+            Resolves the name of the extension data. By default no changes are made to extension data names.
+            </div></div>
+
+                
+
+                <h3 class="lead my-2">Parameters</h3>
+    <div class="mx-2" data-id="parameters-section"><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.string" class="refdocgen-link-secondary">string</a></span>
+
+<span>extensionDataName</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"><div>Name of the extension data.</div></div></div></div><h3 class="lead my-2">Returns</h3>
+<div class="mx-2" data-id="returns-section"><samp data-id="return-type-name"><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.string" class="refdocgen-link-secondary">string</a></span></span><span class="not-visible" data-language="todo-lang"></span></samp>
+    <div class="text-body-secondary fst-italic" data-id="returns-doc"><div>Resolved name of the extension data.</div></div></div>
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="ResolvePropertyName(System.String)" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">protected virtual</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.string" class="refdocgen-link-secondary">string</a></span>
+
+<span class="refdocgen-text-primary">ResolvePropertyName</span><span>(</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.string" class="refdocgen-link-secondary">string</a></span>
+
+<span>propertyName</span><span>)</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#ResolvePropertyName(System.String)">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                <div class="text-body-secondary fst-italic mb-0" data-id="summary-doc"><div>
+            Resolves the name of the property.
+            </div></div>
+
+                
+
+                <h3 class="lead my-2">Parameters</h3>
+    <div class="mx-2" data-id="parameters-section"><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.string" class="refdocgen-link-secondary">string</a></span>
+
+<span>propertyName</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"><div>Name of the property.</div></div></div></div><h3 class="lead my-2">Returns</h3>
+<div class="mx-2" data-id="returns-section"><samp data-id="return-type-name"><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.string" class="refdocgen-link-secondary">string</a></span></span><span class="not-visible" data-language="todo-lang"></span></samp>
+    <div class="text-body-secondary fst-italic" data-id="returns-doc"><div>Resolved name of the property.</div></div></div>
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="SetExtensionDataDelegates(Newtonsoft.Json.Serialization.JsonObjectContract,System.Reflection.MemberInfo)" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">private static</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.void" class="refdocgen-link-secondary">void</a></span>
+
+<span class="refdocgen-text-primary">SetExtensionDataDelegates</span><span>(</span><span class="refdocgen-text-secondary"><a href="./Newtonsoft.Json.Serialization.JsonObjectContract.html" class="refdocgen-link-secondary">JsonObjectContract</a></span>
+
+<span>contract</span><span>, </span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.reflection.memberinfo" class="refdocgen-link-secondary">MemberInfo</a></span>
+
+<span>member</span><span>)</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#SetExtensionDataDelegates(Newtonsoft.Json.Serialization.JsonObjectContract,System.Reflection.MemberInfo)">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                <h3 class="lead my-2">Parameters</h3>
+    <div class="mx-2" data-id="parameters-section"><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="./Newtonsoft.Json.Serialization.JsonObjectContract.html" class="refdocgen-link-secondary">JsonObjectContract</a></span>
+
+<span>contract</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.reflection.memberinfo" class="refdocgen-link-secondary">MemberInfo</a></span>
+
+<span>member</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div></div>
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="SetIsSpecifiedActions(Newtonsoft.Json.Serialization.JsonProperty,System.Reflection.MemberInfo,System.Boolean)" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">private</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.void" class="refdocgen-link-secondary">void</a></span>
+
+<span class="refdocgen-text-primary">SetIsSpecifiedActions</span><span>(</span><span class="refdocgen-text-secondary"><a href="./Newtonsoft.Json.Serialization.JsonProperty.html" class="refdocgen-link-secondary">JsonProperty</a></span>
+
+<span>property</span><span>, </span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.reflection.memberinfo" class="refdocgen-link-secondary">MemberInfo</a></span>
+
+<span>member</span><span>, </span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.boolean" class="refdocgen-link-secondary">bool</a></span>
+
+<span>allowNonPublicAccess</span><span>)</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#SetIsSpecifiedActions(Newtonsoft.Json.Serialization.JsonProperty,System.Reflection.MemberInfo,System.Boolean)">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                <h3 class="lead my-2">Parameters</h3>
+    <div class="mx-2" data-id="parameters-section"><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="./Newtonsoft.Json.Serialization.JsonProperty.html" class="refdocgen-link-secondary">JsonProperty</a></span>
+
+<span>property</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.reflection.memberinfo" class="refdocgen-link-secondary">MemberInfo</a></span>
+
+<span>member</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.boolean" class="refdocgen-link-secondary">bool</a></span>
+
+<span>allowNonPublicAccess</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div></div>
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="SetPropertySettingsFromAttributes(Newtonsoft.Json.Serialization.JsonProperty,System.Object,System.String,System.Type,Newtonsoft.Json.MemberSerialization,System.Boolean-)" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">private</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.void" class="refdocgen-link-secondary">void</a></span>
+
+<span class="refdocgen-text-primary">SetPropertySettingsFromAttributes</span><span>(</span><span class="refdocgen-text-secondary"><a href="./Newtonsoft.Json.Serialization.JsonProperty.html" class="refdocgen-link-secondary">JsonProperty</a></span>
+
+<span>property</span><span>, </span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.object" class="refdocgen-link-secondary">object</a></span>
+
+<span>attributeProvider</span><span>, </span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.string" class="refdocgen-link-secondary">string</a></span>
+
+<span>name</span><span>, </span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.type" class="refdocgen-link-secondary">Type</a></span>
+
+<span>declaringType</span><span>, </span><span class="refdocgen-text-secondary"><a href="./Newtonsoft.Json.MemberSerialization.html" class="refdocgen-link-secondary">MemberSerialization</a></span>
+
+<span>memberSerialization</span><span>, </span><span class="refdocgen-text-tertiary">out</span>
+    <span></span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.boolean" class="refdocgen-link-secondary">bool</a></span>
+
+<span>allowNonPublicAccess</span><span>)</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#SetPropertySettingsFromAttributes(Newtonsoft.Json.Serialization.JsonProperty,System.Object,System.String,System.Type,Newtonsoft.Json.MemberSerialization,System.Boolean-)">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                <h3 class="lead my-2">Parameters</h3>
+    <div class="mx-2" data-id="parameters-section"><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="./Newtonsoft.Json.Serialization.JsonProperty.html" class="refdocgen-link-secondary">JsonProperty</a></span>
+
+<span>property</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.object" class="refdocgen-link-secondary">object</a></span>
+
+<span>attributeProvider</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.string" class="refdocgen-link-secondary">string</a></span>
+
+<span>name</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.type" class="refdocgen-link-secondary">Type</a></span>
+
+<span>declaringType</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="./Newtonsoft.Json.MemberSerialization.html" class="refdocgen-link-secondary">MemberSerialization</a></span>
+
+<span>memberSerialization</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">out</span>
+    <span></span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.boolean" class="refdocgen-link-secondary">bool</a></span>
+
+<span>allowNonPublicAccess</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div></div>
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="ShouldSerializeEntityMember(System.Reflection.MemberInfo)" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">private</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.boolean" class="refdocgen-link-secondary">bool</a></span>
+
+<span class="refdocgen-text-primary">ShouldSerializeEntityMember</span><span>(</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.reflection.memberinfo" class="refdocgen-link-secondary">MemberInfo</a></span>
+
+<span>memberInfo</span><span>)</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#ShouldSerializeEntityMember(System.Reflection.MemberInfo)">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                <h3 class="lead my-2">Parameters</h3>
+    <div class="mx-2" data-id="parameters-section"><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.reflection.memberinfo" class="refdocgen-link-secondary">MemberInfo</a></span>
+
+<span>memberInfo</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div></div><h3 class="lead my-2">Returns</h3>
+<div class="mx-2" data-id="returns-section"><samp data-id="return-type-name"><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.boolean" class="refdocgen-link-secondary">bool</a></span></span><span class="not-visible" data-language="todo-lang"></span></samp>
+    <div class="text-body-secondary fst-italic" data-id="returns-doc"></div></div>
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="ShouldSkipDeserialized(System.Type)" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">private static</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.boolean" class="refdocgen-link-secondary">bool</a></span>
+
+<span class="refdocgen-text-primary">ShouldSkipDeserialized</span><span>(</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.type" class="refdocgen-link-secondary">Type</a></span>
+
+<span>t</span><span>)</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#ShouldSkipDeserialized(System.Type)">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                <h3 class="lead my-2">Parameters</h3>
+    <div class="mx-2" data-id="parameters-section"><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.type" class="refdocgen-link-secondary">Type</a></span>
+
+<span>t</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div></div><h3 class="lead my-2">Returns</h3>
+<div class="mx-2" data-id="returns-section"><samp data-id="return-type-name"><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.boolean" class="refdocgen-link-secondary">bool</a></span></span><span class="not-visible" data-language="todo-lang"></span></samp>
+    <div class="text-body-secondary fst-italic" data-id="returns-doc"></div></div>
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="ShouldSkipSerializing(System.Type)" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">private static</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.boolean" class="refdocgen-link-secondary">bool</a></span>
+
+<span class="refdocgen-text-primary">ShouldSkipSerializing</span><span>(</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.type" class="refdocgen-link-secondary">Type</a></span>
+
+<span>t</span><span>)</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#ShouldSkipSerializing(System.Type)">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                <h3 class="lead my-2">Parameters</h3>
+    <div class="mx-2" data-id="parameters-section"><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.type" class="refdocgen-link-secondary">Type</a></span>
+
+<span>t</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div></div><h3 class="lead my-2">Returns</h3>
+<div class="mx-2" data-id="returns-section"><samp data-id="return-type-name"><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.boolean" class="refdocgen-link-secondary">bool</a></span></span><span class="not-visible" data-language="todo-lang"></span></samp>
+    <div class="text-body-secondary fst-italic" data-id="returns-doc"></div></div>
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="ThrowUnableToSerializeError(System.Object,System.Runtime.Serialization.StreamingContext)" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">private static</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.void" class="refdocgen-link-secondary">void</a></span>
+
+<span class="refdocgen-text-primary">ThrowUnableToSerializeError</span><span>(</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.object" class="refdocgen-link-secondary">object</a></span>
+
+<span>o</span><span>, </span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.runtime.serialization.streamingcontext" class="refdocgen-link-secondary">StreamingContext</a></span>
+
+<span>context</span><span>)</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#ThrowUnableToSerializeError(System.Object,System.Runtime.Serialization.StreamingContext)">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                <h3 class="lead my-2">Parameters</h3>
+    <div class="mx-2" data-id="parameters-section"><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.object" class="refdocgen-link-secondary">object</a></span>
+
+<span>o</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.runtime.serialization.streamingcontext" class="refdocgen-link-secondary">StreamingContext</a></span>
+
+<span>context</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div></div>
+
+                
+                
+
+                
+
+                </div></div></div></div><nav class="navbar fixed-bottom menu-bg"><div class="container"><div class="dropup"><button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">v-newtonsoft-private</button>
+            <div id="current-version">v-newtonsoft-private</div>
+            <div id="version-list">[&quot;v-newtonsoft-public&quot;,&quot;v-newtonsoft-private&quot;]</div>
+            <ul class="dropdown-menu" id="version-selector" data-id="version-selector"></ul></div></div></nav><script src="../Static/bootstrap-5.3.5-dist.bundle.min.js"></script>
+
+    
+    <script src="../Static/script.js"></script></body></html>

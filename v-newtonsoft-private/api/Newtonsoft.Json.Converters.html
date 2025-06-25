@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Reference documentation</title>
+
+    <script>
+
+        // use IIFE in order to avoid polluting global context with functions & variables
+        // https://developer.mozilla.org/en-US/docs/Glossary/IIFE
+        (function() {
+            const isLocalFile = location.protocol === "file:";
+            const defaultTheme = "dark";
+            const defaultLang = "csharp-lang";
+
+            if(isLocalFile){
+                const urlParams = new URLSearchParams(window.location.search);
+
+                let redirect = false;
+
+                // set 'theme' URL param if not found
+                if(!urlParams.has("theme")){
+                    urlParams.set("theme", defaultTheme);
+                    redirect = true;
+                }
+
+                // set 'lang' URL param if not found
+                if(!urlParams.has("lang")){
+                    urlParams.set("lang", defaultLang);
+                    redirect = true;
+                }
+
+                // redirect, if some of the URL parameters are missing
+                if(redirect){
+                    const newUrl = new URL(window.location.href);
+                    newUrl.search = urlParams.toString();
+
+                    window.location.href = newUrl;
+                }
+                else {
+                    document.documentElement.setAttribute("data-bs-theme", urlParams.get("theme")); // set the 'data-bs-theme' attribute
+                    document.documentElement.setAttribute("data-language", urlParams.get("lang")); // set the 'data-language' attribute
+                }
+            }
+            else { // no local file -> use localStorage
+                if (!localStorage.getItem("refdocgen-theme")) {
+                    localStorage.setItem("refdocgen-theme", defaultTheme);
+                }
+
+                if (!localStorage.getItem("refdocgen-language")) {
+                    localStorage.setItem("refdocgen-language", defaultLang);
+                }
+
+                document.documentElement.setAttribute("data-bs-theme", localStorage.getItem("refdocgen-theme")); // set the 'data-bs-theme' attribute
+                document.documentElement.setAttribute("data-language", localStorage.getItem("refdocgen-language")); // set the 'data-language' attribute
+            }
+        })();
+    </script>
+
+    
+    <link href="../Static/styles.css" rel="stylesheet" /><style>html[data-language="csharp-lang"] [data-language="csharp-lang"] { display: inline !important; }
+html[data-language="todo-lang"] [data-language="todo-lang"] { display: inline !important; }
+</style></head>
+
+<body><nav class="navbar navbar-expand-lg sticky-top menu-bg"><div class="container"><a class="navbar-brand" href="../index.html">Project name</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup"><ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="../api/index.html">API</a></li></ul>
+            <ul class="navbar-nav ms-auto"><li class="nav-item d-flex align-items-center"><form class="me-2 mb-2 mb-lg-0"><select class="form-select" id="language-selector" aria-label="language"><option class="lang-option" value="csharp-lang">C#</option><option class="lang-option" value="todo-lang">TODO</option></select></form></li>
+
+                
+                <li class="nav-item d-flex align-items-center"><form role="search" class="me-2"><input class="form-control" autocomplete="off" type="search" placeholder="Search" aria-label="Search" id="menu-search-bar" url-target="../search.html" readonly /></form></li>
+
+                
+                <li class="nav-item" id="theme-switcher"><button class="nav-link"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-brightness-high" viewBox="0 0 16 16"><path d="M8 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6m0 1a4 4 0 1 0 0-8 4 4 0 0 0 0 8M8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0m0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13m8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5M3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8m10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0m-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0m9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707M4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708"></path></svg></button></li></ul></div></div></nav>
+
+    <div class="container my-4" data-id="page-body"><h1 class="display-4" data-id="namespace-title"><samp><span class="refdocgen-text-tertiary">namespace</span>
+                        <span class="refdocgen-text-primary">Newtonsoft.Json.Converters</span></samp></h1>
+
+                <h6><samp data-id="type-assembly"><a href="Newtonsoft.Json-DLL.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">assembly</span>
+            <span class="refdocgen-text-secondary">Newtonsoft.Json</span></a></samp></h6>
+
+                <hr><h2 class="display-5 my-2">Classes</h2>
+                    <div data-id="namespace-classes"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./Newtonsoft.Json.Converters.BinaryConverter.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">BinaryConverter</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Converts a binary value to and from a base 64 string value.
+            </div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./Newtonsoft.Json.Converters.BsonObjectIdConverter.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">BsonObjectIdConverter</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Converts a <code class="refdocgen-see-cref-not-found">BsonObjectId</code> to and from JSON and BSON.
+            </div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./Newtonsoft.Json.Converters.CustomCreationConverter-1.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">CustomCreationConverter&lt;T&gt;</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Creates a custom object.
+            </div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./Newtonsoft.Json.Converters.DataSetConverter.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">DataSetConverter</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Converts a <code class="refdocgen-see-cref-not-found">System.Data.DataSet</code> to and from JSON.
+            </div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./Newtonsoft.Json.Converters.DataTableConverter.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">DataTableConverter</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Converts a <code class="refdocgen-see-cref-not-found">System.Data.DataTable</code> to and from JSON.
+            </div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./Newtonsoft.Json.Converters.DateTimeConverterBase.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">DateTimeConverterBase</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Provides a base class for converting a <code class="refdocgen-see-cref-not-found">DateTime</code> to and from JSON.
+            </div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./Newtonsoft.Json.Converters.DiscriminatedUnionConverter.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">DiscriminatedUnionConverter</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Converts a F# discriminated union type to and from JSON.
+            </div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./Newtonsoft.Json.Converters.DiscriminatedUnionConverter.Union.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">DiscriminatedUnionConverter.Union</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc"></div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./Newtonsoft.Json.Converters.DiscriminatedUnionConverter.UnionCase.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">DiscriminatedUnionConverter.UnionCase</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc"></div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./Newtonsoft.Json.Converters.EntityKeyMemberConverter.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">EntityKeyMemberConverter</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Converts an Entity Framework <code class="refdocgen-see-cref-not-found">System.Data.EntityKeyMember</code> to and from JSON.
+            </div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./Newtonsoft.Json.Converters.ExpandoObjectConverter.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">ExpandoObjectConverter</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Converts an <code class="refdocgen-see-cref-not-found">System.Dynamic.ExpandoObject</code> to and from JSON.
+            </div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./Newtonsoft.Json.Converters.IsoDateTimeConverter.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">IsoDateTimeConverter</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Converts a <code class="refdocgen-see-cref-not-found">DateTime</code> to and from the ISO 8601 date format (e.g. <code class="refdocgen-inline-code">"2008-04-12T12:53Z"</code>).
+            </div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./Newtonsoft.Json.Converters.JavaScriptDateTimeConverter.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">JavaScriptDateTimeConverter</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Converts a <code class="refdocgen-see-cref-not-found">DateTime</code> to and from a JavaScript <code class="refdocgen-inline-code">Date</code> constructor (e.g. <code class="refdocgen-inline-code">new Date(52231943)</code>).
+            </div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./Newtonsoft.Json.Converters.KeyValuePairConverter.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">KeyValuePairConverter</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Converts a <code class="refdocgen-see-cref-not-found">KeyValuePair&lt;TKey, TValue&gt;</code> to and from JSON.
+            </div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./Newtonsoft.Json.Converters.RegexConverter.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">RegexConverter</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Converts a <code class="refdocgen-see-cref-not-found">System.Text.RegularExpressions.Regex</code> to and from JSON and BSON.
+            </div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./Newtonsoft.Json.Converters.StringEnumConverter.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">StringEnumConverter</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Converts an <code class="refdocgen-see-cref-not-found">Enum</code> to and from its name string value.
+            </div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./Newtonsoft.Json.Converters.UnixDateTimeConverter.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">UnixDateTimeConverter</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Converts a <code class="refdocgen-see-cref-not-found">DateTime</code> to and from Unix epoch time
+            </div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./Newtonsoft.Json.Converters.VersionConverter.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">VersionConverter</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Converts a <code class="refdocgen-see-cref-not-found">Version</code> to and from a string (e.g. <code class="refdocgen-inline-code">"1.2.3.4"</code>).
+            </div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./Newtonsoft.Json.Converters.XAttributeWrapper.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">XAttributeWrapper</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc"></div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./Newtonsoft.Json.Converters.XCommentWrapper.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">XCommentWrapper</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc"></div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./Newtonsoft.Json.Converters.XContainerWrapper.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">XContainerWrapper</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc"></div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./Newtonsoft.Json.Converters.XDeclarationWrapper.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">XDeclarationWrapper</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc"></div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./Newtonsoft.Json.Converters.XDocumentTypeWrapper.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">XDocumentTypeWrapper</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc"></div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./Newtonsoft.Json.Converters.XDocumentWrapper.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">XDocumentWrapper</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc"></div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./Newtonsoft.Json.Converters.XElementWrapper.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">XElementWrapper</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc"></div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./Newtonsoft.Json.Converters.XmlDeclarationWrapper.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">XmlDeclarationWrapper</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc"></div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./Newtonsoft.Json.Converters.XmlDocumentTypeWrapper.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">XmlDocumentTypeWrapper</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc"></div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./Newtonsoft.Json.Converters.XmlDocumentWrapper.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">XmlDocumentWrapper</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc"></div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./Newtonsoft.Json.Converters.XmlElementWrapper.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">XmlElementWrapper</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc"></div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./Newtonsoft.Json.Converters.XmlNodeConverter.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">XmlNodeConverter</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Converts XML to and from JSON.
+            </div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./Newtonsoft.Json.Converters.XmlNodeWrapper.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">XmlNodeWrapper</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc"></div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./Newtonsoft.Json.Converters.XObjectWrapper.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">XObjectWrapper</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc"></div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./Newtonsoft.Json.Converters.XProcessingInstructionWrapper.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">XProcessingInstructionWrapper</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc"></div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./Newtonsoft.Json.Converters.XTextWrapper.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">XTextWrapper</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc"></div></div>
+<hr class="my-2"></div><h2 class="display-5 my-2">Interfaces</h2>
+                    <div data-id="namespace-interfaces"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./Newtonsoft.Json.Converters.IXmlDeclaration.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">interface</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">IXmlDeclaration</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc"></div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./Newtonsoft.Json.Converters.IXmlDocument.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">interface</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">IXmlDocument</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc"></div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./Newtonsoft.Json.Converters.IXmlDocumentType.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">interface</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">IXmlDocumentType</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc"></div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./Newtonsoft.Json.Converters.IXmlElement.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">interface</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">IXmlElement</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc"></div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./Newtonsoft.Json.Converters.IXmlNode.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">interface</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">IXmlNode</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc"></div></div>
+<hr class="my-2"></div></div><nav class="navbar fixed-bottom menu-bg"><div class="container"><div class="dropup"><button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">v-newtonsoft-private</button>
+            <div id="current-version">v-newtonsoft-private</div>
+            <div id="version-list">[&quot;v-newtonsoft-public&quot;,&quot;v-newtonsoft-private&quot;]</div>
+            <ul class="dropdown-menu" id="version-selector" data-id="version-selector"></ul></div></div></nav><script src="../Static/bootstrap-5.3.5-dist.bundle.min.js"></script>
+
+    
+    <script src="../Static/script.js"></script></body></html>

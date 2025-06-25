@@ -1,0 +1,1733 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Reference documentation</title>
+
+    <script>
+
+        // use IIFE in order to avoid polluting global context with functions & variables
+        // https://developer.mozilla.org/en-US/docs/Glossary/IIFE
+        (function() {
+            const isLocalFile = location.protocol === "file:";
+            const defaultTheme = "dark";
+            const defaultLang = "csharp-lang";
+
+            if(isLocalFile){
+                const urlParams = new URLSearchParams(window.location.search);
+
+                let redirect = false;
+
+                // set 'theme' URL param if not found
+                if(!urlParams.has("theme")){
+                    urlParams.set("theme", defaultTheme);
+                    redirect = true;
+                }
+
+                // set 'lang' URL param if not found
+                if(!urlParams.has("lang")){
+                    urlParams.set("lang", defaultLang);
+                    redirect = true;
+                }
+
+                // redirect, if some of the URL parameters are missing
+                if(redirect){
+                    const newUrl = new URL(window.location.href);
+                    newUrl.search = urlParams.toString();
+
+                    window.location.href = newUrl;
+                }
+                else {
+                    document.documentElement.setAttribute("data-bs-theme", urlParams.get("theme")); // set the 'data-bs-theme' attribute
+                    document.documentElement.setAttribute("data-language", urlParams.get("lang")); // set the 'data-language' attribute
+                }
+            }
+            else { // no local file -> use localStorage
+                if (!localStorage.getItem("refdocgen-theme")) {
+                    localStorage.setItem("refdocgen-theme", defaultTheme);
+                }
+
+                if (!localStorage.getItem("refdocgen-language")) {
+                    localStorage.setItem("refdocgen-language", defaultLang);
+                }
+
+                document.documentElement.setAttribute("data-bs-theme", localStorage.getItem("refdocgen-theme")); // set the 'data-bs-theme' attribute
+                document.documentElement.setAttribute("data-language", localStorage.getItem("refdocgen-language")); // set the 'data-language' attribute
+            }
+        })();
+    </script>
+
+    
+    <link href="../Static/styles.css" rel="stylesheet"><style>html[data-language="csharp-lang"] [data-language="csharp-lang"] { display: inline !important; }
+html[data-language="todo-lang"] [data-language="todo-lang"] { display: inline !important; }
+</style></head>
+
+<body><nav class="navbar navbar-expand-lg sticky-top menu-bg"><div class="container"><a class="navbar-brand" href="../index.html">Project name</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup"><ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="../api/index.html">API</a></li></ul>
+            <ul class="navbar-nav ms-auto"><li class="nav-item d-flex align-items-center"><form class="me-2 mb-2 mb-lg-0"><select class="form-select" id="language-selector" aria-label="language"><option class="lang-option" value="csharp-lang">C#</option><option class="lang-option" value="todo-lang">TODO</option></select></form></li>
+
+                
+                <li class="nav-item d-flex align-items-center"><form role="search" class="me-2"><input class="form-control" autocomplete="off" type="search" placeholder="Search" aria-label="Search" id="menu-search-bar" url-target="../search.html" readonly=""></form></li>
+
+                
+                <li class="nav-item" id="theme-switcher"><button class="nav-link"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-brightness-high" viewBox="0 0 16 16"><path d="M8 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6m0 1a4 4 0 1 0 0-8 4 4 0 0 0 0 8M8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0m0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13m8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5M3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8m10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0m-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0m9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707M4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708"></path></svg></button></li></ul></div></div></nav>
+
+    <div class="container my-4" data-id="page-body"><div data-id="declared-type-data"><h1 class="display-4" data-id="type-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">public class</span>
+<span class="refdocgen-text-primary">BsonReader</span></span><span class="not-visible" data-language="todo-lang"></span></samp></h1>
+
+                    
+
+                    <h6><samp data-id="type-assembly"><a href="Newtonsoft.Json-DLL.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">assembly</span>
+            <span class="refdocgen-text-secondary">Newtonsoft.Json</span></a></samp></h6>
+
+                    <h6><samp data-id="type-namespace"><a href="Newtonsoft.Json.Bson.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">namespace</span>
+            <span class="refdocgen-text-secondary">Newtonsoft.Json.Bson</span></a></samp></h6>
+
+                    <div data-id="base-type"><i>Base type:&nbsp;</i>
+        <samp class="refdocgen-text-secondary"><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="./Newtonsoft.Json.JsonReader.html" class="refdocgen-link-secondary">JsonReader</a></span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                    <div data-id="implemented-interfaces"><i>Implements:&nbsp;</i>
+        <samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.iasyncdisposable" class="refdocgen-link-secondary">IAsyncDisposable</a></span></span><span class="not-visible" data-language="todo-lang"></span><span>, </span><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.idisposable" class="refdocgen-link-secondary">IDisposable</a></span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                    
+
+                    <hr>
+
+                    
+                    <div class="text-body-secondary fst-italic mb-0" data-id="summary-doc"><div>
+            Represents a reader that provides fast, non-cached, forward-only access to serialized BSON data.
+            </div></div><hr>
+
+                    <h3 class="lead mt-3">Attributes</h3>
+    <div class="mx-2" data-id="attributes-section"><div data-id="attribute-data"><samp><span class="not-visible" data-language="csharp-lang">
+
+[<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.obsoleteattribute" class="refdocgen-link-secondary">Obsolete</a></span><span>(</span><span class="refdocgen-text-green">"BSON reading and writing has been moved to its own package. See https://www.nuget.org/packages/Newtonsoft.Json.Bson for more details."</span><span>)</span><span>]</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div></div>
+
+                    
+
+                    
+                    
+
+                    <hr></div><h2 class="display-5 mt-2">Constructors</h2>
+<div class="row" data-id="constructors-section"><div class="col-md-12"><div class="border p-2 mb-2" id=".ctor(System.IO.BinaryReader)" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">public</span>
+<span class="refdocgen-text-primary">BsonReader</span><span>(</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.io.binaryreader" class="refdocgen-link-secondary">BinaryReader</a></span>
+
+<span>reader</span><span>)</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#.ctor(System.IO.BinaryReader)">#</a></samp></h6>
+
+                <div class="text-body-secondary fst-italic mb-0" data-id="summary-doc"><div>
+            Initializes a new instance of the <a class="refdocgen-see-cref" href="./Newtonsoft.Json.Bson.BsonReader.html">BsonReader</a> class.
+            </div></div>
+
+                <h3 class="lead my-2">Parameters</h3>
+    <div class="mx-2" data-id="parameters-section"><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.io.binaryreader" class="refdocgen-link-secondary">BinaryReader</a></span>
+
+<span>reader</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"><div>The <a class="refdocgen-see-cref" href="https://learn.microsoft.com/dotnet/api/system.io.binaryreader">BinaryReader</a> containing the BSON data to read.</div></div></div></div>
+
+                
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id=".ctor(System.IO.Stream)" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">public</span>
+<span class="refdocgen-text-primary">BsonReader</span><span>(</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.io.stream" class="refdocgen-link-secondary">Stream</a></span>
+
+<span>stream</span><span>)</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#.ctor(System.IO.Stream)">#</a></samp></h6>
+
+                <div class="text-body-secondary fst-italic mb-0" data-id="summary-doc"><div>
+            Initializes a new instance of the <a class="refdocgen-see-cref" href="./Newtonsoft.Json.Bson.BsonReader.html">BsonReader</a> class.
+            </div></div>
+
+                <h3 class="lead my-2">Parameters</h3>
+    <div class="mx-2" data-id="parameters-section"><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.io.stream" class="refdocgen-link-secondary">Stream</a></span>
+
+<span>stream</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"><div>The <a class="refdocgen-see-cref" href="https://learn.microsoft.com/dotnet/api/system.io.stream">Stream</a> containing the BSON data to read.</div></div></div></div>
+
+                
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id=".ctor(System.IO.BinaryReader,System.Boolean,System.DateTimeKind)" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">public</span>
+<span class="refdocgen-text-primary">BsonReader</span><span>(</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.io.binaryreader" class="refdocgen-link-secondary">BinaryReader</a></span>
+
+<span>reader</span><span>, </span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.boolean" class="refdocgen-link-secondary">bool</a></span>
+
+<span>readRootValueAsArray</span><span>, </span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.datetimekind" class="refdocgen-link-secondary">DateTimeKind</a></span>
+
+<span>dateTimeKindHandling</span><span>)</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#.ctor(System.IO.BinaryReader,System.Boolean,System.DateTimeKind)">#</a></samp></h6>
+
+                <div class="text-body-secondary fst-italic mb-0" data-id="summary-doc"><div>
+            Initializes a new instance of the <a class="refdocgen-see-cref" href="./Newtonsoft.Json.Bson.BsonReader.html">BsonReader</a> class.
+            </div></div>
+
+                <h3 class="lead my-2">Parameters</h3>
+    <div class="mx-2" data-id="parameters-section"><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.io.binaryreader" class="refdocgen-link-secondary">BinaryReader</a></span>
+
+<span>reader</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"><div>The <a class="refdocgen-see-cref" href="https://learn.microsoft.com/dotnet/api/system.io.binaryreader">BinaryReader</a> containing the BSON data to read.</div></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.boolean" class="refdocgen-link-secondary">bool</a></span>
+
+<span>readRootValueAsArray</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"><div>if set to <code class="refdocgen-inline-code">true</code> the root object will be read as a JSON array.</div></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.datetimekind" class="refdocgen-link-secondary">DateTimeKind</a></span>
+
+<span>dateTimeKindHandling</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"><div>The <a class="refdocgen-see-cref" href="https://learn.microsoft.com/dotnet/api/system.datetimekind">DateTimeKind</a> used when reading <a class="refdocgen-see-cref" href="https://learn.microsoft.com/dotnet/api/system.datetime">DateTime</a> values from BSON.</div></div></div></div>
+
+                
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id=".ctor(System.IO.Stream,System.Boolean,System.DateTimeKind)" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">public</span>
+<span class="refdocgen-text-primary">BsonReader</span><span>(</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.io.stream" class="refdocgen-link-secondary">Stream</a></span>
+
+<span>stream</span><span>, </span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.boolean" class="refdocgen-link-secondary">bool</a></span>
+
+<span>readRootValueAsArray</span><span>, </span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.datetimekind" class="refdocgen-link-secondary">DateTimeKind</a></span>
+
+<span>dateTimeKindHandling</span><span>)</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#.ctor(System.IO.Stream,System.Boolean,System.DateTimeKind)">#</a></samp></h6>
+
+                <div class="text-body-secondary fst-italic mb-0" data-id="summary-doc"><div>
+            Initializes a new instance of the <a class="refdocgen-see-cref" href="./Newtonsoft.Json.Bson.BsonReader.html">BsonReader</a> class.
+            </div></div>
+
+                <h3 class="lead my-2">Parameters</h3>
+    <div class="mx-2" data-id="parameters-section"><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.io.stream" class="refdocgen-link-secondary">Stream</a></span>
+
+<span>stream</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"><div>The <a class="refdocgen-see-cref" href="https://learn.microsoft.com/dotnet/api/system.io.stream">Stream</a> containing the BSON data to read.</div></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.boolean" class="refdocgen-link-secondary">bool</a></span>
+
+<span>readRootValueAsArray</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"><div>if set to <code class="refdocgen-inline-code">true</code> the root object will be read as a JSON array.</div></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.datetimekind" class="refdocgen-link-secondary">DateTimeKind</a></span>
+
+<span>dateTimeKindHandling</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"><div>The <a class="refdocgen-see-cref" href="https://learn.microsoft.com/dotnet/api/system.datetimekind">DateTimeKind</a> used when reading <a class="refdocgen-see-cref" href="https://learn.microsoft.com/dotnet/api/system.datetime">DateTime</a> values from BSON.</div></div></div></div>
+
+                
+
+                
+                
+
+                
+
+                </div></div></div><h2 class="display-5 mt-2">Properties</h2>
+<div class="row" data-id="properties-section"><div class="col-md-12"><div class="border p-2 mb-2" id="CloseInput" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">public</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.boolean" class="refdocgen-link-secondary">bool</a></span>
+
+<span class="refdocgen-text-primary">CloseInput</span>
+
+<span> { </span><span class="refdocgen-text-tertiary"> get<span class="text-body">; </span></span><span class="refdocgen-text-tertiary"> set<span class="text-body">; </span></span><span> }</span>
+
+</span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#CloseInput">#</a></samp></h6>
+
+                <div class="refdocgen-text-tertiary fst-italic ms-4 mb-2" data-id="member-inherited-from">
+            Inherited from
+            <span class="refdocgen-text-secondary"><a href="./Newtonsoft.Json.JsonReader.html" class="refdocgen-link-secondary"><span class="not-visible" data-language="csharp-lang">JsonReader</span><span class="not-visible" data-language="todo-lang"></span></a></span></div>
+
+                
+
+                
+
+                
+
+                <div class="text-body-secondary fst-italic mb-0" data-id="summary-doc"><div>
+            Gets or sets a value indicating whether the source should be closed when this reader is closed.
+            </div></div>
+
+                <div class="mt-2"><div class="lead">Value</div>
+        <div data-id="value-doc" class="fst-italic text-body-secondary"><div>
+            <code class="refdocgen-inline-code">true</code> to close the source when this reader is closed; otherwise <code class="refdocgen-inline-code">false</code>. The default is <code class="refdocgen-inline-code">true</code>.
+            </div></div></div>
+
+                
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="Culture" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">public</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.globalization.cultureinfo" class="refdocgen-link-secondary">CultureInfo</a></span>
+
+<span class="refdocgen-text-primary">Culture</span>
+
+<span> { </span><span class="refdocgen-text-tertiary"> get<span class="text-body">; </span></span><span class="refdocgen-text-tertiary"> set<span class="text-body">; </span></span><span> }</span>
+
+</span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#Culture">#</a></samp></h6>
+
+                <div class="refdocgen-text-tertiary fst-italic ms-4 mb-2" data-id="member-inherited-from">
+            Inherited from
+            <span class="refdocgen-text-secondary"><a href="./Newtonsoft.Json.JsonReader.html" class="refdocgen-link-secondary"><span class="not-visible" data-language="csharp-lang">JsonReader</span><span class="not-visible" data-language="todo-lang"></span></a></span></div>
+
+                
+
+                
+
+                
+
+                <div class="text-body-secondary fst-italic mb-0" data-id="summary-doc"><div>
+            Gets or sets the culture used when reading JSON. Defaults to <a class="refdocgen-see-cref" href="https://learn.microsoft.com/dotnet/api/system.globalization.cultureinfo.invariantculture">CultureInfo.InvariantCulture</a>.
+            </div></div>
+
+                
+
+                
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="DateFormatString" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">public</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.string" class="refdocgen-link-secondary">string</a></span>
+
+<span class="refdocgen-text-primary">DateFormatString</span>
+
+<span> { </span><span class="refdocgen-text-tertiary"> get<span class="text-body">; </span></span><span class="refdocgen-text-tertiary"> set<span class="text-body">; </span></span><span> }</span>
+
+</span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#DateFormatString">#</a></samp></h6>
+
+                <div class="refdocgen-text-tertiary fst-italic ms-4 mb-2" data-id="member-inherited-from">
+            Inherited from
+            <span class="refdocgen-text-secondary"><a href="./Newtonsoft.Json.JsonReader.html" class="refdocgen-link-secondary"><span class="not-visible" data-language="csharp-lang">JsonReader</span><span class="not-visible" data-language="todo-lang"></span></a></span></div>
+
+                
+
+                
+
+                
+
+                <div class="text-body-secondary fst-italic mb-0" data-id="summary-doc"><div>
+            Gets or sets how custom date formatted strings are parsed when reading JSON.
+            </div></div>
+
+                
+
+                
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="DateParseHandling" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">public</span>
+
+<span class="refdocgen-text-secondary"><a href="./Newtonsoft.Json.DateParseHandling.html" class="refdocgen-link-secondary">DateParseHandling</a></span>
+
+<span class="refdocgen-text-primary">DateParseHandling</span>
+
+<span> { </span><span class="refdocgen-text-tertiary"> get<span class="text-body">; </span></span><span class="refdocgen-text-tertiary"> set<span class="text-body">; </span></span><span> }</span>
+
+</span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#DateParseHandling">#</a></samp></h6>
+
+                <div class="refdocgen-text-tertiary fst-italic ms-4 mb-2" data-id="member-inherited-from">
+            Inherited from
+            <span class="refdocgen-text-secondary"><a href="./Newtonsoft.Json.JsonReader.html" class="refdocgen-link-secondary"><span class="not-visible" data-language="csharp-lang">JsonReader</span><span class="not-visible" data-language="todo-lang"></span></a></span></div>
+
+                
+
+                
+
+                
+
+                <div class="text-body-secondary fst-italic mb-0" data-id="summary-doc"><div>
+            Gets or sets how date formatted strings, e.g. "\/Date(1198908717056)\/" and "2012-03-21T05:40Z", are parsed when reading JSON.
+            </div></div>
+
+                
+
+                
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="DateTimeKindHandling" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">public</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.datetimekind" class="refdocgen-link-secondary">DateTimeKind</a></span>
+
+<span class="refdocgen-text-primary">DateTimeKindHandling</span>
+
+<span> { </span><span class="refdocgen-text-tertiary"> get<span class="text-body">; </span></span><span class="refdocgen-text-tertiary"> set<span class="text-body">; </span></span><span> }</span>
+
+</span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#DateTimeKindHandling">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                <div class="text-body-secondary fst-italic mb-0" data-id="summary-doc"><div>
+            Gets or sets the <a class="refdocgen-see-cref" href="https://learn.microsoft.com/dotnet/api/system.datetimekind">DateTimeKind</a> used when reading <a class="refdocgen-see-cref" href="https://learn.microsoft.com/dotnet/api/system.datetime">DateTime</a> values from BSON.
+            </div></div>
+
+                <div class="mt-2"><div class="lead">Value</div>
+        <div data-id="value-doc" class="fst-italic text-body-secondary"><div>The <a class="refdocgen-see-cref" href="https://learn.microsoft.com/dotnet/api/system.datetimekind">DateTimeKind</a> used when reading <a class="refdocgen-see-cref" href="https://learn.microsoft.com/dotnet/api/system.datetime">DateTime</a> values from BSON.</div></div></div>
+
+                
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="DateTimeZoneHandling" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">public</span>
+
+<span class="refdocgen-text-secondary"><a href="./Newtonsoft.Json.DateTimeZoneHandling.html" class="refdocgen-link-secondary">DateTimeZoneHandling</a></span>
+
+<span class="refdocgen-text-primary">DateTimeZoneHandling</span>
+
+<span> { </span><span class="refdocgen-text-tertiary"> get<span class="text-body">; </span></span><span class="refdocgen-text-tertiary"> set<span class="text-body">; </span></span><span> }</span>
+
+</span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#DateTimeZoneHandling">#</a></samp></h6>
+
+                <div class="refdocgen-text-tertiary fst-italic ms-4 mb-2" data-id="member-inherited-from">
+            Inherited from
+            <span class="refdocgen-text-secondary"><a href="./Newtonsoft.Json.JsonReader.html" class="refdocgen-link-secondary"><span class="not-visible" data-language="csharp-lang">JsonReader</span><span class="not-visible" data-language="todo-lang"></span></a></span></div>
+
+                
+
+                
+
+                
+
+                <div class="text-body-secondary fst-italic mb-0" data-id="summary-doc"><div>
+            Gets or sets how <a class="refdocgen-see-cref" href="https://learn.microsoft.com/dotnet/api/system.datetime">DateTime</a> time zones are handled when reading JSON.
+            </div></div>
+
+                
+
+                
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="Depth" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">public virtual</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.int32" class="refdocgen-link-secondary">int</a></span>
+
+<span class="refdocgen-text-primary">Depth</span>
+
+<span> { </span><span class="refdocgen-text-tertiary"> get<span class="text-body">; </span></span><span> }</span>
+
+</span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#Depth">#</a></samp></h6>
+
+                <div class="refdocgen-text-tertiary fst-italic ms-4 mb-2" data-id="member-inherited-from">
+            Inherited from
+            <span class="refdocgen-text-secondary"><a href="./Newtonsoft.Json.JsonReader.html" class="refdocgen-link-secondary"><span class="not-visible" data-language="csharp-lang">JsonReader</span><span class="not-visible" data-language="todo-lang"></span></a></span></div>
+
+                
+
+                
+
+                
+
+                <div class="text-body-secondary fst-italic mb-0" data-id="summary-doc"><div>
+            Gets the depth of the current token in the JSON document.
+            </div></div>
+
+                <div class="mt-2"><div class="lead">Value</div>
+        <div data-id="value-doc" class="fst-italic text-body-secondary"><div>The depth of the current token in the JSON document.</div></div></div>
+
+                
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="FloatParseHandling" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">public</span>
+
+<span class="refdocgen-text-secondary"><a href="./Newtonsoft.Json.FloatParseHandling.html" class="refdocgen-link-secondary">FloatParseHandling</a></span>
+
+<span class="refdocgen-text-primary">FloatParseHandling</span>
+
+<span> { </span><span class="refdocgen-text-tertiary"> get<span class="text-body">; </span></span><span class="refdocgen-text-tertiary"> set<span class="text-body">; </span></span><span> }</span>
+
+</span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#FloatParseHandling">#</a></samp></h6>
+
+                <div class="refdocgen-text-tertiary fst-italic ms-4 mb-2" data-id="member-inherited-from">
+            Inherited from
+            <span class="refdocgen-text-secondary"><a href="./Newtonsoft.Json.JsonReader.html" class="refdocgen-link-secondary"><span class="not-visible" data-language="csharp-lang">JsonReader</span><span class="not-visible" data-language="todo-lang"></span></a></span></div>
+
+                
+
+                
+
+                
+
+                <div class="text-body-secondary fst-italic mb-0" data-id="summary-doc"><div>
+            Gets or sets how floating point numbers, e.g. 1.0 and 9.9, are parsed when reading JSON text.
+            </div></div>
+
+                
+
+                
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="JsonNet35BinaryCompatibility" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">public</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.boolean" class="refdocgen-link-secondary">bool</a></span>
+
+<span class="refdocgen-text-primary">JsonNet35BinaryCompatibility</span>
+
+<span> { </span><span class="refdocgen-text-tertiary"> get<span class="text-body">; </span></span><span class="refdocgen-text-tertiary"> set<span class="text-body">; </span></span><span> }</span>
+
+</span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#JsonNet35BinaryCompatibility">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                <div class="text-body-secondary fst-italic mb-0" data-id="summary-doc"><div>
+            Gets or sets a value indicating whether binary data reading should be compatible with incorrect Json.NET 3.5 written binary.
+            </div></div>
+
+                <div class="mt-2"><div class="lead">Value</div>
+        <div data-id="value-doc" class="fst-italic text-body-secondary"><div>
+            	<code class="refdocgen-inline-code">true</code> if binary data reading will be compatible with incorrect Json.NET 3.5 written binary; otherwise, <code class="refdocgen-inline-code">false</code>.
+            </div></div></div>
+
+                <h3 class="lead mt-3">Attributes</h3>
+    <div class="mx-2" data-id="attributes-section"><div data-id="attribute-data"><samp><span class="not-visible" data-language="csharp-lang">
+
+[<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.obsoleteattribute" class="refdocgen-link-secondary">Obsolete</a></span><span>(</span><span class="refdocgen-text-green">"JsonNet35BinaryCompatibility will be removed in a future version of Json.NET."</span><span>)</span><span>]</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div></div>
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="MaxDepth" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">public</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.nullable-1" class="refdocgen-link-secondary">Nullable</a></span><span class="text-body-secondary">&lt;</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.int32" class="refdocgen-link-secondary">int</a></span><span class="text-body-secondary">&gt;</span>
+
+<span class="refdocgen-text-primary">MaxDepth</span>
+
+<span> { </span><span class="refdocgen-text-tertiary"> get<span class="text-body">; </span></span><span class="refdocgen-text-tertiary"> set<span class="text-body">; </span></span><span> }</span>
+
+</span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#MaxDepth">#</a></samp></h6>
+
+                <div class="refdocgen-text-tertiary fst-italic ms-4 mb-2" data-id="member-inherited-from">
+            Inherited from
+            <span class="refdocgen-text-secondary"><a href="./Newtonsoft.Json.JsonReader.html" class="refdocgen-link-secondary"><span class="not-visible" data-language="csharp-lang">JsonReader</span><span class="not-visible" data-language="todo-lang"></span></a></span></div>
+
+                
+
+                
+
+                
+
+                <div class="text-body-secondary fst-italic mb-0" data-id="summary-doc"><div>
+            Gets or sets the maximum depth allowed when reading JSON. Reading past this depth will throw a <a class="refdocgen-see-cref" href="./Newtonsoft.Json.JsonReaderException.html">JsonReaderException</a>.
+            A null value means there is no maximum. 
+            The default value is <code class="refdocgen-inline-code">64</code>.
+            </div></div>
+
+                
+
+                
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="Path" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">public virtual</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.string" class="refdocgen-link-secondary">string</a></span>
+
+<span class="refdocgen-text-primary">Path</span>
+
+<span> { </span><span class="refdocgen-text-tertiary"> get<span class="text-body">; </span></span><span> }</span>
+
+</span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#Path">#</a></samp></h6>
+
+                <div class="refdocgen-text-tertiary fst-italic ms-4 mb-2" data-id="member-inherited-from">
+            Inherited from
+            <span class="refdocgen-text-secondary"><a href="./Newtonsoft.Json.JsonReader.html" class="refdocgen-link-secondary"><span class="not-visible" data-language="csharp-lang">JsonReader</span><span class="not-visible" data-language="todo-lang"></span></a></span></div>
+
+                
+
+                
+
+                
+
+                <div class="text-body-secondary fst-italic mb-0" data-id="summary-doc"><div>
+            Gets the path of the current JSON token. 
+            </div></div>
+
+                
+
+                
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="QuoteChar" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">public virtual</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.char" class="refdocgen-link-secondary">char</a></span>
+
+<span class="refdocgen-text-primary">QuoteChar</span>
+
+<span> { </span><span class="refdocgen-text-tertiary"> get<span class="text-body">; </span></span><span class="refdocgen-text-tertiary">internal protected set<span class="text-body">; </span></span><span> }</span>
+
+</span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#QuoteChar">#</a></samp></h6>
+
+                <div class="refdocgen-text-tertiary fst-italic ms-4 mb-2" data-id="member-inherited-from">
+            Inherited from
+            <span class="refdocgen-text-secondary"><a href="./Newtonsoft.Json.JsonReader.html" class="refdocgen-link-secondary"><span class="not-visible" data-language="csharp-lang">JsonReader</span><span class="not-visible" data-language="todo-lang"></span></a></span></div>
+
+                
+
+                
+
+                
+
+                <div class="text-body-secondary fst-italic mb-0" data-id="summary-doc"><div>
+            Gets the quotation mark character used to enclose the value of a string.
+            </div></div>
+
+                
+
+                
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="ReadRootValueAsArray" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">public</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.boolean" class="refdocgen-link-secondary">bool</a></span>
+
+<span class="refdocgen-text-primary">ReadRootValueAsArray</span>
+
+<span> { </span><span class="refdocgen-text-tertiary"> get<span class="text-body">; </span></span><span class="refdocgen-text-tertiary"> set<span class="text-body">; </span></span><span> }</span>
+
+</span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#ReadRootValueAsArray">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                <div class="text-body-secondary fst-italic mb-0" data-id="summary-doc"><div>
+            Gets or sets a value indicating whether the root object will be read as a JSON array.
+            </div></div>
+
+                <div class="mt-2"><div class="lead">Value</div>
+        <div data-id="value-doc" class="fst-italic text-body-secondary"><div>
+            	<code class="refdocgen-inline-code">true</code> if the root object will be read as a JSON array; otherwise, <code class="refdocgen-inline-code">false</code>.
+            </div></div></div>
+
+                
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="SupportMultipleContent" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">public</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.boolean" class="refdocgen-link-secondary">bool</a></span>
+
+<span class="refdocgen-text-primary">SupportMultipleContent</span>
+
+<span> { </span><span class="refdocgen-text-tertiary"> get<span class="text-body">; </span></span><span class="refdocgen-text-tertiary"> set<span class="text-body">; </span></span><span> }</span>
+
+</span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#SupportMultipleContent">#</a></samp></h6>
+
+                <div class="refdocgen-text-tertiary fst-italic ms-4 mb-2" data-id="member-inherited-from">
+            Inherited from
+            <span class="refdocgen-text-secondary"><a href="./Newtonsoft.Json.JsonReader.html" class="refdocgen-link-secondary"><span class="not-visible" data-language="csharp-lang">JsonReader</span><span class="not-visible" data-language="todo-lang"></span></a></span></div>
+
+                
+
+                
+
+                
+
+                <div class="text-body-secondary fst-italic mb-0" data-id="summary-doc"><div>
+            Gets or sets a value indicating whether multiple pieces of JSON content can
+            be read from a continuous stream without erroring.
+            </div></div>
+
+                <div class="mt-2"><div class="lead">Value</div>
+        <div data-id="value-doc" class="fst-italic text-body-secondary"><div>
+            <code class="refdocgen-inline-code">true</code> to support reading multiple pieces of JSON content; otherwise <code class="refdocgen-inline-code">false</code>.
+            The default is <code class="refdocgen-inline-code">false</code>.
+            </div></div></div>
+
+                
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="TokenType" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">public virtual</span>
+
+<span class="refdocgen-text-secondary"><a href="./Newtonsoft.Json.JsonToken.html" class="refdocgen-link-secondary">JsonToken</a></span>
+
+<span class="refdocgen-text-primary">TokenType</span>
+
+<span> { </span><span class="refdocgen-text-tertiary"> get<span class="text-body">; </span></span><span> }</span>
+
+</span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#TokenType">#</a></samp></h6>
+
+                <div class="refdocgen-text-tertiary fst-italic ms-4 mb-2" data-id="member-inherited-from">
+            Inherited from
+            <span class="refdocgen-text-secondary"><a href="./Newtonsoft.Json.JsonReader.html" class="refdocgen-link-secondary"><span class="not-visible" data-language="csharp-lang">JsonReader</span><span class="not-visible" data-language="todo-lang"></span></a></span></div>
+
+                
+
+                
+
+                
+
+                <div class="text-body-secondary fst-italic mb-0" data-id="summary-doc"><div>
+            Gets the type of the current JSON token. 
+            </div></div>
+
+                
+
+                
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="Value" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">public virtual</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.object" class="refdocgen-link-secondary">object</a></span>
+
+<span class="refdocgen-text-primary">Value</span>
+
+<span> { </span><span class="refdocgen-text-tertiary"> get<span class="text-body">; </span></span><span> }</span>
+
+</span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#Value">#</a></samp></h6>
+
+                <div class="refdocgen-text-tertiary fst-italic ms-4 mb-2" data-id="member-inherited-from">
+            Inherited from
+            <span class="refdocgen-text-secondary"><a href="./Newtonsoft.Json.JsonReader.html" class="refdocgen-link-secondary"><span class="not-visible" data-language="csharp-lang">JsonReader</span><span class="not-visible" data-language="todo-lang"></span></a></span></div>
+
+                
+
+                
+
+                
+
+                <div class="text-body-secondary fst-italic mb-0" data-id="summary-doc"><div>
+            Gets the text value of the current JSON token.
+            </div></div>
+
+                
+
+                
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="ValueType" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">public virtual</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.type" class="refdocgen-link-secondary">Type</a></span>
+
+<span class="refdocgen-text-primary">ValueType</span>
+
+<span> { </span><span class="refdocgen-text-tertiary"> get<span class="text-body">; </span></span><span> }</span>
+
+</span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#ValueType">#</a></samp></h6>
+
+                <div class="refdocgen-text-tertiary fst-italic ms-4 mb-2" data-id="member-inherited-from">
+            Inherited from
+            <span class="refdocgen-text-secondary"><a href="./Newtonsoft.Json.JsonReader.html" class="refdocgen-link-secondary"><span class="not-visible" data-language="csharp-lang">JsonReader</span><span class="not-visible" data-language="todo-lang"></span></a></span></div>
+
+                
+
+                
+
+                
+
+                <div class="text-body-secondary fst-italic mb-0" data-id="summary-doc"><div>
+            Gets the .NET type for the current JSON token.
+            </div></div>
+
+                
+
+                
+
+                
+                
+
+                
+
+                </div></div></div><h2 class="display-5 mt-2">Methods</h2>
+<div class="row" data-id="methods-section"><div class="col-md-12"><div class="border p-2 mb-2" id="Close" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">public override</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.void" class="refdocgen-link-secondary">void</a></span>
+
+<span class="refdocgen-text-primary">Close</span><span>(</span><span>)</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#Close">#</a></samp></h6>
+
+                
+
+                
+
+                <div class="refdocgen-text-tertiary fst-italic ms-4 mb-2" data-id="member-overrides">
+            Overrides
+            <span class="refdocgen-text-secondary"><a href="./Newtonsoft.Json.JsonReader.html#Close" class="refdocgen-link-secondary"><span class="not-visible" data-language="csharp-lang">JsonReader.Close</span><span class="not-visible" data-language="todo-lang">.Close</span></a></span></div>
+
+                
+
+                
+
+                <div class="text-body-secondary fst-italic mb-0" data-id="summary-doc"><div>
+            Changes the reader's state to <code class="refdocgen-see-cref-not-found">Newtonsoft.Json.JsonReader.State.Closed</code>.
+            If <a class="refdocgen-see-cref" href="./Newtonsoft.Json.JsonReader.html#CloseInput">JsonReader.CloseInput</a> is set to <code class="refdocgen-inline-code">true</code>, the underlying <a class="refdocgen-see-cref" href="https://learn.microsoft.com/dotnet/api/system.io.stream">Stream</a> is also closed.
+            </div></div>
+
+                
+
+                
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="Read" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">public override</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.boolean" class="refdocgen-link-secondary">bool</a></span>
+
+<span class="refdocgen-text-primary">Read</span><span>(</span><span>)</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#Read">#</a></samp></h6>
+
+                
+
+                
+
+                <div class="refdocgen-text-tertiary fst-italic ms-4 mb-2" data-id="member-overrides">
+            Overrides
+            <span class="refdocgen-text-secondary"><a href="./Newtonsoft.Json.JsonReader.html#Read" class="refdocgen-link-secondary"><span class="not-visible" data-language="csharp-lang">JsonReader.Read</span><span class="not-visible" data-language="todo-lang">.Read</span></a></span></div>
+
+                
+
+                
+
+                <div class="text-body-secondary fst-italic mb-0" data-id="summary-doc"><div>
+            Reads the next JSON token from the underlying <a class="refdocgen-see-cref" href="https://learn.microsoft.com/dotnet/api/system.io.stream">Stream</a>.
+            </div></div>
+
+                
+
+                <h3 class="lead my-2">Returns</h3>
+<div class="mx-2" data-id="returns-section"><samp data-id="return-type-name"><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.boolean" class="refdocgen-link-secondary">bool</a></span></span><span class="not-visible" data-language="todo-lang"></span></samp>
+    <div class="text-body-secondary fst-italic" data-id="returns-doc"><div>
+            <code class="refdocgen-inline-code">true</code> if the next token was read successfully; <code class="refdocgen-inline-code">false</code> if there are no more tokens to read.
+            </div></div></div>
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="ReadAsBoolean" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">public virtual</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.nullable-1" class="refdocgen-link-secondary">Nullable</a></span><span class="text-body-secondary">&lt;</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.boolean" class="refdocgen-link-secondary">bool</a></span><span class="text-body-secondary">&gt;</span>
+
+<span class="refdocgen-text-primary">ReadAsBoolean</span><span>(</span><span>)</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#ReadAsBoolean">#</a></samp></h6>
+
+                
+
+                <div class="refdocgen-text-tertiary fst-italic ms-4 mb-2" data-id="member-inherited-from">
+            Inherited from
+            <span class="refdocgen-text-secondary"><a href="./Newtonsoft.Json.JsonReader.html" class="refdocgen-link-secondary"><span class="not-visible" data-language="csharp-lang">JsonReader</span><span class="not-visible" data-language="todo-lang"></span></a></span></div>
+
+                
+
+                
+
+                
+
+                <div class="text-body-secondary fst-italic mb-0" data-id="summary-doc"><div>
+            Reads the next JSON token from the source as a <a class="refdocgen-see-cref" href="https://learn.microsoft.com/dotnet/api/system.nullable-1">Nullable&lt;T&gt;</a> of <a class="refdocgen-see-cref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a>.
+            </div></div>
+
+                
+
+                <h3 class="lead my-2">Returns</h3>
+<div class="mx-2" data-id="returns-section"><samp data-id="return-type-name"><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.nullable-1" class="refdocgen-link-secondary">Nullable</a></span><span class="text-body-secondary">&lt;</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.boolean" class="refdocgen-link-secondary">bool</a></span><span class="text-body-secondary">&gt;</span></span><span class="not-visible" data-language="todo-lang"></span></samp>
+    <div class="text-body-secondary fst-italic" data-id="returns-doc"><div>A <a class="refdocgen-see-cref" href="https://learn.microsoft.com/dotnet/api/system.nullable-1">Nullable&lt;T&gt;</a> of <a class="refdocgen-see-cref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a>. This method will return <code class="refdocgen-inline-code">null</code> at the end of an array.</div></div></div>
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="ReadAsBooleanAsync(System.Threading.CancellationToken)" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">public virtual</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1" class="refdocgen-link-secondary">Task</a></span><span class="text-body-secondary">&lt;</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.nullable-1" class="refdocgen-link-secondary">Nullable</a></span><span class="text-body-secondary">&lt;</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.boolean" class="refdocgen-link-secondary">bool</a></span><span class="text-body-secondary">&gt;</span><span class="text-body-secondary">&gt;</span>
+
+<span class="refdocgen-text-primary">ReadAsBooleanAsync</span><span>(</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken" class="refdocgen-link-secondary">CancellationToken</a></span>
+
+<span>cancellationToken</span><span> = </span>
+    <span class="refdocgen-text-green">null</span><span>)</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#ReadAsBooleanAsync(System.Threading.CancellationToken)">#</a></samp></h6>
+
+                
+
+                <div class="refdocgen-text-tertiary fst-italic ms-4 mb-2" data-id="member-inherited-from">
+            Inherited from
+            <span class="refdocgen-text-secondary"><a href="./Newtonsoft.Json.JsonReader.html" class="refdocgen-link-secondary"><span class="not-visible" data-language="csharp-lang">JsonReader</span><span class="not-visible" data-language="todo-lang"></span></a></span></div>
+
+                
+
+                
+
+                
+
+                <div class="text-body-secondary fst-italic mb-0" data-id="summary-doc"><div>
+            Asynchronously reads the next JSON token from the source as a <a class="refdocgen-see-cref" href="https://learn.microsoft.com/dotnet/api/system.nullable-1">Nullable&lt;T&gt;</a> of <a class="refdocgen-see-cref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a>.
+            </div></div>
+
+                
+
+                <h3 class="lead my-2">Parameters</h3>
+    <div class="mx-2" data-id="parameters-section"><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken" class="refdocgen-link-secondary">CancellationToken</a></span>
+
+<span>cancellationToken</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"><div>The token to monitor for cancellation requests. The default value is <a class="refdocgen-see-cref" href="https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken.none">CancellationToken.None</a>.</div></div></div></div><h3 class="lead my-2">Returns</h3>
+<div class="mx-2" data-id="returns-section"><samp data-id="return-type-name"><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1" class="refdocgen-link-secondary">Task</a></span><span class="text-body-secondary">&lt;</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.nullable-1" class="refdocgen-link-secondary">Nullable</a></span><span class="text-body-secondary">&lt;</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.boolean" class="refdocgen-link-secondary">bool</a></span><span class="text-body-secondary">&gt;</span><span class="text-body-secondary">&gt;</span></span><span class="not-visible" data-language="todo-lang"></span></samp>
+    <div class="text-body-secondary fst-italic" data-id="returns-doc"><div>A <a class="refdocgen-see-cref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task&lt;TResult&gt;</a> that represents the asynchronous read. The <a class="refdocgen-see-cref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1.result">Task&lt;TResult&gt;.Result</a>
+            property returns the <a class="refdocgen-see-cref" href="https://learn.microsoft.com/dotnet/api/system.nullable-1">Nullable&lt;T&gt;</a> of <a class="refdocgen-see-cref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a>. This result will be <code class="refdocgen-inline-code">null</code> at the end of an array.</div></div></div>
+
+                
+                <div class="mt-3" data-id="remarks-section"><div class="lead">Remarks</div>
+        <div class="text-body-secondary fst-italic" data-id="remarks-doc"><div>The default behaviour is to execute synchronously, returning an already-completed task. Derived
+            classes can override this behaviour for true asynchronicity.</div></div></div>
+
+                
+
+                </div><div class="border p-2 mb-2" id="ReadAsBytes" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">public virtual</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.byte" class="refdocgen-link-secondary">byte[]</a></span>
+
+<span class="refdocgen-text-primary">ReadAsBytes</span><span>(</span><span>)</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#ReadAsBytes">#</a></samp></h6>
+
+                
+
+                <div class="refdocgen-text-tertiary fst-italic ms-4 mb-2" data-id="member-inherited-from">
+            Inherited from
+            <span class="refdocgen-text-secondary"><a href="./Newtonsoft.Json.JsonReader.html" class="refdocgen-link-secondary"><span class="not-visible" data-language="csharp-lang">JsonReader</span><span class="not-visible" data-language="todo-lang"></span></a></span></div>
+
+                
+
+                
+
+                
+
+                <div class="text-body-secondary fst-italic mb-0" data-id="summary-doc"><div>
+            Reads the next JSON token from the source as a <a class="refdocgen-see-cref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a>[].
+            </div></div>
+
+                
+
+                <h3 class="lead my-2">Returns</h3>
+<div class="mx-2" data-id="returns-section"><samp data-id="return-type-name"><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.byte" class="refdocgen-link-secondary">byte[]</a></span></span><span class="not-visible" data-language="todo-lang"></span></samp>
+    <div class="text-body-secondary fst-italic" data-id="returns-doc"><div>A <a class="refdocgen-see-cref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a>[] or <code class="refdocgen-inline-code">null</code> if the next JSON token is null. This method will return <code class="refdocgen-inline-code">null</code> at the end of an array.</div></div></div>
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="ReadAsBytesAsync(System.Threading.CancellationToken)" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">public virtual</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1" class="refdocgen-link-secondary">Task</a></span><span class="text-body-secondary">&lt;</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.byte" class="refdocgen-link-secondary">byte[]</a></span><span class="text-body-secondary">&gt;</span>
+
+<span class="refdocgen-text-primary">ReadAsBytesAsync</span><span>(</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken" class="refdocgen-link-secondary">CancellationToken</a></span>
+
+<span>cancellationToken</span><span> = </span>
+    <span class="refdocgen-text-green">null</span><span>)</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#ReadAsBytesAsync(System.Threading.CancellationToken)">#</a></samp></h6>
+
+                
+
+                <div class="refdocgen-text-tertiary fst-italic ms-4 mb-2" data-id="member-inherited-from">
+            Inherited from
+            <span class="refdocgen-text-secondary"><a href="./Newtonsoft.Json.JsonReader.html" class="refdocgen-link-secondary"><span class="not-visible" data-language="csharp-lang">JsonReader</span><span class="not-visible" data-language="todo-lang"></span></a></span></div>
+
+                
+
+                
+
+                
+
+                <div class="text-body-secondary fst-italic mb-0" data-id="summary-doc"><div>
+            Asynchronously reads the next JSON token from the source as a <a class="refdocgen-see-cref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a>[].
+            </div></div>
+
+                
+
+                <h3 class="lead my-2">Parameters</h3>
+    <div class="mx-2" data-id="parameters-section"><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken" class="refdocgen-link-secondary">CancellationToken</a></span>
+
+<span>cancellationToken</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"><div>The token to monitor for cancellation requests. The default value is <a class="refdocgen-see-cref" href="https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken.none">CancellationToken.None</a>.</div></div></div></div><h3 class="lead my-2">Returns</h3>
+<div class="mx-2" data-id="returns-section"><samp data-id="return-type-name"><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1" class="refdocgen-link-secondary">Task</a></span><span class="text-body-secondary">&lt;</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.byte" class="refdocgen-link-secondary">byte[]</a></span><span class="text-body-secondary">&gt;</span></span><span class="not-visible" data-language="todo-lang"></span></samp>
+    <div class="text-body-secondary fst-italic" data-id="returns-doc"><div>A <a class="refdocgen-see-cref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task&lt;TResult&gt;</a> that represents the asynchronous read. The <a class="refdocgen-see-cref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1.result">Task&lt;TResult&gt;.Result</a>
+            property returns the <a class="refdocgen-see-cref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a>[]. This result will be <code class="refdocgen-inline-code">null</code> at the end of an array.</div></div></div>
+
+                
+                <div class="mt-3" data-id="remarks-section"><div class="lead">Remarks</div>
+        <div class="text-body-secondary fst-italic" data-id="remarks-doc"><div>The default behaviour is to execute synchronously, returning an already-completed task. Derived
+            classes can override this behaviour for true asynchronicity.</div></div></div>
+
+                
+
+                </div><div class="border p-2 mb-2" id="ReadAsDateTime" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">public virtual</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.nullable-1" class="refdocgen-link-secondary">Nullable</a></span><span class="text-body-secondary">&lt;</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.datetime" class="refdocgen-link-secondary">DateTime</a></span><span class="text-body-secondary">&gt;</span>
+
+<span class="refdocgen-text-primary">ReadAsDateTime</span><span>(</span><span>)</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#ReadAsDateTime">#</a></samp></h6>
+
+                
+
+                <div class="refdocgen-text-tertiary fst-italic ms-4 mb-2" data-id="member-inherited-from">
+            Inherited from
+            <span class="refdocgen-text-secondary"><a href="./Newtonsoft.Json.JsonReader.html" class="refdocgen-link-secondary"><span class="not-visible" data-language="csharp-lang">JsonReader</span><span class="not-visible" data-language="todo-lang"></span></a></span></div>
+
+                
+
+                
+
+                
+
+                <div class="text-body-secondary fst-italic mb-0" data-id="summary-doc"><div>
+            Reads the next JSON token from the source as a <a class="refdocgen-see-cref" href="https://learn.microsoft.com/dotnet/api/system.nullable-1">Nullable&lt;T&gt;</a> of <a class="refdocgen-see-cref" href="https://learn.microsoft.com/dotnet/api/system.datetime">DateTime</a>.
+            </div></div>
+
+                
+
+                <h3 class="lead my-2">Returns</h3>
+<div class="mx-2" data-id="returns-section"><samp data-id="return-type-name"><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.nullable-1" class="refdocgen-link-secondary">Nullable</a></span><span class="text-body-secondary">&lt;</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.datetime" class="refdocgen-link-secondary">DateTime</a></span><span class="text-body-secondary">&gt;</span></span><span class="not-visible" data-language="todo-lang"></span></samp>
+    <div class="text-body-secondary fst-italic" data-id="returns-doc"><div>A <a class="refdocgen-see-cref" href="https://learn.microsoft.com/dotnet/api/system.nullable-1">Nullable&lt;T&gt;</a> of <a class="refdocgen-see-cref" href="https://learn.microsoft.com/dotnet/api/system.datetime">DateTime</a>. This method will return <code class="refdocgen-inline-code">null</code> at the end of an array.</div></div></div>
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="ReadAsDateTimeAsync(System.Threading.CancellationToken)" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">public virtual</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1" class="refdocgen-link-secondary">Task</a></span><span class="text-body-secondary">&lt;</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.nullable-1" class="refdocgen-link-secondary">Nullable</a></span><span class="text-body-secondary">&lt;</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.datetime" class="refdocgen-link-secondary">DateTime</a></span><span class="text-body-secondary">&gt;</span><span class="text-body-secondary">&gt;</span>
+
+<span class="refdocgen-text-primary">ReadAsDateTimeAsync</span><span>(</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken" class="refdocgen-link-secondary">CancellationToken</a></span>
+
+<span>cancellationToken</span><span> = </span>
+    <span class="refdocgen-text-green">null</span><span>)</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#ReadAsDateTimeAsync(System.Threading.CancellationToken)">#</a></samp></h6>
+
+                
+
+                <div class="refdocgen-text-tertiary fst-italic ms-4 mb-2" data-id="member-inherited-from">
+            Inherited from
+            <span class="refdocgen-text-secondary"><a href="./Newtonsoft.Json.JsonReader.html" class="refdocgen-link-secondary"><span class="not-visible" data-language="csharp-lang">JsonReader</span><span class="not-visible" data-language="todo-lang"></span></a></span></div>
+
+                
+
+                
+
+                
+
+                <div class="text-body-secondary fst-italic mb-0" data-id="summary-doc"><div>
+            Asynchronously reads the next JSON token from the source as a <a class="refdocgen-see-cref" href="https://learn.microsoft.com/dotnet/api/system.nullable-1">Nullable&lt;T&gt;</a> of <a class="refdocgen-see-cref" href="https://learn.microsoft.com/dotnet/api/system.datetime">DateTime</a>.
+            </div></div>
+
+                
+
+                <h3 class="lead my-2">Parameters</h3>
+    <div class="mx-2" data-id="parameters-section"><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken" class="refdocgen-link-secondary">CancellationToken</a></span>
+
+<span>cancellationToken</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"><div>The token to monitor for cancellation requests. The default value is <a class="refdocgen-see-cref" href="https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken.none">CancellationToken.None</a>.</div></div></div></div><h3 class="lead my-2">Returns</h3>
+<div class="mx-2" data-id="returns-section"><samp data-id="return-type-name"><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1" class="refdocgen-link-secondary">Task</a></span><span class="text-body-secondary">&lt;</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.nullable-1" class="refdocgen-link-secondary">Nullable</a></span><span class="text-body-secondary">&lt;</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.datetime" class="refdocgen-link-secondary">DateTime</a></span><span class="text-body-secondary">&gt;</span><span class="text-body-secondary">&gt;</span></span><span class="not-visible" data-language="todo-lang"></span></samp>
+    <div class="text-body-secondary fst-italic" data-id="returns-doc"><div>A <a class="refdocgen-see-cref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task&lt;TResult&gt;</a> that represents the asynchronous read. The <a class="refdocgen-see-cref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1.result">Task&lt;TResult&gt;.Result</a>
+            property returns the <a class="refdocgen-see-cref" href="https://learn.microsoft.com/dotnet/api/system.nullable-1">Nullable&lt;T&gt;</a> of <a class="refdocgen-see-cref" href="https://learn.microsoft.com/dotnet/api/system.datetime">DateTime</a>. This result will be <code class="refdocgen-inline-code">null</code> at the end of an array.</div></div></div>
+
+                
+                <div class="mt-3" data-id="remarks-section"><div class="lead">Remarks</div>
+        <div class="text-body-secondary fst-italic" data-id="remarks-doc"><div>The default behaviour is to execute synchronously, returning an already-completed task. Derived
+            classes can override this behaviour for true asynchronicity.</div></div></div>
+
+                
+
+                </div><div class="border p-2 mb-2" id="ReadAsDateTimeOffset" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">public virtual</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.nullable-1" class="refdocgen-link-secondary">Nullable</a></span><span class="text-body-secondary">&lt;</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.datetimeoffset" class="refdocgen-link-secondary">DateTimeOffset</a></span><span class="text-body-secondary">&gt;</span>
+
+<span class="refdocgen-text-primary">ReadAsDateTimeOffset</span><span>(</span><span>)</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#ReadAsDateTimeOffset">#</a></samp></h6>
+
+                
+
+                <div class="refdocgen-text-tertiary fst-italic ms-4 mb-2" data-id="member-inherited-from">
+            Inherited from
+            <span class="refdocgen-text-secondary"><a href="./Newtonsoft.Json.JsonReader.html" class="refdocgen-link-secondary"><span class="not-visible" data-language="csharp-lang">JsonReader</span><span class="not-visible" data-language="todo-lang"></span></a></span></div>
+
+                
+
+                
+
+                
+
+                <div class="text-body-secondary fst-italic mb-0" data-id="summary-doc"><div>
+            Reads the next JSON token from the source as a <a class="refdocgen-see-cref" href="https://learn.microsoft.com/dotnet/api/system.nullable-1">Nullable&lt;T&gt;</a> of <a class="refdocgen-see-cref" href="https://learn.microsoft.com/dotnet/api/system.datetimeoffset">DateTimeOffset</a>.
+            </div></div>
+
+                
+
+                <h3 class="lead my-2">Returns</h3>
+<div class="mx-2" data-id="returns-section"><samp data-id="return-type-name"><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.nullable-1" class="refdocgen-link-secondary">Nullable</a></span><span class="text-body-secondary">&lt;</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.datetimeoffset" class="refdocgen-link-secondary">DateTimeOffset</a></span><span class="text-body-secondary">&gt;</span></span><span class="not-visible" data-language="todo-lang"></span></samp>
+    <div class="text-body-secondary fst-italic" data-id="returns-doc"><div>A <a class="refdocgen-see-cref" href="https://learn.microsoft.com/dotnet/api/system.nullable-1">Nullable&lt;T&gt;</a> of <a class="refdocgen-see-cref" href="https://learn.microsoft.com/dotnet/api/system.datetimeoffset">DateTimeOffset</a>. This method will return <code class="refdocgen-inline-code">null</code> at the end of an array.</div></div></div>
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="ReadAsDateTimeOffsetAsync(System.Threading.CancellationToken)" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">public virtual</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1" class="refdocgen-link-secondary">Task</a></span><span class="text-body-secondary">&lt;</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.nullable-1" class="refdocgen-link-secondary">Nullable</a></span><span class="text-body-secondary">&lt;</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.datetimeoffset" class="refdocgen-link-secondary">DateTimeOffset</a></span><span class="text-body-secondary">&gt;</span><span class="text-body-secondary">&gt;</span>
+
+<span class="refdocgen-text-primary">ReadAsDateTimeOffsetAsync</span><span>(</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken" class="refdocgen-link-secondary">CancellationToken</a></span>
+
+<span>cancellationToken</span><span> = </span>
+    <span class="refdocgen-text-green">null</span><span>)</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#ReadAsDateTimeOffsetAsync(System.Threading.CancellationToken)">#</a></samp></h6>
+
+                
+
+                <div class="refdocgen-text-tertiary fst-italic ms-4 mb-2" data-id="member-inherited-from">
+            Inherited from
+            <span class="refdocgen-text-secondary"><a href="./Newtonsoft.Json.JsonReader.html" class="refdocgen-link-secondary"><span class="not-visible" data-language="csharp-lang">JsonReader</span><span class="not-visible" data-language="todo-lang"></span></a></span></div>
+
+                
+
+                
+
+                
+
+                <div class="text-body-secondary fst-italic mb-0" data-id="summary-doc"><div>
+            Asynchronously reads the next JSON token from the source as a <a class="refdocgen-see-cref" href="https://learn.microsoft.com/dotnet/api/system.nullable-1">Nullable&lt;T&gt;</a> of <a class="refdocgen-see-cref" href="https://learn.microsoft.com/dotnet/api/system.datetimeoffset">DateTimeOffset</a>.
+            </div></div>
+
+                
+
+                <h3 class="lead my-2">Parameters</h3>
+    <div class="mx-2" data-id="parameters-section"><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken" class="refdocgen-link-secondary">CancellationToken</a></span>
+
+<span>cancellationToken</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"><div>The token to monitor for cancellation requests. The default value is <a class="refdocgen-see-cref" href="https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken.none">CancellationToken.None</a>.</div></div></div></div><h3 class="lead my-2">Returns</h3>
+<div class="mx-2" data-id="returns-section"><samp data-id="return-type-name"><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1" class="refdocgen-link-secondary">Task</a></span><span class="text-body-secondary">&lt;</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.nullable-1" class="refdocgen-link-secondary">Nullable</a></span><span class="text-body-secondary">&lt;</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.datetimeoffset" class="refdocgen-link-secondary">DateTimeOffset</a></span><span class="text-body-secondary">&gt;</span><span class="text-body-secondary">&gt;</span></span><span class="not-visible" data-language="todo-lang"></span></samp>
+    <div class="text-body-secondary fst-italic" data-id="returns-doc"><div>A <a class="refdocgen-see-cref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task&lt;TResult&gt;</a> that represents the asynchronous read. The <a class="refdocgen-see-cref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1.result">Task&lt;TResult&gt;.Result</a>
+            property returns the <a class="refdocgen-see-cref" href="https://learn.microsoft.com/dotnet/api/system.nullable-1">Nullable&lt;T&gt;</a> of <a class="refdocgen-see-cref" href="https://learn.microsoft.com/dotnet/api/system.datetimeoffset">DateTimeOffset</a>. This result will be <code class="refdocgen-inline-code">null</code> at the end of an array.</div></div></div>
+
+                
+                <div class="mt-3" data-id="remarks-section"><div class="lead">Remarks</div>
+        <div class="text-body-secondary fst-italic" data-id="remarks-doc"><div>The default behaviour is to execute synchronously, returning an already-completed task. Derived
+            classes can override this behaviour for true asynchronicity.</div></div></div>
+
+                
+
+                </div><div class="border p-2 mb-2" id="ReadAsDecimal" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">public virtual</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.nullable-1" class="refdocgen-link-secondary">Nullable</a></span><span class="text-body-secondary">&lt;</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.decimal" class="refdocgen-link-secondary">decimal</a></span><span class="text-body-secondary">&gt;</span>
+
+<span class="refdocgen-text-primary">ReadAsDecimal</span><span>(</span><span>)</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#ReadAsDecimal">#</a></samp></h6>
+
+                
+
+                <div class="refdocgen-text-tertiary fst-italic ms-4 mb-2" data-id="member-inherited-from">
+            Inherited from
+            <span class="refdocgen-text-secondary"><a href="./Newtonsoft.Json.JsonReader.html" class="refdocgen-link-secondary"><span class="not-visible" data-language="csharp-lang">JsonReader</span><span class="not-visible" data-language="todo-lang"></span></a></span></div>
+
+                
+
+                
+
+                
+
+                <div class="text-body-secondary fst-italic mb-0" data-id="summary-doc"><div>
+            Reads the next JSON token from the source as a <a class="refdocgen-see-cref" href="https://learn.microsoft.com/dotnet/api/system.nullable-1">Nullable&lt;T&gt;</a> of <a class="refdocgen-see-cref" href="https://learn.microsoft.com/dotnet/api/system.decimal">decimal</a>.
+            </div></div>
+
+                
+
+                <h3 class="lead my-2">Returns</h3>
+<div class="mx-2" data-id="returns-section"><samp data-id="return-type-name"><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.nullable-1" class="refdocgen-link-secondary">Nullable</a></span><span class="text-body-secondary">&lt;</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.decimal" class="refdocgen-link-secondary">decimal</a></span><span class="text-body-secondary">&gt;</span></span><span class="not-visible" data-language="todo-lang"></span></samp>
+    <div class="text-body-secondary fst-italic" data-id="returns-doc"><div>A <a class="refdocgen-see-cref" href="https://learn.microsoft.com/dotnet/api/system.nullable-1">Nullable&lt;T&gt;</a> of <a class="refdocgen-see-cref" href="https://learn.microsoft.com/dotnet/api/system.decimal">decimal</a>. This method will return <code class="refdocgen-inline-code">null</code> at the end of an array.</div></div></div>
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="ReadAsDecimalAsync(System.Threading.CancellationToken)" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">public virtual</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1" class="refdocgen-link-secondary">Task</a></span><span class="text-body-secondary">&lt;</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.nullable-1" class="refdocgen-link-secondary">Nullable</a></span><span class="text-body-secondary">&lt;</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.decimal" class="refdocgen-link-secondary">decimal</a></span><span class="text-body-secondary">&gt;</span><span class="text-body-secondary">&gt;</span>
+
+<span class="refdocgen-text-primary">ReadAsDecimalAsync</span><span>(</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken" class="refdocgen-link-secondary">CancellationToken</a></span>
+
+<span>cancellationToken</span><span> = </span>
+    <span class="refdocgen-text-green">null</span><span>)</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#ReadAsDecimalAsync(System.Threading.CancellationToken)">#</a></samp></h6>
+
+                
+
+                <div class="refdocgen-text-tertiary fst-italic ms-4 mb-2" data-id="member-inherited-from">
+            Inherited from
+            <span class="refdocgen-text-secondary"><a href="./Newtonsoft.Json.JsonReader.html" class="refdocgen-link-secondary"><span class="not-visible" data-language="csharp-lang">JsonReader</span><span class="not-visible" data-language="todo-lang"></span></a></span></div>
+
+                
+
+                
+
+                
+
+                <div class="text-body-secondary fst-italic mb-0" data-id="summary-doc"><div>
+            Asynchronously reads the next JSON token from the source as a <a class="refdocgen-see-cref" href="https://learn.microsoft.com/dotnet/api/system.nullable-1">Nullable&lt;T&gt;</a> of <a class="refdocgen-see-cref" href="https://learn.microsoft.com/dotnet/api/system.decimal">decimal</a>.
+            </div></div>
+
+                
+
+                <h3 class="lead my-2">Parameters</h3>
+    <div class="mx-2" data-id="parameters-section"><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken" class="refdocgen-link-secondary">CancellationToken</a></span>
+
+<span>cancellationToken</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"><div>The token to monitor for cancellation requests. The default value is <a class="refdocgen-see-cref" href="https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken.none">CancellationToken.None</a>.</div></div></div></div><h3 class="lead my-2">Returns</h3>
+<div class="mx-2" data-id="returns-section"><samp data-id="return-type-name"><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1" class="refdocgen-link-secondary">Task</a></span><span class="text-body-secondary">&lt;</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.nullable-1" class="refdocgen-link-secondary">Nullable</a></span><span class="text-body-secondary">&lt;</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.decimal" class="refdocgen-link-secondary">decimal</a></span><span class="text-body-secondary">&gt;</span><span class="text-body-secondary">&gt;</span></span><span class="not-visible" data-language="todo-lang"></span></samp>
+    <div class="text-body-secondary fst-italic" data-id="returns-doc"><div>A <a class="refdocgen-see-cref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task&lt;TResult&gt;</a> that represents the asynchronous read. The <a class="refdocgen-see-cref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1.result">Task&lt;TResult&gt;.Result</a>
+            property returns the <a class="refdocgen-see-cref" href="https://learn.microsoft.com/dotnet/api/system.nullable-1">Nullable&lt;T&gt;</a> of <a class="refdocgen-see-cref" href="https://learn.microsoft.com/dotnet/api/system.decimal">decimal</a>. This result will be <code class="refdocgen-inline-code">null</code> at the end of an array.</div></div></div>
+
+                
+                <div class="mt-3" data-id="remarks-section"><div class="lead">Remarks</div>
+        <div class="text-body-secondary fst-italic" data-id="remarks-doc"><div>The default behaviour is to execute synchronously, returning an already-completed task. Derived
+            classes can override this behaviour for true asynchronicity.</div></div></div>
+
+                
+
+                </div><div class="border p-2 mb-2" id="ReadAsDouble" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">public virtual</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.nullable-1" class="refdocgen-link-secondary">Nullable</a></span><span class="text-body-secondary">&lt;</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.double" class="refdocgen-link-secondary">double</a></span><span class="text-body-secondary">&gt;</span>
+
+<span class="refdocgen-text-primary">ReadAsDouble</span><span>(</span><span>)</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#ReadAsDouble">#</a></samp></h6>
+
+                
+
+                <div class="refdocgen-text-tertiary fst-italic ms-4 mb-2" data-id="member-inherited-from">
+            Inherited from
+            <span class="refdocgen-text-secondary"><a href="./Newtonsoft.Json.JsonReader.html" class="refdocgen-link-secondary"><span class="not-visible" data-language="csharp-lang">JsonReader</span><span class="not-visible" data-language="todo-lang"></span></a></span></div>
+
+                
+
+                
+
+                
+
+                <div class="text-body-secondary fst-italic mb-0" data-id="summary-doc"><div>
+            Reads the next JSON token from the source as a <a class="refdocgen-see-cref" href="https://learn.microsoft.com/dotnet/api/system.nullable-1">Nullable&lt;T&gt;</a> of <a class="refdocgen-see-cref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a>.
+            </div></div>
+
+                
+
+                <h3 class="lead my-2">Returns</h3>
+<div class="mx-2" data-id="returns-section"><samp data-id="return-type-name"><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.nullable-1" class="refdocgen-link-secondary">Nullable</a></span><span class="text-body-secondary">&lt;</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.double" class="refdocgen-link-secondary">double</a></span><span class="text-body-secondary">&gt;</span></span><span class="not-visible" data-language="todo-lang"></span></samp>
+    <div class="text-body-secondary fst-italic" data-id="returns-doc"><div>A <a class="refdocgen-see-cref" href="https://learn.microsoft.com/dotnet/api/system.nullable-1">Nullable&lt;T&gt;</a> of <a class="refdocgen-see-cref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a>. This method will return <code class="refdocgen-inline-code">null</code> at the end of an array.</div></div></div>
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="ReadAsDoubleAsync(System.Threading.CancellationToken)" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">public virtual</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1" class="refdocgen-link-secondary">Task</a></span><span class="text-body-secondary">&lt;</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.nullable-1" class="refdocgen-link-secondary">Nullable</a></span><span class="text-body-secondary">&lt;</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.double" class="refdocgen-link-secondary">double</a></span><span class="text-body-secondary">&gt;</span><span class="text-body-secondary">&gt;</span>
+
+<span class="refdocgen-text-primary">ReadAsDoubleAsync</span><span>(</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken" class="refdocgen-link-secondary">CancellationToken</a></span>
+
+<span>cancellationToken</span><span> = </span>
+    <span class="refdocgen-text-green">null</span><span>)</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#ReadAsDoubleAsync(System.Threading.CancellationToken)">#</a></samp></h6>
+
+                
+
+                <div class="refdocgen-text-tertiary fst-italic ms-4 mb-2" data-id="member-inherited-from">
+            Inherited from
+            <span class="refdocgen-text-secondary"><a href="./Newtonsoft.Json.JsonReader.html" class="refdocgen-link-secondary"><span class="not-visible" data-language="csharp-lang">JsonReader</span><span class="not-visible" data-language="todo-lang"></span></a></span></div>
+
+                
+
+                
+
+                
+
+                <div class="text-body-secondary fst-italic mb-0" data-id="summary-doc"><div>
+            Asynchronously reads the next JSON token from the source as a <a class="refdocgen-see-cref" href="https://learn.microsoft.com/dotnet/api/system.nullable-1">Nullable&lt;T&gt;</a> of <a class="refdocgen-see-cref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a>.
+            </div></div>
+
+                
+
+                <h3 class="lead my-2">Parameters</h3>
+    <div class="mx-2" data-id="parameters-section"><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken" class="refdocgen-link-secondary">CancellationToken</a></span>
+
+<span>cancellationToken</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"><div>The token to monitor for cancellation requests. The default value is <a class="refdocgen-see-cref" href="https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken.none">CancellationToken.None</a>.</div></div></div></div><h3 class="lead my-2">Returns</h3>
+<div class="mx-2" data-id="returns-section"><samp data-id="return-type-name"><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1" class="refdocgen-link-secondary">Task</a></span><span class="text-body-secondary">&lt;</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.nullable-1" class="refdocgen-link-secondary">Nullable</a></span><span class="text-body-secondary">&lt;</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.double" class="refdocgen-link-secondary">double</a></span><span class="text-body-secondary">&gt;</span><span class="text-body-secondary">&gt;</span></span><span class="not-visible" data-language="todo-lang"></span></samp>
+    <div class="text-body-secondary fst-italic" data-id="returns-doc"><div>A <a class="refdocgen-see-cref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task&lt;TResult&gt;</a> that represents the asynchronous read. The <a class="refdocgen-see-cref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1.result">Task&lt;TResult&gt;.Result</a>
+            property returns the <a class="refdocgen-see-cref" href="https://learn.microsoft.com/dotnet/api/system.nullable-1">Nullable&lt;T&gt;</a> of <a class="refdocgen-see-cref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a>. This result will be <code class="refdocgen-inline-code">null</code> at the end of an array.</div></div></div>
+
+                
+                <div class="mt-3" data-id="remarks-section"><div class="lead">Remarks</div>
+        <div class="text-body-secondary fst-italic" data-id="remarks-doc"><div>The default behaviour is to execute synchronously, returning an already-completed task. Derived
+            classes can override this behaviour for true asynchronicity.</div></div></div>
+
+                
+
+                </div><div class="border p-2 mb-2" id="ReadAsInt32" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">public virtual</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.nullable-1" class="refdocgen-link-secondary">Nullable</a></span><span class="text-body-secondary">&lt;</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.int32" class="refdocgen-link-secondary">int</a></span><span class="text-body-secondary">&gt;</span>
+
+<span class="refdocgen-text-primary">ReadAsInt32</span><span>(</span><span>)</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#ReadAsInt32">#</a></samp></h6>
+
+                
+
+                <div class="refdocgen-text-tertiary fst-italic ms-4 mb-2" data-id="member-inherited-from">
+            Inherited from
+            <span class="refdocgen-text-secondary"><a href="./Newtonsoft.Json.JsonReader.html" class="refdocgen-link-secondary"><span class="not-visible" data-language="csharp-lang">JsonReader</span><span class="not-visible" data-language="todo-lang"></span></a></span></div>
+
+                
+
+                
+
+                
+
+                <div class="text-body-secondary fst-italic mb-0" data-id="summary-doc"><div>
+            Reads the next JSON token from the source as a <a class="refdocgen-see-cref" href="https://learn.microsoft.com/dotnet/api/system.nullable-1">Nullable&lt;T&gt;</a> of <a class="refdocgen-see-cref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a>.
+            </div></div>
+
+                
+
+                <h3 class="lead my-2">Returns</h3>
+<div class="mx-2" data-id="returns-section"><samp data-id="return-type-name"><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.nullable-1" class="refdocgen-link-secondary">Nullable</a></span><span class="text-body-secondary">&lt;</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.int32" class="refdocgen-link-secondary">int</a></span><span class="text-body-secondary">&gt;</span></span><span class="not-visible" data-language="todo-lang"></span></samp>
+    <div class="text-body-secondary fst-italic" data-id="returns-doc"><div>A <a class="refdocgen-see-cref" href="https://learn.microsoft.com/dotnet/api/system.nullable-1">Nullable&lt;T&gt;</a> of <a class="refdocgen-see-cref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a>. This method will return <code class="refdocgen-inline-code">null</code> at the end of an array.</div></div></div>
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="ReadAsInt32Async(System.Threading.CancellationToken)" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">public virtual</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1" class="refdocgen-link-secondary">Task</a></span><span class="text-body-secondary">&lt;</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.nullable-1" class="refdocgen-link-secondary">Nullable</a></span><span class="text-body-secondary">&lt;</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.int32" class="refdocgen-link-secondary">int</a></span><span class="text-body-secondary">&gt;</span><span class="text-body-secondary">&gt;</span>
+
+<span class="refdocgen-text-primary">ReadAsInt32Async</span><span>(</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken" class="refdocgen-link-secondary">CancellationToken</a></span>
+
+<span>cancellationToken</span><span> = </span>
+    <span class="refdocgen-text-green">null</span><span>)</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#ReadAsInt32Async(System.Threading.CancellationToken)">#</a></samp></h6>
+
+                
+
+                <div class="refdocgen-text-tertiary fst-italic ms-4 mb-2" data-id="member-inherited-from">
+            Inherited from
+            <span class="refdocgen-text-secondary"><a href="./Newtonsoft.Json.JsonReader.html" class="refdocgen-link-secondary"><span class="not-visible" data-language="csharp-lang">JsonReader</span><span class="not-visible" data-language="todo-lang"></span></a></span></div>
+
+                
+
+                
+
+                
+
+                <div class="text-body-secondary fst-italic mb-0" data-id="summary-doc"><div>
+            Asynchronously reads the next JSON token from the source as a <a class="refdocgen-see-cref" href="https://learn.microsoft.com/dotnet/api/system.nullable-1">Nullable&lt;T&gt;</a> of <a class="refdocgen-see-cref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a>.
+            </div></div>
+
+                
+
+                <h3 class="lead my-2">Parameters</h3>
+    <div class="mx-2" data-id="parameters-section"><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken" class="refdocgen-link-secondary">CancellationToken</a></span>
+
+<span>cancellationToken</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"><div>The token to monitor for cancellation requests. The default value is <a class="refdocgen-see-cref" href="https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken.none">CancellationToken.None</a>.</div></div></div></div><h3 class="lead my-2">Returns</h3>
+<div class="mx-2" data-id="returns-section"><samp data-id="return-type-name"><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1" class="refdocgen-link-secondary">Task</a></span><span class="text-body-secondary">&lt;</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.nullable-1" class="refdocgen-link-secondary">Nullable</a></span><span class="text-body-secondary">&lt;</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.int32" class="refdocgen-link-secondary">int</a></span><span class="text-body-secondary">&gt;</span><span class="text-body-secondary">&gt;</span></span><span class="not-visible" data-language="todo-lang"></span></samp>
+    <div class="text-body-secondary fst-italic" data-id="returns-doc"><div>A <a class="refdocgen-see-cref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task&lt;TResult&gt;</a> that represents the asynchronous read. The <a class="refdocgen-see-cref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1.result">Task&lt;TResult&gt;.Result</a>
+            property returns the <a class="refdocgen-see-cref" href="https://learn.microsoft.com/dotnet/api/system.nullable-1">Nullable&lt;T&gt;</a> of <a class="refdocgen-see-cref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a>. This result will be <code class="refdocgen-inline-code">null</code> at the end of an array.</div></div></div>
+
+                
+                <div class="mt-3" data-id="remarks-section"><div class="lead">Remarks</div>
+        <div class="text-body-secondary fst-italic" data-id="remarks-doc"><div>The default behaviour is to execute synchronously, returning an already-completed task. Derived
+            classes can override this behaviour for true asynchronicity.</div></div></div>
+
+                
+
+                </div><div class="border p-2 mb-2" id="ReadAsString" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">public virtual</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.string" class="refdocgen-link-secondary">string</a></span>
+
+<span class="refdocgen-text-primary">ReadAsString</span><span>(</span><span>)</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#ReadAsString">#</a></samp></h6>
+
+                
+
+                <div class="refdocgen-text-tertiary fst-italic ms-4 mb-2" data-id="member-inherited-from">
+            Inherited from
+            <span class="refdocgen-text-secondary"><a href="./Newtonsoft.Json.JsonReader.html" class="refdocgen-link-secondary"><span class="not-visible" data-language="csharp-lang">JsonReader</span><span class="not-visible" data-language="todo-lang"></span></a></span></div>
+
+                
+
+                
+
+                
+
+                <div class="text-body-secondary fst-italic mb-0" data-id="summary-doc"><div>
+            Reads the next JSON token from the source as a <a class="refdocgen-see-cref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>.
+            </div></div>
+
+                
+
+                <h3 class="lead my-2">Returns</h3>
+<div class="mx-2" data-id="returns-section"><samp data-id="return-type-name"><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.string" class="refdocgen-link-secondary">string</a></span></span><span class="not-visible" data-language="todo-lang"></span></samp>
+    <div class="text-body-secondary fst-italic" data-id="returns-doc"><div>A <a class="refdocgen-see-cref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>. This method will return <code class="refdocgen-inline-code">null</code> at the end of an array.</div></div></div>
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="ReadAsStringAsync(System.Threading.CancellationToken)" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">public virtual</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1" class="refdocgen-link-secondary">Task</a></span><span class="text-body-secondary">&lt;</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.string" class="refdocgen-link-secondary">string</a></span><span class="text-body-secondary">&gt;</span>
+
+<span class="refdocgen-text-primary">ReadAsStringAsync</span><span>(</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken" class="refdocgen-link-secondary">CancellationToken</a></span>
+
+<span>cancellationToken</span><span> = </span>
+    <span class="refdocgen-text-green">null</span><span>)</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#ReadAsStringAsync(System.Threading.CancellationToken)">#</a></samp></h6>
+
+                
+
+                <div class="refdocgen-text-tertiary fst-italic ms-4 mb-2" data-id="member-inherited-from">
+            Inherited from
+            <span class="refdocgen-text-secondary"><a href="./Newtonsoft.Json.JsonReader.html" class="refdocgen-link-secondary"><span class="not-visible" data-language="csharp-lang">JsonReader</span><span class="not-visible" data-language="todo-lang"></span></a></span></div>
+
+                
+
+                
+
+                
+
+                <div class="text-body-secondary fst-italic mb-0" data-id="summary-doc"><div>
+            Asynchronously reads the next JSON token from the source as a <a class="refdocgen-see-cref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>.
+            </div></div>
+
+                
+
+                <h3 class="lead my-2">Parameters</h3>
+    <div class="mx-2" data-id="parameters-section"><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken" class="refdocgen-link-secondary">CancellationToken</a></span>
+
+<span>cancellationToken</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"><div>The token to monitor for cancellation requests. The default value is <a class="refdocgen-see-cref" href="https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken.none">CancellationToken.None</a>.</div></div></div></div><h3 class="lead my-2">Returns</h3>
+<div class="mx-2" data-id="returns-section"><samp data-id="return-type-name"><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1" class="refdocgen-link-secondary">Task</a></span><span class="text-body-secondary">&lt;</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.string" class="refdocgen-link-secondary">string</a></span><span class="text-body-secondary">&gt;</span></span><span class="not-visible" data-language="todo-lang"></span></samp>
+    <div class="text-body-secondary fst-italic" data-id="returns-doc"><div>A <a class="refdocgen-see-cref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task&lt;TResult&gt;</a> that represents the asynchronous read. The <a class="refdocgen-see-cref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1.result">Task&lt;TResult&gt;.Result</a>
+            property returns the <a class="refdocgen-see-cref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>. This result will be <code class="refdocgen-inline-code">null</code> at the end of an array.</div></div></div>
+
+                
+                <div class="mt-3" data-id="remarks-section"><div class="lead">Remarks</div>
+        <div class="text-body-secondary fst-italic" data-id="remarks-doc"><div>The default behaviour is to execute synchronously, returning an already-completed task. Derived
+            classes can override this behaviour for true asynchronicity.</div></div></div>
+
+                
+
+                </div><div class="border p-2 mb-2" id="ReadAsync(System.Threading.CancellationToken)" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">public virtual</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1" class="refdocgen-link-secondary">Task</a></span><span class="text-body-secondary">&lt;</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.boolean" class="refdocgen-link-secondary">bool</a></span><span class="text-body-secondary">&gt;</span>
+
+<span class="refdocgen-text-primary">ReadAsync</span><span>(</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken" class="refdocgen-link-secondary">CancellationToken</a></span>
+
+<span>cancellationToken</span><span> = </span>
+    <span class="refdocgen-text-green">null</span><span>)</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#ReadAsync(System.Threading.CancellationToken)">#</a></samp></h6>
+
+                
+
+                <div class="refdocgen-text-tertiary fst-italic ms-4 mb-2" data-id="member-inherited-from">
+            Inherited from
+            <span class="refdocgen-text-secondary"><a href="./Newtonsoft.Json.JsonReader.html" class="refdocgen-link-secondary"><span class="not-visible" data-language="csharp-lang">JsonReader</span><span class="not-visible" data-language="todo-lang"></span></a></span></div>
+
+                
+
+                
+
+                
+
+                <div class="text-body-secondary fst-italic mb-0" data-id="summary-doc"><div>
+            Asynchronously reads the next JSON token from the source.
+            </div></div>
+
+                
+
+                <h3 class="lead my-2">Parameters</h3>
+    <div class="mx-2" data-id="parameters-section"><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken" class="refdocgen-link-secondary">CancellationToken</a></span>
+
+<span>cancellationToken</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"><div>The token to monitor for cancellation requests. The default value is <a class="refdocgen-see-cref" href="https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken.none">CancellationToken.None</a>.</div></div></div></div><h3 class="lead my-2">Returns</h3>
+<div class="mx-2" data-id="returns-section"><samp data-id="return-type-name"><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1" class="refdocgen-link-secondary">Task</a></span><span class="text-body-secondary">&lt;</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.boolean" class="refdocgen-link-secondary">bool</a></span><span class="text-body-secondary">&gt;</span></span><span class="not-visible" data-language="todo-lang"></span></samp>
+    <div class="text-body-secondary fst-italic" data-id="returns-doc"><div>A <a class="refdocgen-see-cref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task&lt;TResult&gt;</a> that represents the asynchronous read. The <a class="refdocgen-see-cref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1.result">Task&lt;TResult&gt;.Result</a>
+            property returns <code class="refdocgen-inline-code">true</code> if the next token was read successfully; <code class="refdocgen-inline-code">false</code> if there are no more tokens to read.</div></div></div>
+
+                
+                <div class="mt-3" data-id="remarks-section"><div class="lead">Remarks</div>
+        <div class="text-body-secondary fst-italic" data-id="remarks-doc"><div>The default behaviour is to execute synchronously, returning an already-completed task. Derived
+            classes can override this behaviour for true asynchronicity.</div></div></div>
+
+                
+
+                </div><div class="border p-2 mb-2" id="Skip" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">public</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.void" class="refdocgen-link-secondary">void</a></span>
+
+<span class="refdocgen-text-primary">Skip</span><span>(</span><span>)</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#Skip">#</a></samp></h6>
+
+                
+
+                <div class="refdocgen-text-tertiary fst-italic ms-4 mb-2" data-id="member-inherited-from">
+            Inherited from
+            <span class="refdocgen-text-secondary"><a href="./Newtonsoft.Json.JsonReader.html" class="refdocgen-link-secondary"><span class="not-visible" data-language="csharp-lang">JsonReader</span><span class="not-visible" data-language="todo-lang"></span></a></span></div>
+
+                
+
+                
+
+                
+
+                <div class="text-body-secondary fst-italic mb-0" data-id="summary-doc"><div>
+            Skips the children of the current token.
+            </div></div>
+
+                
+
+                
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="SkipAsync(System.Threading.CancellationToken)" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">public async</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task" class="refdocgen-link-secondary">Task</a></span>
+
+<span class="refdocgen-text-primary">SkipAsync</span><span>(</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken" class="refdocgen-link-secondary">CancellationToken</a></span>
+
+<span>cancellationToken</span><span> = </span>
+    <span class="refdocgen-text-green">null</span><span>)</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#SkipAsync(System.Threading.CancellationToken)">#</a></samp></h6>
+
+                
+
+                <div class="refdocgen-text-tertiary fst-italic ms-4 mb-2" data-id="member-inherited-from">
+            Inherited from
+            <span class="refdocgen-text-secondary"><a href="./Newtonsoft.Json.JsonReader.html" class="refdocgen-link-secondary"><span class="not-visible" data-language="csharp-lang">JsonReader</span><span class="not-visible" data-language="todo-lang"></span></a></span></div>
+
+                
+
+                
+
+                
+
+                <div class="text-body-secondary fst-italic mb-0" data-id="summary-doc"><div>
+            Asynchronously skips the children of the current token.
+            </div></div>
+
+                
+
+                <h3 class="lead my-2">Parameters</h3>
+    <div class="mx-2" data-id="parameters-section"><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken" class="refdocgen-link-secondary">CancellationToken</a></span>
+
+<span>cancellationToken</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"><div>The token to monitor for cancellation requests. The default value is <a class="refdocgen-see-cref" href="https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken.none">CancellationToken.None</a>.</div></div></div></div><h3 class="lead my-2">Returns</h3>
+<div class="mx-2" data-id="returns-section"><samp data-id="return-type-name"><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task" class="refdocgen-link-secondary">Task</a></span></span><span class="not-visible" data-language="todo-lang"></span></samp>
+    <div class="text-body-secondary fst-italic" data-id="returns-doc"><div>A <a class="refdocgen-see-cref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a> that represents the asynchronous operation.</div></div></div>
+
+                
+                <div class="mt-3" data-id="remarks-section"><div class="lead">Remarks</div>
+        <div class="text-body-secondary fst-italic" data-id="remarks-doc"><div>The default behaviour is to execute synchronously, returning an already-completed task. Derived
+            classes can override this behaviour for true asynchronicity.</div></div></div>
+
+                
+
+                </div></div></div></div><nav class="navbar fixed-bottom menu-bg"><div class="container"><div class="dropup"><button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">v-newtonsoft-public</button>
+            <div id="current-version">v-newtonsoft-public</div>
+            <div id="version-list">["v-newtonsoft-public","v-newtonsoft-private"]</div>
+            <ul class="dropdown-menu" id="version-selector" data-id="version-selector"></ul></div></div></nav><script src="../Static/bootstrap-5.3.5-dist.bundle.min.js"></script>
+
+    
+    <script src="../Static/script.js"></script></body></html>

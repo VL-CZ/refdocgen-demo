@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Reference documentation</title>
+
+    <script>
+
+        // use IIFE in order to avoid polluting global context with functions & variables
+        // https://developer.mozilla.org/en-US/docs/Glossary/IIFE
+        (function() {
+            const isLocalFile = location.protocol === "file:";
+            const defaultTheme = "dark";
+            const defaultLang = "csharp-lang";
+
+            if(isLocalFile){
+                const urlParams = new URLSearchParams(window.location.search);
+
+                let redirect = false;
+
+                // set 'theme' URL param if not found
+                if(!urlParams.has("theme")){
+                    urlParams.set("theme", defaultTheme);
+                    redirect = true;
+                }
+
+                // set 'lang' URL param if not found
+                if(!urlParams.has("lang")){
+                    urlParams.set("lang", defaultLang);
+                    redirect = true;
+                }
+
+                // redirect, if some of the URL parameters are missing
+                if(redirect){
+                    const newUrl = new URL(window.location.href);
+                    newUrl.search = urlParams.toString();
+
+                    window.location.href = newUrl;
+                }
+                else {
+                    document.documentElement.setAttribute("data-bs-theme", urlParams.get("theme")); // set the 'data-bs-theme' attribute
+                    document.documentElement.setAttribute("data-language", urlParams.get("lang")); // set the 'data-language' attribute
+                }
+            }
+            else { // no local file -> use localStorage
+                if (!localStorage.getItem("refdocgen-theme")) {
+                    localStorage.setItem("refdocgen-theme", defaultTheme);
+                }
+
+                if (!localStorage.getItem("refdocgen-language")) {
+                    localStorage.setItem("refdocgen-language", defaultLang);
+                }
+
+                document.documentElement.setAttribute("data-bs-theme", localStorage.getItem("refdocgen-theme")); // set the 'data-bs-theme' attribute
+                document.documentElement.setAttribute("data-language", localStorage.getItem("refdocgen-language")); // set the 'data-language' attribute
+            }
+        })();
+    </script>
+
+    
+    <link href="../Static/styles.css" rel="stylesheet" /><style>html[data-language="csharp-lang"] [data-language="csharp-lang"] { display: inline !important; }
+html[data-language="todo-lang"] [data-language="todo-lang"] { display: inline !important; }
+</style></head>
+
+<body><nav class="navbar navbar-expand-lg sticky-top menu-bg"><div class="container"><a class="navbar-brand" href="../index.html">Project name</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup"><ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="../api/index.html">API</a></li></ul>
+            <ul class="navbar-nav ms-auto"><li class="nav-item d-flex align-items-center"><form class="me-2 mb-2 mb-lg-0"><select class="form-select" id="language-selector" aria-label="language"><option class="lang-option" value="csharp-lang">C#</option><option class="lang-option" value="todo-lang">TODO</option></select></form></li>
+
+                
+                <li class="nav-item d-flex align-items-center"><form role="search" class="me-2"><input class="form-control" autocomplete="off" type="search" placeholder="Search" aria-label="Search" id="menu-search-bar" url-target="../search.html" readonly /></form></li>
+
+                
+                <li class="nav-item" id="theme-switcher"><button class="nav-link"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-brightness-high" viewBox="0 0 16 16"><path d="M8 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6m0 1a4 4 0 1 0 0-8 4 4 0 0 0 0 8M8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0m0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13m8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5M3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8m10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0m-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0m9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707M4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708"></path></svg></button></li></ul></div></div></nav>
+
+    <div class="container my-4" data-id="page-body"><div data-id="declared-type-data"><h1 class="display-4" data-id="type-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">internal static class</span>
+<span class="refdocgen-text-primary">BoxedPrimitives</span></span><span class="not-visible" data-language="todo-lang"></span></samp></h1>
+
+                    
+
+                    <h6><samp data-id="type-assembly"><a href="Newtonsoft.Json-DLL.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">assembly</span>
+            <span class="refdocgen-text-secondary">Newtonsoft.Json</span></a></samp></h6>
+
+                    <h6><samp data-id="type-namespace"><a href="Newtonsoft.Json.Utilities.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">namespace</span>
+            <span class="refdocgen-text-secondary">Newtonsoft.Json.Utilities</span></a></samp></h6>
+
+                    <div data-id="base-type"><i>Base type:&nbsp;</i>
+        <samp class="refdocgen-text-secondary"><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.object" class="refdocgen-link-secondary">object</a></span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                    
+
+                    
+
+                    <hr>
+
+                    
+                    
+
+                    
+
+                    
+
+                    
+                    
+
+                    </div><h2 class="display-5 mt-2">Constructors</h2>
+<div class="row" data-id="constructors-section"><div class="col-md-12"><div class="border p-2 mb-2" id=".cctor" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">private static</span>
+<span class="refdocgen-text-primary">BoxedPrimitives</span><span>(</span><span>)</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#.cctor">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+                
+
+                
+
+                </div></div></div><h2 class="display-5 mt-2">Fields</h2>
+<div class="row" data-id="fields-section"><div class="col-md-12"><div class="border p-2 mb-2" id="BooleanFalse" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">internal static readonly</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.object" class="refdocgen-link-secondary">object</a></span>
+
+<span class="refdocgen-text-primary">BooleanFalse</span>
+
+</span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#BooleanFalse">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="BooleanTrue" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">internal static readonly</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.object" class="refdocgen-link-secondary">object</a></span>
+
+<span class="refdocgen-text-primary">BooleanTrue</span>
+
+</span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#BooleanTrue">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="DecimalZero" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">private static readonly</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.object" class="refdocgen-link-secondary">object</a></span>
+
+<span class="refdocgen-text-primary">DecimalZero</span>
+
+</span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#DecimalZero">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="DecimalZeroWithTrailingZero" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">private static readonly</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.object" class="refdocgen-link-secondary">object</a></span>
+
+<span class="refdocgen-text-primary">DecimalZeroWithTrailingZero</span>
+
+</span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#DecimalZeroWithTrailingZero">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="DoubleNaN" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">internal static readonly</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.object" class="refdocgen-link-secondary">object</a></span>
+
+<span class="refdocgen-text-primary">DoubleNaN</span>
+
+</span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#DoubleNaN">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="DoubleNegativeInfinity" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">internal static readonly</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.object" class="refdocgen-link-secondary">object</a></span>
+
+<span class="refdocgen-text-primary">DoubleNegativeInfinity</span>
+
+</span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#DoubleNegativeInfinity">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="DoubleNegativeZero" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">internal static readonly</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.object" class="refdocgen-link-secondary">object</a></span>
+
+<span class="refdocgen-text-primary">DoubleNegativeZero</span>
+
+</span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#DoubleNegativeZero">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="DoublePositiveInfinity" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">internal static readonly</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.object" class="refdocgen-link-secondary">object</a></span>
+
+<span class="refdocgen-text-primary">DoublePositiveInfinity</span>
+
+</span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#DoublePositiveInfinity">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="DoubleZero" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">internal static readonly</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.object" class="refdocgen-link-secondary">object</a></span>
+
+<span class="refdocgen-text-primary">DoubleZero</span>
+
+</span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#DoubleZero">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="Int32_0" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">internal static readonly</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.object" class="refdocgen-link-secondary">object</a></span>
+
+<span class="refdocgen-text-primary">Int32_0</span>
+
+</span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#Int32_0">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="Int32_1" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">internal static readonly</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.object" class="refdocgen-link-secondary">object</a></span>
+
+<span class="refdocgen-text-primary">Int32_1</span>
+
+</span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#Int32_1">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="Int32_2" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">internal static readonly</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.object" class="refdocgen-link-secondary">object</a></span>
+
+<span class="refdocgen-text-primary">Int32_2</span>
+
+</span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#Int32_2">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="Int32_3" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">internal static readonly</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.object" class="refdocgen-link-secondary">object</a></span>
+
+<span class="refdocgen-text-primary">Int32_3</span>
+
+</span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#Int32_3">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="Int32_4" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">internal static readonly</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.object" class="refdocgen-link-secondary">object</a></span>
+
+<span class="refdocgen-text-primary">Int32_4</span>
+
+</span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#Int32_4">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="Int32_5" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">internal static readonly</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.object" class="refdocgen-link-secondary">object</a></span>
+
+<span class="refdocgen-text-primary">Int32_5</span>
+
+</span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#Int32_5">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="Int32_6" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">internal static readonly</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.object" class="refdocgen-link-secondary">object</a></span>
+
+<span class="refdocgen-text-primary">Int32_6</span>
+
+</span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#Int32_6">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="Int32_7" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">internal static readonly</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.object" class="refdocgen-link-secondary">object</a></span>
+
+<span class="refdocgen-text-primary">Int32_7</span>
+
+</span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#Int32_7">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="Int32_8" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">internal static readonly</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.object" class="refdocgen-link-secondary">object</a></span>
+
+<span class="refdocgen-text-primary">Int32_8</span>
+
+</span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#Int32_8">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="Int32_M1" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">internal static readonly</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.object" class="refdocgen-link-secondary">object</a></span>
+
+<span class="refdocgen-text-primary">Int32_M1</span>
+
+</span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#Int32_M1">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="Int64_0" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">internal static readonly</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.object" class="refdocgen-link-secondary">object</a></span>
+
+<span class="refdocgen-text-primary">Int64_0</span>
+
+</span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#Int64_0">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="Int64_1" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">internal static readonly</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.object" class="refdocgen-link-secondary">object</a></span>
+
+<span class="refdocgen-text-primary">Int64_1</span>
+
+</span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#Int64_1">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="Int64_2" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">internal static readonly</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.object" class="refdocgen-link-secondary">object</a></span>
+
+<span class="refdocgen-text-primary">Int64_2</span>
+
+</span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#Int64_2">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="Int64_3" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">internal static readonly</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.object" class="refdocgen-link-secondary">object</a></span>
+
+<span class="refdocgen-text-primary">Int64_3</span>
+
+</span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#Int64_3">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="Int64_4" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">internal static readonly</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.object" class="refdocgen-link-secondary">object</a></span>
+
+<span class="refdocgen-text-primary">Int64_4</span>
+
+</span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#Int64_4">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="Int64_5" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">internal static readonly</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.object" class="refdocgen-link-secondary">object</a></span>
+
+<span class="refdocgen-text-primary">Int64_5</span>
+
+</span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#Int64_5">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="Int64_6" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">internal static readonly</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.object" class="refdocgen-link-secondary">object</a></span>
+
+<span class="refdocgen-text-primary">Int64_6</span>
+
+</span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#Int64_6">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="Int64_7" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">internal static readonly</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.object" class="refdocgen-link-secondary">object</a></span>
+
+<span class="refdocgen-text-primary">Int64_7</span>
+
+</span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#Int64_7">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="Int64_8" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">internal static readonly</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.object" class="refdocgen-link-secondary">object</a></span>
+
+<span class="refdocgen-text-primary">Int64_8</span>
+
+</span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#Int64_8">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="Int64_M1" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">internal static readonly</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.object" class="refdocgen-link-secondary">object</a></span>
+
+<span class="refdocgen-text-primary">Int64_M1</span>
+
+</span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#Int64_M1">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                </div></div></div><h2 class="display-5 mt-2">Methods</h2>
+<div class="row" data-id="methods-section"><div class="col-md-12"><div class="border p-2 mb-2" id="Get(System.Boolean)" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">internal static</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.object" class="refdocgen-link-secondary">object</a></span>
+
+<span class="refdocgen-text-primary">Get</span><span>(</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.boolean" class="refdocgen-link-secondary">bool</a></span>
+
+<span>value</span><span>)</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#Get(System.Boolean)">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                <h3 class="lead my-2">Parameters</h3>
+    <div class="mx-2" data-id="parameters-section"><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.boolean" class="refdocgen-link-secondary">bool</a></span>
+
+<span>value</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div></div><h3 class="lead my-2">Returns</h3>
+<div class="mx-2" data-id="returns-section"><samp data-id="return-type-name"><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.object" class="refdocgen-link-secondary">object</a></span></span><span class="not-visible" data-language="todo-lang"></span></samp>
+    <div class="text-body-secondary fst-italic" data-id="returns-doc"></div></div>
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="Get(System.Decimal)" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">internal static</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.object" class="refdocgen-link-secondary">object</a></span>
+
+<span class="refdocgen-text-primary">Get</span><span>(</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.decimal" class="refdocgen-link-secondary">decimal</a></span>
+
+<span>value</span><span>)</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#Get(System.Decimal)">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                <h3 class="lead my-2">Parameters</h3>
+    <div class="mx-2" data-id="parameters-section"><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.decimal" class="refdocgen-link-secondary">decimal</a></span>
+
+<span>value</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div></div><h3 class="lead my-2">Returns</h3>
+<div class="mx-2" data-id="returns-section"><samp data-id="return-type-name"><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.object" class="refdocgen-link-secondary">object</a></span></span><span class="not-visible" data-language="todo-lang"></span></samp>
+    <div class="text-body-secondary fst-italic" data-id="returns-doc"></div></div>
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="Get(System.Double)" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">internal static</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.object" class="refdocgen-link-secondary">object</a></span>
+
+<span class="refdocgen-text-primary">Get</span><span>(</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.double" class="refdocgen-link-secondary">double</a></span>
+
+<span>value</span><span>)</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#Get(System.Double)">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                <h3 class="lead my-2">Parameters</h3>
+    <div class="mx-2" data-id="parameters-section"><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.double" class="refdocgen-link-secondary">double</a></span>
+
+<span>value</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div></div><h3 class="lead my-2">Returns</h3>
+<div class="mx-2" data-id="returns-section"><samp data-id="return-type-name"><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.object" class="refdocgen-link-secondary">object</a></span></span><span class="not-visible" data-language="todo-lang"></span></samp>
+    <div class="text-body-secondary fst-italic" data-id="returns-doc"></div></div>
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="Get(System.Int32)" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">internal static</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.object" class="refdocgen-link-secondary">object</a></span>
+
+<span class="refdocgen-text-primary">Get</span><span>(</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.int32" class="refdocgen-link-secondary">int</a></span>
+
+<span>value</span><span>)</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#Get(System.Int32)">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                <h3 class="lead my-2">Parameters</h3>
+    <div class="mx-2" data-id="parameters-section"><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.int32" class="refdocgen-link-secondary">int</a></span>
+
+<span>value</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div></div><h3 class="lead my-2">Returns</h3>
+<div class="mx-2" data-id="returns-section"><samp data-id="return-type-name"><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.object" class="refdocgen-link-secondary">object</a></span></span><span class="not-visible" data-language="todo-lang"></span></samp>
+    <div class="text-body-secondary fst-italic" data-id="returns-doc"></div></div>
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="Get(System.Int64)" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">internal static</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.object" class="refdocgen-link-secondary">object</a></span>
+
+<span class="refdocgen-text-primary">Get</span><span>(</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.int64" class="refdocgen-link-secondary">long</a></span>
+
+<span>value</span><span>)</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#Get(System.Int64)">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                <h3 class="lead my-2">Parameters</h3>
+    <div class="mx-2" data-id="parameters-section"><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.int64" class="refdocgen-link-secondary">long</a></span>
+
+<span>value</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div></div><h3 class="lead my-2">Returns</h3>
+<div class="mx-2" data-id="returns-section"><samp data-id="return-type-name"><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.object" class="refdocgen-link-secondary">object</a></span></span><span class="not-visible" data-language="todo-lang"></span></samp>
+    <div class="text-body-secondary fst-italic" data-id="returns-doc"></div></div>
+
+                
+                
+
+                
+
+                </div></div></div></div><nav class="navbar fixed-bottom menu-bg"><div class="container"><div class="dropup"><button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">v-newtonsoft-private</button>
+            <div id="current-version">v-newtonsoft-private</div>
+            <div id="version-list">[&quot;v-newtonsoft-private&quot;]</div>
+            <ul class="dropdown-menu" id="version-selector" data-id="version-selector"></ul></div></div></nav><script src="../Static/bootstrap-5.3.5-dist.bundle.min.js"></script>
+
+    
+    <script src="../Static/script.js"></script></body></html>

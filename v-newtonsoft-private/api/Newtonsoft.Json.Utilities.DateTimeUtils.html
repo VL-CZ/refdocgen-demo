@@ -1,0 +1,2087 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Reference documentation</title>
+
+    <script>
+
+        // use IIFE in order to avoid polluting global context with functions & variables
+        // https://developer.mozilla.org/en-US/docs/Glossary/IIFE
+        (function() {
+            const isLocalFile = location.protocol === "file:";
+            const defaultTheme = "dark";
+            const defaultLang = "csharp-lang";
+
+            if(isLocalFile){
+                const urlParams = new URLSearchParams(window.location.search);
+
+                let redirect = false;
+
+                // set 'theme' URL param if not found
+                if(!urlParams.has("theme")){
+                    urlParams.set("theme", defaultTheme);
+                    redirect = true;
+                }
+
+                // set 'lang' URL param if not found
+                if(!urlParams.has("lang")){
+                    urlParams.set("lang", defaultLang);
+                    redirect = true;
+                }
+
+                // redirect, if some of the URL parameters are missing
+                if(redirect){
+                    const newUrl = new URL(window.location.href);
+                    newUrl.search = urlParams.toString();
+
+                    window.location.href = newUrl;
+                }
+                else {
+                    document.documentElement.setAttribute("data-bs-theme", urlParams.get("theme")); // set the 'data-bs-theme' attribute
+                    document.documentElement.setAttribute("data-language", urlParams.get("lang")); // set the 'data-language' attribute
+                }
+            }
+            else { // no local file -> use localStorage
+                if (!localStorage.getItem("refdocgen-theme")) {
+                    localStorage.setItem("refdocgen-theme", defaultTheme);
+                }
+
+                if (!localStorage.getItem("refdocgen-language")) {
+                    localStorage.setItem("refdocgen-language", defaultLang);
+                }
+
+                document.documentElement.setAttribute("data-bs-theme", localStorage.getItem("refdocgen-theme")); // set the 'data-bs-theme' attribute
+                document.documentElement.setAttribute("data-language", localStorage.getItem("refdocgen-language")); // set the 'data-language' attribute
+            }
+        })();
+    </script>
+
+    
+    <link href="../Static/styles.css" rel="stylesheet" /><style>html[data-language="csharp-lang"] [data-language="csharp-lang"] { display: inline !important; }
+html[data-language="todo-lang"] [data-language="todo-lang"] { display: inline !important; }
+</style></head>
+
+<body><nav class="navbar navbar-expand-lg sticky-top menu-bg"><div class="container"><a class="navbar-brand" href="../index.html">Project name</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup"><ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="../api/index.html">API</a></li></ul>
+            <ul class="navbar-nav ms-auto"><li class="nav-item d-flex align-items-center"><form class="me-2 mb-2 mb-lg-0"><select class="form-select" id="language-selector" aria-label="language"><option class="lang-option" value="csharp-lang">C#</option><option class="lang-option" value="todo-lang">TODO</option></select></form></li>
+
+                
+                <li class="nav-item d-flex align-items-center"><form role="search" class="me-2"><input class="form-control" autocomplete="off" type="search" placeholder="Search" aria-label="Search" id="menu-search-bar" url-target="../search.html" readonly /></form></li>
+
+                
+                <li class="nav-item" id="theme-switcher"><button class="nav-link"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-brightness-high" viewBox="0 0 16 16"><path d="M8 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6m0 1a4 4 0 1 0 0-8 4 4 0 0 0 0 8M8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0m0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13m8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5M3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8m10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0m-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0m9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707M4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708"></path></svg></button></li></ul></div></div></nav>
+
+    <div class="container my-4" data-id="page-body"><div data-id="declared-type-data"><h1 class="display-4" data-id="type-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">internal static class</span>
+<span class="refdocgen-text-primary">DateTimeUtils</span></span><span class="not-visible" data-language="todo-lang"></span></samp></h1>
+
+                    
+
+                    <h6><samp data-id="type-assembly"><a href="Newtonsoft.Json-DLL.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">assembly</span>
+            <span class="refdocgen-text-secondary">Newtonsoft.Json</span></a></samp></h6>
+
+                    <h6><samp data-id="type-namespace"><a href="Newtonsoft.Json.Utilities.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">namespace</span>
+            <span class="refdocgen-text-secondary">Newtonsoft.Json.Utilities</span></a></samp></h6>
+
+                    <div data-id="base-type"><i>Base type:&nbsp;</i>
+        <samp class="refdocgen-text-secondary"><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.object" class="refdocgen-link-secondary">object</a></span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                    
+
+                    
+
+                    <hr>
+
+                    
+                    
+
+                    
+
+                    
+
+                    
+                    
+
+                    </div><h2 class="display-5 mt-2">Constructors</h2>
+<div class="row" data-id="constructors-section"><div class="col-md-12"><div class="border p-2 mb-2" id=".cctor" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">private static</span>
+<span class="refdocgen-text-primary">DateTimeUtils</span><span>(</span><span>)</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#.cctor">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+                
+
+                
+
+                </div></div></div><h2 class="display-5 mt-2">Fields</h2>
+<div class="row" data-id="fields-section"><div class="col-md-12"><div class="border p-2 mb-2" id="DaysPer100Years" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">private const</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.int32" class="refdocgen-link-secondary">int</a></span>
+
+<span class="refdocgen-text-primary">DaysPer100Years</span>
+
+<span> = </span>
+    <span class="refdocgen-text-green">36524</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#DaysPer100Years">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="DaysPer400Years" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">private const</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.int32" class="refdocgen-link-secondary">int</a></span>
+
+<span class="refdocgen-text-primary">DaysPer400Years</span>
+
+<span> = </span>
+    <span class="refdocgen-text-green">146097</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#DaysPer400Years">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="DaysPer4Years" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">private const</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.int32" class="refdocgen-link-secondary">int</a></span>
+
+<span class="refdocgen-text-primary">DaysPer4Years</span>
+
+<span> = </span>
+    <span class="refdocgen-text-green">1461</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#DaysPer4Years">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="DaysPerYear" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">private const</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.int32" class="refdocgen-link-secondary">int</a></span>
+
+<span class="refdocgen-text-primary">DaysPerYear</span>
+
+<span> = </span>
+    <span class="refdocgen-text-green">365</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#DaysPerYear">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="DaysToMonth365" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">private static readonly</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.int32" class="refdocgen-link-secondary">int[]</a></span>
+
+<span class="refdocgen-text-primary">DaysToMonth365</span>
+
+</span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#DaysToMonth365">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="DaysToMonth366" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">private static readonly</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.int32" class="refdocgen-link-secondary">int[]</a></span>
+
+<span class="refdocgen-text-primary">DaysToMonth366</span>
+
+</span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#DaysToMonth366">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="InitialJavaScriptDateTicks" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">internal static readonly</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.int64" class="refdocgen-link-secondary">long</a></span>
+
+<span class="refdocgen-text-primary">InitialJavaScriptDateTicks</span>
+
+</span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#InitialJavaScriptDateTicks">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="IsoDateFormat" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">private const</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.string" class="refdocgen-link-secondary">string</a></span>
+
+<span class="refdocgen-text-primary">IsoDateFormat</span>
+
+<span> = </span>
+    <span class="refdocgen-text-green">&quot;yyyy-MM-ddTHH:mm:ss.FFFFFFFK&quot;</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#IsoDateFormat">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="TicksPerDay" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">private const</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.int64" class="refdocgen-link-secondary">long</a></span>
+
+<span class="refdocgen-text-primary">TicksPerDay</span>
+
+<span> = </span>
+    <span class="refdocgen-text-green">864000000000</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#TicksPerDay">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                </div></div></div><h2 class="display-5 mt-2">Methods</h2>
+<div class="row" data-id="methods-section"><div class="col-md-12"><div class="border p-2 mb-2" id="ConvertDateTimeToJavaScriptTicks(System.DateTime)" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">internal static</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.int64" class="refdocgen-link-secondary">long</a></span>
+
+<span class="refdocgen-text-primary">ConvertDateTimeToJavaScriptTicks</span><span>(</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.datetime" class="refdocgen-link-secondary">DateTime</a></span>
+
+<span>dateTime</span><span>)</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#ConvertDateTimeToJavaScriptTicks(System.DateTime)">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                <h3 class="lead my-2">Parameters</h3>
+    <div class="mx-2" data-id="parameters-section"><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.datetime" class="refdocgen-link-secondary">DateTime</a></span>
+
+<span>dateTime</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div></div><h3 class="lead my-2">Returns</h3>
+<div class="mx-2" data-id="returns-section"><samp data-id="return-type-name"><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.int64" class="refdocgen-link-secondary">long</a></span></span><span class="not-visible" data-language="todo-lang"></span></samp>
+    <div class="text-body-secondary fst-italic" data-id="returns-doc"></div></div>
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="ConvertDateTimeToJavaScriptTicks(System.DateTime,System.Boolean)" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">internal static</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.int64" class="refdocgen-link-secondary">long</a></span>
+
+<span class="refdocgen-text-primary">ConvertDateTimeToJavaScriptTicks</span><span>(</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.datetime" class="refdocgen-link-secondary">DateTime</a></span>
+
+<span>dateTime</span><span>, </span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.boolean" class="refdocgen-link-secondary">bool</a></span>
+
+<span>convertToUtc</span><span>)</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#ConvertDateTimeToJavaScriptTicks(System.DateTime,System.Boolean)">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                <h3 class="lead my-2">Parameters</h3>
+    <div class="mx-2" data-id="parameters-section"><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.datetime" class="refdocgen-link-secondary">DateTime</a></span>
+
+<span>dateTime</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.boolean" class="refdocgen-link-secondary">bool</a></span>
+
+<span>convertToUtc</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div></div><h3 class="lead my-2">Returns</h3>
+<div class="mx-2" data-id="returns-section"><samp data-id="return-type-name"><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.int64" class="refdocgen-link-secondary">long</a></span></span><span class="not-visible" data-language="todo-lang"></span></samp>
+    <div class="text-body-secondary fst-italic" data-id="returns-doc"></div></div>
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="ConvertDateTimeToJavaScriptTicks(System.DateTime,System.TimeSpan)" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">internal static</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.int64" class="refdocgen-link-secondary">long</a></span>
+
+<span class="refdocgen-text-primary">ConvertDateTimeToJavaScriptTicks</span><span>(</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.datetime" class="refdocgen-link-secondary">DateTime</a></span>
+
+<span>dateTime</span><span>, </span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.timespan" class="refdocgen-link-secondary">TimeSpan</a></span>
+
+<span>offset</span><span>)</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#ConvertDateTimeToJavaScriptTicks(System.DateTime,System.TimeSpan)">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                <h3 class="lead my-2">Parameters</h3>
+    <div class="mx-2" data-id="parameters-section"><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.datetime" class="refdocgen-link-secondary">DateTime</a></span>
+
+<span>dateTime</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.timespan" class="refdocgen-link-secondary">TimeSpan</a></span>
+
+<span>offset</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div></div><h3 class="lead my-2">Returns</h3>
+<div class="mx-2" data-id="returns-section"><samp data-id="return-type-name"><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.int64" class="refdocgen-link-secondary">long</a></span></span><span class="not-visible" data-language="todo-lang"></span></samp>
+    <div class="text-body-secondary fst-italic" data-id="returns-doc"></div></div>
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="ConvertJavaScriptTicksToDateTime(System.Int64)" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">internal static</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.datetime" class="refdocgen-link-secondary">DateTime</a></span>
+
+<span class="refdocgen-text-primary">ConvertJavaScriptTicksToDateTime</span><span>(</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.int64" class="refdocgen-link-secondary">long</a></span>
+
+<span>javaScriptTicks</span><span>)</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#ConvertJavaScriptTicksToDateTime(System.Int64)">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                <h3 class="lead my-2">Parameters</h3>
+    <div class="mx-2" data-id="parameters-section"><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.int64" class="refdocgen-link-secondary">long</a></span>
+
+<span>javaScriptTicks</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div></div><h3 class="lead my-2">Returns</h3>
+<div class="mx-2" data-id="returns-section"><samp data-id="return-type-name"><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.datetime" class="refdocgen-link-secondary">DateTime</a></span></span><span class="not-visible" data-language="todo-lang"></span></samp>
+    <div class="text-body-secondary fst-italic" data-id="returns-doc"></div></div>
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="CopyIntToCharArray(System.Char(),System.Int32,System.Int32,System.Int32)" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">private static</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.void" class="refdocgen-link-secondary">void</a></span>
+
+<span class="refdocgen-text-primary">CopyIntToCharArray</span><span>(</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.char" class="refdocgen-link-secondary">char[]</a></span>
+
+<span>chars</span><span>, </span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.int32" class="refdocgen-link-secondary">int</a></span>
+
+<span>start</span><span>, </span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.int32" class="refdocgen-link-secondary">int</a></span>
+
+<span>value</span><span>, </span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.int32" class="refdocgen-link-secondary">int</a></span>
+
+<span>digits</span><span>)</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#CopyIntToCharArray(System.Char(),System.Int32,System.Int32,System.Int32)">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                <h3 class="lead my-2">Parameters</h3>
+    <div class="mx-2" data-id="parameters-section"><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.char" class="refdocgen-link-secondary">char[]</a></span>
+
+<span>chars</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.int32" class="refdocgen-link-secondary">int</a></span>
+
+<span>start</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.int32" class="refdocgen-link-secondary">int</a></span>
+
+<span>value</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.int32" class="refdocgen-link-secondary">int</a></span>
+
+<span>digits</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div></div>
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="CreateDateTime(Newtonsoft.Json.Utilities.DateTimeParser)" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">private static</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.datetime" class="refdocgen-link-secondary">DateTime</a></span>
+
+<span class="refdocgen-text-primary">CreateDateTime</span><span>(</span><span class="refdocgen-text-secondary"><a href="./Newtonsoft.Json.Utilities.DateTimeParser.html" class="refdocgen-link-secondary">DateTimeParser</a></span>
+
+<span>dateTimeParser</span><span>)</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#CreateDateTime(Newtonsoft.Json.Utilities.DateTimeParser)">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                <h3 class="lead my-2">Parameters</h3>
+    <div class="mx-2" data-id="parameters-section"><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="./Newtonsoft.Json.Utilities.DateTimeParser.html" class="refdocgen-link-secondary">DateTimeParser</a></span>
+
+<span>dateTimeParser</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div></div><h3 class="lead my-2">Returns</h3>
+<div class="mx-2" data-id="returns-section"><samp data-id="return-type-name"><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.datetime" class="refdocgen-link-secondary">DateTime</a></span></span><span class="not-visible" data-language="todo-lang"></span></samp>
+    <div class="text-body-secondary fst-italic" data-id="returns-doc"></div></div>
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="EnsureDateTime(System.DateTime,Newtonsoft.Json.DateTimeZoneHandling)" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">internal static</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.datetime" class="refdocgen-link-secondary">DateTime</a></span>
+
+<span class="refdocgen-text-primary">EnsureDateTime</span><span>(</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.datetime" class="refdocgen-link-secondary">DateTime</a></span>
+
+<span>value</span><span>, </span><span class="refdocgen-text-secondary"><a href="./Newtonsoft.Json.DateTimeZoneHandling.html" class="refdocgen-link-secondary">DateTimeZoneHandling</a></span>
+
+<span>timeZone</span><span>)</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#EnsureDateTime(System.DateTime,Newtonsoft.Json.DateTimeZoneHandling)">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                <h3 class="lead my-2">Parameters</h3>
+    <div class="mx-2" data-id="parameters-section"><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.datetime" class="refdocgen-link-secondary">DateTime</a></span>
+
+<span>value</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="./Newtonsoft.Json.DateTimeZoneHandling.html" class="refdocgen-link-secondary">DateTimeZoneHandling</a></span>
+
+<span>timeZone</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div></div><h3 class="lead my-2">Returns</h3>
+<div class="mx-2" data-id="returns-section"><samp data-id="return-type-name"><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.datetime" class="refdocgen-link-secondary">DateTime</a></span></span><span class="not-visible" data-language="todo-lang"></span></samp>
+    <div class="text-body-secondary fst-italic" data-id="returns-doc"></div></div>
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="GetDateValues(System.DateTime,System.Int32-,System.Int32-,System.Int32-)" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">private static</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.void" class="refdocgen-link-secondary">void</a></span>
+
+<span class="refdocgen-text-primary">GetDateValues</span><span>(</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.datetime" class="refdocgen-link-secondary">DateTime</a></span>
+
+<span>td</span><span>, </span><span class="refdocgen-text-tertiary">out</span>
+    <span></span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.int32" class="refdocgen-link-secondary">int</a></span>
+
+<span>year</span><span>, </span><span class="refdocgen-text-tertiary">out</span>
+    <span></span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.int32" class="refdocgen-link-secondary">int</a></span>
+
+<span>month</span><span>, </span><span class="refdocgen-text-tertiary">out</span>
+    <span></span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.int32" class="refdocgen-link-secondary">int</a></span>
+
+<span>day</span><span>)</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#GetDateValues(System.DateTime,System.Int32-,System.Int32-,System.Int32-)">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                <h3 class="lead my-2">Parameters</h3>
+    <div class="mx-2" data-id="parameters-section"><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.datetime" class="refdocgen-link-secondary">DateTime</a></span>
+
+<span>td</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">out</span>
+    <span></span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.int32" class="refdocgen-link-secondary">int</a></span>
+
+<span>year</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">out</span>
+    <span></span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.int32" class="refdocgen-link-secondary">int</a></span>
+
+<span>month</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">out</span>
+    <span></span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.int32" class="refdocgen-link-secondary">int</a></span>
+
+<span>day</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div></div>
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="GetUtcOffset(System.DateTime)" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">public static</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.timespan" class="refdocgen-link-secondary">TimeSpan</a></span>
+
+<span class="refdocgen-text-primary">GetUtcOffset</span><span>(</span><span class="refdocgen-text-tertiary">this</span>
+    <span></span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.datetime" class="refdocgen-link-secondary">DateTime</a></span>
+
+<span>d</span><span>)</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#GetUtcOffset(System.DateTime)">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                <h3 class="lead my-2">Parameters</h3>
+    <div class="mx-2" data-id="parameters-section"><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">this</span>
+    <span></span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.datetime" class="refdocgen-link-secondary">DateTime</a></span>
+
+<span>d</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div></div><h3 class="lead my-2">Returns</h3>
+<div class="mx-2" data-id="returns-section"><samp data-id="return-type-name"><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.timespan" class="refdocgen-link-secondary">TimeSpan</a></span></span><span class="not-visible" data-language="todo-lang"></span></samp>
+    <div class="text-body-secondary fst-italic" data-id="returns-doc"></div></div>
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="SwitchToLocalTime(System.DateTime)" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">private static</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.datetime" class="refdocgen-link-secondary">DateTime</a></span>
+
+<span class="refdocgen-text-primary">SwitchToLocalTime</span><span>(</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.datetime" class="refdocgen-link-secondary">DateTime</a></span>
+
+<span>value</span><span>)</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#SwitchToLocalTime(System.DateTime)">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                <h3 class="lead my-2">Parameters</h3>
+    <div class="mx-2" data-id="parameters-section"><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.datetime" class="refdocgen-link-secondary">DateTime</a></span>
+
+<span>value</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div></div><h3 class="lead my-2">Returns</h3>
+<div class="mx-2" data-id="returns-section"><samp data-id="return-type-name"><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.datetime" class="refdocgen-link-secondary">DateTime</a></span></span><span class="not-visible" data-language="todo-lang"></span></samp>
+    <div class="text-body-secondary fst-italic" data-id="returns-doc"></div></div>
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="SwitchToUtcTime(System.DateTime)" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">private static</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.datetime" class="refdocgen-link-secondary">DateTime</a></span>
+
+<span class="refdocgen-text-primary">SwitchToUtcTime</span><span>(</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.datetime" class="refdocgen-link-secondary">DateTime</a></span>
+
+<span>value</span><span>)</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#SwitchToUtcTime(System.DateTime)">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                <h3 class="lead my-2">Parameters</h3>
+    <div class="mx-2" data-id="parameters-section"><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.datetime" class="refdocgen-link-secondary">DateTime</a></span>
+
+<span>value</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div></div><h3 class="lead my-2">Returns</h3>
+<div class="mx-2" data-id="returns-section"><samp data-id="return-type-name"><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.datetime" class="refdocgen-link-secondary">DateTime</a></span></span><span class="not-visible" data-language="todo-lang"></span></samp>
+    <div class="text-body-secondary fst-italic" data-id="returns-doc"></div></div>
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="ToSerializationMode(System.DateTimeKind)" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">public static</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.xml.xmldatetimeserializationmode" class="refdocgen-link-secondary">XmlDateTimeSerializationMode</a></span>
+
+<span class="refdocgen-text-primary">ToSerializationMode</span><span>(</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.datetimekind" class="refdocgen-link-secondary">DateTimeKind</a></span>
+
+<span>kind</span><span>)</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#ToSerializationMode(System.DateTimeKind)">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                <h3 class="lead my-2">Parameters</h3>
+    <div class="mx-2" data-id="parameters-section"><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.datetimekind" class="refdocgen-link-secondary">DateTimeKind</a></span>
+
+<span>kind</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div></div><h3 class="lead my-2">Returns</h3>
+<div class="mx-2" data-id="returns-section"><samp data-id="return-type-name"><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.xml.xmldatetimeserializationmode" class="refdocgen-link-secondary">XmlDateTimeSerializationMode</a></span></span><span class="not-visible" data-language="todo-lang"></span></samp>
+    <div class="text-body-secondary fst-italic" data-id="returns-doc"></div></div>
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="ToUniversalTicks(System.DateTime)" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">private static</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.int64" class="refdocgen-link-secondary">long</a></span>
+
+<span class="refdocgen-text-primary">ToUniversalTicks</span><span>(</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.datetime" class="refdocgen-link-secondary">DateTime</a></span>
+
+<span>dateTime</span><span>)</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#ToUniversalTicks(System.DateTime)">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                <h3 class="lead my-2">Parameters</h3>
+    <div class="mx-2" data-id="parameters-section"><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.datetime" class="refdocgen-link-secondary">DateTime</a></span>
+
+<span>dateTime</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div></div><h3 class="lead my-2">Returns</h3>
+<div class="mx-2" data-id="returns-section"><samp data-id="return-type-name"><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.int64" class="refdocgen-link-secondary">long</a></span></span><span class="not-visible" data-language="todo-lang"></span></samp>
+    <div class="text-body-secondary fst-italic" data-id="returns-doc"></div></div>
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="ToUniversalTicks(System.DateTime,System.TimeSpan)" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">private static</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.int64" class="refdocgen-link-secondary">long</a></span>
+
+<span class="refdocgen-text-primary">ToUniversalTicks</span><span>(</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.datetime" class="refdocgen-link-secondary">DateTime</a></span>
+
+<span>dateTime</span><span>, </span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.timespan" class="refdocgen-link-secondary">TimeSpan</a></span>
+
+<span>offset</span><span>)</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#ToUniversalTicks(System.DateTime,System.TimeSpan)">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                <h3 class="lead my-2">Parameters</h3>
+    <div class="mx-2" data-id="parameters-section"><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.datetime" class="refdocgen-link-secondary">DateTime</a></span>
+
+<span>dateTime</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.timespan" class="refdocgen-link-secondary">TimeSpan</a></span>
+
+<span>offset</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div></div><h3 class="lead my-2">Returns</h3>
+<div class="mx-2" data-id="returns-section"><samp data-id="return-type-name"><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.int64" class="refdocgen-link-secondary">long</a></span></span><span class="not-visible" data-language="todo-lang"></span></samp>
+    <div class="text-body-secondary fst-italic" data-id="returns-doc"></div></div>
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="TryParseDateTime(Newtonsoft.Json.Utilities.StringReference,Newtonsoft.Json.DateTimeZoneHandling,System.String,System.Globalization.CultureInfo,System.DateTime-)" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">internal static</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.boolean" class="refdocgen-link-secondary">bool</a></span>
+
+<span class="refdocgen-text-primary">TryParseDateTime</span><span>(</span><span class="refdocgen-text-secondary"><a href="./Newtonsoft.Json.Utilities.StringReference.html" class="refdocgen-link-secondary">StringReference</a></span>
+
+<span>s</span><span>, </span><span class="refdocgen-text-secondary"><a href="./Newtonsoft.Json.DateTimeZoneHandling.html" class="refdocgen-link-secondary">DateTimeZoneHandling</a></span>
+
+<span>dateTimeZoneHandling</span><span>, </span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.string" class="refdocgen-link-secondary">string</a></span>
+
+<span>dateFormatString</span><span>, </span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.globalization.cultureinfo" class="refdocgen-link-secondary">CultureInfo</a></span>
+
+<span>culture</span><span>, </span><span class="refdocgen-text-tertiary">out</span>
+    <span></span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.datetime" class="refdocgen-link-secondary">DateTime</a></span>
+
+<span>dt</span><span>)</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#TryParseDateTime(Newtonsoft.Json.Utilities.StringReference,Newtonsoft.Json.DateTimeZoneHandling,System.String,System.Globalization.CultureInfo,System.DateTime-)">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                <h3 class="lead my-2">Parameters</h3>
+    <div class="mx-2" data-id="parameters-section"><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="./Newtonsoft.Json.Utilities.StringReference.html" class="refdocgen-link-secondary">StringReference</a></span>
+
+<span>s</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="./Newtonsoft.Json.DateTimeZoneHandling.html" class="refdocgen-link-secondary">DateTimeZoneHandling</a></span>
+
+<span>dateTimeZoneHandling</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.string" class="refdocgen-link-secondary">string</a></span>
+
+<span>dateFormatString</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.globalization.cultureinfo" class="refdocgen-link-secondary">CultureInfo</a></span>
+
+<span>culture</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">out</span>
+    <span></span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.datetime" class="refdocgen-link-secondary">DateTime</a></span>
+
+<span>dt</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div></div><h3 class="lead my-2">Returns</h3>
+<div class="mx-2" data-id="returns-section"><samp data-id="return-type-name"><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.boolean" class="refdocgen-link-secondary">bool</a></span></span><span class="not-visible" data-language="todo-lang"></span></samp>
+    <div class="text-body-secondary fst-italic" data-id="returns-doc"></div></div>
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="TryParseDateTime(System.String,Newtonsoft.Json.DateTimeZoneHandling,System.String,System.Globalization.CultureInfo,System.DateTime-)" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">internal static</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.boolean" class="refdocgen-link-secondary">bool</a></span>
+
+<span class="refdocgen-text-primary">TryParseDateTime</span><span>(</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.string" class="refdocgen-link-secondary">string</a></span>
+
+<span>s</span><span>, </span><span class="refdocgen-text-secondary"><a href="./Newtonsoft.Json.DateTimeZoneHandling.html" class="refdocgen-link-secondary">DateTimeZoneHandling</a></span>
+
+<span>dateTimeZoneHandling</span><span>, </span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.string" class="refdocgen-link-secondary">string</a></span>
+
+<span>dateFormatString</span><span>, </span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.globalization.cultureinfo" class="refdocgen-link-secondary">CultureInfo</a></span>
+
+<span>culture</span><span>, </span><span class="refdocgen-text-tertiary">out</span>
+    <span></span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.datetime" class="refdocgen-link-secondary">DateTime</a></span>
+
+<span>dt</span><span>)</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#TryParseDateTime(System.String,Newtonsoft.Json.DateTimeZoneHandling,System.String,System.Globalization.CultureInfo,System.DateTime-)">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                <h3 class="lead my-2">Parameters</h3>
+    <div class="mx-2" data-id="parameters-section"><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.string" class="refdocgen-link-secondary">string</a></span>
+
+<span>s</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="./Newtonsoft.Json.DateTimeZoneHandling.html" class="refdocgen-link-secondary">DateTimeZoneHandling</a></span>
+
+<span>dateTimeZoneHandling</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.string" class="refdocgen-link-secondary">string</a></span>
+
+<span>dateFormatString</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.globalization.cultureinfo" class="refdocgen-link-secondary">CultureInfo</a></span>
+
+<span>culture</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">out</span>
+    <span></span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.datetime" class="refdocgen-link-secondary">DateTime</a></span>
+
+<span>dt</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div></div><h3 class="lead my-2">Returns</h3>
+<div class="mx-2" data-id="returns-section"><samp data-id="return-type-name"><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.boolean" class="refdocgen-link-secondary">bool</a></span></span><span class="not-visible" data-language="todo-lang"></span></samp>
+    <div class="text-body-secondary fst-italic" data-id="returns-doc"></div></div>
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="TryParseDateTimeExact(System.String,Newtonsoft.Json.DateTimeZoneHandling,System.String,System.Globalization.CultureInfo,System.DateTime-)" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">private static</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.boolean" class="refdocgen-link-secondary">bool</a></span>
+
+<span class="refdocgen-text-primary">TryParseDateTimeExact</span><span>(</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.string" class="refdocgen-link-secondary">string</a></span>
+
+<span>text</span><span>, </span><span class="refdocgen-text-secondary"><a href="./Newtonsoft.Json.DateTimeZoneHandling.html" class="refdocgen-link-secondary">DateTimeZoneHandling</a></span>
+
+<span>dateTimeZoneHandling</span><span>, </span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.string" class="refdocgen-link-secondary">string</a></span>
+
+<span>dateFormatString</span><span>, </span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.globalization.cultureinfo" class="refdocgen-link-secondary">CultureInfo</a></span>
+
+<span>culture</span><span>, </span><span class="refdocgen-text-tertiary">out</span>
+    <span></span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.datetime" class="refdocgen-link-secondary">DateTime</a></span>
+
+<span>dt</span><span>)</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#TryParseDateTimeExact(System.String,Newtonsoft.Json.DateTimeZoneHandling,System.String,System.Globalization.CultureInfo,System.DateTime-)">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                <h3 class="lead my-2">Parameters</h3>
+    <div class="mx-2" data-id="parameters-section"><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.string" class="refdocgen-link-secondary">string</a></span>
+
+<span>text</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="./Newtonsoft.Json.DateTimeZoneHandling.html" class="refdocgen-link-secondary">DateTimeZoneHandling</a></span>
+
+<span>dateTimeZoneHandling</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.string" class="refdocgen-link-secondary">string</a></span>
+
+<span>dateFormatString</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.globalization.cultureinfo" class="refdocgen-link-secondary">CultureInfo</a></span>
+
+<span>culture</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">out</span>
+    <span></span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.datetime" class="refdocgen-link-secondary">DateTime</a></span>
+
+<span>dt</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div></div><h3 class="lead my-2">Returns</h3>
+<div class="mx-2" data-id="returns-section"><samp data-id="return-type-name"><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.boolean" class="refdocgen-link-secondary">bool</a></span></span><span class="not-visible" data-language="todo-lang"></span></samp>
+    <div class="text-body-secondary fst-italic" data-id="returns-doc"></div></div>
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="TryParseDateTimeIso(Newtonsoft.Json.Utilities.StringReference,Newtonsoft.Json.DateTimeZoneHandling,System.DateTime-)" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">internal static</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.boolean" class="refdocgen-link-secondary">bool</a></span>
+
+<span class="refdocgen-text-primary">TryParseDateTimeIso</span><span>(</span><span class="refdocgen-text-secondary"><a href="./Newtonsoft.Json.Utilities.StringReference.html" class="refdocgen-link-secondary">StringReference</a></span>
+
+<span>text</span><span>, </span><span class="refdocgen-text-secondary"><a href="./Newtonsoft.Json.DateTimeZoneHandling.html" class="refdocgen-link-secondary">DateTimeZoneHandling</a></span>
+
+<span>dateTimeZoneHandling</span><span>, </span><span class="refdocgen-text-tertiary">out</span>
+    <span></span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.datetime" class="refdocgen-link-secondary">DateTime</a></span>
+
+<span>dt</span><span>)</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#TryParseDateTimeIso(Newtonsoft.Json.Utilities.StringReference,Newtonsoft.Json.DateTimeZoneHandling,System.DateTime-)">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                <h3 class="lead my-2">Parameters</h3>
+    <div class="mx-2" data-id="parameters-section"><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="./Newtonsoft.Json.Utilities.StringReference.html" class="refdocgen-link-secondary">StringReference</a></span>
+
+<span>text</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="./Newtonsoft.Json.DateTimeZoneHandling.html" class="refdocgen-link-secondary">DateTimeZoneHandling</a></span>
+
+<span>dateTimeZoneHandling</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">out</span>
+    <span></span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.datetime" class="refdocgen-link-secondary">DateTime</a></span>
+
+<span>dt</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div></div><h3 class="lead my-2">Returns</h3>
+<div class="mx-2" data-id="returns-section"><samp data-id="return-type-name"><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.boolean" class="refdocgen-link-secondary">bool</a></span></span><span class="not-visible" data-language="todo-lang"></span></samp>
+    <div class="text-body-secondary fst-italic" data-id="returns-doc"></div></div>
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="TryParseDateTimeMicrosoft(Newtonsoft.Json.Utilities.StringReference,Newtonsoft.Json.DateTimeZoneHandling,System.DateTime-)" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">private static</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.boolean" class="refdocgen-link-secondary">bool</a></span>
+
+<span class="refdocgen-text-primary">TryParseDateTimeMicrosoft</span><span>(</span><span class="refdocgen-text-secondary"><a href="./Newtonsoft.Json.Utilities.StringReference.html" class="refdocgen-link-secondary">StringReference</a></span>
+
+<span>text</span><span>, </span><span class="refdocgen-text-secondary"><a href="./Newtonsoft.Json.DateTimeZoneHandling.html" class="refdocgen-link-secondary">DateTimeZoneHandling</a></span>
+
+<span>dateTimeZoneHandling</span><span>, </span><span class="refdocgen-text-tertiary">out</span>
+    <span></span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.datetime" class="refdocgen-link-secondary">DateTime</a></span>
+
+<span>dt</span><span>)</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#TryParseDateTimeMicrosoft(Newtonsoft.Json.Utilities.StringReference,Newtonsoft.Json.DateTimeZoneHandling,System.DateTime-)">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                <h3 class="lead my-2">Parameters</h3>
+    <div class="mx-2" data-id="parameters-section"><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="./Newtonsoft.Json.Utilities.StringReference.html" class="refdocgen-link-secondary">StringReference</a></span>
+
+<span>text</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="./Newtonsoft.Json.DateTimeZoneHandling.html" class="refdocgen-link-secondary">DateTimeZoneHandling</a></span>
+
+<span>dateTimeZoneHandling</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">out</span>
+    <span></span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.datetime" class="refdocgen-link-secondary">DateTime</a></span>
+
+<span>dt</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div></div><h3 class="lead my-2">Returns</h3>
+<div class="mx-2" data-id="returns-section"><samp data-id="return-type-name"><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.boolean" class="refdocgen-link-secondary">bool</a></span></span><span class="not-visible" data-language="todo-lang"></span></samp>
+    <div class="text-body-secondary fst-italic" data-id="returns-doc"></div></div>
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="TryParseDateTimeOffset(Newtonsoft.Json.Utilities.StringReference,System.String,System.Globalization.CultureInfo,System.DateTimeOffset-)" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">internal static</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.boolean" class="refdocgen-link-secondary">bool</a></span>
+
+<span class="refdocgen-text-primary">TryParseDateTimeOffset</span><span>(</span><span class="refdocgen-text-secondary"><a href="./Newtonsoft.Json.Utilities.StringReference.html" class="refdocgen-link-secondary">StringReference</a></span>
+
+<span>s</span><span>, </span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.string" class="refdocgen-link-secondary">string</a></span>
+
+<span>dateFormatString</span><span>, </span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.globalization.cultureinfo" class="refdocgen-link-secondary">CultureInfo</a></span>
+
+<span>culture</span><span>, </span><span class="refdocgen-text-tertiary">out</span>
+    <span></span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.datetimeoffset" class="refdocgen-link-secondary">DateTimeOffset</a></span>
+
+<span>dt</span><span>)</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#TryParseDateTimeOffset(Newtonsoft.Json.Utilities.StringReference,System.String,System.Globalization.CultureInfo,System.DateTimeOffset-)">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                <h3 class="lead my-2">Parameters</h3>
+    <div class="mx-2" data-id="parameters-section"><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="./Newtonsoft.Json.Utilities.StringReference.html" class="refdocgen-link-secondary">StringReference</a></span>
+
+<span>s</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.string" class="refdocgen-link-secondary">string</a></span>
+
+<span>dateFormatString</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.globalization.cultureinfo" class="refdocgen-link-secondary">CultureInfo</a></span>
+
+<span>culture</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">out</span>
+    <span></span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.datetimeoffset" class="refdocgen-link-secondary">DateTimeOffset</a></span>
+
+<span>dt</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div></div><h3 class="lead my-2">Returns</h3>
+<div class="mx-2" data-id="returns-section"><samp data-id="return-type-name"><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.boolean" class="refdocgen-link-secondary">bool</a></span></span><span class="not-visible" data-language="todo-lang"></span></samp>
+    <div class="text-body-secondary fst-italic" data-id="returns-doc"></div></div>
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="TryParseDateTimeOffset(System.String,System.String,System.Globalization.CultureInfo,System.DateTimeOffset-)" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">internal static</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.boolean" class="refdocgen-link-secondary">bool</a></span>
+
+<span class="refdocgen-text-primary">TryParseDateTimeOffset</span><span>(</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.string" class="refdocgen-link-secondary">string</a></span>
+
+<span>s</span><span>, </span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.string" class="refdocgen-link-secondary">string</a></span>
+
+<span>dateFormatString</span><span>, </span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.globalization.cultureinfo" class="refdocgen-link-secondary">CultureInfo</a></span>
+
+<span>culture</span><span>, </span><span class="refdocgen-text-tertiary">out</span>
+    <span></span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.datetimeoffset" class="refdocgen-link-secondary">DateTimeOffset</a></span>
+
+<span>dt</span><span>)</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#TryParseDateTimeOffset(System.String,System.String,System.Globalization.CultureInfo,System.DateTimeOffset-)">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                <h3 class="lead my-2">Parameters</h3>
+    <div class="mx-2" data-id="parameters-section"><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.string" class="refdocgen-link-secondary">string</a></span>
+
+<span>s</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.string" class="refdocgen-link-secondary">string</a></span>
+
+<span>dateFormatString</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.globalization.cultureinfo" class="refdocgen-link-secondary">CultureInfo</a></span>
+
+<span>culture</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">out</span>
+    <span></span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.datetimeoffset" class="refdocgen-link-secondary">DateTimeOffset</a></span>
+
+<span>dt</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div></div><h3 class="lead my-2">Returns</h3>
+<div class="mx-2" data-id="returns-section"><samp data-id="return-type-name"><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.boolean" class="refdocgen-link-secondary">bool</a></span></span><span class="not-visible" data-language="todo-lang"></span></samp>
+    <div class="text-body-secondary fst-italic" data-id="returns-doc"></div></div>
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="TryParseDateTimeOffsetExact(System.String,System.String,System.Globalization.CultureInfo,System.DateTimeOffset-)" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">private static</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.boolean" class="refdocgen-link-secondary">bool</a></span>
+
+<span class="refdocgen-text-primary">TryParseDateTimeOffsetExact</span><span>(</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.string" class="refdocgen-link-secondary">string</a></span>
+
+<span>text</span><span>, </span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.string" class="refdocgen-link-secondary">string</a></span>
+
+<span>dateFormatString</span><span>, </span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.globalization.cultureinfo" class="refdocgen-link-secondary">CultureInfo</a></span>
+
+<span>culture</span><span>, </span><span class="refdocgen-text-tertiary">out</span>
+    <span></span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.datetimeoffset" class="refdocgen-link-secondary">DateTimeOffset</a></span>
+
+<span>dt</span><span>)</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#TryParseDateTimeOffsetExact(System.String,System.String,System.Globalization.CultureInfo,System.DateTimeOffset-)">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                <h3 class="lead my-2">Parameters</h3>
+    <div class="mx-2" data-id="parameters-section"><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.string" class="refdocgen-link-secondary">string</a></span>
+
+<span>text</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.string" class="refdocgen-link-secondary">string</a></span>
+
+<span>dateFormatString</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.globalization.cultureinfo" class="refdocgen-link-secondary">CultureInfo</a></span>
+
+<span>culture</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">out</span>
+    <span></span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.datetimeoffset" class="refdocgen-link-secondary">DateTimeOffset</a></span>
+
+<span>dt</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div></div><h3 class="lead my-2">Returns</h3>
+<div class="mx-2" data-id="returns-section"><samp data-id="return-type-name"><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.boolean" class="refdocgen-link-secondary">bool</a></span></span><span class="not-visible" data-language="todo-lang"></span></samp>
+    <div class="text-body-secondary fst-italic" data-id="returns-doc"></div></div>
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="TryParseDateTimeOffsetIso(Newtonsoft.Json.Utilities.StringReference,System.DateTimeOffset-)" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">internal static</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.boolean" class="refdocgen-link-secondary">bool</a></span>
+
+<span class="refdocgen-text-primary">TryParseDateTimeOffsetIso</span><span>(</span><span class="refdocgen-text-secondary"><a href="./Newtonsoft.Json.Utilities.StringReference.html" class="refdocgen-link-secondary">StringReference</a></span>
+
+<span>text</span><span>, </span><span class="refdocgen-text-tertiary">out</span>
+    <span></span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.datetimeoffset" class="refdocgen-link-secondary">DateTimeOffset</a></span>
+
+<span>dt</span><span>)</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#TryParseDateTimeOffsetIso(Newtonsoft.Json.Utilities.StringReference,System.DateTimeOffset-)">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                <h3 class="lead my-2">Parameters</h3>
+    <div class="mx-2" data-id="parameters-section"><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="./Newtonsoft.Json.Utilities.StringReference.html" class="refdocgen-link-secondary">StringReference</a></span>
+
+<span>text</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">out</span>
+    <span></span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.datetimeoffset" class="refdocgen-link-secondary">DateTimeOffset</a></span>
+
+<span>dt</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div></div><h3 class="lead my-2">Returns</h3>
+<div class="mx-2" data-id="returns-section"><samp data-id="return-type-name"><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.boolean" class="refdocgen-link-secondary">bool</a></span></span><span class="not-visible" data-language="todo-lang"></span></samp>
+    <div class="text-body-secondary fst-italic" data-id="returns-doc"></div></div>
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="TryParseDateTimeOffsetMicrosoft(Newtonsoft.Json.Utilities.StringReference,System.DateTimeOffset-)" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">private static</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.boolean" class="refdocgen-link-secondary">bool</a></span>
+
+<span class="refdocgen-text-primary">TryParseDateTimeOffsetMicrosoft</span><span>(</span><span class="refdocgen-text-secondary"><a href="./Newtonsoft.Json.Utilities.StringReference.html" class="refdocgen-link-secondary">StringReference</a></span>
+
+<span>text</span><span>, </span><span class="refdocgen-text-tertiary">out</span>
+    <span></span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.datetimeoffset" class="refdocgen-link-secondary">DateTimeOffset</a></span>
+
+<span>dt</span><span>)</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#TryParseDateTimeOffsetMicrosoft(Newtonsoft.Json.Utilities.StringReference,System.DateTimeOffset-)">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                <h3 class="lead my-2">Parameters</h3>
+    <div class="mx-2" data-id="parameters-section"><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="./Newtonsoft.Json.Utilities.StringReference.html" class="refdocgen-link-secondary">StringReference</a></span>
+
+<span>text</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">out</span>
+    <span></span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.datetimeoffset" class="refdocgen-link-secondary">DateTimeOffset</a></span>
+
+<span>dt</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div></div><h3 class="lead my-2">Returns</h3>
+<div class="mx-2" data-id="returns-section"><samp data-id="return-type-name"><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.boolean" class="refdocgen-link-secondary">bool</a></span></span><span class="not-visible" data-language="todo-lang"></span></samp>
+    <div class="text-body-secondary fst-italic" data-id="returns-doc"></div></div>
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="TryParseMicrosoftDate(Newtonsoft.Json.Utilities.StringReference,System.Int64-,System.TimeSpan-,System.DateTimeKind-)" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">private static</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.boolean" class="refdocgen-link-secondary">bool</a></span>
+
+<span class="refdocgen-text-primary">TryParseMicrosoftDate</span><span>(</span><span class="refdocgen-text-secondary"><a href="./Newtonsoft.Json.Utilities.StringReference.html" class="refdocgen-link-secondary">StringReference</a></span>
+
+<span>text</span><span>, </span><span class="refdocgen-text-tertiary">out</span>
+    <span></span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.int64" class="refdocgen-link-secondary">long</a></span>
+
+<span>ticks</span><span>, </span><span class="refdocgen-text-tertiary">out</span>
+    <span></span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.timespan" class="refdocgen-link-secondary">TimeSpan</a></span>
+
+<span>offset</span><span>, </span><span class="refdocgen-text-tertiary">out</span>
+    <span></span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.datetimekind" class="refdocgen-link-secondary">DateTimeKind</a></span>
+
+<span>kind</span><span>)</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#TryParseMicrosoftDate(Newtonsoft.Json.Utilities.StringReference,System.Int64-,System.TimeSpan-,System.DateTimeKind-)">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                <h3 class="lead my-2">Parameters</h3>
+    <div class="mx-2" data-id="parameters-section"><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="./Newtonsoft.Json.Utilities.StringReference.html" class="refdocgen-link-secondary">StringReference</a></span>
+
+<span>text</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">out</span>
+    <span></span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.int64" class="refdocgen-link-secondary">long</a></span>
+
+<span>ticks</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">out</span>
+    <span></span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.timespan" class="refdocgen-link-secondary">TimeSpan</a></span>
+
+<span>offset</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">out</span>
+    <span></span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.datetimekind" class="refdocgen-link-secondary">DateTimeKind</a></span>
+
+<span>kind</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div></div><h3 class="lead my-2">Returns</h3>
+<div class="mx-2" data-id="returns-section"><samp data-id="return-type-name"><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.boolean" class="refdocgen-link-secondary">bool</a></span></span><span class="not-visible" data-language="todo-lang"></span></samp>
+    <div class="text-body-secondary fst-italic" data-id="returns-doc"></div></div>
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="TryReadOffset(Newtonsoft.Json.Utilities.StringReference,System.Int32,System.TimeSpan-)" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">private static</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.boolean" class="refdocgen-link-secondary">bool</a></span>
+
+<span class="refdocgen-text-primary">TryReadOffset</span><span>(</span><span class="refdocgen-text-secondary"><a href="./Newtonsoft.Json.Utilities.StringReference.html" class="refdocgen-link-secondary">StringReference</a></span>
+
+<span>offsetText</span><span>, </span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.int32" class="refdocgen-link-secondary">int</a></span>
+
+<span>startIndex</span><span>, </span><span class="refdocgen-text-tertiary">out</span>
+    <span></span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.timespan" class="refdocgen-link-secondary">TimeSpan</a></span>
+
+<span>offset</span><span>)</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#TryReadOffset(Newtonsoft.Json.Utilities.StringReference,System.Int32,System.TimeSpan-)">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                <h3 class="lead my-2">Parameters</h3>
+    <div class="mx-2" data-id="parameters-section"><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="./Newtonsoft.Json.Utilities.StringReference.html" class="refdocgen-link-secondary">StringReference</a></span>
+
+<span>offsetText</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.int32" class="refdocgen-link-secondary">int</a></span>
+
+<span>startIndex</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">out</span>
+    <span></span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.timespan" class="refdocgen-link-secondary">TimeSpan</a></span>
+
+<span>offset</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div></div><h3 class="lead my-2">Returns</h3>
+<div class="mx-2" data-id="returns-section"><samp data-id="return-type-name"><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.boolean" class="refdocgen-link-secondary">bool</a></span></span><span class="not-visible" data-language="todo-lang"></span></samp>
+    <div class="text-body-secondary fst-italic" data-id="returns-doc"></div></div>
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="UniversalTicksToJavaScriptTicks(System.Int64)" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">private static</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.int64" class="refdocgen-link-secondary">long</a></span>
+
+<span class="refdocgen-text-primary">UniversalTicksToJavaScriptTicks</span><span>(</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.int64" class="refdocgen-link-secondary">long</a></span>
+
+<span>universalTicks</span><span>)</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#UniversalTicksToJavaScriptTicks(System.Int64)">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                <h3 class="lead my-2">Parameters</h3>
+    <div class="mx-2" data-id="parameters-section"><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.int64" class="refdocgen-link-secondary">long</a></span>
+
+<span>universalTicks</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div></div><h3 class="lead my-2">Returns</h3>
+<div class="mx-2" data-id="returns-section"><samp data-id="return-type-name"><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.int64" class="refdocgen-link-secondary">long</a></span></span><span class="not-visible" data-language="todo-lang"></span></samp>
+    <div class="text-body-secondary fst-italic" data-id="returns-doc"></div></div>
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="WriteDateTimeOffset(System.Char(),System.Int32,System.TimeSpan,Newtonsoft.Json.DateFormatHandling)" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">internal static</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.int32" class="refdocgen-link-secondary">int</a></span>
+
+<span class="refdocgen-text-primary">WriteDateTimeOffset</span><span>(</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.char" class="refdocgen-link-secondary">char[]</a></span>
+
+<span>chars</span><span>, </span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.int32" class="refdocgen-link-secondary">int</a></span>
+
+<span>start</span><span>, </span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.timespan" class="refdocgen-link-secondary">TimeSpan</a></span>
+
+<span>offset</span><span>, </span><span class="refdocgen-text-secondary"><a href="./Newtonsoft.Json.DateFormatHandling.html" class="refdocgen-link-secondary">DateFormatHandling</a></span>
+
+<span>format</span><span>)</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#WriteDateTimeOffset(System.Char(),System.Int32,System.TimeSpan,Newtonsoft.Json.DateFormatHandling)">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                <h3 class="lead my-2">Parameters</h3>
+    <div class="mx-2" data-id="parameters-section"><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.char" class="refdocgen-link-secondary">char[]</a></span>
+
+<span>chars</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.int32" class="refdocgen-link-secondary">int</a></span>
+
+<span>start</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.timespan" class="refdocgen-link-secondary">TimeSpan</a></span>
+
+<span>offset</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="./Newtonsoft.Json.DateFormatHandling.html" class="refdocgen-link-secondary">DateFormatHandling</a></span>
+
+<span>format</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div></div><h3 class="lead my-2">Returns</h3>
+<div class="mx-2" data-id="returns-section"><samp data-id="return-type-name"><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.int32" class="refdocgen-link-secondary">int</a></span></span><span class="not-visible" data-language="todo-lang"></span></samp>
+    <div class="text-body-secondary fst-italic" data-id="returns-doc"></div></div>
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="WriteDateTimeOffsetString(System.IO.TextWriter,System.DateTimeOffset,Newtonsoft.Json.DateFormatHandling,System.String,System.Globalization.CultureInfo)" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">internal static</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.void" class="refdocgen-link-secondary">void</a></span>
+
+<span class="refdocgen-text-primary">WriteDateTimeOffsetString</span><span>(</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.io.textwriter" class="refdocgen-link-secondary">TextWriter</a></span>
+
+<span>writer</span><span>, </span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.datetimeoffset" class="refdocgen-link-secondary">DateTimeOffset</a></span>
+
+<span>value</span><span>, </span><span class="refdocgen-text-secondary"><a href="./Newtonsoft.Json.DateFormatHandling.html" class="refdocgen-link-secondary">DateFormatHandling</a></span>
+
+<span>format</span><span>, </span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.string" class="refdocgen-link-secondary">string</a></span>
+
+<span>formatString</span><span>, </span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.globalization.cultureinfo" class="refdocgen-link-secondary">CultureInfo</a></span>
+
+<span>culture</span><span>)</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#WriteDateTimeOffsetString(System.IO.TextWriter,System.DateTimeOffset,Newtonsoft.Json.DateFormatHandling,System.String,System.Globalization.CultureInfo)">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                <h3 class="lead my-2">Parameters</h3>
+    <div class="mx-2" data-id="parameters-section"><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.io.textwriter" class="refdocgen-link-secondary">TextWriter</a></span>
+
+<span>writer</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.datetimeoffset" class="refdocgen-link-secondary">DateTimeOffset</a></span>
+
+<span>value</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="./Newtonsoft.Json.DateFormatHandling.html" class="refdocgen-link-secondary">DateFormatHandling</a></span>
+
+<span>format</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.string" class="refdocgen-link-secondary">string</a></span>
+
+<span>formatString</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.globalization.cultureinfo" class="refdocgen-link-secondary">CultureInfo</a></span>
+
+<span>culture</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div></div>
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="WriteDateTimeString(System.IO.TextWriter,System.DateTime,Newtonsoft.Json.DateFormatHandling,System.String,System.Globalization.CultureInfo)" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">internal static</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.void" class="refdocgen-link-secondary">void</a></span>
+
+<span class="refdocgen-text-primary">WriteDateTimeString</span><span>(</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.io.textwriter" class="refdocgen-link-secondary">TextWriter</a></span>
+
+<span>writer</span><span>, </span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.datetime" class="refdocgen-link-secondary">DateTime</a></span>
+
+<span>value</span><span>, </span><span class="refdocgen-text-secondary"><a href="./Newtonsoft.Json.DateFormatHandling.html" class="refdocgen-link-secondary">DateFormatHandling</a></span>
+
+<span>format</span><span>, </span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.string" class="refdocgen-link-secondary">string</a></span>
+
+<span>formatString</span><span>, </span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.globalization.cultureinfo" class="refdocgen-link-secondary">CultureInfo</a></span>
+
+<span>culture</span><span>)</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#WriteDateTimeString(System.IO.TextWriter,System.DateTime,Newtonsoft.Json.DateFormatHandling,System.String,System.Globalization.CultureInfo)">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                <h3 class="lead my-2">Parameters</h3>
+    <div class="mx-2" data-id="parameters-section"><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.io.textwriter" class="refdocgen-link-secondary">TextWriter</a></span>
+
+<span>writer</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.datetime" class="refdocgen-link-secondary">DateTime</a></span>
+
+<span>value</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="./Newtonsoft.Json.DateFormatHandling.html" class="refdocgen-link-secondary">DateFormatHandling</a></span>
+
+<span>format</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.string" class="refdocgen-link-secondary">string</a></span>
+
+<span>formatString</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.globalization.cultureinfo" class="refdocgen-link-secondary">CultureInfo</a></span>
+
+<span>culture</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div></div>
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="WriteDateTimeString(System.Char(),System.Int32,System.DateTime,System.Nullable(System.TimeSpan),System.DateTimeKind,Newtonsoft.Json.DateFormatHandling)" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">internal static</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.int32" class="refdocgen-link-secondary">int</a></span>
+
+<span class="refdocgen-text-primary">WriteDateTimeString</span><span>(</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.char" class="refdocgen-link-secondary">char[]</a></span>
+
+<span>chars</span><span>, </span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.int32" class="refdocgen-link-secondary">int</a></span>
+
+<span>start</span><span>, </span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.datetime" class="refdocgen-link-secondary">DateTime</a></span>
+
+<span>value</span><span>, </span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.nullable-1" class="refdocgen-link-secondary">Nullable</a></span><span class="text-body-secondary">&lt;</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.timespan" class="refdocgen-link-secondary">TimeSpan</a></span><span class="text-body-secondary">&gt;</span>
+
+<span>offset</span><span>, </span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.datetimekind" class="refdocgen-link-secondary">DateTimeKind</a></span>
+
+<span>kind</span><span>, </span><span class="refdocgen-text-secondary"><a href="./Newtonsoft.Json.DateFormatHandling.html" class="refdocgen-link-secondary">DateFormatHandling</a></span>
+
+<span>format</span><span>)</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#WriteDateTimeString(System.Char(),System.Int32,System.DateTime,System.Nullable(System.TimeSpan),System.DateTimeKind,Newtonsoft.Json.DateFormatHandling)">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                <h3 class="lead my-2">Parameters</h3>
+    <div class="mx-2" data-id="parameters-section"><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.char" class="refdocgen-link-secondary">char[]</a></span>
+
+<span>chars</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.int32" class="refdocgen-link-secondary">int</a></span>
+
+<span>start</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.datetime" class="refdocgen-link-secondary">DateTime</a></span>
+
+<span>value</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.nullable-1" class="refdocgen-link-secondary">Nullable</a></span><span class="text-body-secondary">&lt;</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.timespan" class="refdocgen-link-secondary">TimeSpan</a></span><span class="text-body-secondary">&gt;</span>
+
+<span>offset</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.datetimekind" class="refdocgen-link-secondary">DateTimeKind</a></span>
+
+<span>kind</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="./Newtonsoft.Json.DateFormatHandling.html" class="refdocgen-link-secondary">DateFormatHandling</a></span>
+
+<span>format</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div></div><h3 class="lead my-2">Returns</h3>
+<div class="mx-2" data-id="returns-section"><samp data-id="return-type-name"><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.int32" class="refdocgen-link-secondary">int</a></span></span><span class="not-visible" data-language="todo-lang"></span></samp>
+    <div class="text-body-secondary fst-italic" data-id="returns-doc"></div></div>
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="WriteDefaultIsoDate(System.Char(),System.Int32,System.DateTime)" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">internal static</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.int32" class="refdocgen-link-secondary">int</a></span>
+
+<span class="refdocgen-text-primary">WriteDefaultIsoDate</span><span>(</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.char" class="refdocgen-link-secondary">char[]</a></span>
+
+<span>chars</span><span>, </span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.int32" class="refdocgen-link-secondary">int</a></span>
+
+<span>start</span><span>, </span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.datetime" class="refdocgen-link-secondary">DateTime</a></span>
+
+<span>dt</span><span>)</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#WriteDefaultIsoDate(System.Char(),System.Int32,System.DateTime)">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                <h3 class="lead my-2">Parameters</h3>
+    <div class="mx-2" data-id="parameters-section"><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.char" class="refdocgen-link-secondary">char[]</a></span>
+
+<span>chars</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.int32" class="refdocgen-link-secondary">int</a></span>
+
+<span>start</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.datetime" class="refdocgen-link-secondary">DateTime</a></span>
+
+<span>dt</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div></div><h3 class="lead my-2">Returns</h3>
+<div class="mx-2" data-id="returns-section"><samp data-id="return-type-name"><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.int32" class="refdocgen-link-secondary">int</a></span></span><span class="not-visible" data-language="todo-lang"></span></samp>
+    <div class="text-body-secondary fst-italic" data-id="returns-doc"></div></div>
+
+                
+                
+
+                
+
+                </div></div></div></div><nav class="navbar fixed-bottom menu-bg"><div class="container"><div class="dropup"><button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">v-newtonsoft-private</button>
+            <div id="current-version">v-newtonsoft-private</div>
+            <div id="version-list">[&quot;v-newtonsoft-private&quot;]</div>
+            <ul class="dropdown-menu" id="version-selector" data-id="version-selector"></ul></div></div></nav><script src="../Static/bootstrap-5.3.5-dist.bundle.min.js"></script>
+
+    
+    <script src="../Static/script.js"></script></body></html>
