@@ -1,0 +1,1313 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Reference documentation</title>
+
+    <script>
+
+        // use IIFE in order to avoid polluting global context with functions & variables
+        // https://developer.mozilla.org/en-US/docs/Glossary/IIFE
+        (function() {
+            const isLocalFile = location.protocol === "file:";
+            const defaultTheme = "dark";
+            const defaultLang = "csharp-lang";
+
+            if(isLocalFile){
+                const urlParams = new URLSearchParams(window.location.search);
+
+                let redirect = false;
+
+                // set 'theme' URL param if not found
+                if(!urlParams.has("theme")){
+                    urlParams.set("theme", defaultTheme);
+                    redirect = true;
+                }
+
+                // set 'lang' URL param if not found
+                if(!urlParams.has("lang")){
+                    urlParams.set("lang", defaultLang);
+                    redirect = true;
+                }
+
+                // redirect, if some of the URL parameters are missing
+                if(redirect){
+                    const newUrl = new URL(window.location.href);
+                    newUrl.search = urlParams.toString();
+
+                    window.location.href = newUrl;
+                }
+                else {
+                    document.documentElement.setAttribute("data-bs-theme", urlParams.get("theme")); // set the 'data-bs-theme' attribute
+                    document.documentElement.setAttribute("data-language", urlParams.get("lang")); // set the 'data-language' attribute
+                }
+            }
+            else { // no local file -> use localStorage
+                if (!localStorage.getItem("refdocgen-theme")) {
+                    localStorage.setItem("refdocgen-theme", defaultTheme);
+                }
+
+                if (!localStorage.getItem("refdocgen-language")) {
+                    localStorage.setItem("refdocgen-language", defaultLang);
+                }
+
+                document.documentElement.setAttribute("data-bs-theme", localStorage.getItem("refdocgen-theme")); // set the 'data-bs-theme' attribute
+                document.documentElement.setAttribute("data-language", localStorage.getItem("refdocgen-language")); // set the 'data-language' attribute
+            }
+        })();
+    </script>
+
+    
+    <link href="../Static/styles.css" rel="stylesheet" /><style>html[data-language="csharp-lang"] [data-language="csharp-lang"] { display: inline !important; }
+html[data-language="todo-lang"] [data-language="todo-lang"] { display: inline !important; }
+</style></head>
+
+<body><nav class="navbar navbar-expand-lg sticky-top menu-bg"><div class="container"><a class="navbar-brand" href="../index.html">Project name</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup"><ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="../api/index.html">API</a></li></ul>
+            <ul class="navbar-nav ms-auto"><li class="nav-item d-flex align-items-center"><form class="me-2 mb-2 mb-lg-0"><select class="form-select" id="language-selector" aria-label="language"><option class="lang-option" value="csharp-lang">C#</option><option class="lang-option" value="todo-lang">TODO</option></select></form></li>
+
+                
+                <li class="nav-item d-flex align-items-center"><form role="search" class="me-2"><input class="form-control" autocomplete="off" type="search" placeholder="Search" aria-label="Search" id="menu-search-bar" url-target="../search.html" readonly /></form></li>
+
+                
+                <li class="nav-item" id="theme-switcher"><button class="nav-link"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-brightness-high" viewBox="0 0 16 16"><path d="M8 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6m0 1a4 4 0 1 0 0-8 4 4 0 0 0 0 8M8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0m0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13m8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5M3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8m10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0m-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0m9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707M4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708"></path></svg></button></li></ul></div></div></nav>
+
+    <div class="container my-4" data-id="page-body"><div data-id="declared-type-data"><h1 class="display-4" data-id="type-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">internal sealed class</span>
+<span class="refdocgen-text-primary">CultureInfoAdapter</span></span><span class="not-visible" data-language="todo-lang"></span></samp></h1>
+
+                    
+
+                    <h6><samp data-id="type-assembly"><a href="YamlDotNet-DLL.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">assembly</span>
+            <span class="refdocgen-text-secondary">YamlDotNet</span></a></samp></h6>
+
+                    <h6><samp data-id="type-namespace"><a href="YamlDotNet.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">namespace</span>
+            <span class="refdocgen-text-secondary">YamlDotNet</span></a></samp></h6>
+
+                    <div data-id="base-type"><i>Base type:&nbsp;</i>
+        <samp class="refdocgen-text-secondary"><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.globalization.cultureinfo" class="refdocgen-link-secondary">CultureInfo</a></span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                    <div data-id="implemented-interfaces"><i>Implements:&nbsp;</i>
+        <samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.iformatprovider" class="refdocgen-link-secondary">IFormatProvider</a></span></span><span class="not-visible" data-language="todo-lang"></span><span>, </span><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.icloneable" class="refdocgen-link-secondary">ICloneable</a></span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                    
+
+                    <hr>
+
+                    
+                    
+
+                    
+
+                    
+
+                    
+                    
+
+                    </div><h2 class="display-5 mt-2">Constructors</h2>
+<div class="row" data-id="constructors-section"><div class="col-md-12"><div class="border p-2 mb-2" id=".ctor(System.Globalization.CultureInfo,System.IFormatProvider)" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">public</span>
+<span class="refdocgen-text-primary">CultureInfoAdapter</span><span>(</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.globalization.cultureinfo" class="refdocgen-link-secondary">CultureInfo</a></span>
+
+<span>baseCulture</span><span>, </span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.iformatprovider" class="refdocgen-link-secondary">IFormatProvider</a></span>
+
+<span>provider</span><span>)</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#.ctor(System.Globalization.CultureInfo,System.IFormatProvider)">#</a></samp></h6>
+
+                
+
+                <h3 class="lead my-2">Parameters</h3>
+    <div class="mx-2" data-id="parameters-section"><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.globalization.cultureinfo" class="refdocgen-link-secondary">CultureInfo</a></span>
+
+<span>baseCulture</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.iformatprovider" class="refdocgen-link-secondary">IFormatProvider</a></span>
+
+<span>provider</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div></div>
+
+                
+
+                
+                
+
+                
+
+                </div></div></div><h2 class="display-5 mt-2">Fields</h2>
+<div class="row" data-id="fields-section"><div class="col-md-12"><div class="border p-2 mb-2" id="_cultureData" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">internal</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.globalization.culturedata" class="refdocgen-link-secondary">CultureData</a></span>
+
+<span class="refdocgen-text-primary">_cultureData</span>
+
+</span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#_cultureData">#</a></samp></h6>
+
+                <div class="refdocgen-text-tertiary fst-italic ms-4 mb-2" data-id="member-inherited-from">
+            Inherited from
+            <span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.globalization.cultureinfo" class="refdocgen-link-secondary"><span class="not-visible" data-language="csharp-lang">CultureInfo</span><span class="not-visible" data-language="todo-lang"></span></a></span></div>
+
+                
+
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="_dateTimeInfo" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">internal</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.globalization.datetimeformatinfo" class="refdocgen-link-secondary">DateTimeFormatInfo</a></span>
+
+<span class="refdocgen-text-primary">_dateTimeInfo</span>
+
+</span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#_dateTimeInfo">#</a></samp></h6>
+
+                <div class="refdocgen-text-tertiary fst-italic ms-4 mb-2" data-id="member-inherited-from">
+            Inherited from
+            <span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.globalization.cultureinfo" class="refdocgen-link-secondary"><span class="not-visible" data-language="csharp-lang">CultureInfo</span><span class="not-visible" data-language="todo-lang"></span></a></span></div>
+
+                
+
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="_isInherited" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">internal</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.boolean" class="refdocgen-link-secondary">bool</a></span>
+
+<span class="refdocgen-text-primary">_isInherited</span>
+
+</span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#_isInherited">#</a></samp></h6>
+
+                <div class="refdocgen-text-tertiary fst-italic ms-4 mb-2" data-id="member-inherited-from">
+            Inherited from
+            <span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.globalization.cultureinfo" class="refdocgen-link-secondary"><span class="not-visible" data-language="csharp-lang">CultureInfo</span><span class="not-visible" data-language="todo-lang"></span></a></span></div>
+
+                
+
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="_name" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">internal</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.string" class="refdocgen-link-secondary">string</a></span>
+
+<span class="refdocgen-text-primary">_name</span>
+
+</span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#_name">#</a></samp></h6>
+
+                <div class="refdocgen-text-tertiary fst-italic ms-4 mb-2" data-id="member-inherited-from">
+            Inherited from
+            <span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.globalization.cultureinfo" class="refdocgen-link-secondary"><span class="not-visible" data-language="csharp-lang">CultureInfo</span><span class="not-visible" data-language="todo-lang"></span></a></span></div>
+
+                
+
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="_numInfo" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">internal</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.globalization.numberformatinfo" class="refdocgen-link-secondary">NumberFormatInfo</a></span>
+
+<span class="refdocgen-text-primary">_numInfo</span>
+
+</span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#_numInfo">#</a></samp></h6>
+
+                <div class="refdocgen-text-tertiary fst-italic ms-4 mb-2" data-id="member-inherited-from">
+            Inherited from
+            <span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.globalization.cultureinfo" class="refdocgen-link-secondary"><span class="not-visible" data-language="csharp-lang">CultureInfo</span><span class="not-visible" data-language="todo-lang"></span></a></span></div>
+
+                
+
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="provider" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">private readonly</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.iformatprovider" class="refdocgen-link-secondary">IFormatProvider</a></span>
+
+<span class="refdocgen-text-primary">provider</span>
+
+</span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#provider">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                </div></div></div><h2 class="display-5 mt-2">Properties</h2>
+<div class="row" data-id="properties-section"><div class="col-md-12"><div class="border p-2 mb-2" id="Calendar" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">public virtual</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.globalization.calendar" class="refdocgen-link-secondary">Calendar</a></span>
+
+<span class="refdocgen-text-primary">Calendar</span>
+
+<span> { </span><span class="refdocgen-text-tertiary"> get<span class="text-body">; </span></span><span> }</span>
+
+</span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#Calendar">#</a></samp></h6>
+
+                <div class="refdocgen-text-tertiary fst-italic ms-4 mb-2" data-id="member-inherited-from">
+            Inherited from
+            <span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.globalization.cultureinfo" class="refdocgen-link-secondary"><span class="not-visible" data-language="csharp-lang">CultureInfo</span><span class="not-visible" data-language="todo-lang"></span></a></span></div>
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="CompareInfo" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">public virtual</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.globalization.compareinfo" class="refdocgen-link-secondary">CompareInfo</a></span>
+
+<span class="refdocgen-text-primary">CompareInfo</span>
+
+<span> { </span><span class="refdocgen-text-tertiary"> get<span class="text-body">; </span></span><span> }</span>
+
+</span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#CompareInfo">#</a></samp></h6>
+
+                <div class="refdocgen-text-tertiary fst-italic ms-4 mb-2" data-id="member-inherited-from">
+            Inherited from
+            <span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.globalization.cultureinfo" class="refdocgen-link-secondary"><span class="not-visible" data-language="csharp-lang">CultureInfo</span><span class="not-visible" data-language="todo-lang"></span></a></span></div>
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="CultureTypes" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">public</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.globalization.culturetypes" class="refdocgen-link-secondary">CultureTypes</a></span>
+
+<span class="refdocgen-text-primary">CultureTypes</span>
+
+<span> { </span><span class="refdocgen-text-tertiary"> get<span class="text-body">; </span></span><span> }</span>
+
+</span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#CultureTypes">#</a></samp></h6>
+
+                <div class="refdocgen-text-tertiary fst-italic ms-4 mb-2" data-id="member-inherited-from">
+            Inherited from
+            <span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.globalization.cultureinfo" class="refdocgen-link-secondary"><span class="not-visible" data-language="csharp-lang">CultureInfo</span><span class="not-visible" data-language="todo-lang"></span></a></span></div>
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="DateTimeFormat" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">public virtual</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.globalization.datetimeformatinfo" class="refdocgen-link-secondary">DateTimeFormatInfo</a></span>
+
+<span class="refdocgen-text-primary">DateTimeFormat</span>
+
+<span> { </span><span class="refdocgen-text-tertiary"> get<span class="text-body">; </span></span><span class="refdocgen-text-tertiary"> set<span class="text-body">; </span></span><span> }</span>
+
+</span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#DateTimeFormat">#</a></samp></h6>
+
+                <div class="refdocgen-text-tertiary fst-italic ms-4 mb-2" data-id="member-inherited-from">
+            Inherited from
+            <span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.globalization.cultureinfo" class="refdocgen-link-secondary"><span class="not-visible" data-language="csharp-lang">CultureInfo</span><span class="not-visible" data-language="todo-lang"></span></a></span></div>
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="DisplayName" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">public virtual</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.string" class="refdocgen-link-secondary">string</a></span>
+
+<span class="refdocgen-text-primary">DisplayName</span>
+
+<span> { </span><span class="refdocgen-text-tertiary"> get<span class="text-body">; </span></span><span> }</span>
+
+</span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#DisplayName">#</a></samp></h6>
+
+                <div class="refdocgen-text-tertiary fst-italic ms-4 mb-2" data-id="member-inherited-from">
+            Inherited from
+            <span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.globalization.cultureinfo" class="refdocgen-link-secondary"><span class="not-visible" data-language="csharp-lang">CultureInfo</span><span class="not-visible" data-language="todo-lang"></span></a></span></div>
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="EnglishName" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">public virtual</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.string" class="refdocgen-link-secondary">string</a></span>
+
+<span class="refdocgen-text-primary">EnglishName</span>
+
+<span> { </span><span class="refdocgen-text-tertiary"> get<span class="text-body">; </span></span><span> }</span>
+
+</span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#EnglishName">#</a></samp></h6>
+
+                <div class="refdocgen-text-tertiary fst-italic ms-4 mb-2" data-id="member-inherited-from">
+            Inherited from
+            <span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.globalization.cultureinfo" class="refdocgen-link-secondary"><span class="not-visible" data-language="csharp-lang">CultureInfo</span><span class="not-visible" data-language="todo-lang"></span></a></span></div>
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="HasInvariantCultureName" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">internal</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.boolean" class="refdocgen-link-secondary">bool</a></span>
+
+<span class="refdocgen-text-primary">HasInvariantCultureName</span>
+
+<span> { </span><span class="refdocgen-text-tertiary"> get<span class="text-body">; </span></span><span> }</span>
+
+</span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#HasInvariantCultureName">#</a></samp></h6>
+
+                <div class="refdocgen-text-tertiary fst-italic ms-4 mb-2" data-id="member-inherited-from">
+            Inherited from
+            <span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.globalization.cultureinfo" class="refdocgen-link-secondary"><span class="not-visible" data-language="csharp-lang">CultureInfo</span><span class="not-visible" data-language="todo-lang"></span></a></span></div>
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="IetfLanguageTag" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">public</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.string" class="refdocgen-link-secondary">string</a></span>
+
+<span class="refdocgen-text-primary">IetfLanguageTag</span>
+
+<span> { </span><span class="refdocgen-text-tertiary"> get<span class="text-body">; </span></span><span> }</span>
+
+</span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#IetfLanguageTag">#</a></samp></h6>
+
+                <div class="refdocgen-text-tertiary fst-italic ms-4 mb-2" data-id="member-inherited-from">
+            Inherited from
+            <span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.globalization.cultureinfo" class="refdocgen-link-secondary"><span class="not-visible" data-language="csharp-lang">CultureInfo</span><span class="not-visible" data-language="todo-lang"></span></a></span></div>
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="InteropName" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">internal</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.string" class="refdocgen-link-secondary">string</a></span>
+
+<span class="refdocgen-text-primary">InteropName</span>
+
+<span> { </span><span class="refdocgen-text-tertiary"> get<span class="text-body">; </span></span><span> }</span>
+
+</span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#InteropName">#</a></samp></h6>
+
+                <div class="refdocgen-text-tertiary fst-italic ms-4 mb-2" data-id="member-inherited-from">
+            Inherited from
+            <span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.globalization.cultureinfo" class="refdocgen-link-secondary"><span class="not-visible" data-language="csharp-lang">CultureInfo</span><span class="not-visible" data-language="todo-lang"></span></a></span></div>
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="IsNeutralCulture" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">public virtual</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.boolean" class="refdocgen-link-secondary">bool</a></span>
+
+<span class="refdocgen-text-primary">IsNeutralCulture</span>
+
+<span> { </span><span class="refdocgen-text-tertiary"> get<span class="text-body">; </span></span><span> }</span>
+
+</span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#IsNeutralCulture">#</a></samp></h6>
+
+                <div class="refdocgen-text-tertiary fst-italic ms-4 mb-2" data-id="member-inherited-from">
+            Inherited from
+            <span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.globalization.cultureinfo" class="refdocgen-link-secondary"><span class="not-visible" data-language="csharp-lang">CultureInfo</span><span class="not-visible" data-language="todo-lang"></span></a></span></div>
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="IsReadOnly" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">public</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.boolean" class="refdocgen-link-secondary">bool</a></span>
+
+<span class="refdocgen-text-primary">IsReadOnly</span>
+
+<span> { </span><span class="refdocgen-text-tertiary"> get<span class="text-body">; </span></span><span> }</span>
+
+</span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#IsReadOnly">#</a></samp></h6>
+
+                <div class="refdocgen-text-tertiary fst-italic ms-4 mb-2" data-id="member-inherited-from">
+            Inherited from
+            <span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.globalization.cultureinfo" class="refdocgen-link-secondary"><span class="not-visible" data-language="csharp-lang">CultureInfo</span><span class="not-visible" data-language="todo-lang"></span></a></span></div>
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="KeyboardLayoutId" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">public virtual</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.int32" class="refdocgen-link-secondary">int</a></span>
+
+<span class="refdocgen-text-primary">KeyboardLayoutId</span>
+
+<span> { </span><span class="refdocgen-text-tertiary"> get<span class="text-body">; </span></span><span> }</span>
+
+</span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#KeyboardLayoutId">#</a></samp></h6>
+
+                <div class="refdocgen-text-tertiary fst-italic ms-4 mb-2" data-id="member-inherited-from">
+            Inherited from
+            <span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.globalization.cultureinfo" class="refdocgen-link-secondary"><span class="not-visible" data-language="csharp-lang">CultureInfo</span><span class="not-visible" data-language="todo-lang"></span></a></span></div>
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="LCID" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">public virtual</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.int32" class="refdocgen-link-secondary">int</a></span>
+
+<span class="refdocgen-text-primary">LCID</span>
+
+<span> { </span><span class="refdocgen-text-tertiary"> get<span class="text-body">; </span></span><span> }</span>
+
+</span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#LCID">#</a></samp></h6>
+
+                <div class="refdocgen-text-tertiary fst-italic ms-4 mb-2" data-id="member-inherited-from">
+            Inherited from
+            <span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.globalization.cultureinfo" class="refdocgen-link-secondary"><span class="not-visible" data-language="csharp-lang">CultureInfo</span><span class="not-visible" data-language="todo-lang"></span></a></span></div>
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="Name" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">public virtual</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.string" class="refdocgen-link-secondary">string</a></span>
+
+<span class="refdocgen-text-primary">Name</span>
+
+<span> { </span><span class="refdocgen-text-tertiary"> get<span class="text-body">; </span></span><span> }</span>
+
+</span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#Name">#</a></samp></h6>
+
+                <div class="refdocgen-text-tertiary fst-italic ms-4 mb-2" data-id="member-inherited-from">
+            Inherited from
+            <span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.globalization.cultureinfo" class="refdocgen-link-secondary"><span class="not-visible" data-language="csharp-lang">CultureInfo</span><span class="not-visible" data-language="todo-lang"></span></a></span></div>
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="NativeName" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">public virtual</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.string" class="refdocgen-link-secondary">string</a></span>
+
+<span class="refdocgen-text-primary">NativeName</span>
+
+<span> { </span><span class="refdocgen-text-tertiary"> get<span class="text-body">; </span></span><span> }</span>
+
+</span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#NativeName">#</a></samp></h6>
+
+                <div class="refdocgen-text-tertiary fst-italic ms-4 mb-2" data-id="member-inherited-from">
+            Inherited from
+            <span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.globalization.cultureinfo" class="refdocgen-link-secondary"><span class="not-visible" data-language="csharp-lang">CultureInfo</span><span class="not-visible" data-language="todo-lang"></span></a></span></div>
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="NumberFormat" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">public virtual</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.globalization.numberformatinfo" class="refdocgen-link-secondary">NumberFormatInfo</a></span>
+
+<span class="refdocgen-text-primary">NumberFormat</span>
+
+<span> { </span><span class="refdocgen-text-tertiary"> get<span class="text-body">; </span></span><span class="refdocgen-text-tertiary"> set<span class="text-body">; </span></span><span> }</span>
+
+</span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#NumberFormat">#</a></samp></h6>
+
+                <div class="refdocgen-text-tertiary fst-italic ms-4 mb-2" data-id="member-inherited-from">
+            Inherited from
+            <span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.globalization.cultureinfo" class="refdocgen-link-secondary"><span class="not-visible" data-language="csharp-lang">CultureInfo</span><span class="not-visible" data-language="todo-lang"></span></a></span></div>
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="OptionalCalendars" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">public virtual</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.globalization.calendar" class="refdocgen-link-secondary">Calendar[]</a></span>
+
+<span class="refdocgen-text-primary">OptionalCalendars</span>
+
+<span> { </span><span class="refdocgen-text-tertiary"> get<span class="text-body">; </span></span><span> }</span>
+
+</span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#OptionalCalendars">#</a></samp></h6>
+
+                <div class="refdocgen-text-tertiary fst-italic ms-4 mb-2" data-id="member-inherited-from">
+            Inherited from
+            <span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.globalization.cultureinfo" class="refdocgen-link-secondary"><span class="not-visible" data-language="csharp-lang">CultureInfo</span><span class="not-visible" data-language="todo-lang"></span></a></span></div>
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="Parent" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">public virtual</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.globalization.cultureinfo" class="refdocgen-link-secondary">CultureInfo</a></span>
+
+<span class="refdocgen-text-primary">Parent</span>
+
+<span> { </span><span class="refdocgen-text-tertiary"> get<span class="text-body">; </span></span><span> }</span>
+
+</span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#Parent">#</a></samp></h6>
+
+                <div class="refdocgen-text-tertiary fst-italic ms-4 mb-2" data-id="member-inherited-from">
+            Inherited from
+            <span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.globalization.cultureinfo" class="refdocgen-link-secondary"><span class="not-visible" data-language="csharp-lang">CultureInfo</span><span class="not-visible" data-language="todo-lang"></span></a></span></div>
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="SortName" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">internal</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.string" class="refdocgen-link-secondary">string</a></span>
+
+<span class="refdocgen-text-primary">SortName</span>
+
+<span> { </span><span class="refdocgen-text-tertiary"> get<span class="text-body">; </span></span><span> }</span>
+
+</span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#SortName">#</a></samp></h6>
+
+                <div class="refdocgen-text-tertiary fst-italic ms-4 mb-2" data-id="member-inherited-from">
+            Inherited from
+            <span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.globalization.cultureinfo" class="refdocgen-link-secondary"><span class="not-visible" data-language="csharp-lang">CultureInfo</span><span class="not-visible" data-language="todo-lang"></span></a></span></div>
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="TextInfo" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">public virtual</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.globalization.textinfo" class="refdocgen-link-secondary">TextInfo</a></span>
+
+<span class="refdocgen-text-primary">TextInfo</span>
+
+<span> { </span><span class="refdocgen-text-tertiary"> get<span class="text-body">; </span></span><span> }</span>
+
+</span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#TextInfo">#</a></samp></h6>
+
+                <div class="refdocgen-text-tertiary fst-italic ms-4 mb-2" data-id="member-inherited-from">
+            Inherited from
+            <span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.globalization.cultureinfo" class="refdocgen-link-secondary"><span class="not-visible" data-language="csharp-lang">CultureInfo</span><span class="not-visible" data-language="todo-lang"></span></a></span></div>
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="ThreeLetterISOLanguageName" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">public virtual</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.string" class="refdocgen-link-secondary">string</a></span>
+
+<span class="refdocgen-text-primary">ThreeLetterISOLanguageName</span>
+
+<span> { </span><span class="refdocgen-text-tertiary"> get<span class="text-body">; </span></span><span> }</span>
+
+</span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#ThreeLetterISOLanguageName">#</a></samp></h6>
+
+                <div class="refdocgen-text-tertiary fst-italic ms-4 mb-2" data-id="member-inherited-from">
+            Inherited from
+            <span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.globalization.cultureinfo" class="refdocgen-link-secondary"><span class="not-visible" data-language="csharp-lang">CultureInfo</span><span class="not-visible" data-language="todo-lang"></span></a></span></div>
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="ThreeLetterWindowsLanguageName" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">public virtual</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.string" class="refdocgen-link-secondary">string</a></span>
+
+<span class="refdocgen-text-primary">ThreeLetterWindowsLanguageName</span>
+
+<span> { </span><span class="refdocgen-text-tertiary"> get<span class="text-body">; </span></span><span> }</span>
+
+</span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#ThreeLetterWindowsLanguageName">#</a></samp></h6>
+
+                <div class="refdocgen-text-tertiary fst-italic ms-4 mb-2" data-id="member-inherited-from">
+            Inherited from
+            <span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.globalization.cultureinfo" class="refdocgen-link-secondary"><span class="not-visible" data-language="csharp-lang">CultureInfo</span><span class="not-visible" data-language="todo-lang"></span></a></span></div>
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="TwoLetterISOLanguageName" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">public virtual</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.string" class="refdocgen-link-secondary">string</a></span>
+
+<span class="refdocgen-text-primary">TwoLetterISOLanguageName</span>
+
+<span> { </span><span class="refdocgen-text-tertiary"> get<span class="text-body">; </span></span><span> }</span>
+
+</span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#TwoLetterISOLanguageName">#</a></samp></h6>
+
+                <div class="refdocgen-text-tertiary fst-italic ms-4 mb-2" data-id="member-inherited-from">
+            Inherited from
+            <span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.globalization.cultureinfo" class="refdocgen-link-secondary"><span class="not-visible" data-language="csharp-lang">CultureInfo</span><span class="not-visible" data-language="todo-lang"></span></a></span></div>
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="UseUserOverride" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">public</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.boolean" class="refdocgen-link-secondary">bool</a></span>
+
+<span class="refdocgen-text-primary">UseUserOverride</span>
+
+<span> { </span><span class="refdocgen-text-tertiary"> get<span class="text-body">; </span></span><span> }</span>
+
+</span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#UseUserOverride">#</a></samp></h6>
+
+                <div class="refdocgen-text-tertiary fst-italic ms-4 mb-2" data-id="member-inherited-from">
+            Inherited from
+            <span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.globalization.cultureinfo" class="refdocgen-link-secondary"><span class="not-visible" data-language="csharp-lang">CultureInfo</span><span class="not-visible" data-language="todo-lang"></span></a></span></div>
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+                
+
+                
+
+                </div></div></div><h2 class="display-5 mt-2">Methods</h2>
+<div class="row" data-id="methods-section"><div class="col-md-12"><div class="border p-2 mb-2" id="ClearCachedData" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">public</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.void" class="refdocgen-link-secondary">void</a></span>
+
+<span class="refdocgen-text-primary">ClearCachedData</span><span>(</span><span>)</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#ClearCachedData">#</a></samp></h6>
+
+                
+
+                <div class="refdocgen-text-tertiary fst-italic ms-4 mb-2" data-id="member-inherited-from">
+            Inherited from
+            <span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.globalization.cultureinfo" class="refdocgen-link-secondary"><span class="not-visible" data-language="csharp-lang">CultureInfo</span><span class="not-visible" data-language="todo-lang"></span></a></span></div>
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="Clone" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">public virtual</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.object" class="refdocgen-link-secondary">object</a></span>
+
+<span class="refdocgen-text-primary">Clone</span><span>(</span><span>)</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#Clone">#</a></samp></h6>
+
+                
+
+                <div class="refdocgen-text-tertiary fst-italic ms-4 mb-2" data-id="member-inherited-from">
+            Inherited from
+            <span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.globalization.cultureinfo" class="refdocgen-link-secondary"><span class="not-visible" data-language="csharp-lang">CultureInfo</span><span class="not-visible" data-language="todo-lang"></span></a></span></div>
+
+                
+
+                
+
+                <div class="refdocgen-text-tertiary fst-italic ms-4" data-id="member-implements">
+                Implements
+                <span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.icloneable.clone" class="refdocgen-link-secondary"><span class="not-visible" data-language="csharp-lang">ICloneable.Clone</span><span class="not-visible" data-language="todo-lang">.Clone</span></a></span></div><div class="mb-2"></div>
+
+                
+
+                
+
+                <h3 class="lead my-2">Returns</h3>
+<div class="mx-2" data-id="returns-section"><samp data-id="return-type-name"><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.object" class="refdocgen-link-secondary">object</a></span></span><span class="not-visible" data-language="todo-lang"></span></samp>
+    <div class="text-body-secondary fst-italic" data-id="returns-doc"></div></div>
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="Equals(System.Object)" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">public virtual</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.boolean" class="refdocgen-link-secondary">bool</a></span>
+
+<span class="refdocgen-text-primary">Equals</span><span>(</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.object" class="refdocgen-link-secondary">object</a></span>
+
+<span>value</span><span>)</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#Equals(System.Object)">#</a></samp></h6>
+
+                
+
+                <div class="refdocgen-text-tertiary fst-italic ms-4 mb-2" data-id="member-inherited-from">
+            Inherited from
+            <span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.globalization.cultureinfo" class="refdocgen-link-secondary"><span class="not-visible" data-language="csharp-lang">CultureInfo</span><span class="not-visible" data-language="todo-lang"></span></a></span></div>
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                <h3 class="lead my-2">Parameters</h3>
+    <div class="mx-2" data-id="parameters-section"><div data-id="parameter-data"><div data-id="attribute-data"><samp><span class="not-visible" data-language="csharp-lang">
+
+[<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.diagnostics.codeanalysis.notnullwhenattribute" class="refdocgen-link-secondary">NotNullWhen</a></span><span>(</span><span class="refdocgen-text-green">True</span><span>)</span><span>]</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.object" class="refdocgen-link-secondary">object</a></span>
+
+<span>value</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div></div><h3 class="lead my-2">Returns</h3>
+<div class="mx-2" data-id="returns-section"><samp data-id="return-type-name"><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.boolean" class="refdocgen-link-secondary">bool</a></span></span><span class="not-visible" data-language="todo-lang"></span></samp>
+    <div class="text-body-secondary fst-italic" data-id="returns-doc"></div></div>
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="GetConsoleFallbackUICulture" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">public</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.globalization.cultureinfo" class="refdocgen-link-secondary">CultureInfo</a></span>
+
+<span class="refdocgen-text-primary">GetConsoleFallbackUICulture</span><span>(</span><span>)</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#GetConsoleFallbackUICulture">#</a></samp></h6>
+
+                
+
+                <div class="refdocgen-text-tertiary fst-italic ms-4 mb-2" data-id="member-inherited-from">
+            Inherited from
+            <span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.globalization.cultureinfo" class="refdocgen-link-secondary"><span class="not-visible" data-language="csharp-lang">CultureInfo</span><span class="not-visible" data-language="todo-lang"></span></a></span></div>
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                <h3 class="lead my-2">Returns</h3>
+<div class="mx-2" data-id="returns-section"><samp data-id="return-type-name"><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.globalization.cultureinfo" class="refdocgen-link-secondary">CultureInfo</a></span></span><span class="not-visible" data-language="todo-lang"></span></samp>
+    <div class="text-body-secondary fst-italic" data-id="returns-doc"></div></div>
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="GetFormat(System.Type)" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">public override</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.object" class="refdocgen-link-secondary">object</a></span>
+
+<span class="refdocgen-text-primary">GetFormat</span><span>(</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.type" class="refdocgen-link-secondary">Type</a></span>
+
+<span>formatType</span><span>)</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#GetFormat(System.Type)">#</a></samp></h6>
+
+                
+
+                
+
+                <div class="refdocgen-text-tertiary fst-italic ms-4 mb-2" data-id="member-overrides">
+            Overrides
+            <span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.globalization.cultureinfo.getformat" class="refdocgen-link-secondary"><span class="not-visible" data-language="csharp-lang">CultureInfo.GetFormat</span><span class="not-visible" data-language="todo-lang">.GetFormat</span></a></span></div>
+
+                
+
+                <div class="refdocgen-text-tertiary fst-italic ms-4" data-id="member-implements">
+                Implements
+                <span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.iformatprovider.getformat" class="refdocgen-link-secondary"><span class="not-visible" data-language="csharp-lang">IFormatProvider.GetFormat</span><span class="not-visible" data-language="todo-lang">.GetFormat</span></a></span></div><div class="mb-2"></div>
+
+                
+
+                
+
+                <h3 class="lead my-2">Parameters</h3>
+    <div class="mx-2" data-id="parameters-section"><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.type" class="refdocgen-link-secondary">Type</a></span>
+
+<span>formatType</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div></div><h3 class="lead my-2">Returns</h3>
+<div class="mx-2" data-id="returns-section"><samp data-id="return-type-name"><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.object" class="refdocgen-link-secondary">object</a></span></span><span class="not-visible" data-language="todo-lang"></span></samp>
+    <div class="text-body-secondary fst-italic" data-id="returns-doc"></div></div>
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="GetHashCode" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">public virtual</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.int32" class="refdocgen-link-secondary">int</a></span>
+
+<span class="refdocgen-text-primary">GetHashCode</span><span>(</span><span>)</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#GetHashCode">#</a></samp></h6>
+
+                
+
+                <div class="refdocgen-text-tertiary fst-italic ms-4 mb-2" data-id="member-inherited-from">
+            Inherited from
+            <span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.globalization.cultureinfo" class="refdocgen-link-secondary"><span class="not-visible" data-language="csharp-lang">CultureInfo</span><span class="not-visible" data-language="todo-lang"></span></a></span></div>
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                <h3 class="lead my-2">Returns</h3>
+<div class="mx-2" data-id="returns-section"><samp data-id="return-type-name"><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.int32" class="refdocgen-link-secondary">int</a></span></span><span class="not-visible" data-language="todo-lang"></span></samp>
+    <div class="text-body-secondary fst-italic" data-id="returns-doc"></div></div>
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="ToString" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">public virtual</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.string" class="refdocgen-link-secondary">string</a></span>
+
+<span class="refdocgen-text-primary">ToString</span><span>(</span><span>)</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#ToString">#</a></samp></h6>
+
+                
+
+                <div class="refdocgen-text-tertiary fst-italic ms-4 mb-2" data-id="member-inherited-from">
+            Inherited from
+            <span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.globalization.cultureinfo" class="refdocgen-link-secondary"><span class="not-visible" data-language="csharp-lang">CultureInfo</span><span class="not-visible" data-language="todo-lang"></span></a></span></div>
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                <h3 class="lead my-2">Returns</h3>
+<div class="mx-2" data-id="returns-section"><samp data-id="return-type-name"><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.string" class="refdocgen-link-secondary">string</a></span></span><span class="not-visible" data-language="todo-lang"></span></samp>
+    <div class="text-body-secondary fst-italic" data-id="returns-doc"></div></div>
+
+                
+                
+
+                
+
+                </div></div></div></div><nav class="navbar fixed-bottom menu-bg"><div class="container"><div class="dropup"><button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">v-yamldotnet-private</button>
+            <div id="current-version">v-yamldotnet-private</div>
+            <div id="version-list">[&quot;v-yamldotnet-private&quot;]</div>
+            <ul class="dropdown-menu" id="version-selector" data-id="version-selector"></ul></div></div></nav><script src="../Static/bootstrap-5.3.5-dist.bundle.min.js"></script>
+
+    
+    <script src="../Static/script.js"></script></body></html>

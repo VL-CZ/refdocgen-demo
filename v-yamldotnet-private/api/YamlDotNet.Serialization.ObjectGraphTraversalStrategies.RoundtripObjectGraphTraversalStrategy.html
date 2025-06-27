@@ -1,0 +1,640 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Reference documentation</title>
+
+    <script>
+
+        // use IIFE in order to avoid polluting global context with functions & variables
+        // https://developer.mozilla.org/en-US/docs/Glossary/IIFE
+        (function() {
+            const isLocalFile = location.protocol === "file:";
+            const defaultTheme = "dark";
+            const defaultLang = "csharp-lang";
+
+            if(isLocalFile){
+                const urlParams = new URLSearchParams(window.location.search);
+
+                let redirect = false;
+
+                // set 'theme' URL param if not found
+                if(!urlParams.has("theme")){
+                    urlParams.set("theme", defaultTheme);
+                    redirect = true;
+                }
+
+                // set 'lang' URL param if not found
+                if(!urlParams.has("lang")){
+                    urlParams.set("lang", defaultLang);
+                    redirect = true;
+                }
+
+                // redirect, if some of the URL parameters are missing
+                if(redirect){
+                    const newUrl = new URL(window.location.href);
+                    newUrl.search = urlParams.toString();
+
+                    window.location.href = newUrl;
+                }
+                else {
+                    document.documentElement.setAttribute("data-bs-theme", urlParams.get("theme")); // set the 'data-bs-theme' attribute
+                    document.documentElement.setAttribute("data-language", urlParams.get("lang")); // set the 'data-language' attribute
+                }
+            }
+            else { // no local file -> use localStorage
+                if (!localStorage.getItem("refdocgen-theme")) {
+                    localStorage.setItem("refdocgen-theme", defaultTheme);
+                }
+
+                if (!localStorage.getItem("refdocgen-language")) {
+                    localStorage.setItem("refdocgen-language", defaultLang);
+                }
+
+                document.documentElement.setAttribute("data-bs-theme", localStorage.getItem("refdocgen-theme")); // set the 'data-bs-theme' attribute
+                document.documentElement.setAttribute("data-language", localStorage.getItem("refdocgen-language")); // set the 'data-language' attribute
+            }
+        })();
+    </script>
+
+    
+    <link href="../Static/styles.css" rel="stylesheet"><style>html[data-language="csharp-lang"] [data-language="csharp-lang"] { display: inline !important; }
+html[data-language="todo-lang"] [data-language="todo-lang"] { display: inline !important; }
+</style></head>
+
+<body><nav class="navbar navbar-expand-lg sticky-top menu-bg"><div class="container"><a class="navbar-brand" href="../index.html">Project name</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup"><ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="../api/index.html">API</a></li></ul>
+            <ul class="navbar-nav ms-auto"><li class="nav-item d-flex align-items-center"><form class="me-2 mb-2 mb-lg-0"><select class="form-select" id="language-selector" aria-label="language"><option class="lang-option" value="csharp-lang">C#</option><option class="lang-option" value="todo-lang">TODO</option></select></form></li>
+
+                
+                <li class="nav-item d-flex align-items-center"><form role="search" class="me-2"><input class="form-control" autocomplete="off" type="search" placeholder="Search" aria-label="Search" id="menu-search-bar" url-target="../search.html" readonly=""></form></li>
+
+                
+                <li class="nav-item" id="theme-switcher"><button class="nav-link"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-brightness-high" viewBox="0 0 16 16"><path d="M8 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6m0 1a4 4 0 1 0 0-8 4 4 0 0 0 0 8M8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0m0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13m8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5M3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8m10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0m-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0m9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707M4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708"></path></svg></button></li></ul></div></div></nav>
+
+    <div class="container my-4" data-id="page-body"><div data-id="declared-type-data"><h1 class="display-4" data-id="type-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">public class</span>
+<span class="refdocgen-text-primary">RoundtripObjectGraphTraversalStrategy</span></span><span class="not-visible" data-language="todo-lang"></span></samp></h1>
+
+                    
+
+                    <h6><samp data-id="type-assembly"><a href="YamlDotNet-DLL.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">assembly</span>
+            <span class="refdocgen-text-secondary">YamlDotNet</span></a></samp></h6>
+
+                    <h6><samp data-id="type-namespace"><a href="YamlDotNet.Serialization.ObjectGraphTraversalStrategies.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">namespace</span>
+            <span class="refdocgen-text-secondary">YamlDotNet.Serialization.ObjectGraphTraversalStrategies</span></a></samp></h6>
+
+                    <div data-id="base-type"><i>Base type:&nbsp;</i>
+        <samp class="refdocgen-text-secondary"><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="./YamlDotNet.Serialization.ObjectGraphTraversalStrategies.FullObjectGraphTraversalStrategy.html" class="refdocgen-link-secondary">FullObjectGraphTraversalStrategy</a></span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                    <div data-id="implemented-interfaces"><i>Implements:&nbsp;</i>
+        <samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="./YamlDotNet.Serialization.IObjectGraphTraversalStrategy.html" class="refdocgen-link-secondary">IObjectGraphTraversalStrategy</a></span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                    
+
+                    <hr>
+
+                    
+                    <div class="text-body-secondary fst-italic mb-0" data-id="summary-doc"><div>
+            An implementation of <a class="refdocgen-see-cref" href="./YamlDotNet.Serialization.IObjectGraphTraversalStrategy.html">IObjectGraphTraversalStrategy</a> that traverses
+            properties that are read/write, collections and dictionaries, while ensuring that
+            the graph can be regenerated from the resulting document.
+            </div></div><hr>
+
+                    
+
+                    
+
+                    
+                    
+
+                    </div><h2 class="display-5 mt-2">Constructors</h2>
+<div class="row" data-id="constructors-section"><div class="col-md-12"><div class="border p-2 mb-2" id=".ctor(System.Collections.Generic.IEnumerable(YamlDotNet.Serialization.IYamlTypeConverter),YamlDotNet.Serialization.ITypeInspector,YamlDotNet.Serialization.ITypeResolver,System.Int32,YamlDotNet.Serialization.INamingConvention,YamlDotNet.Serialization.Settings,YamlDotNet.Serialization.IObjectFactory)" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">public</span>
+<span class="refdocgen-text-primary">RoundtripObjectGraphTraversalStrategy</span><span>(</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1" class="refdocgen-link-secondary">IEnumerable</a></span><span class="text-body-secondary">&lt;</span><span class="refdocgen-text-secondary"><a href="./YamlDotNet.Serialization.IYamlTypeConverter.html" class="refdocgen-link-secondary">IYamlTypeConverter</a></span><span class="text-body-secondary">&gt;</span>
+
+<span>converters</span><span>, </span><span class="refdocgen-text-secondary"><a href="./YamlDotNet.Serialization.ITypeInspector.html" class="refdocgen-link-secondary">ITypeInspector</a></span>
+
+<span>typeDescriptor</span><span>, </span><span class="refdocgen-text-secondary"><a href="./YamlDotNet.Serialization.ITypeResolver.html" class="refdocgen-link-secondary">ITypeResolver</a></span>
+
+<span>typeResolver</span><span>, </span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.int32" class="refdocgen-link-secondary">int</a></span>
+
+<span>maxRecursion</span><span>, </span><span class="refdocgen-text-secondary"><a href="./YamlDotNet.Serialization.INamingConvention.html" class="refdocgen-link-secondary">INamingConvention</a></span>
+
+<span>namingConvention</span><span>, </span><span class="refdocgen-text-secondary"><a href="./YamlDotNet.Serialization.Settings.html" class="refdocgen-link-secondary">Settings</a></span>
+
+<span>settings</span><span>, </span><span class="refdocgen-text-secondary"><a href="./YamlDotNet.Serialization.IObjectFactory.html" class="refdocgen-link-secondary">IObjectFactory</a></span>
+
+<span>factory</span><span>)</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#.ctor(System.Collections.Generic.IEnumerable(YamlDotNet.Serialization.IYamlTypeConverter),YamlDotNet.Serialization.ITypeInspector,YamlDotNet.Serialization.ITypeResolver,System.Int32,YamlDotNet.Serialization.INamingConvention,YamlDotNet.Serialization.Settings,YamlDotNet.Serialization.IObjectFactory)">#</a></samp></h6>
+
+                
+
+                <h3 class="lead my-2">Parameters</h3>
+    <div class="mx-2" data-id="parameters-section"><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1" class="refdocgen-link-secondary">IEnumerable</a></span><span class="text-body-secondary">&lt;</span><span class="refdocgen-text-secondary"><a href="./YamlDotNet.Serialization.IYamlTypeConverter.html" class="refdocgen-link-secondary">IYamlTypeConverter</a></span><span class="text-body-secondary">&gt;</span>
+
+<span>converters</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="./YamlDotNet.Serialization.ITypeInspector.html" class="refdocgen-link-secondary">ITypeInspector</a></span>
+
+<span>typeDescriptor</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="./YamlDotNet.Serialization.ITypeResolver.html" class="refdocgen-link-secondary">ITypeResolver</a></span>
+
+<span>typeResolver</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.int32" class="refdocgen-link-secondary">int</a></span>
+
+<span>maxRecursion</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="./YamlDotNet.Serialization.INamingConvention.html" class="refdocgen-link-secondary">INamingConvention</a></span>
+
+<span>namingConvention</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="./YamlDotNet.Serialization.Settings.html" class="refdocgen-link-secondary">Settings</a></span>
+
+<span>settings</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="./YamlDotNet.Serialization.IObjectFactory.html" class="refdocgen-link-secondary">IObjectFactory</a></span>
+
+<span>factory</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div></div>
+
+                
+
+                
+                
+
+                
+
+                </div></div></div><h2 class="display-5 mt-2">Fields</h2>
+<div class="row" data-id="fields-section"><div class="col-md-12"><div class="border p-2 mb-2" id="converters" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">private readonly</span>
+
+<span class="refdocgen-text-secondary"><a href="./YamlDotNet.Serialization.Utilities.TypeConverterCache.html" class="refdocgen-link-secondary">TypeConverterCache</a></span>
+
+<span class="refdocgen-text-primary">converters</span>
+
+</span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#converters">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="settings" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">private readonly</span>
+
+<span class="refdocgen-text-secondary"><a href="./YamlDotNet.Serialization.Settings.html" class="refdocgen-link-secondary">Settings</a></span>
+
+<span class="refdocgen-text-primary">settings</span>
+
+</span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#settings">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                </div></div></div><h2 class="display-5 mt-2">Methods</h2>
+<div class="row" data-id="methods-section"><div class="col-md-12"><div class="border p-2 mb-2" id="YamlDotNet.Serialization.IObjectGraphTraversalStrategy.Traverse--1(YamlDotNet.Serialization.IObjectDescriptor,YamlDotNet.Serialization.IObjectGraphVisitor(--0),--0,YamlDotNet.Serialization.ObjectSerializer)" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary"></span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.void" class="refdocgen-link-secondary">void</a></span>
+
+<span class="refdocgen-text-primary">IObjectGraphTraversalStrategy.Traverse</span><span>&lt;</span><span class="refdocgen-text-secondary">TContext</span><span>&gt;</span><span>(</span><span class="refdocgen-text-secondary"><a href="./YamlDotNet.Serialization.IObjectDescriptor.html" class="refdocgen-link-secondary">IObjectDescriptor</a></span>
+
+<span>graph</span><span>, </span><span class="refdocgen-text-secondary"><a href="./YamlDotNet.Serialization.IObjectGraphVisitor-1.html" class="refdocgen-link-secondary">IObjectGraphVisitor</a></span><span class="text-body-secondary">&lt;</span><span class="refdocgen-text-secondary">TContext</span><span class="text-body-secondary">&gt;</span>
+
+<span>visitor</span><span>, </span><span class="refdocgen-text-secondary">TContext</span>
+
+<span>context</span><span>, </span><span class="refdocgen-text-secondary"><a href="./YamlDotNet.Serialization.ObjectSerializer.html" class="refdocgen-link-secondary">ObjectSerializer</a></span>
+
+<span>serializer</span><span>)</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#YamlDotNet.Serialization.IObjectGraphTraversalStrategy.Traverse--1(YamlDotNet.Serialization.IObjectDescriptor,YamlDotNet.Serialization.IObjectGraphVisitor(--0),--0,YamlDotNet.Serialization.ObjectSerializer)">#</a></samp></h6>
+
+                <span class="not-visible" data-language="csharp-lang"></span><span class="not-visible" data-language="todo-lang"></span>
+
+                <div class="refdocgen-text-tertiary fst-italic ms-4 mb-2" data-id="member-inherited-from">
+            Inherited from
+            <span class="refdocgen-text-secondary"><a href="./YamlDotNet.Serialization.ObjectGraphTraversalStrategies.FullObjectGraphTraversalStrategy.html" class="refdocgen-link-secondary"><span class="not-visible" data-language="csharp-lang">FullObjectGraphTraversalStrategy</span><span class="not-visible" data-language="todo-lang"></span></a></span></div>
+
+                
+
+                <div class="refdocgen-text-tertiary fst-italic ms-4 mb-2" data-id="member-explicitly-implements">
+            Explicitly implements
+            <span class="refdocgen-text-secondary"><a href="./YamlDotNet.Serialization.IObjectGraphTraversalStrategy.html#YamlDotNet.Serialization.IObjectGraphTraversalStrategy.Traverse--1(YamlDotNet.Serialization.IObjectDescriptor,YamlDotNet.Serialization.IObjectGraphVisitor(--0),--0,YamlDotNet.Serialization.ObjectSerializer)" class="refdocgen-link-secondary"><span class="not-visible" data-language="csharp-lang">IObjectGraphTraversalStrategy.Traverse</span><span class="not-visible" data-language="todo-lang">.Traverse</span></a></span></div>
+
+                
+
+                
+
+                <h3 class="lead my-2">Type parameters</h3>
+    <div class="mx-2" data-id="type-parameters-section"><div data-id="type-parameter-data"><samp data-id="type-parameter-declaration"><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary">TContext</span></span><span class="not-visible" data-language="todo-lang"></span></samp>
+                <div class="text-body-secondary fst-italic mb-2" data-id="type-parameter-doc"></div></div></div>
+
+                <h3 class="lead my-2">Parameters</h3>
+    <div class="mx-2" data-id="parameters-section"><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="./YamlDotNet.Serialization.IObjectDescriptor.html" class="refdocgen-link-secondary">IObjectDescriptor</a></span>
+
+<span>graph</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="./YamlDotNet.Serialization.IObjectGraphVisitor-1.html" class="refdocgen-link-secondary">IObjectGraphVisitor</a></span><span class="text-body-secondary">&lt;</span><span class="refdocgen-text-secondary">TContext</span><span class="text-body-secondary">&gt;</span>
+
+<span>visitor</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary">TContext</span>
+
+<span>context</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="./YamlDotNet.Serialization.ObjectSerializer.html" class="refdocgen-link-secondary">ObjectSerializer</a></span>
+
+<span>serializer</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div></div>
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="Traverse--1(YamlDotNet.Serialization.IPropertyDescriptor,System.Object,YamlDotNet.Serialization.IObjectDescriptor,YamlDotNet.Serialization.IObjectGraphVisitor(--0),--0,System.Collections.Generic.Stack(YamlDotNet.Serialization.ObjectGraphTraversalStrategies.FullObjectGraphTraversalStrategy.ObjectPathSegment),YamlDotNet.Serialization.ObjectSerializer)" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">protected virtual</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.void" class="refdocgen-link-secondary">void</a></span>
+
+<span class="refdocgen-text-primary">Traverse</span><span>&lt;</span><span class="refdocgen-text-secondary">TContext</span><span>&gt;</span><span>(</span><span class="refdocgen-text-secondary"><a href="./YamlDotNet.Serialization.IPropertyDescriptor.html" class="refdocgen-link-secondary">IPropertyDescriptor</a></span>
+
+<span>propertyDescriptor</span><span>, </span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.object" class="refdocgen-link-secondary">object</a></span>
+
+<span>name</span><span>, </span><span class="refdocgen-text-secondary"><a href="./YamlDotNet.Serialization.IObjectDescriptor.html" class="refdocgen-link-secondary">IObjectDescriptor</a></span>
+
+<span>value</span><span>, </span><span class="refdocgen-text-secondary"><a href="./YamlDotNet.Serialization.IObjectGraphVisitor-1.html" class="refdocgen-link-secondary">IObjectGraphVisitor</a></span><span class="text-body-secondary">&lt;</span><span class="refdocgen-text-secondary">TContext</span><span class="text-body-secondary">&gt;</span>
+
+<span>visitor</span><span>, </span><span class="refdocgen-text-secondary">TContext</span>
+
+<span>context</span><span>, </span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.collections.generic.stack-1" class="refdocgen-link-secondary">Stack</a></span><span class="text-body-secondary">&lt;</span><span class="refdocgen-text-secondary"><a href="./YamlDotNet.Serialization.ObjectGraphTraversalStrategies.FullObjectGraphTraversalStrategy.ObjectPathSegment.html" class="refdocgen-link-secondary">FullObjectGraphTraversalStrategy.ObjectPathSegment</a></span><span class="text-body-secondary">&gt;</span>
+
+<span>path</span><span>, </span><span class="refdocgen-text-secondary"><a href="./YamlDotNet.Serialization.ObjectSerializer.html" class="refdocgen-link-secondary">ObjectSerializer</a></span>
+
+<span>serializer</span><span>)</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#Traverse--1(YamlDotNet.Serialization.IPropertyDescriptor,System.Object,YamlDotNet.Serialization.IObjectDescriptor,YamlDotNet.Serialization.IObjectGraphVisitor(--0),--0,System.Collections.Generic.Stack(YamlDotNet.Serialization.ObjectGraphTraversalStrategies.FullObjectGraphTraversalStrategy.ObjectPathSegment),YamlDotNet.Serialization.ObjectSerializer)">#</a></samp></h6>
+
+                <span class="not-visible" data-language="csharp-lang"></span><span class="not-visible" data-language="todo-lang"></span>
+
+                <div class="refdocgen-text-tertiary fst-italic ms-4 mb-2" data-id="member-inherited-from">
+            Inherited from
+            <span class="refdocgen-text-secondary"><a href="./YamlDotNet.Serialization.ObjectGraphTraversalStrategies.FullObjectGraphTraversalStrategy.html" class="refdocgen-link-secondary"><span class="not-visible" data-language="csharp-lang">FullObjectGraphTraversalStrategy</span><span class="not-visible" data-language="todo-lang"></span></a></span></div>
+
+                
+
+                
+
+                
+
+                
+
+                <h3 class="lead my-2">Type parameters</h3>
+    <div class="mx-2" data-id="type-parameters-section"><div data-id="type-parameter-data"><samp data-id="type-parameter-declaration"><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary">TContext</span></span><span class="not-visible" data-language="todo-lang"></span></samp>
+                <div class="text-body-secondary fst-italic mb-2" data-id="type-parameter-doc"></div></div></div>
+
+                <h3 class="lead my-2">Parameters</h3>
+    <div class="mx-2" data-id="parameters-section"><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="./YamlDotNet.Serialization.IPropertyDescriptor.html" class="refdocgen-link-secondary">IPropertyDescriptor</a></span>
+
+<span>propertyDescriptor</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.object" class="refdocgen-link-secondary">object</a></span>
+
+<span>name</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="./YamlDotNet.Serialization.IObjectDescriptor.html" class="refdocgen-link-secondary">IObjectDescriptor</a></span>
+
+<span>value</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="./YamlDotNet.Serialization.IObjectGraphVisitor-1.html" class="refdocgen-link-secondary">IObjectGraphVisitor</a></span><span class="text-body-secondary">&lt;</span><span class="refdocgen-text-secondary">TContext</span><span class="text-body-secondary">&gt;</span>
+
+<span>visitor</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary">TContext</span>
+
+<span>context</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.collections.generic.stack-1" class="refdocgen-link-secondary">Stack</a></span><span class="text-body-secondary">&lt;</span><span class="refdocgen-text-secondary"><a href="./YamlDotNet.Serialization.ObjectGraphTraversalStrategies.FullObjectGraphTraversalStrategy.ObjectPathSegment.html" class="refdocgen-link-secondary">FullObjectGraphTraversalStrategy.ObjectPathSegment</a></span><span class="text-body-secondary">&gt;</span>
+
+<span>path</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="./YamlDotNet.Serialization.ObjectSerializer.html" class="refdocgen-link-secondary">ObjectSerializer</a></span>
+
+<span>serializer</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div></div>
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="TraverseDictionary--1(YamlDotNet.Serialization.IPropertyDescriptor,YamlDotNet.Serialization.IObjectDescriptor,YamlDotNet.Serialization.IObjectGraphVisitor(--0),System.Type,System.Type,--0,System.Collections.Generic.Stack(YamlDotNet.Serialization.ObjectGraphTraversalStrategies.FullObjectGraphTraversalStrategy.ObjectPathSegment),YamlDotNet.Serialization.ObjectSerializer)" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">protected virtual</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.void" class="refdocgen-link-secondary">void</a></span>
+
+<span class="refdocgen-text-primary">TraverseDictionary</span><span>&lt;</span><span class="refdocgen-text-secondary">TContext</span><span>&gt;</span><span>(</span><span class="refdocgen-text-secondary"><a href="./YamlDotNet.Serialization.IPropertyDescriptor.html" class="refdocgen-link-secondary">IPropertyDescriptor</a></span>
+
+<span>propertyDescriptor</span><span>, </span><span class="refdocgen-text-secondary"><a href="./YamlDotNet.Serialization.IObjectDescriptor.html" class="refdocgen-link-secondary">IObjectDescriptor</a></span>
+
+<span>dictionary</span><span>, </span><span class="refdocgen-text-secondary"><a href="./YamlDotNet.Serialization.IObjectGraphVisitor-1.html" class="refdocgen-link-secondary">IObjectGraphVisitor</a></span><span class="text-body-secondary">&lt;</span><span class="refdocgen-text-secondary">TContext</span><span class="text-body-secondary">&gt;</span>
+
+<span>visitor</span><span>, </span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.type" class="refdocgen-link-secondary">Type</a></span>
+
+<span>keyType</span><span>, </span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.type" class="refdocgen-link-secondary">Type</a></span>
+
+<span>valueType</span><span>, </span><span class="refdocgen-text-secondary">TContext</span>
+
+<span>context</span><span>, </span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.collections.generic.stack-1" class="refdocgen-link-secondary">Stack</a></span><span class="text-body-secondary">&lt;</span><span class="refdocgen-text-secondary"><a href="./YamlDotNet.Serialization.ObjectGraphTraversalStrategies.FullObjectGraphTraversalStrategy.ObjectPathSegment.html" class="refdocgen-link-secondary">FullObjectGraphTraversalStrategy.ObjectPathSegment</a></span><span class="text-body-secondary">&gt;</span>
+
+<span>path</span><span>, </span><span class="refdocgen-text-secondary"><a href="./YamlDotNet.Serialization.ObjectSerializer.html" class="refdocgen-link-secondary">ObjectSerializer</a></span>
+
+<span>serializer</span><span>)</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#TraverseDictionary--1(YamlDotNet.Serialization.IPropertyDescriptor,YamlDotNet.Serialization.IObjectDescriptor,YamlDotNet.Serialization.IObjectGraphVisitor(--0),System.Type,System.Type,--0,System.Collections.Generic.Stack(YamlDotNet.Serialization.ObjectGraphTraversalStrategies.FullObjectGraphTraversalStrategy.ObjectPathSegment),YamlDotNet.Serialization.ObjectSerializer)">#</a></samp></h6>
+
+                <span class="not-visible" data-language="csharp-lang"></span><span class="not-visible" data-language="todo-lang"></span>
+
+                <div class="refdocgen-text-tertiary fst-italic ms-4 mb-2" data-id="member-inherited-from">
+            Inherited from
+            <span class="refdocgen-text-secondary"><a href="./YamlDotNet.Serialization.ObjectGraphTraversalStrategies.FullObjectGraphTraversalStrategy.html" class="refdocgen-link-secondary"><span class="not-visible" data-language="csharp-lang">FullObjectGraphTraversalStrategy</span><span class="not-visible" data-language="todo-lang"></span></a></span></div>
+
+                
+
+                
+
+                
+
+                
+
+                <h3 class="lead my-2">Type parameters</h3>
+    <div class="mx-2" data-id="type-parameters-section"><div data-id="type-parameter-data"><samp data-id="type-parameter-declaration"><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary">TContext</span></span><span class="not-visible" data-language="todo-lang"></span></samp>
+                <div class="text-body-secondary fst-italic mb-2" data-id="type-parameter-doc"></div></div></div>
+
+                <h3 class="lead my-2">Parameters</h3>
+    <div class="mx-2" data-id="parameters-section"><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="./YamlDotNet.Serialization.IPropertyDescriptor.html" class="refdocgen-link-secondary">IPropertyDescriptor</a></span>
+
+<span>propertyDescriptor</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="./YamlDotNet.Serialization.IObjectDescriptor.html" class="refdocgen-link-secondary">IObjectDescriptor</a></span>
+
+<span>dictionary</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="./YamlDotNet.Serialization.IObjectGraphVisitor-1.html" class="refdocgen-link-secondary">IObjectGraphVisitor</a></span><span class="text-body-secondary">&lt;</span><span class="refdocgen-text-secondary">TContext</span><span class="text-body-secondary">&gt;</span>
+
+<span>visitor</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.type" class="refdocgen-link-secondary">Type</a></span>
+
+<span>keyType</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.type" class="refdocgen-link-secondary">Type</a></span>
+
+<span>valueType</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary">TContext</span>
+
+<span>context</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.collections.generic.stack-1" class="refdocgen-link-secondary">Stack</a></span><span class="text-body-secondary">&lt;</span><span class="refdocgen-text-secondary"><a href="./YamlDotNet.Serialization.ObjectGraphTraversalStrategies.FullObjectGraphTraversalStrategy.ObjectPathSegment.html" class="refdocgen-link-secondary">FullObjectGraphTraversalStrategy.ObjectPathSegment</a></span><span class="text-body-secondary">&gt;</span>
+
+<span>path</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="./YamlDotNet.Serialization.ObjectSerializer.html" class="refdocgen-link-secondary">ObjectSerializer</a></span>
+
+<span>serializer</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div></div>
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="TraverseObject--1(YamlDotNet.Serialization.IPropertyDescriptor,YamlDotNet.Serialization.IObjectDescriptor,YamlDotNet.Serialization.IObjectGraphVisitor(--0),--0,System.Collections.Generic.Stack(YamlDotNet.Serialization.ObjectGraphTraversalStrategies.FullObjectGraphTraversalStrategy.ObjectPathSegment),YamlDotNet.Serialization.ObjectSerializer)" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">protected virtual</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.void" class="refdocgen-link-secondary">void</a></span>
+
+<span class="refdocgen-text-primary">TraverseObject</span><span>&lt;</span><span class="refdocgen-text-secondary">TContext</span><span>&gt;</span><span>(</span><span class="refdocgen-text-secondary"><a href="./YamlDotNet.Serialization.IPropertyDescriptor.html" class="refdocgen-link-secondary">IPropertyDescriptor</a></span>
+
+<span>propertyDescriptor</span><span>, </span><span class="refdocgen-text-secondary"><a href="./YamlDotNet.Serialization.IObjectDescriptor.html" class="refdocgen-link-secondary">IObjectDescriptor</a></span>
+
+<span>value</span><span>, </span><span class="refdocgen-text-secondary"><a href="./YamlDotNet.Serialization.IObjectGraphVisitor-1.html" class="refdocgen-link-secondary">IObjectGraphVisitor</a></span><span class="text-body-secondary">&lt;</span><span class="refdocgen-text-secondary">TContext</span><span class="text-body-secondary">&gt;</span>
+
+<span>visitor</span><span>, </span><span class="refdocgen-text-secondary">TContext</span>
+
+<span>context</span><span>, </span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.collections.generic.stack-1" class="refdocgen-link-secondary">Stack</a></span><span class="text-body-secondary">&lt;</span><span class="refdocgen-text-secondary"><a href="./YamlDotNet.Serialization.ObjectGraphTraversalStrategies.FullObjectGraphTraversalStrategy.ObjectPathSegment.html" class="refdocgen-link-secondary">FullObjectGraphTraversalStrategy.ObjectPathSegment</a></span><span class="text-body-secondary">&gt;</span>
+
+<span>path</span><span>, </span><span class="refdocgen-text-secondary"><a href="./YamlDotNet.Serialization.ObjectSerializer.html" class="refdocgen-link-secondary">ObjectSerializer</a></span>
+
+<span>serializer</span><span>)</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#TraverseObject--1(YamlDotNet.Serialization.IPropertyDescriptor,YamlDotNet.Serialization.IObjectDescriptor,YamlDotNet.Serialization.IObjectGraphVisitor(--0),--0,System.Collections.Generic.Stack(YamlDotNet.Serialization.ObjectGraphTraversalStrategies.FullObjectGraphTraversalStrategy.ObjectPathSegment),YamlDotNet.Serialization.ObjectSerializer)">#</a></samp></h6>
+
+                <span class="not-visible" data-language="csharp-lang"></span><span class="not-visible" data-language="todo-lang"></span>
+
+                <div class="refdocgen-text-tertiary fst-italic ms-4 mb-2" data-id="member-inherited-from">
+            Inherited from
+            <span class="refdocgen-text-secondary"><a href="./YamlDotNet.Serialization.ObjectGraphTraversalStrategies.FullObjectGraphTraversalStrategy.html" class="refdocgen-link-secondary"><span class="not-visible" data-language="csharp-lang">FullObjectGraphTraversalStrategy</span><span class="not-visible" data-language="todo-lang"></span></a></span></div>
+
+                
+
+                
+
+                
+
+                
+
+                <h3 class="lead my-2">Type parameters</h3>
+    <div class="mx-2" data-id="type-parameters-section"><div data-id="type-parameter-data"><samp data-id="type-parameter-declaration"><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary">TContext</span></span><span class="not-visible" data-language="todo-lang"></span></samp>
+                <div class="text-body-secondary fst-italic mb-2" data-id="type-parameter-doc"></div></div></div>
+
+                <h3 class="lead my-2">Parameters</h3>
+    <div class="mx-2" data-id="parameters-section"><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="./YamlDotNet.Serialization.IPropertyDescriptor.html" class="refdocgen-link-secondary">IPropertyDescriptor</a></span>
+
+<span>propertyDescriptor</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="./YamlDotNet.Serialization.IObjectDescriptor.html" class="refdocgen-link-secondary">IObjectDescriptor</a></span>
+
+<span>value</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="./YamlDotNet.Serialization.IObjectGraphVisitor-1.html" class="refdocgen-link-secondary">IObjectGraphVisitor</a></span><span class="text-body-secondary">&lt;</span><span class="refdocgen-text-secondary">TContext</span><span class="text-body-secondary">&gt;</span>
+
+<span>visitor</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary">TContext</span>
+
+<span>context</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.collections.generic.stack-1" class="refdocgen-link-secondary">Stack</a></span><span class="text-body-secondary">&lt;</span><span class="refdocgen-text-secondary"><a href="./YamlDotNet.Serialization.ObjectGraphTraversalStrategies.FullObjectGraphTraversalStrategy.ObjectPathSegment.html" class="refdocgen-link-secondary">FullObjectGraphTraversalStrategy.ObjectPathSegment</a></span><span class="text-body-secondary">&gt;</span>
+
+<span>path</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="./YamlDotNet.Serialization.ObjectSerializer.html" class="refdocgen-link-secondary">ObjectSerializer</a></span>
+
+<span>serializer</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div></div>
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="TraverseProperties--1(YamlDotNet.Serialization.IObjectDescriptor,YamlDotNet.Serialization.IObjectGraphVisitor(--0),--0,System.Collections.Generic.Stack(YamlDotNet.Serialization.ObjectGraphTraversalStrategies.FullObjectGraphTraversalStrategy.ObjectPathSegment),YamlDotNet.Serialization.ObjectSerializer)" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">protected override</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.void" class="refdocgen-link-secondary">void</a></span>
+
+<span class="refdocgen-text-primary">TraverseProperties</span><span>&lt;</span><span class="refdocgen-text-secondary">TContext</span><span>&gt;</span><span>(</span><span class="refdocgen-text-secondary"><a href="./YamlDotNet.Serialization.IObjectDescriptor.html" class="refdocgen-link-secondary">IObjectDescriptor</a></span>
+
+<span>value</span><span>, </span><span class="refdocgen-text-secondary"><a href="./YamlDotNet.Serialization.IObjectGraphVisitor-1.html" class="refdocgen-link-secondary">IObjectGraphVisitor</a></span><span class="text-body-secondary">&lt;</span><span class="refdocgen-text-secondary">TContext</span><span class="text-body-secondary">&gt;</span>
+
+<span>visitor</span><span>, </span><span class="refdocgen-text-secondary">TContext</span>
+
+<span>context</span><span>, </span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.collections.generic.stack-1" class="refdocgen-link-secondary">Stack</a></span><span class="text-body-secondary">&lt;</span><span class="refdocgen-text-secondary"><a href="./YamlDotNet.Serialization.ObjectGraphTraversalStrategies.FullObjectGraphTraversalStrategy.ObjectPathSegment.html" class="refdocgen-link-secondary">FullObjectGraphTraversalStrategy.ObjectPathSegment</a></span><span class="text-body-secondary">&gt;</span>
+
+<span>path</span><span>, </span><span class="refdocgen-text-secondary"><a href="./YamlDotNet.Serialization.ObjectSerializer.html" class="refdocgen-link-secondary">ObjectSerializer</a></span>
+
+<span>serializer</span><span>)</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#TraverseProperties--1(YamlDotNet.Serialization.IObjectDescriptor,YamlDotNet.Serialization.IObjectGraphVisitor(--0),--0,System.Collections.Generic.Stack(YamlDotNet.Serialization.ObjectGraphTraversalStrategies.FullObjectGraphTraversalStrategy.ObjectPathSegment),YamlDotNet.Serialization.ObjectSerializer)">#</a></samp></h6>
+
+                <span class="not-visible" data-language="csharp-lang"></span><span class="not-visible" data-language="todo-lang"></span>
+
+                
+
+                <div class="refdocgen-text-tertiary fst-italic ms-4 mb-2" data-id="member-overrides">
+            Overrides
+            <span class="refdocgen-text-secondary"><a href="./YamlDotNet.Serialization.ObjectGraphTraversalStrategies.FullObjectGraphTraversalStrategy.html#TraverseProperties--1(YamlDotNet.Serialization.IObjectDescriptor,YamlDotNet.Serialization.IObjectGraphVisitor(--0),--0,System.Collections.Generic.Stack(YamlDotNet.Serialization.ObjectGraphTraversalStrategies.FullObjectGraphTraversalStrategy.ObjectPathSegment),YamlDotNet.Serialization.ObjectSerializer)" class="refdocgen-link-secondary"><span class="not-visible" data-language="csharp-lang">FullObjectGraphTraversalStrategy.TraverseProperties</span><span class="not-visible" data-language="todo-lang">.TraverseProperties</span></a></span></div>
+
+                
+
+                
+
+                
+
+                <h3 class="lead my-2">Type parameters</h3>
+    <div class="mx-2" data-id="type-parameters-section"><div data-id="type-parameter-data"><samp data-id="type-parameter-declaration"><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary">TContext</span></span><span class="not-visible" data-language="todo-lang"></span></samp>
+                <div class="text-body-secondary fst-italic mb-2" data-id="type-parameter-doc"></div></div></div>
+
+                <h3 class="lead my-2">Parameters</h3>
+    <div class="mx-2" data-id="parameters-section"><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="./YamlDotNet.Serialization.IObjectDescriptor.html" class="refdocgen-link-secondary">IObjectDescriptor</a></span>
+
+<span>value</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="./YamlDotNet.Serialization.IObjectGraphVisitor-1.html" class="refdocgen-link-secondary">IObjectGraphVisitor</a></span><span class="text-body-secondary">&lt;</span><span class="refdocgen-text-secondary">TContext</span><span class="text-body-secondary">&gt;</span>
+
+<span>visitor</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary">TContext</span>
+
+<span>context</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.collections.generic.stack-1" class="refdocgen-link-secondary">Stack</a></span><span class="text-body-secondary">&lt;</span><span class="refdocgen-text-secondary"><a href="./YamlDotNet.Serialization.ObjectGraphTraversalStrategies.FullObjectGraphTraversalStrategy.ObjectPathSegment.html" class="refdocgen-link-secondary">FullObjectGraphTraversalStrategy.ObjectPathSegment</a></span><span class="text-body-secondary">&gt;</span>
+
+<span>path</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="./YamlDotNet.Serialization.ObjectSerializer.html" class="refdocgen-link-secondary">ObjectSerializer</a></span>
+
+<span>serializer</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div></div>
+
+                
+                
+
+                
+
+                </div></div></div></div><nav class="navbar fixed-bottom menu-bg"><div class="container"><div class="dropup"><button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">v-yamldotnet-private</button>
+            <div id="current-version">v-yamldotnet-private</div>
+            <div id="version-list">["v-yamldotnet-private","v-yamldotnet-public"]</div>
+            <ul class="dropdown-menu" id="version-selector" data-id="version-selector"></ul></div></div></nav><script src="../Static/bootstrap-5.3.5-dist.bundle.min.js"></script>
+
+    
+    <script src="../Static/script.js"></script></body></html>

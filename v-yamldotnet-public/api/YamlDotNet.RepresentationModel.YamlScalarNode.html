@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Reference documentation</title>
+
+    <script>
+
+        // use IIFE in order to avoid polluting global context with functions & variables
+        // https://developer.mozilla.org/en-US/docs/Glossary/IIFE
+        (function() {
+            const isLocalFile = location.protocol === "file:";
+            const defaultTheme = "dark";
+            const defaultLang = "csharp-lang";
+
+            if(isLocalFile){
+                const urlParams = new URLSearchParams(window.location.search);
+
+                let redirect = false;
+
+                // set 'theme' URL param if not found
+                if(!urlParams.has("theme")){
+                    urlParams.set("theme", defaultTheme);
+                    redirect = true;
+                }
+
+                // set 'lang' URL param if not found
+                if(!urlParams.has("lang")){
+                    urlParams.set("lang", defaultLang);
+                    redirect = true;
+                }
+
+                // redirect, if some of the URL parameters are missing
+                if(redirect){
+                    const newUrl = new URL(window.location.href);
+                    newUrl.search = urlParams.toString();
+
+                    window.location.href = newUrl;
+                }
+                else {
+                    document.documentElement.setAttribute("data-bs-theme", urlParams.get("theme")); // set the 'data-bs-theme' attribute
+                    document.documentElement.setAttribute("data-language", urlParams.get("lang")); // set the 'data-language' attribute
+                }
+            }
+            else { // no local file -> use localStorage
+                if (!localStorage.getItem("refdocgen-theme")) {
+                    localStorage.setItem("refdocgen-theme", defaultTheme);
+                }
+
+                if (!localStorage.getItem("refdocgen-language")) {
+                    localStorage.setItem("refdocgen-language", defaultLang);
+                }
+
+                document.documentElement.setAttribute("data-bs-theme", localStorage.getItem("refdocgen-theme")); // set the 'data-bs-theme' attribute
+                document.documentElement.setAttribute("data-language", localStorage.getItem("refdocgen-language")); // set the 'data-language' attribute
+            }
+        })();
+    </script>
+
+    
+    <link href="../Static/styles.css" rel="stylesheet" /><style>html[data-language="csharp-lang"] [data-language="csharp-lang"] { display: inline !important; }
+html[data-language="todo-lang"] [data-language="todo-lang"] { display: inline !important; }
+</style></head>
+
+<body><nav class="navbar navbar-expand-lg sticky-top menu-bg"><div class="container"><a class="navbar-brand" href="../index.html">Project name</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup"><ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="../api/index.html">API</a></li></ul>
+            <ul class="navbar-nav ms-auto"><li class="nav-item d-flex align-items-center"><form class="me-2 mb-2 mb-lg-0"><select class="form-select" id="language-selector" aria-label="language"><option class="lang-option" value="csharp-lang">C#</option><option class="lang-option" value="todo-lang">TODO</option></select></form></li>
+
+                
+                <li class="nav-item d-flex align-items-center"><form role="search" class="me-2"><input class="form-control" autocomplete="off" type="search" placeholder="Search" aria-label="Search" id="menu-search-bar" url-target="../search.html" readonly /></form></li>
+
+                
+                <li class="nav-item" id="theme-switcher"><button class="nav-link"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-brightness-high" viewBox="0 0 16 16"><path d="M8 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6m0 1a4 4 0 1 0 0-8 4 4 0 0 0 0 8M8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0m0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13m8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5M3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8m10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0m-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0m9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707M4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708"></path></svg></button></li></ul></div></div></nav>
+
+    <div class="container my-4" data-id="page-body"><div data-id="declared-type-data"><h1 class="display-4" data-id="type-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">public sealed class</span>
+<span class="refdocgen-text-primary">YamlScalarNode</span></span><span class="not-visible" data-language="todo-lang"></span></samp></h1>
+
+                    
+
+                    <h6><samp data-id="type-assembly"><a href="YamlDotNet-DLL.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">assembly</span>
+            <span class="refdocgen-text-secondary">YamlDotNet</span></a></samp></h6>
+
+                    <h6><samp data-id="type-namespace"><a href="YamlDotNet.RepresentationModel.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">namespace</span>
+            <span class="refdocgen-text-secondary">YamlDotNet.RepresentationModel</span></a></samp></h6>
+
+                    <div data-id="base-type"><i>Base type:&nbsp;</i>
+        <samp class="refdocgen-text-secondary"><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="./YamlDotNet.RepresentationModel.YamlNode.html" class="refdocgen-link-secondary">YamlNode</a></span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                    <div data-id="implemented-interfaces"><i>Implements:&nbsp;</i>
+        <samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="./YamlDotNet.Serialization.IYamlConvertible.html" class="refdocgen-link-secondary">IYamlConvertible</a></span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                    
+
+                    <hr>
+
+                    
+                    <div class="text-body-secondary fst-italic mb-0" data-id="summary-doc"><div>
+            Represents a scalar node in the YAML document.
+            </div></div><hr>
+
+                    
+
+                    
+
+                    
+                    
+
+                    </div><h2 class="display-5 mt-2">Constructors</h2>
+<div class="row" data-id="constructors-section"><div class="col-md-12"><div class="border p-2 mb-2" id=".ctor" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">public</span>
+<span class="refdocgen-text-primary">YamlScalarNode</span><span>(</span><span>)</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#.ctor">#</a></samp></h6>
+
+                <div class="text-body-secondary fst-italic mb-0" data-id="summary-doc"><div>
+            Initializes a new instance of the <a class="refdocgen-see-cref" href="./YamlDotNet.RepresentationModel.YamlScalarNode.html">YamlScalarNode</a> class.
+            </div></div>
+
+                
+
+                
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id=".ctor(System.String)" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">public</span>
+<span class="refdocgen-text-primary">YamlScalarNode</span><span>(</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.string" class="refdocgen-link-secondary">string</a></span>
+
+<span>value</span><span>)</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#.ctor(System.String)">#</a></samp></h6>
+
+                <div class="text-body-secondary fst-italic mb-0" data-id="summary-doc"><div>
+            Initializes a new instance of the <a class="refdocgen-see-cref" href="./YamlDotNet.RepresentationModel.YamlScalarNode.html">YamlScalarNode</a> class.
+            </div></div>
+
+                <h3 class="lead my-2">Parameters</h3>
+    <div class="mx-2" data-id="parameters-section"><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.string" class="refdocgen-link-secondary">string</a></span>
+
+<span>value</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"><div>The value.</div></div></div></div>
+
+                
+
+                
+                
+
+                
+
+                </div></div></div><h2 class="display-5 mt-2">Properties</h2>
+<div class="row" data-id="properties-section"><div class="col-md-12"><div class="border p-2 mb-2" id="AllNodes" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">public</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1" class="refdocgen-link-secondary">IEnumerable</a></span><span class="text-body-secondary">&lt;</span><span class="refdocgen-text-secondary"><a href="./YamlDotNet.RepresentationModel.YamlNode.html" class="refdocgen-link-secondary">YamlNode</a></span><span class="text-body-secondary">&gt;</span>
+
+<span class="refdocgen-text-primary">AllNodes</span>
+
+<span> { </span><span class="refdocgen-text-tertiary"> get<span class="text-body">; </span></span><span> }</span>
+
+</span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#AllNodes">#</a></samp></h6>
+
+                <div class="refdocgen-text-tertiary fst-italic ms-4 mb-2" data-id="member-inherited-from">
+            Inherited from
+            <span class="refdocgen-text-secondary"><a href="./YamlDotNet.RepresentationModel.YamlNode.html" class="refdocgen-link-secondary"><span class="not-visible" data-language="csharp-lang">YamlNode</span><span class="not-visible" data-language="todo-lang"></span></a></span></div>
+
+                
+
+                
+
+                
+
+                <div class="text-body-secondary fst-italic mb-0" data-id="summary-doc"><div>
+            Gets all nodes from the document, starting on the current node.
+            <a class="refdocgen-see-cref" href="./YamlDotNet.Core.MaximumRecursionLevelReachedException.html">MaximumRecursionLevelReachedException</a> is thrown if an infinite recursion is detected.
+            </div></div>
+
+                
+
+                
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="Anchor" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">public</span>
+
+<span class="refdocgen-text-secondary"><a href="./YamlDotNet.Core.AnchorName.html" class="refdocgen-link-secondary">AnchorName</a></span>
+
+<span class="refdocgen-text-primary">Anchor</span>
+
+<span> { </span><span class="refdocgen-text-tertiary"> get<span class="text-body">; </span></span><span class="refdocgen-text-tertiary"> set<span class="text-body">; </span></span><span> }</span>
+
+</span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#Anchor">#</a></samp></h6>
+
+                <div class="refdocgen-text-tertiary fst-italic ms-4 mb-2" data-id="member-inherited-from">
+            Inherited from
+            <span class="refdocgen-text-secondary"><a href="./YamlDotNet.RepresentationModel.YamlNode.html" class="refdocgen-link-secondary"><span class="not-visible" data-language="csharp-lang">YamlNode</span><span class="not-visible" data-language="todo-lang"></span></a></span></div>
+
+                
+
+                
+
+                
+
+                <div class="text-body-secondary fst-italic mb-0" data-id="summary-doc"><div>
+            Gets or sets the anchor of the node.
+            </div></div>
+
+                <div class="mt-2"><div class="lead">Value</div>
+        <div data-id="value-doc" class="fst-italic text-body-secondary"><div>The anchor.</div></div></div>
+
+                
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="End" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">public</span>
+
+<span class="refdocgen-text-secondary"><a href="./YamlDotNet.Core.Mark.html" class="refdocgen-link-secondary">Mark</a></span>
+
+<span class="refdocgen-text-primary">End</span>
+
+<span> { </span><span class="refdocgen-text-tertiary"> get<span class="text-body">; </span></span><span> }</span>
+
+</span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#End">#</a></samp></h6>
+
+                <div class="refdocgen-text-tertiary fst-italic ms-4 mb-2" data-id="member-inherited-from">
+            Inherited from
+            <span class="refdocgen-text-secondary"><a href="./YamlDotNet.RepresentationModel.YamlNode.html" class="refdocgen-link-secondary"><span class="not-visible" data-language="csharp-lang">YamlNode</span><span class="not-visible" data-language="todo-lang"></span></a></span></div>
+
+                
+
+                
+
+                
+
+                <div class="text-body-secondary fst-italic mb-0" data-id="summary-doc"><div>
+            Gets the position in the input stream where the event that originated the node ends.
+            </div></div>
+
+                
+
+                
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="NodeType" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">public override</span>
+
+<span class="refdocgen-text-secondary"><a href="./YamlDotNet.RepresentationModel.YamlNodeType.html" class="refdocgen-link-secondary">YamlNodeType</a></span>
+
+<span class="refdocgen-text-primary">NodeType</span>
+
+<span> { </span><span class="refdocgen-text-tertiary"> get<span class="text-body">; </span></span><span> }</span>
+
+</span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#NodeType">#</a></samp></h6>
+
+                
+
+                <div class="refdocgen-text-tertiary fst-italic ms-4 mb-2" data-id="member-overrides">
+            Overrides
+            <span class="refdocgen-text-secondary"><a href="./YamlDotNet.RepresentationModel.YamlNode.html#NodeType" class="refdocgen-link-secondary"><span class="not-visible" data-language="csharp-lang">YamlNode.NodeType</span><span class="not-visible" data-language="todo-lang">.NodeType</span></a></span></div>
+
+                
+
+                
+
+                <div class="text-body-secondary fst-italic mb-0" data-id="summary-doc"><div>
+            Gets the type of node.
+            </div></div>
+
+                
+
+                
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="Start" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">public</span>
+
+<span class="refdocgen-text-secondary"><a href="./YamlDotNet.Core.Mark.html" class="refdocgen-link-secondary">Mark</a></span>
+
+<span class="refdocgen-text-primary">Start</span>
+
+<span> { </span><span class="refdocgen-text-tertiary"> get<span class="text-body">; </span></span><span> }</span>
+
+</span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#Start">#</a></samp></h6>
+
+                <div class="refdocgen-text-tertiary fst-italic ms-4 mb-2" data-id="member-inherited-from">
+            Inherited from
+            <span class="refdocgen-text-secondary"><a href="./YamlDotNet.RepresentationModel.YamlNode.html" class="refdocgen-link-secondary"><span class="not-visible" data-language="csharp-lang">YamlNode</span><span class="not-visible" data-language="todo-lang"></span></a></span></div>
+
+                
+
+                
+
+                
+
+                <div class="text-body-secondary fst-italic mb-0" data-id="summary-doc"><div>
+            Gets the position in the input stream where the event that originated the node starts.
+            </div></div>
+
+                
+
+                
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="Style" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">public</span>
+
+<span class="refdocgen-text-secondary"><a href="./YamlDotNet.Core.ScalarStyle.html" class="refdocgen-link-secondary">ScalarStyle</a></span>
+
+<span class="refdocgen-text-primary">Style</span>
+
+<span> { </span><span class="refdocgen-text-tertiary"> get<span class="text-body">; </span></span><span class="refdocgen-text-tertiary"> set<span class="text-body">; </span></span><span> }</span>
+
+</span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#Style">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                <div class="text-body-secondary fst-italic mb-0" data-id="summary-doc"><div>
+            Gets or sets the style of the node.
+            </div></div>
+
+                <div class="mt-2"><div class="lead">Value</div>
+        <div data-id="value-doc" class="fst-italic text-body-secondary"><div>The style.</div></div></div>
+
+                
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="Tag" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">public</span>
+
+<span class="refdocgen-text-secondary"><a href="./YamlDotNet.Core.TagName.html" class="refdocgen-link-secondary">TagName</a></span>
+
+<span class="refdocgen-text-primary">Tag</span>
+
+<span> { </span><span class="refdocgen-text-tertiary"> get<span class="text-body">; </span></span><span class="refdocgen-text-tertiary"> set<span class="text-body">; </span></span><span> }</span>
+
+</span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#Tag">#</a></samp></h6>
+
+                <div class="refdocgen-text-tertiary fst-italic ms-4 mb-2" data-id="member-inherited-from">
+            Inherited from
+            <span class="refdocgen-text-secondary"><a href="./YamlDotNet.RepresentationModel.YamlNode.html" class="refdocgen-link-secondary"><span class="not-visible" data-language="csharp-lang">YamlNode</span><span class="not-visible" data-language="todo-lang"></span></a></span></div>
+
+                
+
+                
+
+                
+
+                <div class="text-body-secondary fst-italic mb-0" data-id="summary-doc"><div>
+            Gets or sets the tag of the node.
+            </div></div>
+
+                <div class="mt-2"><div class="lead">Value</div>
+        <div data-id="value-doc" class="fst-italic text-body-secondary"><div>The tag.</div></div></div>
+
+                
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="Value" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">public</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.string" class="refdocgen-link-secondary">string</a></span>
+
+<span class="refdocgen-text-primary">Value</span>
+
+<span> { </span><span class="refdocgen-text-tertiary"> get<span class="text-body">; </span></span><span class="refdocgen-text-tertiary"> set<span class="text-body">; </span></span><span> }</span>
+
+</span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#Value">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                <div class="text-body-secondary fst-italic mb-0" data-id="summary-doc"><div>
+            Gets or sets the value of the node.
+            </div></div>
+
+                <div class="mt-2"><div class="lead">Value</div>
+        <div data-id="value-doc" class="fst-italic text-body-secondary"><div>The value.</div></div></div>
+
+                
+
+                
+                
+
+                
+
+                </div></div></div><h2 class="display-5 mt-2">Indexers</h2>
+<div class="row" data-id="indexers-section"><div class="col-md-12"><div class="border p-2 mb-2" id="Item(System.Int32)" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">public</span>
+
+<span class="refdocgen-text-secondary"><a href="./YamlDotNet.RepresentationModel.YamlNode.html" class="refdocgen-link-secondary">YamlNode</a></span><span class="refdocgen-text-primary"> this</span><span>[</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.int32" class="refdocgen-link-secondary">int</a></span>
+
+<span>index</span><span>]</span><span> { </span><span class="refdocgen-text-tertiary"> get<span class="text-body">; </span></span><span> }</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#Item(System.Int32)">#</a></samp></h6>
+
+                <div class="refdocgen-text-tertiary fst-italic ms-4 mb-2" data-id="member-inherited-from">
+            Inherited from
+            <span class="refdocgen-text-secondary"><a href="./YamlDotNet.RepresentationModel.YamlNode.html" class="refdocgen-link-secondary"><span class="not-visible" data-language="csharp-lang">YamlNode</span><span class="not-visible" data-language="todo-lang"></span></a></span></div>
+
+                
+
+                
+
+                
+
+                <div class="text-body-secondary fst-italic mb-0" data-id="summary-doc"><div>
+            Gets the nth element in a <a class="refdocgen-see-cref" href="./YamlDotNet.RepresentationModel.YamlSequenceNode.html">YamlSequenceNode</a>.
+            </div></div>
+
+                <h3 class="lead my-2">Parameters</h3>
+    <div class="mx-2" data-id="parameters-section"><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.int32" class="refdocgen-link-secondary">int</a></span>
+
+<span>index</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div></div>
+
+                
+
+                
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="Item(YamlDotNet.RepresentationModel.YamlNode)" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">public</span>
+
+<span class="refdocgen-text-secondary"><a href="./YamlDotNet.RepresentationModel.YamlNode.html" class="refdocgen-link-secondary">YamlNode</a></span><span class="refdocgen-text-primary"> this</span><span>[</span><span class="refdocgen-text-secondary"><a href="./YamlDotNet.RepresentationModel.YamlNode.html" class="refdocgen-link-secondary">YamlNode</a></span>
+
+<span>key</span><span>]</span><span> { </span><span class="refdocgen-text-tertiary"> get<span class="text-body">; </span></span><span> }</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#Item(YamlDotNet.RepresentationModel.YamlNode)">#</a></samp></h6>
+
+                <div class="refdocgen-text-tertiary fst-italic ms-4 mb-2" data-id="member-inherited-from">
+            Inherited from
+            <span class="refdocgen-text-secondary"><a href="./YamlDotNet.RepresentationModel.YamlNode.html" class="refdocgen-link-secondary"><span class="not-visible" data-language="csharp-lang">YamlNode</span><span class="not-visible" data-language="todo-lang"></span></a></span></div>
+
+                
+
+                
+
+                
+
+                <div class="text-body-secondary fst-italic mb-0" data-id="summary-doc"><div>
+            Gets the value associated with a key in a <a class="refdocgen-see-cref" href="./YamlDotNet.RepresentationModel.YamlMappingNode.html">YamlMappingNode</a>.
+            </div></div>
+
+                <h3 class="lead my-2">Parameters</h3>
+    <div class="mx-2" data-id="parameters-section"><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="./YamlDotNet.RepresentationModel.YamlNode.html" class="refdocgen-link-secondary">YamlNode</a></span>
+
+<span>key</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div></div>
+
+                
+
+                
+
+                
+                
+
+                
+
+                </div></div></div><h2 class="display-5 mt-2">Methods</h2>
+<div class="row" data-id="methods-section"><div class="col-md-12"><div class="border p-2 mb-2" id="Accept(YamlDotNet.RepresentationModel.IYamlVisitor)" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">public override</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.void" class="refdocgen-link-secondary">void</a></span>
+
+<span class="refdocgen-text-primary">Accept</span><span>(</span><span class="refdocgen-text-secondary"><a href="./YamlDotNet.RepresentationModel.IYamlVisitor.html" class="refdocgen-link-secondary">IYamlVisitor</a></span>
+
+<span>visitor</span><span>)</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#Accept(YamlDotNet.RepresentationModel.IYamlVisitor)">#</a></samp></h6>
+
+                
+
+                
+
+                <div class="refdocgen-text-tertiary fst-italic ms-4 mb-2" data-id="member-overrides">
+            Overrides
+            <span class="refdocgen-text-secondary"><a href="./YamlDotNet.RepresentationModel.YamlNode.html#Accept(YamlDotNet.RepresentationModel.IYamlVisitor)" class="refdocgen-link-secondary"><span class="not-visible" data-language="csharp-lang">YamlNode.Accept</span><span class="not-visible" data-language="todo-lang">.Accept</span></a></span></div>
+
+                
+
+                
+
+                <div class="text-body-secondary fst-italic mb-0" data-id="summary-doc"><div>
+            Accepts the specified visitor by calling the appropriate Visit method on it.
+            </div></div>
+
+                
+
+                <h3 class="lead my-2">Parameters</h3>
+    <div class="mx-2" data-id="parameters-section"><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="./YamlDotNet.RepresentationModel.IYamlVisitor.html" class="refdocgen-link-secondary">IYamlVisitor</a></span>
+
+<span>visitor</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"><div>
+            A <a class="refdocgen-see-cref" href="./YamlDotNet.RepresentationModel.IYamlVisitor.html">IYamlVisitor</a>.
+            </div></div></div></div>
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="Equals(System.Object)" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">public override</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.boolean" class="refdocgen-link-secondary">bool</a></span>
+
+<span class="refdocgen-text-primary">Equals</span><span>(</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.object" class="refdocgen-link-secondary">object</a></span>
+
+<span>obj</span><span>)</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#Equals(System.Object)">#</a></samp></h6>
+
+                
+
+                
+
+                <div class="refdocgen-text-tertiary fst-italic ms-4 mb-2" data-id="member-overrides">
+            Overrides
+            <span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.object.equals" class="refdocgen-link-secondary"><span class="not-visible" data-language="csharp-lang">object.Equals</span><span class="not-visible" data-language="todo-lang">.Equals</span></a></span></div>
+
+                
+
+                
+
+                
+
+                
+
+                <h3 class="lead my-2">Parameters</h3>
+    <div class="mx-2" data-id="parameters-section"><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.object" class="refdocgen-link-secondary">object</a></span>
+
+<span>obj</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div></div><h3 class="lead my-2">Returns</h3>
+<div class="mx-2" data-id="returns-section"><samp data-id="return-type-name"><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.boolean" class="refdocgen-link-secondary">bool</a></span></span><span class="not-visible" data-language="todo-lang"></span></samp>
+    <div class="text-body-secondary fst-italic" data-id="returns-doc"></div></div>
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="GetHashCode" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">public override</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.int32" class="refdocgen-link-secondary">int</a></span>
+
+<span class="refdocgen-text-primary">GetHashCode</span><span>(</span><span>)</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#GetHashCode">#</a></samp></h6>
+
+                
+
+                
+
+                <div class="refdocgen-text-tertiary fst-italic ms-4 mb-2" data-id="member-overrides">
+            Overrides
+            <span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode" class="refdocgen-link-secondary"><span class="not-visible" data-language="csharp-lang">object.GetHashCode</span><span class="not-visible" data-language="todo-lang">.GetHashCode</span></a></span></div>
+
+                
+
+                
+
+                <div class="text-body-secondary fst-italic mb-0" data-id="summary-doc"><div>
+            Serves as a hash function for a particular type.
+            </div></div>
+
+                
+
+                <h3 class="lead my-2">Returns</h3>
+<div class="mx-2" data-id="returns-section"><samp data-id="return-type-name"><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.int32" class="refdocgen-link-secondary">int</a></span></span><span class="not-visible" data-language="todo-lang"></span></samp>
+    <div class="text-body-secondary fst-italic" data-id="returns-doc"><div>
+            A hash code for the current <a class="refdocgen-see-cref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a>.
+            </div></div></div>
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="ToString" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">public virtual</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.string" class="refdocgen-link-secondary">string</a></span>
+
+<span class="refdocgen-text-primary">ToString</span><span>(</span><span>)</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#ToString">#</a></samp></h6>
+
+                
+
+                <div class="refdocgen-text-tertiary fst-italic ms-4 mb-2" data-id="member-inherited-from">
+            Inherited from
+            <span class="refdocgen-text-secondary"><a href="./YamlDotNet.RepresentationModel.YamlNode.html" class="refdocgen-link-secondary"><span class="not-visible" data-language="csharp-lang">YamlNode</span><span class="not-visible" data-language="todo-lang"></span></a></span></div>
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                <h3 class="lead my-2">Returns</h3>
+<div class="mx-2" data-id="returns-section"><samp data-id="return-type-name"><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.string" class="refdocgen-link-secondary">string</a></span></span><span class="not-visible" data-language="todo-lang"></span></samp>
+    <div class="text-body-secondary fst-italic" data-id="returns-doc"></div></div>
+
+                
+                
+
+                
+
+                </div></div></div><h2 class="display-5 mt-2">Operators</h2>
+<div class="row" data-id="operators-section"><div class="col-md-12"><div class="border p-2 mb-2" id="op_Explicit(YamlDotNet.RepresentationModel.YamlScalarNode)~System.String" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">public static explicit</span>
+<span></span><span></span>
+<span class="refdocgen-text-primary">operator string</span><span>(</span><span class="refdocgen-text-secondary"><a href="./YamlDotNet.RepresentationModel.YamlScalarNode.html" class="refdocgen-link-secondary">YamlScalarNode</a></span>
+
+<span>value</span><span>)</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#op_Explicit(YamlDotNet.RepresentationModel.YamlScalarNode)~System.String">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                <div class="text-body-secondary fst-italic mb-0" data-id="summary-doc"><div>
+            Performs an explicit conversion from <a class="refdocgen-see-cref" href="./YamlDotNet.RepresentationModel.YamlScalarNode.html">YamlScalarNode</a> to <a class="refdocgen-see-cref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>.
+            </div></div>
+
+                
+
+                <h3 class="lead my-2">Parameters</h3>
+    <div class="mx-2" data-id="parameters-section"><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="./YamlDotNet.RepresentationModel.YamlScalarNode.html" class="refdocgen-link-secondary">YamlScalarNode</a></span>
+
+<span>value</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"><div>The value.</div></div></div></div><h3 class="lead my-2">Returns</h3>
+<div class="mx-2" data-id="returns-section"><samp data-id="return-type-name"><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.string" class="refdocgen-link-secondary">string</a></span></span><span class="not-visible" data-language="todo-lang"></span></samp>
+    <div class="text-body-secondary fst-italic" data-id="returns-doc"><div>The result of the conversion.</div></div></div>
+
+                
+                
+
+                
+
+                </div></div></div></div><nav class="navbar fixed-bottom menu-bg"><div class="container"><div class="dropup"><button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">v-yamldotnet-public</button>
+            <div id="current-version">v-yamldotnet-public</div>
+            <div id="version-list">[&quot;v-yamldotnet-private&quot;,&quot;v-yamldotnet-public&quot;]</div>
+            <ul class="dropdown-menu" id="version-selector" data-id="version-selector"></ul></div></div></nav><script src="../Static/bootstrap-5.3.5-dist.bundle.min.js"></script>
+
+    
+    <script src="../Static/script.js"></script></body></html>
