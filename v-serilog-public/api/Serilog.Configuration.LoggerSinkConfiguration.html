@@ -1,0 +1,988 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Reference documentation</title>
+
+    <script>
+
+        // use IIFE in order to avoid polluting global context with functions & variables
+        // https://developer.mozilla.org/en-US/docs/Glossary/IIFE
+        (function() {
+            const isLocalFile = location.protocol === "file:";
+            const defaultTheme = "dark";
+            const defaultLang = "csharp-lang";
+
+            if(isLocalFile){
+                const urlParams = new URLSearchParams(window.location.search);
+
+                let redirect = false;
+
+                // set 'theme' URL param if not found
+                if(!urlParams.has("theme")){
+                    urlParams.set("theme", defaultTheme);
+                    redirect = true;
+                }
+
+                // set 'lang' URL param if not found
+                if(!urlParams.has("lang")){
+                    urlParams.set("lang", defaultLang);
+                    redirect = true;
+                }
+
+                // redirect, if some of the URL parameters are missing
+                if(redirect){
+                    const newUrl = new URL(window.location.href);
+                    newUrl.search = urlParams.toString();
+
+                    window.location.href = newUrl;
+                }
+                else {
+                    document.documentElement.setAttribute("data-bs-theme", urlParams.get("theme")); // set the 'data-bs-theme' attribute
+                    document.documentElement.setAttribute("data-language", urlParams.get("lang")); // set the 'data-language' attribute
+                }
+            }
+            else { // no local file -> use localStorage
+                if (!localStorage.getItem("refdocgen-theme")) {
+                    localStorage.setItem("refdocgen-theme", defaultTheme);
+                }
+
+                if (!localStorage.getItem("refdocgen-language")) {
+                    localStorage.setItem("refdocgen-language", defaultLang);
+                }
+
+                document.documentElement.setAttribute("data-bs-theme", localStorage.getItem("refdocgen-theme")); // set the 'data-bs-theme' attribute
+                document.documentElement.setAttribute("data-language", localStorage.getItem("refdocgen-language")); // set the 'data-language' attribute
+            }
+        })();
+    </script>
+
+    
+    <link href="../Static/styles.css" rel="stylesheet" /><style>html[data-language="csharp-lang"] [data-language="csharp-lang"] { display: inline !important; }
+html[data-language="todo-lang"] [data-language="todo-lang"] { display: inline !important; }
+</style></head>
+
+<body><nav class="navbar navbar-expand-lg sticky-top menu-bg"><div class="container"><a class="navbar-brand" href="../index.html">Project name</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup"><ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="../api/index.html">API</a></li></ul>
+            <ul class="navbar-nav ms-auto"><li class="nav-item d-flex align-items-center"><form class="me-2 mb-2 mb-lg-0"><select class="form-select" id="language-selector" aria-label="language"><option class="lang-option" value="csharp-lang">C#</option><option class="lang-option" value="todo-lang">TODO</option></select></form></li>
+
+                
+                <li class="nav-item d-flex align-items-center"><form role="search" class="me-2"><input class="form-control" autocomplete="off" type="search" placeholder="Search" aria-label="Search" id="menu-search-bar" url-target="../search.html" readonly /></form></li>
+
+                
+                <li class="nav-item" id="theme-switcher"><button class="nav-link"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-brightness-high" viewBox="0 0 16 16"><path d="M8 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6m0 1a4 4 0 1 0 0-8 4 4 0 0 0 0 8M8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0m0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13m8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5M3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8m10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0m-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0m9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707M4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708"></path></svg></button></li></ul></div></div></nav>
+
+    <div class="container my-4" data-id="page-body"><div data-id="declared-type-data"><h1 class="display-4" data-id="type-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">public class</span>
+<span class="refdocgen-text-primary">LoggerSinkConfiguration</span></span><span class="not-visible" data-language="todo-lang"></span></samp></h1>
+
+                    
+
+                    <h6><samp data-id="type-assembly"><a href="Serilog-DLL.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">assembly</span>
+            <span class="refdocgen-text-secondary">Serilog</span></a></samp></h6>
+
+                    <h6><samp data-id="type-namespace"><a href="Serilog.Configuration.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">namespace</span>
+            <span class="refdocgen-text-secondary">Serilog.Configuration</span></a></samp></h6>
+
+                    <div data-id="base-type"><i>Base type:&nbsp;</i>
+        <samp class="refdocgen-text-secondary"><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.object" class="refdocgen-link-secondary">object</a></span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                    
+
+                    
+
+                    <hr>
+
+                    
+                    <div class="text-body-secondary fst-italic mb-0" data-id="summary-doc"><div>
+            Controls sink configuration.
+            </div></div><hr>
+
+                    
+
+                    
+
+                    
+                    
+
+                    </div><h2 class="display-5 mt-2">Methods</h2>
+<div class="row" data-id="methods-section"><div class="col-md-12"><div class="border p-2 mb-2" id="Conditional(System.Func(Serilog.Events.LogEvent,System.Boolean),System.Action(Serilog.Configuration.LoggerSinkConfiguration))" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">public</span>
+
+<span class="refdocgen-text-secondary"><a href="./Serilog.LoggerConfiguration.html" class="refdocgen-link-secondary">LoggerConfiguration</a></span>
+
+<span class="refdocgen-text-primary">Conditional</span><span>(</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.func-2" class="refdocgen-link-secondary">Func</a></span><span class="text-body-secondary">&lt;</span><span class="refdocgen-text-secondary"><a href="./Serilog.Events.LogEvent.html" class="refdocgen-link-secondary">LogEvent</a></span><span class="text-body-secondary">, </span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.boolean" class="refdocgen-link-secondary">bool</a></span><span class="text-body-secondary">&gt;</span>
+
+<span>condition</span><span>, </span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.action-1" class="refdocgen-link-secondary">Action</a></span><span class="text-body-secondary">&lt;</span><span class="refdocgen-text-secondary"><a href="./Serilog.Configuration.LoggerSinkConfiguration.html" class="refdocgen-link-secondary">LoggerSinkConfiguration</a></span><span class="text-body-secondary">&gt;</span>
+
+<span>configureSink</span><span>)</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#Conditional(System.Func(Serilog.Events.LogEvent,System.Boolean),System.Action(Serilog.Configuration.LoggerSinkConfiguration))">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                <div class="text-body-secondary fst-italic mb-0" data-id="summary-doc"><div>
+            Write to a sink only when <code class="refdocgen-paramref">condition</code> evaluates to <code class="refdocgen-inline-code">true</code>.
+            </div></div>
+
+                
+
+                <h3 class="lead my-2">Parameters</h3>
+    <div class="mx-2" data-id="parameters-section"><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.func-2" class="refdocgen-link-secondary">Func</a></span><span class="text-body-secondary">&lt;</span><span class="refdocgen-text-secondary"><a href="./Serilog.Events.LogEvent.html" class="refdocgen-link-secondary">LogEvent</a></span><span class="text-body-secondary">, </span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.boolean" class="refdocgen-link-secondary">bool</a></span><span class="text-body-secondary">&gt;</span>
+
+<span>condition</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"><div>A predicate that evaluates to <code class="refdocgen-inline-code">true</code> when the supplied <a class="refdocgen-see-cref" href="./Serilog.Events.LogEvent.html">LogEvent</a>
+            should be written to the configured sink.</div></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.action-1" class="refdocgen-link-secondary">Action</a></span><span class="text-body-secondary">&lt;</span><span class="refdocgen-text-secondary"><a href="./Serilog.Configuration.LoggerSinkConfiguration.html" class="refdocgen-link-secondary">LoggerSinkConfiguration</a></span><span class="text-body-secondary">&gt;</span>
+
+<span>configureSink</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"><div>An action that configures the wrapped sink.</div></div></div></div><h3 class="lead my-2">Returns</h3>
+<div class="mx-2" data-id="returns-section"><samp data-id="return-type-name"><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="./Serilog.LoggerConfiguration.html" class="refdocgen-link-secondary">LoggerConfiguration</a></span></span><span class="not-visible" data-language="todo-lang"></span></samp>
+    <div class="text-body-secondary fst-italic" data-id="returns-doc"><div>Configuration object allowing method chaining.</div></div></div>
+
+                
+                
+
+                <h3 class="lead mt-3">Exceptions</h3>
+    <div class="mx-2" data-id="exception-section"><div data-id="exception-data"><samp data-id="exception-type"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.argumentnullexception" class="refdocgen-link-secondary"><span class="not-visible" data-language="csharp-lang">ArgumentNullException</span><span class="not-visible" data-language="todo-lang"></span></a></span></samp>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="exception-doc"><div>When <code class="refdocgen-paramref">condition</code> is <pre><code class="refdocgen-code-block">null</code></pre>.</div></div></div><div data-id="exception-data"><samp data-id="exception-type"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.argumentnullexception" class="refdocgen-link-secondary"><span class="not-visible" data-language="csharp-lang">ArgumentNullException</span><span class="not-visible" data-language="todo-lang"></span></a></span></samp>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="exception-doc"><div>When <code class="refdocgen-paramref">configureSink</code> is <pre><code class="refdocgen-code-block">null</code></pre>.</div></div></div></div>
+
+                </div><div class="border p-2 mb-2" id="CreateSink(System.Action(Serilog.Configuration.LoggerSinkConfiguration))" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">public static</span>
+
+<span class="refdocgen-text-secondary"><a href="./Serilog.Core.ILogEventSink.html" class="refdocgen-link-secondary">ILogEventSink</a></span>
+
+<span class="refdocgen-text-primary">CreateSink</span><span>(</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.action-1" class="refdocgen-link-secondary">Action</a></span><span class="text-body-secondary">&lt;</span><span class="refdocgen-text-secondary"><a href="./Serilog.Configuration.LoggerSinkConfiguration.html" class="refdocgen-link-secondary">LoggerSinkConfiguration</a></span><span class="text-body-secondary">&gt;</span>
+
+<span>configure</span><span>)</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#CreateSink(System.Action(Serilog.Configuration.LoggerSinkConfiguration))">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                <div class="text-body-secondary fst-italic mb-0" data-id="summary-doc"><div>
+            Helper method for constructing sinks outside of a logger pipeline.
+            </div></div>
+
+                
+
+                <h3 class="lead my-2">Parameters</h3>
+    <div class="mx-2" data-id="parameters-section"><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.action-1" class="refdocgen-link-secondary">Action</a></span><span class="text-body-secondary">&lt;</span><span class="refdocgen-text-secondary"><a href="./Serilog.Configuration.LoggerSinkConfiguration.html" class="refdocgen-link-secondary">LoggerSinkConfiguration</a></span><span class="text-body-secondary">&gt;</span>
+
+<span>configure</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"><div>An action that configures one or more sinks.</div></div></div></div><h3 class="lead my-2">Returns</h3>
+<div class="mx-2" data-id="returns-section"><samp data-id="return-type-name"><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="./Serilog.Core.ILogEventSink.html" class="refdocgen-link-secondary">ILogEventSink</a></span></span><span class="not-visible" data-language="todo-lang"></span></samp>
+    <div class="text-body-secondary fst-italic" data-id="returns-doc"><div>If only a single sink is configured,
+            it will be returned from <a class="refdocgen-see-cref" href="./Serilog.Configuration.LoggerSinkConfiguration.html#CreateSink(System.Action(Serilog.Configuration.LoggerSinkConfiguration))">LoggerSinkConfiguration.CreateSink</a>. If zero or many sinks are configured, they will be combined
+            in an aggregating wrapper.</div></div></div>
+
+                
+                
+
+                <h3 class="lead mt-3">Exceptions</h3>
+    <div class="mx-2" data-id="exception-section"><div data-id="exception-data"><samp data-id="exception-type"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.argumentnullexception" class="refdocgen-link-secondary"><span class="not-visible" data-language="csharp-lang">ArgumentNullException</span><span class="not-visible" data-language="todo-lang"></span></a></span></samp>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="exception-doc"><div>When <code class="refdocgen-paramref">configure</code> is <pre><code class="refdocgen-code-block">null</code></pre>.</div></div></div></div>
+
+                </div><div class="border p-2 mb-2" id="FallbackChain(System.Action(Serilog.Configuration.LoggerSinkConfiguration),System.Action(Serilog.Configuration.LoggerSinkConfiguration),System.Action(Serilog.Configuration.LoggerSinkConfiguration))" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">public</span>
+
+<span class="refdocgen-text-secondary"><a href="./Serilog.LoggerConfiguration.html" class="refdocgen-link-secondary">LoggerConfiguration</a></span>
+
+<span class="refdocgen-text-primary">FallbackChain</span><span>(</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.action-1" class="refdocgen-link-secondary">Action</a></span><span class="text-body-secondary">&lt;</span><span class="refdocgen-text-secondary"><a href="./Serilog.Configuration.LoggerSinkConfiguration.html" class="refdocgen-link-secondary">LoggerSinkConfiguration</a></span><span class="text-body-secondary">&gt;</span>
+
+<span>configureSink</span><span>, </span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.action-1" class="refdocgen-link-secondary">Action</a></span><span class="text-body-secondary">&lt;</span><span class="refdocgen-text-secondary"><a href="./Serilog.Configuration.LoggerSinkConfiguration.html" class="refdocgen-link-secondary">LoggerSinkConfiguration</a></span><span class="text-body-secondary">&gt;</span>
+
+<span>configureFallback</span><span>, </span><span class="refdocgen-text-tertiary">params</span>
+    <span></span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.action-1" class="refdocgen-link-secondary">Action</a></span><span class="text-body-secondary">&lt;</span><span class="refdocgen-text-secondary"><a href="./Serilog.Configuration.LoggerSinkConfiguration.html" class="refdocgen-link-secondary">LoggerSinkConfiguration</a></span><span class="text-body-secondary">&gt;</span>
+
+<span>configureSubsequentFallbacks</span><span>)</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#FallbackChain(System.Action(Serilog.Configuration.LoggerSinkConfiguration),System.Action(Serilog.Configuration.LoggerSinkConfiguration),System.Action(Serilog.Configuration.LoggerSinkConfiguration))">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                <h3 class="lead my-2">Parameters</h3>
+    <div class="mx-2" data-id="parameters-section"><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.action-1" class="refdocgen-link-secondary">Action</a></span><span class="text-body-secondary">&lt;</span><span class="refdocgen-text-secondary"><a href="./Serilog.Configuration.LoggerSinkConfiguration.html" class="refdocgen-link-secondary">LoggerSinkConfiguration</a></span><span class="text-body-secondary">&gt;</span>
+
+<span>configureSink</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.action-1" class="refdocgen-link-secondary">Action</a></span><span class="text-body-secondary">&lt;</span><span class="refdocgen-text-secondary"><a href="./Serilog.Configuration.LoggerSinkConfiguration.html" class="refdocgen-link-secondary">LoggerSinkConfiguration</a></span><span class="text-body-secondary">&gt;</span>
+
+<span>configureFallback</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">params</span>
+    <span></span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.action-1" class="refdocgen-link-secondary">Action</a></span><span class="text-body-secondary">&lt;</span><span class="refdocgen-text-secondary"><a href="./Serilog.Configuration.LoggerSinkConfiguration.html" class="refdocgen-link-secondary">LoggerSinkConfiguration</a></span><span class="text-body-secondary">&gt;</span>
+
+<span>configureSubsequentFallbacks</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div></div><h3 class="lead my-2">Returns</h3>
+<div class="mx-2" data-id="returns-section"><samp data-id="return-type-name"><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="./Serilog.LoggerConfiguration.html" class="refdocgen-link-secondary">LoggerConfiguration</a></span></span><span class="not-visible" data-language="todo-lang"></span></samp>
+    <div class="text-body-secondary fst-italic" data-id="returns-doc"></div></div>
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="Fallible(System.Action(Serilog.Configuration.LoggerSinkConfiguration),Serilog.Core.ILoggingFailureListener)" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">public</span>
+
+<span class="refdocgen-text-secondary"><a href="./Serilog.LoggerConfiguration.html" class="refdocgen-link-secondary">LoggerConfiguration</a></span>
+
+<span class="refdocgen-text-primary">Fallible</span><span>(</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.action-1" class="refdocgen-link-secondary">Action</a></span><span class="text-body-secondary">&lt;</span><span class="refdocgen-text-secondary"><a href="./Serilog.Configuration.LoggerSinkConfiguration.html" class="refdocgen-link-secondary">LoggerSinkConfiguration</a></span><span class="text-body-secondary">&gt;</span>
+
+<span>configureSink</span><span>, </span><span class="refdocgen-text-secondary"><a href="./Serilog.Core.ILoggingFailureListener.html" class="refdocgen-link-secondary">ILoggingFailureListener</a></span>
+
+<span>failureListener</span><span>)</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#Fallible(System.Action(Serilog.Configuration.LoggerSinkConfiguration),Serilog.Core.ILoggingFailureListener)">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                <h3 class="lead my-2">Parameters</h3>
+    <div class="mx-2" data-id="parameters-section"><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.action-1" class="refdocgen-link-secondary">Action</a></span><span class="text-body-secondary">&lt;</span><span class="refdocgen-text-secondary"><a href="./Serilog.Configuration.LoggerSinkConfiguration.html" class="refdocgen-link-secondary">LoggerSinkConfiguration</a></span><span class="text-body-secondary">&gt;</span>
+
+<span>configureSink</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="./Serilog.Core.ILoggingFailureListener.html" class="refdocgen-link-secondary">ILoggingFailureListener</a></span>
+
+<span>failureListener</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div></div><h3 class="lead my-2">Returns</h3>
+<div class="mx-2" data-id="returns-section"><samp data-id="return-type-name"><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="./Serilog.LoggerConfiguration.html" class="refdocgen-link-secondary">LoggerConfiguration</a></span></span><span class="not-visible" data-language="todo-lang"></span></samp>
+    <div class="text-body-secondary fst-italic" data-id="returns-doc"></div></div>
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="Logger(Serilog.ILogger,Serilog.Events.LogEventLevel)" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">public</span>
+
+<span class="refdocgen-text-secondary"><a href="./Serilog.LoggerConfiguration.html" class="refdocgen-link-secondary">LoggerConfiguration</a></span>
+
+<span class="refdocgen-text-primary">Logger</span><span>(</span><span class="refdocgen-text-secondary"><a href="./Serilog.ILogger.html" class="refdocgen-link-secondary">ILogger</a></span>
+
+<span>logger</span><span>, </span><span class="refdocgen-text-secondary"><a href="./Serilog.Events.LogEventLevel.html" class="refdocgen-link-secondary">LogEventLevel</a></span>
+
+<span>restrictedToMinimumLevel</span><span>)</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#Logger(Serilog.ILogger,Serilog.Events.LogEventLevel)">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                <div class="text-body-secondary fst-italic mb-0" data-id="summary-doc"><div>
+            Write log events to a sub-logger, where further processing may occur. Events through
+            the sub-logger will be constrained by filters and enriched by enrichers that are
+            active in the parent. A sub-logger cannot be used to log at a more verbose level, but
+            a less verbose level is possible.
+            </div></div>
+
+                
+
+                <h3 class="lead my-2">Parameters</h3>
+    <div class="mx-2" data-id="parameters-section"><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="./Serilog.ILogger.html" class="refdocgen-link-secondary">ILogger</a></span>
+
+<span>logger</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"><div>The sub-logger. This will <em>not</em> be shut down automatically when the
+            parent logger is disposed.</div></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="./Serilog.Events.LogEventLevel.html" class="refdocgen-link-secondary">LogEventLevel</a></span>
+
+<span>restrictedToMinimumLevel</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"><div>The minimum level for
+            events passed through the sink.</div></div></div></div><h3 class="lead my-2">Returns</h3>
+<div class="mx-2" data-id="returns-section"><samp data-id="return-type-name"><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="./Serilog.LoggerConfiguration.html" class="refdocgen-link-secondary">LoggerConfiguration</a></span></span><span class="not-visible" data-language="todo-lang"></span></samp>
+    <div class="text-body-secondary fst-italic" data-id="returns-doc"><div>Configuration object allowing method chaining.</div></div></div><h3 class="lead mt-3">Attributes</h3>
+    <div class="mx-2" data-id="attributes-section"><div data-id="attribute-data"><samp><span class="not-visible" data-language="csharp-lang">
+
+[<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.componentmodel.editorbrowsableattribute" class="refdocgen-link-secondary">EditorBrowsable</a></span><span>(</span><span class="refdocgen-text-green">1</span><span>)</span><span>]</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div></div>
+
+                
+                
+
+                <h3 class="lead mt-3">Exceptions</h3>
+    <div class="mx-2" data-id="exception-section"><div data-id="exception-data"><samp data-id="exception-type"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.argumentnullexception" class="refdocgen-link-secondary"><span class="not-visible" data-language="csharp-lang">ArgumentNullException</span><span class="not-visible" data-language="todo-lang"></span></a></span></samp>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="exception-doc"><div>When <code class="refdocgen-paramref">logger</code> is <pre><code class="refdocgen-code-block">null</code></pre></div></div></div></div>
+
+                </div><div class="border p-2 mb-2" id="Logger(System.Action(Serilog.LoggerConfiguration),Serilog.Events.LogEventLevel,Serilog.Core.LoggingLevelSwitch)" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">public</span>
+
+<span class="refdocgen-text-secondary"><a href="./Serilog.LoggerConfiguration.html" class="refdocgen-link-secondary">LoggerConfiguration</a></span>
+
+<span class="refdocgen-text-primary">Logger</span><span>(</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.action-1" class="refdocgen-link-secondary">Action</a></span><span class="text-body-secondary">&lt;</span><span class="refdocgen-text-secondary"><a href="./Serilog.LoggerConfiguration.html" class="refdocgen-link-secondary">LoggerConfiguration</a></span><span class="text-body-secondary">&gt;</span>
+
+<span>configureLogger</span><span>, </span><span class="refdocgen-text-secondary"><a href="./Serilog.Events.LogEventLevel.html" class="refdocgen-link-secondary">LogEventLevel</a></span>
+
+<span>restrictedToMinimumLevel</span><span> = </span>
+    <span class="refdocgen-text-green">0</span><span>, </span><span class="refdocgen-text-secondary"><a href="./Serilog.Core.LoggingLevelSwitch.html" class="refdocgen-link-secondary">LoggingLevelSwitch</a></span>
+
+<span>levelSwitch</span><span> = </span>
+    <span class="refdocgen-text-green">null</span><span>)</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#Logger(System.Action(Serilog.LoggerConfiguration),Serilog.Events.LogEventLevel,Serilog.Core.LoggingLevelSwitch)">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                <div class="text-body-secondary fst-italic mb-0" data-id="summary-doc"><div>
+            Write log events to a sub-logger, where further processing may occur. Events through
+            the sub-logger will be constrained by filters and enriched by enrichers that are
+            active in the parent. A sub-logger cannot be used to log at a more verbose level, but
+            a less verbose level is possible.
+            </div></div>
+
+                
+
+                <h3 class="lead my-2">Parameters</h3>
+    <div class="mx-2" data-id="parameters-section"><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.action-1" class="refdocgen-link-secondary">Action</a></span><span class="text-body-secondary">&lt;</span><span class="refdocgen-text-secondary"><a href="./Serilog.LoggerConfiguration.html" class="refdocgen-link-secondary">LoggerConfiguration</a></span><span class="text-body-secondary">&gt;</span>
+
+<span>configureLogger</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"><div>An action that configures the sub-logger.</div></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="./Serilog.Events.LogEventLevel.html" class="refdocgen-link-secondary">LogEventLevel</a></span>
+
+<span>restrictedToMinimumLevel</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"><div>The minimum level for
+            events passed through the sink. Ignored when <code class="refdocgen-paramref">levelSwitch</code> is specified.</div></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="./Serilog.Core.LoggingLevelSwitch.html" class="refdocgen-link-secondary">LoggingLevelSwitch</a></span>
+
+<span>levelSwitch</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"><div>A switch allowing the pass-through minimum level
+            to be changed at runtime. Can be <pre><code class="refdocgen-code-block">null</code></pre></div></div></div></div><h3 class="lead my-2">Returns</h3>
+<div class="mx-2" data-id="returns-section"><samp data-id="return-type-name"><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="./Serilog.LoggerConfiguration.html" class="refdocgen-link-secondary">LoggerConfiguration</a></span></span><span class="not-visible" data-language="todo-lang"></span></samp>
+    <div class="text-body-secondary fst-italic" data-id="returns-doc"><div>Configuration object allowing method chaining.</div></div></div>
+
+                
+                
+
+                <h3 class="lead mt-3">Exceptions</h3>
+    <div class="mx-2" data-id="exception-section"><div data-id="exception-data"><samp data-id="exception-type"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.argumentnullexception" class="refdocgen-link-secondary"><span class="not-visible" data-language="csharp-lang">ArgumentNullException</span><span class="not-visible" data-language="todo-lang"></span></a></span></samp>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="exception-doc"><div>When <code class="refdocgen-paramref">configureLogger</code> is <pre><code class="refdocgen-code-block">null</code></pre></div></div></div></div>
+
+                </div><div class="border p-2 mb-2" id="Logger(Serilog.ILogger,System.Boolean,Serilog.Events.LogEventLevel,Serilog.Core.LoggingLevelSwitch)" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">public</span>
+
+<span class="refdocgen-text-secondary"><a href="./Serilog.LoggerConfiguration.html" class="refdocgen-link-secondary">LoggerConfiguration</a></span>
+
+<span class="refdocgen-text-primary">Logger</span><span>(</span><span class="refdocgen-text-secondary"><a href="./Serilog.ILogger.html" class="refdocgen-link-secondary">ILogger</a></span>
+
+<span>logger</span><span>, </span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.boolean" class="refdocgen-link-secondary">bool</a></span>
+
+<span>attemptDispose</span><span> = </span>
+    <span class="refdocgen-text-green">False</span><span>, </span><span class="refdocgen-text-secondary"><a href="./Serilog.Events.LogEventLevel.html" class="refdocgen-link-secondary">LogEventLevel</a></span>
+
+<span>restrictedToMinimumLevel</span><span> = </span>
+    <span class="refdocgen-text-green">0</span><span>, </span><span class="refdocgen-text-secondary"><a href="./Serilog.Core.LoggingLevelSwitch.html" class="refdocgen-link-secondary">LoggingLevelSwitch</a></span>
+
+<span>levelSwitch</span><span> = </span>
+    <span class="refdocgen-text-green">null</span><span>)</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#Logger(Serilog.ILogger,System.Boolean,Serilog.Events.LogEventLevel,Serilog.Core.LoggingLevelSwitch)">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                <div class="text-body-secondary fst-italic mb-0" data-id="summary-doc"><div>
+            Write log events to a sub-logger, where further processing may occur. Events through
+            the sub-logger will be constrained by filters and enriched by enrichers that are
+            active in the parent. A sub-logger cannot be used to log at a more verbose level, but
+            a less verbose level is possible.
+            </div></div>
+
+                
+
+                <h3 class="lead my-2">Parameters</h3>
+    <div class="mx-2" data-id="parameters-section"><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="./Serilog.ILogger.html" class="refdocgen-link-secondary">ILogger</a></span>
+
+<span>logger</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"><div>The sub-logger.</div></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.boolean" class="refdocgen-link-secondary">bool</a></span>
+
+<span>attemptDispose</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"><div>Whether to shut down automatically the sub-logger
+            when the parent logger is disposed.</div></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="./Serilog.Events.LogEventLevel.html" class="refdocgen-link-secondary">LogEventLevel</a></span>
+
+<span>restrictedToMinimumLevel</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"><div>The minimum level for
+            events passed through the sink.</div></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="./Serilog.Core.LoggingLevelSwitch.html" class="refdocgen-link-secondary">LoggingLevelSwitch</a></span>
+
+<span>levelSwitch</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"><div>A switch allowing the pass-through minimum level
+            to be changed at runtime. Can be <pre><code class="refdocgen-code-block">null</code></pre></div></div></div></div><h3 class="lead my-2">Returns</h3>
+<div class="mx-2" data-id="returns-section"><samp data-id="return-type-name"><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="./Serilog.LoggerConfiguration.html" class="refdocgen-link-secondary">LoggerConfiguration</a></span></span><span class="not-visible" data-language="todo-lang"></span></samp>
+    <div class="text-body-secondary fst-italic" data-id="returns-doc"><div>Configuration object allowing method chaining.</div></div></div>
+
+                
+                
+
+                <h3 class="lead mt-3">Exceptions</h3>
+    <div class="mx-2" data-id="exception-section"><div data-id="exception-data"><samp data-id="exception-type"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.argumentnullexception" class="refdocgen-link-secondary"><span class="not-visible" data-language="csharp-lang">ArgumentNullException</span><span class="not-visible" data-language="todo-lang"></span></a></span></samp>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="exception-doc"><div>When <code class="refdocgen-paramref">logger</code> is <pre><code class="refdocgen-code-block">null</code></pre></div></div></div></div>
+
+                </div><div class="border p-2 mb-2" id="Sink(Serilog.Core.ILogEventSink,Serilog.Events.LogEventLevel)" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">public</span>
+
+<span class="refdocgen-text-secondary"><a href="./Serilog.LoggerConfiguration.html" class="refdocgen-link-secondary">LoggerConfiguration</a></span>
+
+<span class="refdocgen-text-primary">Sink</span><span>(</span><span class="refdocgen-text-secondary"><a href="./Serilog.Core.ILogEventSink.html" class="refdocgen-link-secondary">ILogEventSink</a></span>
+
+<span>logEventSink</span><span>, </span><span class="refdocgen-text-secondary"><a href="./Serilog.Events.LogEventLevel.html" class="refdocgen-link-secondary">LogEventLevel</a></span>
+
+<span>restrictedToMinimumLevel</span><span>)</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#Sink(Serilog.Core.ILogEventSink,Serilog.Events.LogEventLevel)">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                <div class="text-body-secondary fst-italic mb-0" data-id="summary-doc"><div>
+            Write log events to an <a class="refdocgen-see-cref" href="./Serilog.Core.ILogEventSink.html">ILogEventSink</a>.
+            </div></div>
+
+                
+
+                <h3 class="lead my-2">Parameters</h3>
+    <div class="mx-2" data-id="parameters-section"><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="./Serilog.Core.ILogEventSink.html" class="refdocgen-link-secondary">ILogEventSink</a></span>
+
+<span>logEventSink</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"><div>The sink.</div></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="./Serilog.Events.LogEventLevel.html" class="refdocgen-link-secondary">LogEventLevel</a></span>
+
+<span>restrictedToMinimumLevel</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"><div>The minimum level for
+            events passed through the sink.</div></div></div></div><h3 class="lead my-2">Returns</h3>
+<div class="mx-2" data-id="returns-section"><samp data-id="return-type-name"><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="./Serilog.LoggerConfiguration.html" class="refdocgen-link-secondary">LoggerConfiguration</a></span></span><span class="not-visible" data-language="todo-lang"></span></samp>
+    <div class="text-body-secondary fst-italic" data-id="returns-doc"><div>Configuration object allowing method chaining.</div></div></div><h3 class="lead mt-3">Attributes</h3>
+    <div class="mx-2" data-id="attributes-section"><div data-id="attribute-data"><samp><span class="not-visible" data-language="csharp-lang">
+
+[<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.componentmodel.editorbrowsableattribute" class="refdocgen-link-secondary">EditorBrowsable</a></span><span>(</span><span class="refdocgen-text-green">1</span><span>)</span><span>]</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div></div>
+
+                
+                <div class="mt-3" data-id="remarks-section"><div class="lead">Remarks</div>
+        <div class="text-body-secondary fst-italic" data-id="remarks-doc"><div>Sink configuration methods that specify <code class="refdocgen-paramref">restrictedToMinimumLevel</code> should also specify <a class="refdocgen-see-cref" href="./Serilog.Core.LoggingLevelSwitch.html">LoggingLevelSwitch</a>.</div></div></div>
+
+                
+
+                <div class="mt-3" data-id="seealso-section"><div class="lead">See also</div><div class="text-body-secondary fst-italic" data-id="seealso-item"><a class="refdocgen-see-cref" href="./Serilog.Configuration.LoggerSinkConfiguration.html#Sink(Serilog.Core.ILogEventSink,Serilog.Events.LogEventLevel,Serilog.Core.LoggingLevelSwitch)">LoggerSinkConfiguration.Sink</a></div></div></div><div class="border p-2 mb-2" id="Sink--1(Serilog.Events.LogEventLevel,Serilog.Core.LoggingLevelSwitch)" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">public</span>
+
+<span class="refdocgen-text-secondary"><a href="./Serilog.LoggerConfiguration.html" class="refdocgen-link-secondary">LoggerConfiguration</a></span>
+
+<span class="refdocgen-text-primary">Sink</span><span>&lt;</span><span class="refdocgen-text-secondary">TSink</span><span>&gt;</span><span>(</span><span class="refdocgen-text-secondary"><a href="./Serilog.Events.LogEventLevel.html" class="refdocgen-link-secondary">LogEventLevel</a></span>
+
+<span>restrictedToMinimumLevel</span><span> = </span>
+    <span class="refdocgen-text-green">0</span><span>, </span><span class="refdocgen-text-secondary"><a href="./Serilog.Core.LoggingLevelSwitch.html" class="refdocgen-link-secondary">LoggingLevelSwitch</a></span>
+
+<span>levelSwitch</span><span> = </span>
+    <span class="refdocgen-text-green">null</span><span>)</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#Sink--1(Serilog.Events.LogEventLevel,Serilog.Core.LoggingLevelSwitch)">#</a></samp></h6>
+
+                <span class="not-visible" data-language="csharp-lang"><h6 class="mx-3" data-id="type-param-constraints"><samp><span class="refdocgen-text-tertiary">where</span>
+            <span class="refdocgen-text-secondary">TSink</span>
+            <span> : </span>
+            <span class="refdocgen-text-tertiary">new()</span><span class="refdocgen-text-tertiary">, </span><span class="refdocgen-text-secondary"><a href="./Serilog.Core.ILogEventSink.html" class="refdocgen-link-secondary">ILogEventSink</a></span></samp></h6></span><span class="not-visible" data-language="todo-lang"></span>
+
+                
+
+                
+
+                
+
+                
+
+                <div class="text-body-secondary fst-italic mb-0" data-id="summary-doc"><div>
+            Write log events to the specified <a class="refdocgen-see-cref" href="./Serilog.Core.ILogEventSink.html">ILogEventSink</a>.
+            </div></div>
+
+                <h3 class="lead my-2">Type parameters</h3>
+    <div class="mx-2" data-id="type-parameters-section"><div data-id="type-parameter-data"><samp data-id="type-parameter-declaration"><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary">TSink</span></span><span class="not-visible" data-language="todo-lang"></span></samp>
+                <div class="text-body-secondary fst-italic mb-2" data-id="type-parameter-doc"><div>The sink.</div></div></div></div>
+
+                <h3 class="lead my-2">Parameters</h3>
+    <div class="mx-2" data-id="parameters-section"><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="./Serilog.Events.LogEventLevel.html" class="refdocgen-link-secondary">LogEventLevel</a></span>
+
+<span>restrictedToMinimumLevel</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"><div>The minimum level for
+            events passed through the sink. Ignored when <code class="refdocgen-paramref">levelSwitch</code> is specified.</div></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="./Serilog.Core.LoggingLevelSwitch.html" class="refdocgen-link-secondary">LoggingLevelSwitch</a></span>
+
+<span>levelSwitch</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"><div>A switch allowing the pass-through minimum level
+            to be changed at runtime.</div></div></div></div><h3 class="lead my-2">Returns</h3>
+<div class="mx-2" data-id="returns-section"><samp data-id="return-type-name"><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="./Serilog.LoggerConfiguration.html" class="refdocgen-link-secondary">LoggerConfiguration</a></span></span><span class="not-visible" data-language="todo-lang"></span></samp>
+    <div class="text-body-secondary fst-italic" data-id="returns-doc"><div>Configuration object allowing method chaining.</div></div></div>
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="Sink(Serilog.Core.ILogEventSink,Serilog.Events.LogEventLevel,Serilog.Core.LoggingLevelSwitch)" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">public</span>
+
+<span class="refdocgen-text-secondary"><a href="./Serilog.LoggerConfiguration.html" class="refdocgen-link-secondary">LoggerConfiguration</a></span>
+
+<span class="refdocgen-text-primary">Sink</span><span>(</span><span class="refdocgen-text-secondary"><a href="./Serilog.Core.ILogEventSink.html" class="refdocgen-link-secondary">ILogEventSink</a></span>
+
+<span>logEventSink</span><span>, </span><span class="refdocgen-text-secondary"><a href="./Serilog.Events.LogEventLevel.html" class="refdocgen-link-secondary">LogEventLevel</a></span>
+
+<span>restrictedToMinimumLevel</span><span> = </span>
+    <span class="refdocgen-text-green">0</span><span>, </span><span class="refdocgen-text-secondary"><a href="./Serilog.Core.LoggingLevelSwitch.html" class="refdocgen-link-secondary">LoggingLevelSwitch</a></span>
+
+<span>levelSwitch</span><span> = </span>
+    <span class="refdocgen-text-green">null</span><span>)</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#Sink(Serilog.Core.ILogEventSink,Serilog.Events.LogEventLevel,Serilog.Core.LoggingLevelSwitch)">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                <div class="text-body-secondary fst-italic mb-0" data-id="summary-doc"><div>
+            Write log events to an <a class="refdocgen-see-cref" href="./Serilog.Core.ILogEventSink.html">ILogEventSink</a>.
+            </div></div>
+
+                
+
+                <h3 class="lead my-2">Parameters</h3>
+    <div class="mx-2" data-id="parameters-section"><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="./Serilog.Core.ILogEventSink.html" class="refdocgen-link-secondary">ILogEventSink</a></span>
+
+<span>logEventSink</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"><div>The sink.</div></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="./Serilog.Events.LogEventLevel.html" class="refdocgen-link-secondary">LogEventLevel</a></span>
+
+<span>restrictedToMinimumLevel</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"><div>The minimum level for
+            events passed through the sink. Ignored when <code class="refdocgen-paramref">levelSwitch</code> is specified.</div></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="./Serilog.Core.LoggingLevelSwitch.html" class="refdocgen-link-secondary">LoggingLevelSwitch</a></span>
+
+<span>levelSwitch</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"><div>A switch allowing the pass-through minimum level
+            to be changed at runtime.</div></div></div></div><h3 class="lead my-2">Returns</h3>
+<div class="mx-2" data-id="returns-section"><samp data-id="return-type-name"><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="./Serilog.LoggerConfiguration.html" class="refdocgen-link-secondary">LoggerConfiguration</a></span></span><span class="not-visible" data-language="todo-lang"></span></samp>
+    <div class="text-body-secondary fst-italic" data-id="returns-doc"><div>Configuration object allowing method chaining.</div></div></div>
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="Sink--1(Serilog.Configuration.BatchingOptions,Serilog.Events.LogEventLevel,Serilog.Core.LoggingLevelSwitch)" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">public</span>
+
+<span class="refdocgen-text-secondary"><a href="./Serilog.LoggerConfiguration.html" class="refdocgen-link-secondary">LoggerConfiguration</a></span>
+
+<span class="refdocgen-text-primary">Sink</span><span>&lt;</span><span class="refdocgen-text-secondary">TSink</span><span>&gt;</span><span>(</span><span class="refdocgen-text-secondary"><a href="./Serilog.Configuration.BatchingOptions.html" class="refdocgen-link-secondary">BatchingOptions</a></span>
+
+<span>batchingOptions</span><span>, </span><span class="refdocgen-text-secondary"><a href="./Serilog.Events.LogEventLevel.html" class="refdocgen-link-secondary">LogEventLevel</a></span>
+
+<span>restrictedToMinimumLevel</span><span> = </span>
+    <span class="refdocgen-text-green">0</span><span>, </span><span class="refdocgen-text-secondary"><a href="./Serilog.Core.LoggingLevelSwitch.html" class="refdocgen-link-secondary">LoggingLevelSwitch</a></span>
+
+<span>levelSwitch</span><span> = </span>
+    <span class="refdocgen-text-green">null</span><span>)</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#Sink--1(Serilog.Configuration.BatchingOptions,Serilog.Events.LogEventLevel,Serilog.Core.LoggingLevelSwitch)">#</a></samp></h6>
+
+                <span class="not-visible" data-language="csharp-lang"><h6 class="mx-3" data-id="type-param-constraints"><samp><span class="refdocgen-text-tertiary">where</span>
+            <span class="refdocgen-text-secondary">TSink</span>
+            <span> : </span>
+            <span class="refdocgen-text-tertiary">new()</span><span class="refdocgen-text-tertiary">, </span><span class="refdocgen-text-secondary"><a href="./Serilog.Core.IBatchedLogEventSink.html" class="refdocgen-link-secondary">IBatchedLogEventSink</a></span></samp></h6></span><span class="not-visible" data-language="todo-lang"></span>
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                <h3 class="lead my-2">Type parameters</h3>
+    <div class="mx-2" data-id="type-parameters-section"><div data-id="type-parameter-data"><samp data-id="type-parameter-declaration"><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary">TSink</span></span><span class="not-visible" data-language="todo-lang"></span></samp>
+                <div class="text-body-secondary fst-italic mb-2" data-id="type-parameter-doc"></div></div></div>
+
+                <h3 class="lead my-2">Parameters</h3>
+    <div class="mx-2" data-id="parameters-section"><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="./Serilog.Configuration.BatchingOptions.html" class="refdocgen-link-secondary">BatchingOptions</a></span>
+
+<span>batchingOptions</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="./Serilog.Events.LogEventLevel.html" class="refdocgen-link-secondary">LogEventLevel</a></span>
+
+<span>restrictedToMinimumLevel</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="./Serilog.Core.LoggingLevelSwitch.html" class="refdocgen-link-secondary">LoggingLevelSwitch</a></span>
+
+<span>levelSwitch</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div></div><h3 class="lead my-2">Returns</h3>
+<div class="mx-2" data-id="returns-section"><samp data-id="return-type-name"><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="./Serilog.LoggerConfiguration.html" class="refdocgen-link-secondary">LoggerConfiguration</a></span></span><span class="not-visible" data-language="todo-lang"></span></samp>
+    <div class="text-body-secondary fst-italic" data-id="returns-doc"></div></div>
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="Sink(Serilog.Core.IBatchedLogEventSink,Serilog.Configuration.BatchingOptions,Serilog.Events.LogEventLevel,Serilog.Core.LoggingLevelSwitch)" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">public</span>
+
+<span class="refdocgen-text-secondary"><a href="./Serilog.LoggerConfiguration.html" class="refdocgen-link-secondary">LoggerConfiguration</a></span>
+
+<span class="refdocgen-text-primary">Sink</span><span>(</span><span class="refdocgen-text-secondary"><a href="./Serilog.Core.IBatchedLogEventSink.html" class="refdocgen-link-secondary">IBatchedLogEventSink</a></span>
+
+<span>batchedLogEventSink</span><span>, </span><span class="refdocgen-text-secondary"><a href="./Serilog.Configuration.BatchingOptions.html" class="refdocgen-link-secondary">BatchingOptions</a></span>
+
+<span>batchingOptions</span><span>, </span><span class="refdocgen-text-secondary"><a href="./Serilog.Events.LogEventLevel.html" class="refdocgen-link-secondary">LogEventLevel</a></span>
+
+<span>restrictedToMinimumLevel</span><span> = </span>
+    <span class="refdocgen-text-green">0</span><span>, </span><span class="refdocgen-text-secondary"><a href="./Serilog.Core.LoggingLevelSwitch.html" class="refdocgen-link-secondary">LoggingLevelSwitch</a></span>
+
+<span>levelSwitch</span><span> = </span>
+    <span class="refdocgen-text-green">null</span><span>)</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#Sink(Serilog.Core.IBatchedLogEventSink,Serilog.Configuration.BatchingOptions,Serilog.Events.LogEventLevel,Serilog.Core.LoggingLevelSwitch)">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                <div class="text-body-secondary fst-italic mb-0" data-id="summary-doc"><div>
+            Write log events to an <a class="refdocgen-see-cref" href="./Serilog.Core.IBatchedLogEventSink.html">IBatchedLogEventSink</a>. Events will be internally buffered, and
+            written to the sink in batches.
+            </div></div>
+
+                
+
+                <h3 class="lead my-2">Parameters</h3>
+    <div class="mx-2" data-id="parameters-section"><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="./Serilog.Core.IBatchedLogEventSink.html" class="refdocgen-link-secondary">IBatchedLogEventSink</a></span>
+
+<span>batchedLogEventSink</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"><div>The batched sink to receive events.</div></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="./Serilog.Configuration.BatchingOptions.html" class="refdocgen-link-secondary">BatchingOptions</a></span>
+
+<span>batchingOptions</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"><div>Options that control batch sizes, buffering time, and backpressure.</div></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="./Serilog.Events.LogEventLevel.html" class="refdocgen-link-secondary">LogEventLevel</a></span>
+
+<span>restrictedToMinimumLevel</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"><div>The minimum level for
+            events passed through the sink. Ignored when <code class="refdocgen-paramref">levelSwitch</code> is specified.</div></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="./Serilog.Core.LoggingLevelSwitch.html" class="refdocgen-link-secondary">LoggingLevelSwitch</a></span>
+
+<span>levelSwitch</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"><div>A switch allowing the pass-through minimum level
+            to be changed at runtime.</div></div></div></div><h3 class="lead my-2">Returns</h3>
+<div class="mx-2" data-id="returns-section"><samp data-id="return-type-name"><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="./Serilog.LoggerConfiguration.html" class="refdocgen-link-secondary">LoggerConfiguration</a></span></span><span class="not-visible" data-language="todo-lang"></span></samp>
+    <div class="text-body-secondary fst-italic" data-id="returns-doc"><div>Configuration object allowing method chaining.</div></div></div>
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="Wrap(System.Func(Serilog.Core.ILogEventSink,Serilog.Core.ILogEventSink),System.Action(Serilog.Configuration.LoggerSinkConfiguration))" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">public static</span>
+
+<span class="refdocgen-text-secondary"><a href="./Serilog.Core.ILogEventSink.html" class="refdocgen-link-secondary">ILogEventSink</a></span>
+
+<span class="refdocgen-text-primary">Wrap</span><span>(</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.func-2" class="refdocgen-link-secondary">Func</a></span><span class="text-body-secondary">&lt;</span><span class="refdocgen-text-secondary"><a href="./Serilog.Core.ILogEventSink.html" class="refdocgen-link-secondary">ILogEventSink</a></span><span class="text-body-secondary">, </span><span class="refdocgen-text-secondary"><a href="./Serilog.Core.ILogEventSink.html" class="refdocgen-link-secondary">ILogEventSink</a></span><span class="text-body-secondary">&gt;</span>
+
+<span>wrapSink</span><span>, </span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.action-1" class="refdocgen-link-secondary">Action</a></span><span class="text-body-secondary">&lt;</span><span class="refdocgen-text-secondary"><a href="./Serilog.Configuration.LoggerSinkConfiguration.html" class="refdocgen-link-secondary">LoggerSinkConfiguration</a></span><span class="text-body-secondary">&gt;</span>
+
+<span>configureWrappedSink</span><span>)</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#Wrap(System.Func(Serilog.Core.ILogEventSink,Serilog.Core.ILogEventSink),System.Action(Serilog.Configuration.LoggerSinkConfiguration))">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                <div class="text-body-secondary fst-italic mb-0" data-id="summary-doc"><div>
+            Helper method for constructing wrapper sinks. This may be preferred over <a class="refdocgen-see-cref" href="./Serilog.Configuration.LoggerSinkConfiguration.html#CreateSink(System.Action(Serilog.Configuration.LoggerSinkConfiguration))">LoggerSinkConfiguration.CreateSink</a> because it handles
+            delegation of <a class="refdocgen-see-cref" href="https://learn.microsoft.com/dotnet/api/system.idisposable.dispose">IDisposable.Dispose</a> through to the wrapped sink in cases where the wrapper is not
+            disposable.
+            </div></div>
+
+                
+
+                <h3 class="lead my-2">Parameters</h3>
+    <div class="mx-2" data-id="parameters-section"><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.func-2" class="refdocgen-link-secondary">Func</a></span><span class="text-body-secondary">&lt;</span><span class="refdocgen-text-secondary"><a href="./Serilog.Core.ILogEventSink.html" class="refdocgen-link-secondary">ILogEventSink</a></span><span class="text-body-secondary">, </span><span class="refdocgen-text-secondary"><a href="./Serilog.Core.ILogEventSink.html" class="refdocgen-link-secondary">ILogEventSink</a></span><span class="text-body-secondary">&gt;</span>
+
+<span>wrapSink</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"><div>A function that allows for wrapping <a class="refdocgen-see-cref" href="./Serilog.Core.ILogEventSink.html">ILogEventSink</a>s
+            added in <code class="refdocgen-paramref">configureWrappedSink</code>.</div></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.action-1" class="refdocgen-link-secondary">Action</a></span><span class="text-body-secondary">&lt;</span><span class="refdocgen-text-secondary"><a href="./Serilog.Configuration.LoggerSinkConfiguration.html" class="refdocgen-link-secondary">LoggerSinkConfiguration</a></span><span class="text-body-secondary">&gt;</span>
+
+<span>configureWrappedSink</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"><div>An action that configures sinks to be wrapped in <code class="refdocgen-paramref">wrapSink</code>.</div></div></div></div><h3 class="lead my-2">Returns</h3>
+<div class="mx-2" data-id="returns-section"><samp data-id="return-type-name"><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="./Serilog.Core.ILogEventSink.html" class="refdocgen-link-secondary">ILogEventSink</a></span></span><span class="not-visible" data-language="todo-lang"></span></samp>
+    <div class="text-body-secondary fst-italic" data-id="returns-doc"><div>The wrapper, or a sink that will handle invoking the wrapper.</div></div></div>
+
+                
+                
+
+                <h3 class="lead mt-3">Exceptions</h3>
+    <div class="mx-2" data-id="exception-section"><div data-id="exception-data"><samp data-id="exception-type"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.argumentnullexception" class="refdocgen-link-secondary"><span class="not-visible" data-language="csharp-lang">ArgumentNullException</span><span class="not-visible" data-language="todo-lang"></span></a></span></samp>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="exception-doc"><div>When <code class="refdocgen-paramref">wrapSink</code> is <pre><code class="refdocgen-code-block">null</code></pre>.</div></div></div><div data-id="exception-data"><samp data-id="exception-type"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.argumentnullexception" class="refdocgen-link-secondary"><span class="not-visible" data-language="csharp-lang">ArgumentNullException</span><span class="not-visible" data-language="todo-lang"></span></a></span></samp>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="exception-doc"><div>When <code class="refdocgen-paramref">configureWrappedSink</code> is <pre><code class="refdocgen-code-block">null</code></pre>.</div></div></div></div>
+
+                </div><div class="border p-2 mb-2" id="Wrap(Serilog.Configuration.LoggerSinkConfiguration,System.Func(Serilog.Core.ILogEventSink,Serilog.Core.ILogEventSink),System.Action(Serilog.Configuration.LoggerSinkConfiguration),Serilog.Events.LogEventLevel,Serilog.Core.LoggingLevelSwitch)" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">public static</span>
+
+<span class="refdocgen-text-secondary"><a href="./Serilog.LoggerConfiguration.html" class="refdocgen-link-secondary">LoggerConfiguration</a></span>
+
+<span class="refdocgen-text-primary">Wrap</span><span>(</span><span class="refdocgen-text-secondary"><a href="./Serilog.Configuration.LoggerSinkConfiguration.html" class="refdocgen-link-secondary">LoggerSinkConfiguration</a></span>
+
+<span>loggerSinkConfiguration</span><span>, </span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.func-2" class="refdocgen-link-secondary">Func</a></span><span class="text-body-secondary">&lt;</span><span class="refdocgen-text-secondary"><a href="./Serilog.Core.ILogEventSink.html" class="refdocgen-link-secondary">ILogEventSink</a></span><span class="text-body-secondary">, </span><span class="refdocgen-text-secondary"><a href="./Serilog.Core.ILogEventSink.html" class="refdocgen-link-secondary">ILogEventSink</a></span><span class="text-body-secondary">&gt;</span>
+
+<span>wrapSink</span><span>, </span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.action-1" class="refdocgen-link-secondary">Action</a></span><span class="text-body-secondary">&lt;</span><span class="refdocgen-text-secondary"><a href="./Serilog.Configuration.LoggerSinkConfiguration.html" class="refdocgen-link-secondary">LoggerSinkConfiguration</a></span><span class="text-body-secondary">&gt;</span>
+
+<span>configureWrappedSink</span><span>, </span><span class="refdocgen-text-secondary"><a href="./Serilog.Events.LogEventLevel.html" class="refdocgen-link-secondary">LogEventLevel</a></span>
+
+<span>restrictedToMinimumLevel</span><span> = </span>
+    <span class="refdocgen-text-green">0</span><span>, </span><span class="refdocgen-text-secondary"><a href="./Serilog.Core.LoggingLevelSwitch.html" class="refdocgen-link-secondary">LoggingLevelSwitch</a></span>
+
+<span>levelSwitch</span><span> = </span>
+    <span class="refdocgen-text-green">null</span><span>)</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#Wrap(Serilog.Configuration.LoggerSinkConfiguration,System.Func(Serilog.Core.ILogEventSink,Serilog.Core.ILogEventSink),System.Action(Serilog.Configuration.LoggerSinkConfiguration),Serilog.Events.LogEventLevel,Serilog.Core.LoggingLevelSwitch)">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                <div class="text-body-secondary fst-italic mb-0" data-id="summary-doc"><div>
+            Helper method for constructing wrapper sinks.
+            </div></div>
+
+                
+
+                <h3 class="lead my-2">Parameters</h3>
+    <div class="mx-2" data-id="parameters-section"><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="./Serilog.Configuration.LoggerSinkConfiguration.html" class="refdocgen-link-secondary">LoggerSinkConfiguration</a></span>
+
+<span>loggerSinkConfiguration</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"><div>The parent sink configuration.</div></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.func-2" class="refdocgen-link-secondary">Func</a></span><span class="text-body-secondary">&lt;</span><span class="refdocgen-text-secondary"><a href="./Serilog.Core.ILogEventSink.html" class="refdocgen-link-secondary">ILogEventSink</a></span><span class="text-body-secondary">, </span><span class="refdocgen-text-secondary"><a href="./Serilog.Core.ILogEventSink.html" class="refdocgen-link-secondary">ILogEventSink</a></span><span class="text-body-secondary">&gt;</span>
+
+<span>wrapSink</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"><div>A function that allows for wrapping <a class="refdocgen-see-cref" href="./Serilog.Core.ILogEventSink.html">ILogEventSink</a>s
+            added in <code class="refdocgen-paramref">configureWrappedSink</code>.</div></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.action-1" class="refdocgen-link-secondary">Action</a></span><span class="text-body-secondary">&lt;</span><span class="refdocgen-text-secondary"><a href="./Serilog.Configuration.LoggerSinkConfiguration.html" class="refdocgen-link-secondary">LoggerSinkConfiguration</a></span><span class="text-body-secondary">&gt;</span>
+
+<span>configureWrappedSink</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"><div>An action that configures sinks to be wrapped in <code class="refdocgen-paramref">wrapSink</code>.</div></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="./Serilog.Events.LogEventLevel.html" class="refdocgen-link-secondary">LogEventLevel</a></span>
+
+<span>restrictedToMinimumLevel</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"><div>The minimum level for
+            events passed through the sink. Ignored when <code class="refdocgen-paramref">levelSwitch</code> is specified.</div></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="./Serilog.Core.LoggingLevelSwitch.html" class="refdocgen-link-secondary">LoggingLevelSwitch</a></span>
+
+<span>levelSwitch</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"><div>A switch allowing the pass-through minimum level
+            to be changed at runtime. Can be <pre><code class="refdocgen-code-block">null</code></pre></div></div></div></div><h3 class="lead my-2">Returns</h3>
+<div class="mx-2" data-id="returns-section"><samp data-id="return-type-name"><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="./Serilog.LoggerConfiguration.html" class="refdocgen-link-secondary">LoggerConfiguration</a></span></span><span class="not-visible" data-language="todo-lang"></span></samp>
+    <div class="text-body-secondary fst-italic" data-id="returns-doc"><div>Configuration object allowing method chaining.</div></div></div><h3 class="lead mt-3">Attributes</h3>
+    <div class="mx-2" data-id="attributes-section"><div data-id="attribute-data"><samp><span class="not-visible" data-language="csharp-lang">
+
+[<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.obsoleteattribute" class="refdocgen-link-secondary">Obsolete</a></span><span>(</span><span class="refdocgen-text-green">&quot;Use the two-argument `Wrap()` overload to construct a wrapper, then use `WriteTo.Sink()` to add it to the configuration.&quot;</span><span>)</span><span>]</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div></div>
+
+                
+                
+
+                <h3 class="lead mt-3">Exceptions</h3>
+    <div class="mx-2" data-id="exception-section"><div data-id="exception-data"><samp data-id="exception-type"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.argumentnullexception" class="refdocgen-link-secondary"><span class="not-visible" data-language="csharp-lang">ArgumentNullException</span><span class="not-visible" data-language="todo-lang"></span></a></span></samp>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="exception-doc"><div>When <code class="refdocgen-paramref">loggerSinkConfiguration</code> is <pre><code class="refdocgen-code-block">null</code></pre>.</div></div></div><div data-id="exception-data"><samp data-id="exception-type"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.argumentnullexception" class="refdocgen-link-secondary"><span class="not-visible" data-language="csharp-lang">ArgumentNullException</span><span class="not-visible" data-language="todo-lang"></span></a></span></samp>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="exception-doc"><div>When <code class="refdocgen-paramref">wrapSink</code> is <pre><code class="refdocgen-code-block">null</code></pre>.</div></div></div><div data-id="exception-data"><samp data-id="exception-type"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.argumentnullexception" class="refdocgen-link-secondary"><span class="not-visible" data-language="csharp-lang">ArgumentNullException</span><span class="not-visible" data-language="todo-lang"></span></a></span></samp>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="exception-doc"><div>When <code class="refdocgen-paramref">configureWrappedSink</code> is <pre><code class="refdocgen-code-block">null</code></pre>.</div></div></div></div>
+
+                </div></div></div></div><nav class="navbar fixed-bottom menu-bg"><div class="container"><div class="dropup"><button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">v-serilog-public</button>
+            <div id="current-version">v-serilog-public</div>
+            <div id="version-list">[&quot;v-serilog-private&quot;,&quot;v-serilog-public&quot;]</div>
+            <ul class="dropdown-menu" id="version-selector" data-id="version-selector"></ul></div></div></nav><script src="../Static/bootstrap-5.3.5-dist.bundle.min.js"></script>
+
+    
+    <script src="../Static/script.js"></script></body></html>

@@ -1,0 +1,1193 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Reference documentation</title>
+
+    <script>
+
+        // use IIFE in order to avoid polluting global context with functions & variables
+        // https://developer.mozilla.org/en-US/docs/Glossary/IIFE
+        (function() {
+            const isLocalFile = location.protocol === "file:";
+            const defaultTheme = "dark";
+            const defaultLang = "csharp-lang";
+
+            if(isLocalFile){
+                const urlParams = new URLSearchParams(window.location.search);
+
+                let redirect = false;
+
+                // set 'theme' URL param if not found
+                if(!urlParams.has("theme")){
+                    urlParams.set("theme", defaultTheme);
+                    redirect = true;
+                }
+
+                // set 'lang' URL param if not found
+                if(!urlParams.has("lang")){
+                    urlParams.set("lang", defaultLang);
+                    redirect = true;
+                }
+
+                // redirect, if some of the URL parameters are missing
+                if(redirect){
+                    const newUrl = new URL(window.location.href);
+                    newUrl.search = urlParams.toString();
+
+                    window.location.href = newUrl;
+                }
+                else {
+                    document.documentElement.setAttribute("data-bs-theme", urlParams.get("theme")); // set the 'data-bs-theme' attribute
+                    document.documentElement.setAttribute("data-language", urlParams.get("lang")); // set the 'data-language' attribute
+                }
+            }
+            else { // no local file -> use localStorage
+                if (!localStorage.getItem("refdocgen-theme")) {
+                    localStorage.setItem("refdocgen-theme", defaultTheme);
+                }
+
+                if (!localStorage.getItem("refdocgen-language")) {
+                    localStorage.setItem("refdocgen-language", defaultLang);
+                }
+
+                document.documentElement.setAttribute("data-bs-theme", localStorage.getItem("refdocgen-theme")); // set the 'data-bs-theme' attribute
+                document.documentElement.setAttribute("data-language", localStorage.getItem("refdocgen-language")); // set the 'data-language' attribute
+            }
+        })();
+    </script>
+
+    
+    <link href="../Static/styles.css" rel="stylesheet" /><style>html[data-language="csharp-lang"] [data-language="csharp-lang"] { display: inline !important; }
+html[data-language="todo-lang"] [data-language="todo-lang"] { display: inline !important; }
+</style></head>
+
+<body><nav class="navbar navbar-expand-lg sticky-top menu-bg"><div class="container"><a class="navbar-brand" href="../index.html">Project name</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup"><ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="../api/index.html">API</a></li></ul>
+            <ul class="navbar-nav ms-auto"><li class="nav-item d-flex align-items-center"><form class="me-2 mb-2 mb-lg-0"><select class="form-select" id="language-selector" aria-label="language"><option class="lang-option" value="csharp-lang">C#</option><option class="lang-option" value="todo-lang">TODO</option></select></form></li>
+
+                
+                <li class="nav-item d-flex align-items-center"><form role="search" class="me-2"><input class="form-control" autocomplete="off" type="search" placeholder="Search" aria-label="Search" id="menu-search-bar" url-target="../search.html" readonly /></form></li>
+
+                
+                <li class="nav-item" id="theme-switcher"><button class="nav-link"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-brightness-high" viewBox="0 0 16 16"><path d="M8 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6m0 1a4 4 0 1 0 0-8 4 4 0 0 0 0 8M8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0m0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13m8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5M3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8m10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0m-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0m9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707M4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708"></path></svg></button></li></ul></div></div></nav>
+
+    <div class="container my-4" data-id="page-body"><div data-id="declared-type-data"><h1 class="display-4" data-id="type-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">internal class</span>
+<span class="refdocgen-text-primary">PropertyValueConverter</span></span><span class="not-visible" data-language="todo-lang"></span></samp></h1>
+
+                    
+
+                    <h6><samp data-id="type-assembly"><a href="Serilog-DLL.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">assembly</span>
+            <span class="refdocgen-text-secondary">Serilog</span></a></samp></h6>
+
+                    <h6><samp data-id="type-namespace"><a href="Serilog.Capturing.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">namespace</span>
+            <span class="refdocgen-text-secondary">Serilog.Capturing</span></a></samp></h6>
+
+                    <div data-id="base-type"><i>Base type:&nbsp;</i>
+        <samp class="refdocgen-text-secondary"><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.object" class="refdocgen-link-secondary">object</a></span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                    <div data-id="implemented-interfaces"><i>Implements:&nbsp;</i>
+        <samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="./Serilog.Core.ILogEventPropertyFactory.html" class="refdocgen-link-secondary">ILogEventPropertyFactory</a></span></span><span class="not-visible" data-language="todo-lang"></span><span>, </span><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="./Serilog.Core.ILogEventPropertyValueFactory.html" class="refdocgen-link-secondary">ILogEventPropertyValueFactory</a></span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                    
+
+                    <hr>
+
+                    
+                    
+
+                    
+
+                    <h3 class="lead mt-3">Nested types</h3>
+    <div class="mx-2" data-id="nested-types-section"><div data-id="nested-type-data"><samp data-id="nested-type-name"><a href="./Serilog.Capturing.PropertyValueConverter.DepthLimiter.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                        <span></span>
+
+                        <span class="not-visible" data-language="csharp-lang">PropertyValueConverter.DepthLimiter</span><span class="not-visible" data-language="todo-lang"></span></a></samp>
+                <div class="text-body-secondary fst-italic mb-2" data-id="summary-doc"></div></div></div>
+
+                    
+                    
+
+                    <hr></div><h2 class="display-5 mt-2">Constructors</h2>
+<div class="row" data-id="constructors-section"><div class="col-md-12"><div class="border p-2 mb-2" id=".cctor" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">private static</span>
+<span class="refdocgen-text-primary">PropertyValueConverter</span><span>(</span><span>)</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#.cctor">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id=".ctor(System.Int32,System.Int32,System.Int32,System.Collections.Generic.IEnumerable(System.Type),System.Collections.Generic.IEnumerable(System.Type),System.Collections.Generic.IEnumerable(Serilog.Core.IDestructuringPolicy),System.Boolean)" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">public</span>
+<span class="refdocgen-text-primary">PropertyValueConverter</span><span>(</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.int32" class="refdocgen-link-secondary">int</a></span>
+
+<span>maximumDestructuringDepth</span><span>, </span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.int32" class="refdocgen-link-secondary">int</a></span>
+
+<span>maximumStringLength</span><span>, </span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.int32" class="refdocgen-link-secondary">int</a></span>
+
+<span>maximumCollectionCount</span><span>, </span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1" class="refdocgen-link-secondary">IEnumerable</a></span><span class="text-body-secondary">&lt;</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.type" class="refdocgen-link-secondary">Type</a></span><span class="text-body-secondary">&gt;</span>
+
+<span>additionalScalarTypes</span><span>, </span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1" class="refdocgen-link-secondary">IEnumerable</a></span><span class="text-body-secondary">&lt;</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.type" class="refdocgen-link-secondary">Type</a></span><span class="text-body-secondary">&gt;</span>
+
+<span>additionalDictionaryTypes</span><span>, </span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1" class="refdocgen-link-secondary">IEnumerable</a></span><span class="text-body-secondary">&lt;</span><span class="refdocgen-text-secondary"><a href="./Serilog.Core.IDestructuringPolicy.html" class="refdocgen-link-secondary">IDestructuringPolicy</a></span><span class="text-body-secondary">&gt;</span>
+
+<span>additionalDestructuringPolicies</span><span>, </span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.boolean" class="refdocgen-link-secondary">bool</a></span>
+
+<span>propagateExceptions</span><span>)</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#.ctor(System.Int32,System.Int32,System.Int32,System.Collections.Generic.IEnumerable(System.Type),System.Collections.Generic.IEnumerable(System.Type),System.Collections.Generic.IEnumerable(Serilog.Core.IDestructuringPolicy),System.Boolean)">#</a></samp></h6>
+
+                
+
+                <h3 class="lead my-2">Parameters</h3>
+    <div class="mx-2" data-id="parameters-section"><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.int32" class="refdocgen-link-secondary">int</a></span>
+
+<span>maximumDestructuringDepth</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.int32" class="refdocgen-link-secondary">int</a></span>
+
+<span>maximumStringLength</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.int32" class="refdocgen-link-secondary">int</a></span>
+
+<span>maximumCollectionCount</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1" class="refdocgen-link-secondary">IEnumerable</a></span><span class="text-body-secondary">&lt;</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.type" class="refdocgen-link-secondary">Type</a></span><span class="text-body-secondary">&gt;</span>
+
+<span>additionalScalarTypes</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1" class="refdocgen-link-secondary">IEnumerable</a></span><span class="text-body-secondary">&lt;</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.type" class="refdocgen-link-secondary">Type</a></span><span class="text-body-secondary">&gt;</span>
+
+<span>additionalDictionaryTypes</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1" class="refdocgen-link-secondary">IEnumerable</a></span><span class="text-body-secondary">&lt;</span><span class="refdocgen-text-secondary"><a href="./Serilog.Core.IDestructuringPolicy.html" class="refdocgen-link-secondary">IDestructuringPolicy</a></span><span class="text-body-secondary">&gt;</span>
+
+<span>additionalDestructuringPolicies</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.boolean" class="refdocgen-link-secondary">bool</a></span>
+
+<span>propagateExceptions</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div></div>
+
+                
+
+                
+                
+
+                
+
+                </div></div></div><h2 class="display-5 mt-2">Fields</h2>
+<div class="row" data-id="fields-section"><div class="col-md-12"><div class="border p-2 mb-2" id="_depthLimiter" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">private readonly</span>
+
+<span class="refdocgen-text-secondary"><a href="./Serilog.Capturing.PropertyValueConverter.DepthLimiter.html" class="refdocgen-link-secondary">PropertyValueConverter.DepthLimiter</a></span>
+
+<span class="refdocgen-text-primary">_depthLimiter</span>
+
+</span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#_depthLimiter">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="_destructuringPolicies" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">private readonly</span>
+
+<span class="refdocgen-text-secondary"><a href="./Serilog.Core.IDestructuringPolicy.html" class="refdocgen-link-secondary">IDestructuringPolicy[]</a></span>
+
+<span class="refdocgen-text-primary">_destructuringPolicies</span>
+
+</span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#_destructuringPolicies">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="_dictionaryTypes" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">private readonly</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.type" class="refdocgen-link-secondary">Type[]</a></span>
+
+<span class="refdocgen-text-primary">_dictionaryTypes</span>
+
+</span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#_dictionaryTypes">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="_lastSeenNames" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">private static</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.collections.generic.hashset-1" class="refdocgen-link-secondary">HashSet</a></span><span class="text-body-secondary">&lt;</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.string" class="refdocgen-link-secondary">string</a></span><span class="text-body-secondary">&gt;</span>
+
+<span class="refdocgen-text-primary">_lastSeenNames</span>
+
+</span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#_lastSeenNames">#</a></samp></h6>
+
+                
+
+                
+
+                <h3 class="lead mt-3">Attributes</h3>
+    <div class="mx-2" data-id="attributes-section"><div data-id="attribute-data"><samp><span class="not-visible" data-language="csharp-lang">
+
+[<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.threadstaticattribute" class="refdocgen-link-secondary">ThreadStatic</a></span><span>]</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div></div>
+
+                
+
+                </div><div class="border p-2 mb-2" id="_maximumCollectionCount" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">private readonly</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.int32" class="refdocgen-link-secondary">int</a></span>
+
+<span class="refdocgen-text-primary">_maximumCollectionCount</span>
+
+</span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#_maximumCollectionCount">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="_maximumStringLength" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">private readonly</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.int32" class="refdocgen-link-secondary">int</a></span>
+
+<span class="refdocgen-text-primary">_maximumStringLength</span>
+
+</span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#_maximumStringLength">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="_propagateExceptions" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">private readonly</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.boolean" class="refdocgen-link-secondary">bool</a></span>
+
+<span class="refdocgen-text-primary">_propagateExceptions</span>
+
+</span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#_propagateExceptions">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="_scalarConversionPolicies" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">private readonly</span>
+
+<span class="refdocgen-text-secondary"><a href="./Serilog.Core.IScalarConversionPolicy.html" class="refdocgen-link-secondary">IScalarConversionPolicy[]</a></span>
+
+<span class="refdocgen-text-primary">_scalarConversionPolicies</span>
+
+</span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#_scalarConversionPolicies">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="BuiltInScalarTypes" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">private static readonly</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.collections.generic.hashset-1" class="refdocgen-link-secondary">HashSet</a></span><span class="text-body-secondary">&lt;</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.type" class="refdocgen-link-secondary">Type</a></span><span class="text-body-secondary">&gt;</span>
+
+<span class="refdocgen-text-primary">BuiltInScalarTypes</span>
+
+</span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#BuiltInScalarTypes">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                </div></div></div><h2 class="display-5 mt-2">Methods</h2>
+<div class="row" data-id="methods-section"><div class="col-md-12"><div class="border p-2 mb-2" id="BuildArrayValue(System.Array,System.Int32(),System.Int32,Serilog.Parsing.Destructuring)" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">private</span>
+
+<span class="refdocgen-text-secondary"><a href="./Serilog.Events.LogEventPropertyValue.html" class="refdocgen-link-secondary">LogEventPropertyValue</a></span>
+
+<span class="refdocgen-text-primary">BuildArrayValue</span><span>(</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.array" class="refdocgen-link-secondary">Array</a></span>
+
+<span>array</span><span>, </span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.int32" class="refdocgen-link-secondary">int[]</a></span>
+
+<span>indices</span><span>, </span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.int32" class="refdocgen-link-secondary">int</a></span>
+
+<span>dimension</span><span>, </span><span class="refdocgen-text-secondary"><a href="./Serilog.Parsing.Destructuring.html" class="refdocgen-link-secondary">Destructuring</a></span>
+
+<span>destructuring</span><span>)</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#BuildArrayValue(System.Array,System.Int32(),System.Int32,Serilog.Parsing.Destructuring)">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                <div class="text-body-secondary fst-italic mb-0" data-id="summary-doc"><div>
+            Recursively traverses a multidimensional array and constructs a nested SequenceValue representation.
+            </div></div>
+
+                
+
+                <h3 class="lead my-2">Parameters</h3>
+    <div class="mx-2" data-id="parameters-section"><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.array" class="refdocgen-link-secondary">Array</a></span>
+
+<span>array</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"><div>The multidimensional array to traverse.</div></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.int32" class="refdocgen-link-secondary">int[]</a></span>
+
+<span>indices</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"><div>An array of indices representing the current position in each dimension.</div></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.int32" class="refdocgen-link-secondary">int</a></span>
+
+<span>dimension</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"><div>The current dimension being processed.</div></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="./Serilog.Parsing.Destructuring.html" class="refdocgen-link-secondary">Destructuring</a></span>
+
+<span>destructuring</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"><div>The destructuring strategy.</div></div></div></div><h3 class="lead my-2">Returns</h3>
+<div class="mx-2" data-id="returns-section"><samp data-id="return-type-name"><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="./Serilog.Events.LogEventPropertyValue.html" class="refdocgen-link-secondary">LogEventPropertyValue</a></span></span><span class="not-visible" data-language="todo-lang"></span></samp>
+    <div class="text-body-secondary fst-italic" data-id="returns-doc"><div>A LogEventPropertyValue representing the array's structure and elements.</div></div></div>
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="CreateProperty(System.String,System.Object,System.Boolean)" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">public</span>
+
+<span class="refdocgen-text-secondary"><a href="./Serilog.Events.LogEventProperty.html" class="refdocgen-link-secondary">LogEventProperty</a></span>
+
+<span class="refdocgen-text-primary">CreateProperty</span><span>(</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.string" class="refdocgen-link-secondary">string</a></span>
+
+<span>name</span><span>, </span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.object" class="refdocgen-link-secondary">object</a></span>
+
+<span>value</span><span>, </span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.boolean" class="refdocgen-link-secondary">bool</a></span>
+
+<span>destructureObjects</span><span> = </span>
+    <span class="refdocgen-text-green">False</span><span>)</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#CreateProperty(System.String,System.Object,System.Boolean)">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                <div class="refdocgen-text-tertiary fst-italic ms-4" data-id="member-implements">
+                Implements
+                <span class="refdocgen-text-secondary"><a href="./Serilog.Core.ILogEventPropertyFactory.html#CreateProperty(System.String,System.Object,System.Boolean)" class="refdocgen-link-secondary"><span class="not-visible" data-language="csharp-lang">ILogEventPropertyFactory.CreateProperty</span><span class="not-visible" data-language="todo-lang">.CreateProperty</span></a></span></div><div class="mb-2"></div>
+
+                
+
+                
+
+                <h3 class="lead my-2">Parameters</h3>
+    <div class="mx-2" data-id="parameters-section"><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.string" class="refdocgen-link-secondary">string</a></span>
+
+<span>name</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.object" class="refdocgen-link-secondary">object</a></span>
+
+<span>value</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.boolean" class="refdocgen-link-secondary">bool</a></span>
+
+<span>destructureObjects</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div></div><h3 class="lead my-2">Returns</h3>
+<div class="mx-2" data-id="returns-section"><samp data-id="return-type-name"><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="./Serilog.Events.LogEventProperty.html" class="refdocgen-link-secondary">LogEventProperty</a></span></span><span class="not-visible" data-language="todo-lang"></span></samp>
+    <div class="text-body-secondary fst-italic" data-id="returns-doc"></div></div>
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="CreatePropertyValue(System.Object,Serilog.Parsing.Destructuring)" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">public</span>
+
+<span class="refdocgen-text-secondary"><a href="./Serilog.Events.LogEventPropertyValue.html" class="refdocgen-link-secondary">LogEventPropertyValue</a></span>
+
+<span class="refdocgen-text-primary">CreatePropertyValue</span><span>(</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.object" class="refdocgen-link-secondary">object</a></span>
+
+<span>value</span><span>, </span><span class="refdocgen-text-secondary"><a href="./Serilog.Parsing.Destructuring.html" class="refdocgen-link-secondary">Destructuring</a></span>
+
+<span>destructuring</span><span>)</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#CreatePropertyValue(System.Object,Serilog.Parsing.Destructuring)">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                <h3 class="lead my-2">Parameters</h3>
+    <div class="mx-2" data-id="parameters-section"><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.object" class="refdocgen-link-secondary">object</a></span>
+
+<span>value</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="./Serilog.Parsing.Destructuring.html" class="refdocgen-link-secondary">Destructuring</a></span>
+
+<span>destructuring</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div></div><h3 class="lead my-2">Returns</h3>
+<div class="mx-2" data-id="returns-section"><samp data-id="return-type-name"><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="./Serilog.Events.LogEventPropertyValue.html" class="refdocgen-link-secondary">LogEventPropertyValue</a></span></span><span class="not-visible" data-language="todo-lang"></span></samp>
+    <div class="text-body-secondary fst-italic" data-id="returns-doc"></div></div>
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="CreatePropertyValue(System.Object,System.Boolean)" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">public</span>
+
+<span class="refdocgen-text-secondary"><a href="./Serilog.Events.LogEventPropertyValue.html" class="refdocgen-link-secondary">LogEventPropertyValue</a></span>
+
+<span class="refdocgen-text-primary">CreatePropertyValue</span><span>(</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.object" class="refdocgen-link-secondary">object</a></span>
+
+<span>value</span><span>, </span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.boolean" class="refdocgen-link-secondary">bool</a></span>
+
+<span>destructureObjects</span><span> = </span>
+    <span class="refdocgen-text-green">False</span><span>)</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#CreatePropertyValue(System.Object,System.Boolean)">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                <div class="refdocgen-text-tertiary fst-italic ms-4" data-id="member-implements">
+                Implements
+                <span class="refdocgen-text-secondary"><a href="./Serilog.Core.ILogEventPropertyValueFactory.html#CreatePropertyValue(System.Object,System.Boolean)" class="refdocgen-link-secondary"><span class="not-visible" data-language="csharp-lang">ILogEventPropertyValueFactory.CreatePropertyValue</span><span class="not-visible" data-language="todo-lang">.CreatePropertyValue</span></a></span></div><div class="mb-2"></div>
+
+                
+
+                
+
+                <h3 class="lead my-2">Parameters</h3>
+    <div class="mx-2" data-id="parameters-section"><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.object" class="refdocgen-link-secondary">object</a></span>
+
+<span>value</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.boolean" class="refdocgen-link-secondary">bool</a></span>
+
+<span>destructureObjects</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div></div><h3 class="lead my-2">Returns</h3>
+<div class="mx-2" data-id="returns-section"><samp data-id="return-type-name"><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="./Serilog.Events.LogEventPropertyValue.html" class="refdocgen-link-secondary">LogEventPropertyValue</a></span></span><span class="not-visible" data-language="todo-lang"></span></samp>
+    <div class="text-body-secondary fst-italic" data-id="returns-doc"></div></div>
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="CreatePropertyValue(System.Object,Serilog.Parsing.Destructuring,System.Int32)" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">private</span>
+
+<span class="refdocgen-text-secondary"><a href="./Serilog.Events.LogEventPropertyValue.html" class="refdocgen-link-secondary">LogEventPropertyValue</a></span>
+
+<span class="refdocgen-text-primary">CreatePropertyValue</span><span>(</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.object" class="refdocgen-link-secondary">object</a></span>
+
+<span>value</span><span>, </span><span class="refdocgen-text-secondary"><a href="./Serilog.Parsing.Destructuring.html" class="refdocgen-link-secondary">Destructuring</a></span>
+
+<span>destructuring</span><span>, </span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.int32" class="refdocgen-link-secondary">int</a></span>
+
+<span>depth</span><span>)</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#CreatePropertyValue(System.Object,Serilog.Parsing.Destructuring,System.Int32)">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                <h3 class="lead my-2">Parameters</h3>
+    <div class="mx-2" data-id="parameters-section"><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.object" class="refdocgen-link-secondary">object</a></span>
+
+<span>value</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="./Serilog.Parsing.Destructuring.html" class="refdocgen-link-secondary">Destructuring</a></span>
+
+<span>destructuring</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.int32" class="refdocgen-link-secondary">int</a></span>
+
+<span>depth</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div></div><h3 class="lead my-2">Returns</h3>
+<div class="mx-2" data-id="returns-section"><samp data-id="return-type-name"><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="./Serilog.Events.LogEventPropertyValue.html" class="refdocgen-link-secondary">LogEventPropertyValue</a></span></span><span class="not-visible" data-language="todo-lang"></span></samp>
+    <div class="text-body-secondary fst-italic" data-id="returns-doc"></div></div>
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="CreatePropertyValue(System.Object,System.Boolean,System.Int32)" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">private</span>
+
+<span class="refdocgen-text-secondary"><a href="./Serilog.Events.LogEventPropertyValue.html" class="refdocgen-link-secondary">LogEventPropertyValue</a></span>
+
+<span class="refdocgen-text-primary">CreatePropertyValue</span><span>(</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.object" class="refdocgen-link-secondary">object</a></span>
+
+<span>value</span><span>, </span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.boolean" class="refdocgen-link-secondary">bool</a></span>
+
+<span>destructureObjects</span><span>, </span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.int32" class="refdocgen-link-secondary">int</a></span>
+
+<span>depth</span><span>)</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#CreatePropertyValue(System.Object,System.Boolean,System.Int32)">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                <h3 class="lead my-2">Parameters</h3>
+    <div class="mx-2" data-id="parameters-section"><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.object" class="refdocgen-link-secondary">object</a></span>
+
+<span>value</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.boolean" class="refdocgen-link-secondary">bool</a></span>
+
+<span>destructureObjects</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.int32" class="refdocgen-link-secondary">int</a></span>
+
+<span>depth</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div></div><h3 class="lead my-2">Returns</h3>
+<div class="mx-2" data-id="returns-section"><samp data-id="return-type-name"><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="./Serilog.Events.LogEventPropertyValue.html" class="refdocgen-link-secondary">LogEventPropertyValue</a></span></span><span class="not-visible" data-language="todo-lang"></span></samp>
+    <div class="text-body-secondary fst-italic" data-id="returns-doc"></div></div>
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="CreateStructureValue(System.Object,System.Type,System.Boolean)" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">internal</span>
+
+<span class="refdocgen-text-secondary"><a href="./Serilog.Events.StructureValue.html" class="refdocgen-link-secondary">StructureValue</a></span>
+
+<span class="refdocgen-text-primary">CreateStructureValue</span><span>(</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.object" class="refdocgen-link-secondary">object</a></span>
+
+<span>value</span><span>, </span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.type" class="refdocgen-link-secondary">Type</a></span>
+
+<span>type</span><span>, </span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.boolean" class="refdocgen-link-secondary">bool</a></span>
+
+<span>isCompilerGeneratedType</span><span>)</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#CreateStructureValue(System.Object,System.Type,System.Boolean)">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                <h3 class="lead my-2">Parameters</h3>
+    <div class="mx-2" data-id="parameters-section"><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.object" class="refdocgen-link-secondary">object</a></span>
+
+<span>value</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div><div data-id="parameter-data"><div data-id="attribute-data"><samp><span class="not-visible" data-language="csharp-lang">
+
+[<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.diagnostics.codeanalysis.dynamicallyaccessedmembersattribute" class="refdocgen-link-secondary">DynamicallyAccessedMembers</a></span><span>(</span><span class="refdocgen-text-green">512</span><span>)</span><span>]</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.type" class="refdocgen-link-secondary">Type</a></span>
+
+<span>type</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.boolean" class="refdocgen-link-secondary">bool</a></span>
+
+<span>isCompilerGeneratedType</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div></div><h3 class="lead my-2">Returns</h3>
+<div class="mx-2" data-id="returns-section"><samp data-id="return-type-name"><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="./Serilog.Events.StructureValue.html" class="refdocgen-link-secondary">StructureValue</a></span></span><span class="not-visible" data-language="todo-lang"></span></samp>
+    <div class="text-body-secondary fst-italic" data-id="returns-doc"></div></div>
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="IsCompilerGeneratedType(System.Type)" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">internal static</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.boolean" class="refdocgen-link-secondary">bool</a></span>
+
+<span class="refdocgen-text-primary">IsCompilerGeneratedType</span><span>(</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.type" class="refdocgen-link-secondary">Type</a></span>
+
+<span>type</span><span>)</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#IsCompilerGeneratedType(System.Type)">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                <h3 class="lead my-2">Parameters</h3>
+    <div class="mx-2" data-id="parameters-section"><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.type" class="refdocgen-link-secondary">Type</a></span>
+
+<span>type</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div></div><h3 class="lead my-2">Returns</h3>
+<div class="mx-2" data-id="returns-section"><samp data-id="return-type-name"><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.boolean" class="refdocgen-link-secondary">bool</a></span></span><span class="not-visible" data-language="todo-lang"></span></samp>
+    <div class="text-body-secondary fst-italic" data-id="returns-doc"></div></div>
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="IsValidDictionaryKeyType(System.Type)" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">private static</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.boolean" class="refdocgen-link-secondary">bool</a></span>
+
+<span class="refdocgen-text-primary">IsValidDictionaryKeyType</span><span>(</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.type" class="refdocgen-link-secondary">Type</a></span>
+
+<span>valueType</span><span>)</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#IsValidDictionaryKeyType(System.Type)">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                <h3 class="lead my-2">Parameters</h3>
+    <div class="mx-2" data-id="parameters-section"><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.type" class="refdocgen-link-secondary">Type</a></span>
+
+<span>valueType</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div></div><h3 class="lead my-2">Returns</h3>
+<div class="mx-2" data-id="returns-section"><samp data-id="return-type-name"><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.boolean" class="refdocgen-link-secondary">bool</a></span></span><span class="not-visible" data-language="todo-lang"></span></samp>
+    <div class="text-body-secondary fst-italic" data-id="returns-doc"></div></div>
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="Stringify(System.Object)" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">private</span>
+
+<span class="refdocgen-text-secondary"><a href="./Serilog.Events.ScalarValue.html" class="refdocgen-link-secondary">ScalarValue</a></span>
+
+<span class="refdocgen-text-primary">Stringify</span><span>(</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.object" class="refdocgen-link-secondary">object</a></span>
+
+<span>value</span><span>)</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#Stringify(System.Object)">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                <h3 class="lead my-2">Parameters</h3>
+    <div class="mx-2" data-id="parameters-section"><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.object" class="refdocgen-link-secondary">object</a></span>
+
+<span>value</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div></div><h3 class="lead my-2">Returns</h3>
+<div class="mx-2" data-id="returns-section"><samp data-id="return-type-name"><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="./Serilog.Events.ScalarValue.html" class="refdocgen-link-secondary">ScalarValue</a></span></span><span class="not-visible" data-language="todo-lang"></span></samp>
+    <div class="text-body-secondary fst-italic" data-id="returns-doc"></div></div>
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="TruncateIfNecessary(System.String)" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">private</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.string" class="refdocgen-link-secondary">string</a></span>
+
+<span class="refdocgen-text-primary">TruncateIfNecessary</span><span>(</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.string" class="refdocgen-link-secondary">string</a></span>
+
+<span>text</span><span>)</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#TruncateIfNecessary(System.String)">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                <h3 class="lead my-2">Parameters</h3>
+    <div class="mx-2" data-id="parameters-section"><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.string" class="refdocgen-link-secondary">string</a></span>
+
+<span>text</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div></div><h3 class="lead my-2">Returns</h3>
+<div class="mx-2" data-id="returns-section"><samp data-id="return-type-name"><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.string" class="refdocgen-link-secondary">string</a></span></span><span class="not-visible" data-language="todo-lang"></span></samp>
+    <div class="text-body-secondary fst-italic" data-id="returns-doc"></div></div>
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="TryConvertEnumerable(System.Object,System.Type,Serilog.Parsing.Destructuring,Serilog.Events.LogEventPropertyValue-)" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">private</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.boolean" class="refdocgen-link-secondary">bool</a></span>
+
+<span class="refdocgen-text-primary">TryConvertEnumerable</span><span>(</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.object" class="refdocgen-link-secondary">object</a></span>
+
+<span>value</span><span>, </span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.type" class="refdocgen-link-secondary">Type</a></span>
+
+<span>type</span><span>, </span><span class="refdocgen-text-secondary"><a href="./Serilog.Parsing.Destructuring.html" class="refdocgen-link-secondary">Destructuring</a></span>
+
+<span>destructuring</span><span>, </span><span class="refdocgen-text-tertiary">out</span>
+    <span></span><span class="refdocgen-text-secondary"><a href="./Serilog.Events.LogEventPropertyValue.html" class="refdocgen-link-secondary">LogEventPropertyValue</a></span>
+
+<span>result</span><span>)</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#TryConvertEnumerable(System.Object,System.Type,Serilog.Parsing.Destructuring,Serilog.Events.LogEventPropertyValue-)">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                <h3 class="lead my-2">Parameters</h3>
+    <div class="mx-2" data-id="parameters-section"><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.object" class="refdocgen-link-secondary">object</a></span>
+
+<span>value</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.type" class="refdocgen-link-secondary">Type</a></span>
+
+<span>type</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="./Serilog.Parsing.Destructuring.html" class="refdocgen-link-secondary">Destructuring</a></span>
+
+<span>destructuring</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div><div data-id="parameter-data"><div data-id="attribute-data"><samp><span class="not-visible" data-language="csharp-lang">
+
+[<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.diagnostics.codeanalysis.notnullwhenattribute" class="refdocgen-link-secondary">NotNullWhen</a></span><span>(</span><span class="refdocgen-text-green">True</span><span>)</span><span>]</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">out</span>
+    <span></span><span class="refdocgen-text-secondary"><a href="./Serilog.Events.LogEventPropertyValue.html" class="refdocgen-link-secondary">LogEventPropertyValue</a></span>
+
+<span>result</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div></div><h3 class="lead my-2">Returns</h3>
+<div class="mx-2" data-id="returns-section"><samp data-id="return-type-name"><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.boolean" class="refdocgen-link-secondary">bool</a></span></span><span class="not-visible" data-language="todo-lang"></span></samp>
+    <div class="text-body-secondary fst-italic" data-id="returns-doc"></div></div>
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="TryConvertStructure(System.Object,System.Type,Serilog.Parsing.Destructuring,Serilog.Events.StructureValue-)" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">private</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.boolean" class="refdocgen-link-secondary">bool</a></span>
+
+<span class="refdocgen-text-primary">TryConvertStructure</span><span>(</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.object" class="refdocgen-link-secondary">object</a></span>
+
+<span>value</span><span>, </span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.type" class="refdocgen-link-secondary">Type</a></span>
+
+<span>type</span><span>, </span><span class="refdocgen-text-secondary"><a href="./Serilog.Parsing.Destructuring.html" class="refdocgen-link-secondary">Destructuring</a></span>
+
+<span>destructuring</span><span>, </span><span class="refdocgen-text-tertiary">out</span>
+    <span></span><span class="refdocgen-text-secondary"><a href="./Serilog.Events.StructureValue.html" class="refdocgen-link-secondary">StructureValue</a></span>
+
+<span>result</span><span>)</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#TryConvertStructure(System.Object,System.Type,Serilog.Parsing.Destructuring,Serilog.Events.StructureValue-)">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                <h3 class="lead my-2">Parameters</h3>
+    <div class="mx-2" data-id="parameters-section"><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.object" class="refdocgen-link-secondary">object</a></span>
+
+<span>value</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.type" class="refdocgen-link-secondary">Type</a></span>
+
+<span>type</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="./Serilog.Parsing.Destructuring.html" class="refdocgen-link-secondary">Destructuring</a></span>
+
+<span>destructuring</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div><div data-id="parameter-data"><div data-id="attribute-data"><samp><span class="not-visible" data-language="csharp-lang">
+
+[<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.diagnostics.codeanalysis.notnullwhenattribute" class="refdocgen-link-secondary">NotNullWhen</a></span><span>(</span><span class="refdocgen-text-green">True</span><span>)</span><span>]</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">out</span>
+    <span></span><span class="refdocgen-text-secondary"><a href="./Serilog.Events.StructureValue.html" class="refdocgen-link-secondary">StructureValue</a></span>
+
+<span>result</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div></div><h3 class="lead my-2">Returns</h3>
+<div class="mx-2" data-id="returns-section"><samp data-id="return-type-name"><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.boolean" class="refdocgen-link-secondary">bool</a></span></span><span class="not-visible" data-language="todo-lang"></span></samp>
+    <div class="text-body-secondary fst-italic" data-id="returns-doc"></div></div>
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="TryConvertValueTuple(System.Object,System.Type,Serilog.Parsing.Destructuring,Serilog.Events.LogEventPropertyValue-)" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">private</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.boolean" class="refdocgen-link-secondary">bool</a></span>
+
+<span class="refdocgen-text-primary">TryConvertValueTuple</span><span>(</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.object" class="refdocgen-link-secondary">object</a></span>
+
+<span>value</span><span>, </span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.type" class="refdocgen-link-secondary">Type</a></span>
+
+<span>type</span><span>, </span><span class="refdocgen-text-secondary"><a href="./Serilog.Parsing.Destructuring.html" class="refdocgen-link-secondary">Destructuring</a></span>
+
+<span>destructuring</span><span>, </span><span class="refdocgen-text-tertiary">out</span>
+    <span></span><span class="refdocgen-text-secondary"><a href="./Serilog.Events.LogEventPropertyValue.html" class="refdocgen-link-secondary">LogEventPropertyValue</a></span>
+
+<span>result</span><span>)</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#TryConvertValueTuple(System.Object,System.Type,Serilog.Parsing.Destructuring,Serilog.Events.LogEventPropertyValue-)">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                <h3 class="lead my-2">Parameters</h3>
+    <div class="mx-2" data-id="parameters-section"><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.object" class="refdocgen-link-secondary">object</a></span>
+
+<span>value</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.type" class="refdocgen-link-secondary">Type</a></span>
+
+<span>type</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="./Serilog.Parsing.Destructuring.html" class="refdocgen-link-secondary">Destructuring</a></span>
+
+<span>destructuring</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div><div data-id="parameter-data"><div data-id="attribute-data"><samp><span class="not-visible" data-language="csharp-lang">
+
+[<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.diagnostics.codeanalysis.notnullwhenattribute" class="refdocgen-link-secondary">NotNullWhen</a></span><span>(</span><span class="refdocgen-text-green">True</span><span>)</span><span>]</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">out</span>
+    <span></span><span class="refdocgen-text-secondary"><a href="./Serilog.Events.LogEventPropertyValue.html" class="refdocgen-link-secondary">LogEventPropertyValue</a></span>
+
+<span>result</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div></div><h3 class="lead my-2">Returns</h3>
+<div class="mx-2" data-id="returns-section"><samp data-id="return-type-name"><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.boolean" class="refdocgen-link-secondary">bool</a></span></span><span class="not-visible" data-language="todo-lang"></span></samp>
+    <div class="text-body-secondary fst-italic" data-id="returns-doc"></div></div>
+
+                
+                
+
+                
+
+                </div><div class="border p-2 mb-2" id="TryGetDictionary(System.Object,System.Type,System.Collections.IDictionary-)" data-id="member-data"><h6 class="mb-1" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">private</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.boolean" class="refdocgen-link-secondary">bool</a></span>
+
+<span class="refdocgen-text-primary">TryGetDictionary</span><span>(</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.object" class="refdocgen-link-secondary">object</a></span>
+
+<span>value</span><span>, </span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.type" class="refdocgen-link-secondary">Type</a></span>
+
+<span>valueType</span><span>, </span><span class="refdocgen-text-tertiary">out</span>
+    <span></span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.collections.idictionary" class="refdocgen-link-secondary">IDictionary</a></span>
+
+<span>dictionary</span><span>)</span></span><span class="not-visible" data-language="todo-lang"></span>
+
+                        <a class="anchor-link" href="#TryGetDictionary(System.Object,System.Type,System.Collections.IDictionary-)">#</a></samp></h6>
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                
+
+                <h3 class="lead my-2">Parameters</h3>
+    <div class="mx-2" data-id="parameters-section"><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.object" class="refdocgen-link-secondary">object</a></span>
+
+<span>value</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div><div data-id="parameter-data">
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.type" class="refdocgen-link-secondary">Type</a></span>
+
+<span>valueType</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div><div data-id="parameter-data"><div data-id="attribute-data"><samp><span class="not-visible" data-language="csharp-lang">
+
+[<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.diagnostics.codeanalysis.notnullwhenattribute" class="refdocgen-link-secondary">NotNullWhen</a></span><span>(</span><span class="refdocgen-text-green">True</span><span>)</span><span>]</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div data-id="parameter-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">out</span>
+    <span></span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.collections.idictionary" class="refdocgen-link-secondary">IDictionary</a></span>
+
+<span>dictionary</span></span><span class="not-visible" data-language="todo-lang"></span></samp></div>
+
+                <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div></div><h3 class="lead my-2">Returns</h3>
+<div class="mx-2" data-id="returns-section"><samp data-id="return-type-name"><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.boolean" class="refdocgen-link-secondary">bool</a></span></span><span class="not-visible" data-language="todo-lang"></span></samp>
+    <div class="text-body-secondary fst-italic" data-id="returns-doc"></div></div>
+
+                
+                
+
+                
+
+                </div></div></div></div><nav class="navbar fixed-bottom menu-bg"><div class="container"><div class="dropup"><button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">v-serilog-private</button>
+            <div id="current-version">v-serilog-private</div>
+            <div id="version-list">[&quot;v-serilog-private&quot;]</div>
+            <ul class="dropdown-menu" id="version-selector" data-id="version-selector"></ul></div></div></nav><script src="../Static/bootstrap-5.3.5-dist.bundle.min.js"></script>
+
+    
+    <script src="../Static/script.js"></script></body></html>

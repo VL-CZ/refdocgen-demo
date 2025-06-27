@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Reference documentation</title>
+
+    <script>
+
+        // use IIFE in order to avoid polluting global context with functions & variables
+        // https://developer.mozilla.org/en-US/docs/Glossary/IIFE
+        (function() {
+            const isLocalFile = location.protocol === "file:";
+            const defaultTheme = "dark";
+            const defaultLang = "csharp-lang";
+
+            if(isLocalFile){
+                const urlParams = new URLSearchParams(window.location.search);
+
+                let redirect = false;
+
+                // set 'theme' URL param if not found
+                if(!urlParams.has("theme")){
+                    urlParams.set("theme", defaultTheme);
+                    redirect = true;
+                }
+
+                // set 'lang' URL param if not found
+                if(!urlParams.has("lang")){
+                    urlParams.set("lang", defaultLang);
+                    redirect = true;
+                }
+
+                // redirect, if some of the URL parameters are missing
+                if(redirect){
+                    const newUrl = new URL(window.location.href);
+                    newUrl.search = urlParams.toString();
+
+                    window.location.href = newUrl;
+                }
+                else {
+                    document.documentElement.setAttribute("data-bs-theme", urlParams.get("theme")); // set the 'data-bs-theme' attribute
+                    document.documentElement.setAttribute("data-language", urlParams.get("lang")); // set the 'data-language' attribute
+                }
+            }
+            else { // no local file -> use localStorage
+                if (!localStorage.getItem("refdocgen-theme")) {
+                    localStorage.setItem("refdocgen-theme", defaultTheme);
+                }
+
+                if (!localStorage.getItem("refdocgen-language")) {
+                    localStorage.setItem("refdocgen-language", defaultLang);
+                }
+
+                document.documentElement.setAttribute("data-bs-theme", localStorage.getItem("refdocgen-theme")); // set the 'data-bs-theme' attribute
+                document.documentElement.setAttribute("data-language", localStorage.getItem("refdocgen-language")); // set the 'data-language' attribute
+            }
+        })();
+    </script>
+
+    
+    <link href="../Static/styles.css" rel="stylesheet" /><style>html[data-language="csharp-lang"] [data-language="csharp-lang"] { display: inline !important; }
+html[data-language="todo-lang"] [data-language="todo-lang"] { display: inline !important; }
+</style></head>
+
+<body><nav class="navbar navbar-expand-lg sticky-top menu-bg"><div class="container"><a class="navbar-brand" href="../index.html">Project name</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup"><ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="../api/index.html">API</a></li></ul>
+            <ul class="navbar-nav ms-auto"><li class="nav-item d-flex align-items-center"><form class="me-2 mb-2 mb-lg-0"><select class="form-select" id="language-selector" aria-label="language"><option class="lang-option" value="csharp-lang">C#</option><option class="lang-option" value="todo-lang">TODO</option></select></form></li>
+
+                
+                <li class="nav-item d-flex align-items-center"><form role="search" class="me-2"><input class="form-control" autocomplete="off" type="search" placeholder="Search" aria-label="Search" id="menu-search-bar" url-target="../search.html" readonly /></form></li>
+
+                
+                <li class="nav-item" id="theme-switcher"><button class="nav-link"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-brightness-high" viewBox="0 0 16 16"><path d="M8 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6m0 1a4 4 0 1 0 0-8 4 4 0 0 0 0 8M8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0m0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13m8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5M3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8m10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0m-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0m9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707M4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708"></path></svg></button></li></ul></div></div></nav>
+
+    <div class="container my-4" data-id="page-body"><h1 class="display-4"><samp><span class="refdocgen-text-tertiary">assembly</span>
+                        <span class="refdocgen-text-primary">Serilog</span></samp></h1>
+                <hr><div data-id="namespace-section" id="Serilog"><div class="d-flex justify-content-between align-items-center pt-2 pb-1"><h1 class="display-6" data-id="namespace-name"><samp><a href="./Serilog.html" class="refdocgen-link-primary"><span class="refdocgen-text-tertiary">namespace</span>
+                    <span>Serilog</span></a></samp></h1>
+
+        <button class="btn" data-bs-toggle="collapse" data-bs-target="#Serilog-collapse" aria-expanded="false" aria-controls="Serilog-collapse"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"></path></svg></button></div>
+
+    <hr class="my-2">
+
+    <div class="collapse show multi-collapse" id="Serilog-collapse"><div data-id="namespace-types"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./Serilog.ILogger.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">interface</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">ILogger</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+             The core Serilog logging API, used for writing log events.
+             </div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./Serilog.Log.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">Log</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+             An optional static entry point for logging that can be easily referenced
+             by different parts of an application. To configure the <code class="refdocgen-see-cref-not-found">Log</code>
+             set the Logger static property to a logger instance.
+             </div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./Serilog.LoggerConfiguration.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">LoggerConfiguration</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Configuration object for creating <code class="refdocgen-see-cref-not-found">ILogger</code> instances.
+            </div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./Serilog.LoggerExtensions.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">LoggerExtensions</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Extends <code class="refdocgen-see-cref-not-found">ILogger</code> with additional methods.
+            </div></div>
+<hr class="my-2"></div></div></div><div data-id="namespace-section" id="Serilog.Configuration"><div class="d-flex justify-content-between align-items-center pt-2 pb-1"><h1 class="display-6" data-id="namespace-name"><samp><a href="./Serilog.Configuration.html" class="refdocgen-link-primary"><span class="refdocgen-text-tertiary">namespace</span>
+                    <span>Serilog.Configuration</span></a></samp></h1>
+
+        <button class="btn" data-bs-toggle="collapse" data-bs-target="#Serilog.Configuration-collapse" aria-expanded="false" aria-controls="Serilog.Configuration-collapse"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"></path></svg></button></div>
+
+    <hr class="my-2">
+
+    <div class="collapse show multi-collapse" id="Serilog.Configuration-collapse"><div data-id="namespace-types"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./Serilog.Configuration.BatchingOptions.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">BatchingOptions</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Initialization options for <code class="refdocgen-see-cref-not-found">Serilog.Core.Sinks.Batching.BatchingSink</code>.
+            </div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./Serilog.Configuration.ILoggerSettings.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">interface</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">ILoggerSettings</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Implemented on types that apply settings to a logger configuration.
+            </div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./Serilog.Configuration.LoggerAuditSinkConfiguration.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">LoggerAuditSinkConfiguration</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Controls audit sink configuration.
+            </div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./Serilog.Configuration.LoggerDestructuringConfiguration.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">LoggerDestructuringConfiguration</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Controls template parameter destructuring configuration.
+            </div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./Serilog.Configuration.LoggerEnrichmentConfiguration.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">LoggerEnrichmentConfiguration</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Controls enrichment configuration.
+            </div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./Serilog.Configuration.LoggerFilterConfiguration.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">LoggerFilterConfiguration</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Controls filter configuration.
+            </div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./Serilog.Configuration.LoggerMinimumLevelConfiguration.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">LoggerMinimumLevelConfiguration</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Controls sink configuration.
+            </div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./Serilog.Configuration.LoggerSettingsConfiguration.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">LoggerSettingsConfiguration</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Allows additional setting sources to drive the logger configuration.
+            </div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./Serilog.Configuration.LoggerSinkConfiguration.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">LoggerSinkConfiguration</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Controls sink configuration.
+            </div></div>
+<hr class="my-2"></div></div></div><div data-id="namespace-section" id="Serilog.Context"><div class="d-flex justify-content-between align-items-center pt-2 pb-1"><h1 class="display-6" data-id="namespace-name"><samp><a href="./Serilog.Context.html" class="refdocgen-link-primary"><span class="refdocgen-text-tertiary">namespace</span>
+                    <span>Serilog.Context</span></a></samp></h1>
+
+        <button class="btn" data-bs-toggle="collapse" data-bs-target="#Serilog.Context-collapse" aria-expanded="false" aria-controls="Serilog.Context-collapse"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"></path></svg></button></div>
+
+    <hr class="my-2">
+
+    <div class="collapse show multi-collapse" id="Serilog.Context-collapse"><div data-id="namespace-types"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./Serilog.Context.LogContext.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">LogContext</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Holds ambient properties that can be attached to log events. To
+            configure, use the <code class="refdocgen-see-cref-not-found">LoggerEnrichmentConfiguration.FromLogContext</code> method.
+            </div></div>
+<hr class="my-2"></div></div></div><div data-id="namespace-section" id="Serilog.Core"><div class="d-flex justify-content-between align-items-center pt-2 pb-1"><h1 class="display-6" data-id="namespace-name"><samp><a href="./Serilog.Core.html" class="refdocgen-link-primary"><span class="refdocgen-text-tertiary">namespace</span>
+                    <span>Serilog.Core</span></a></samp></h1>
+
+        <button class="btn" data-bs-toggle="collapse" data-bs-target="#Serilog.Core-collapse" aria-expanded="false" aria-controls="Serilog.Core-collapse"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"></path></svg></button></div>
+
+    <hr class="my-2">
+
+    <div class="collapse show multi-collapse" id="Serilog.Core-collapse"><div data-id="namespace-types"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./Serilog.Core.Constants.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">Constants</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Constants used in the core logging pipeline and associated types.
+            </div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./Serilog.Core.IBatchedLogEventSink.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">interface</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">IBatchedLogEventSink</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            A destination that accepts events in batches. Many sinks gain a performance advantage by handling events in batches,
+            for example to combine multiple events into a single network request to a remote collector. Because the client
+            application cannot wait for every event to be flushed when batching is used, batched sinks normally work
+            asynchronously to conserve local resources while batches are sent.
+            </div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./Serilog.Core.IDestructuringPolicy.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">interface</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">IDestructuringPolicy</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Determine how, when destructuring, a supplied value is represented
+            as a complex log event property.
+            </div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./Serilog.Core.ILogEventEnricher.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">interface</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">ILogEventEnricher</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Applied during logging to add additional information to log events.
+            </div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./Serilog.Core.ILogEventFilter.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">interface</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">ILogEventFilter</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Provides filtering of the log event stream.
+            </div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./Serilog.Core.ILogEventPropertyFactory.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">interface</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">ILogEventPropertyFactory</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Creates log event properties from regular .NET objects, applying policies as
+            required.
+            </div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./Serilog.Core.ILogEventPropertyValueFactory.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">interface</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">ILogEventPropertyValueFactory</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Supports the policy-driven construction of <code class="refdocgen-see-cref-not-found">LogEventPropertyValue</code>s given
+            regular .NET objects.
+            </div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./Serilog.Core.ILogEventSink.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">interface</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">ILogEventSink</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            A destination for log events.
+            </div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./Serilog.Core.ILoggingFailureListener.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">interface</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">ILoggingFailureListener</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Implementers can be notified of various failure conditions in the Serilog pipeline.
+            </div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./Serilog.Core.ISetLoggingFailureListener.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">interface</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">ISetLoggingFailureListener</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Implemented by sinks that can report failures through an <code class="refdocgen-see-cref-not-found">ILoggingFailureListener</code>.
+            </div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./Serilog.Core.Logger.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">Logger</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            The core Serilog logging pipeline. A <code class="refdocgen-see-cref-not-found">Logger</code> must
+            be disposed to flush any events buffered within it. Most application
+            code should depend on <code class="refdocgen-see-cref-not-found">ILogger</code>, not this class.
+            </div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./Serilog.Core.LoggingFailureKind.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">enum</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">LoggingFailureKind</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Describes the reason for a logging failure.
+            </div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./Serilog.Core.LoggingLevelSwitch.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">LoggingLevelSwitch</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Dynamically controls logging level.
+            </div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./Serilog.Core.LoggingLevelSwitchChangedEventArgs.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">LoggingLevelSwitchChangedEventArgs</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Event arguments for <code class="refdocgen-see-cref-not-found">LoggingLevelSwitch.MinimumLevelChanged</code> event.
+            </div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./Serilog.Core.MessageTemplateFormatMethodAttribute.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">MessageTemplateFormatMethodAttribute</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+             Indicates that the marked method logs data using a message template and (optional) arguments.
+             The name of the parameter which contains the message template should be given in the constructor.
+             </div></div>
+<hr class="my-2"></div></div></div><div data-id="namespace-section" id="Serilog.Core.Enrichers"><div class="d-flex justify-content-between align-items-center pt-2 pb-1"><h1 class="display-6" data-id="namespace-name"><samp><a href="./Serilog.Core.Enrichers.html" class="refdocgen-link-primary"><span class="refdocgen-text-tertiary">namespace</span>
+                    <span>Serilog.Core.Enrichers</span></a></samp></h1>
+
+        <button class="btn" data-bs-toggle="collapse" data-bs-target="#Serilog.Core.Enrichers-collapse" aria-expanded="false" aria-controls="Serilog.Core.Enrichers-collapse"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"></path></svg></button></div>
+
+    <hr class="my-2">
+
+    <div class="collapse show multi-collapse" id="Serilog.Core.Enrichers-collapse"><div data-id="namespace-types"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./Serilog.Core.Enrichers.PropertyEnricher.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">PropertyEnricher</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Adds a new property enricher to the log event.
+            </div></div>
+<hr class="my-2"></div></div></div><div data-id="namespace-section" id="Serilog.Data"><div class="d-flex justify-content-between align-items-center pt-2 pb-1"><h1 class="display-6" data-id="namespace-name"><samp><a href="./Serilog.Data.html" class="refdocgen-link-primary"><span class="refdocgen-text-tertiary">namespace</span>
+                    <span>Serilog.Data</span></a></samp></h1>
+
+        <button class="btn" data-bs-toggle="collapse" data-bs-target="#Serilog.Data-collapse" aria-expanded="false" aria-controls="Serilog.Data-collapse"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"></path></svg></button></div>
+
+    <hr class="my-2">
+
+    <div class="collapse show multi-collapse" id="Serilog.Data-collapse"><div data-id="namespace-types"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./Serilog.Data.LogEventPropertyValueRewriter-1.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">LogEventPropertyValueRewriter&lt;TState&gt;</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            A base class for visitors that rewrite the value with modifications. For example, implementations
+            might remove all structure properties with a certain name, apply size/length limits, or convert scalar properties of
+            one type into scalar properties of another.
+            </div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./Serilog.Data.LogEventPropertyValueVisitor-2.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">LogEventPropertyValueVisitor&lt;TState, TResult&gt;</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            An abstract base class for visitors that walk data in the
+            <code class="refdocgen-see-cref-not-found">LogEventPropertyValue</code> format. Subclasses, by
+            overriding appropriate methods, may search for, transform,
+            or print the value structures being visited.
+            </div></div>
+<hr class="my-2"></div></div></div><div data-id="namespace-section" id="Serilog.Debugging"><div class="d-flex justify-content-between align-items-center pt-2 pb-1"><h1 class="display-6" data-id="namespace-name"><samp><a href="./Serilog.Debugging.html" class="refdocgen-link-primary"><span class="refdocgen-text-tertiary">namespace</span>
+                    <span>Serilog.Debugging</span></a></samp></h1>
+
+        <button class="btn" data-bs-toggle="collapse" data-bs-target="#Serilog.Debugging-collapse" aria-expanded="false" aria-controls="Serilog.Debugging-collapse"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"></path></svg></button></div>
+
+    <hr class="my-2">
+
+    <div class="collapse show multi-collapse" id="Serilog.Debugging-collapse"><div data-id="namespace-types"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./Serilog.Debugging.LoggingFailedException.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">LoggingFailedException</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            May be thrown by log event sinks when a failure occurs. Should not be used in cases
+            where the exception would propagate out to callers.
+            </div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./Serilog.Debugging.SelfLog.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">SelfLog</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            A simple source of information generated by Serilog itself,
+            for example when exceptions are thrown and caught internally.
+            </div></div>
+<hr class="my-2"></div></div></div><div data-id="namespace-section" id="Serilog.Events"><div class="d-flex justify-content-between align-items-center pt-2 pb-1"><h1 class="display-6" data-id="namespace-name"><samp><a href="./Serilog.Events.html" class="refdocgen-link-primary"><span class="refdocgen-text-tertiary">namespace</span>
+                    <span>Serilog.Events</span></a></samp></h1>
+
+        <button class="btn" data-bs-toggle="collapse" data-bs-target="#Serilog.Events-collapse" aria-expanded="false" aria-controls="Serilog.Events-collapse"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"></path></svg></button></div>
+
+    <hr class="my-2">
+
+    <div class="collapse show multi-collapse" id="Serilog.Events-collapse"><div data-id="namespace-types"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./Serilog.Events.DictionaryValue.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">DictionaryValue</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            A value represented as a mapping from keys to values.
+            </div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./Serilog.Events.LevelAlias.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">LevelAlias</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Descriptive aliases for <code class="refdocgen-see-cref-not-found">LogEventLevel</code>.
+            </div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./Serilog.Events.LogEvent.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">LogEvent</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            A log event.
+            </div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./Serilog.Events.LogEventLevel.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">enum</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">LogEventLevel</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Specifies the meaning and relative importance of a log event.
+            </div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./Serilog.Events.LogEventProperty.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">LogEventProperty</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            A property associated with a <code class="refdocgen-see-cref-not-found">LogEvent</code>.
+            </div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./Serilog.Events.LogEventPropertyValue.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">LogEventPropertyValue</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            The value associated with a <code class="refdocgen-see-cref-not-found">LogEventProperty</code>. Divided into scalar,
+            sequence and structure values to direct serialization into various formats.
+            </div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./Serilog.Events.MessageTemplate.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">MessageTemplate</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Represents a message template passed to a log method. The template
+            can subsequently render the template in textual form given the list
+            of properties.
+            </div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./Serilog.Events.ScalarValue.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">ScalarValue</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            A property value corresponding to a simple, scalar type.
+            </div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./Serilog.Events.SequenceValue.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">SequenceValue</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            A value represented as an ordered sequence of values.
+            </div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./Serilog.Events.StructureValue.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">StructureValue</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            A value represented as a collection of name-value properties.
+            </div></div>
+<hr class="my-2"></div></div></div><div data-id="namespace-section" id="Serilog.Filters"><div class="d-flex justify-content-between align-items-center pt-2 pb-1"><h1 class="display-6" data-id="namespace-name"><samp><a href="./Serilog.Filters.html" class="refdocgen-link-primary"><span class="refdocgen-text-tertiary">namespace</span>
+                    <span>Serilog.Filters</span></a></samp></h1>
+
+        <button class="btn" data-bs-toggle="collapse" data-bs-target="#Serilog.Filters-collapse" aria-expanded="false" aria-controls="Serilog.Filters-collapse"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"></path></svg></button></div>
+
+    <hr class="my-2">
+
+    <div class="collapse show multi-collapse" id="Serilog.Filters-collapse"><div data-id="namespace-types"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./Serilog.Filters.Matching.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">Matching</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Predicates applied to log events that can be used
+            </div></div>
+<hr class="my-2"></div></div></div><div data-id="namespace-section" id="Serilog.Formatting"><div class="d-flex justify-content-between align-items-center pt-2 pb-1"><h1 class="display-6" data-id="namespace-name"><samp><a href="./Serilog.Formatting.html" class="refdocgen-link-primary"><span class="refdocgen-text-tertiary">namespace</span>
+                    <span>Serilog.Formatting</span></a></samp></h1>
+
+        <button class="btn" data-bs-toggle="collapse" data-bs-target="#Serilog.Formatting-collapse" aria-expanded="false" aria-controls="Serilog.Formatting-collapse"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"></path></svg></button></div>
+
+    <hr class="my-2">
+
+    <div class="collapse show multi-collapse" id="Serilog.Formatting-collapse"><div data-id="namespace-types"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./Serilog.Formatting.ITextFormatter.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">interface</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">ITextFormatter</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Formats log events in a textual representation.
+            </div></div>
+<hr class="my-2"></div></div></div><div data-id="namespace-section" id="Serilog.Formatting.Display"><div class="d-flex justify-content-between align-items-center pt-2 pb-1"><h1 class="display-6" data-id="namespace-name"><samp><a href="./Serilog.Formatting.Display.html" class="refdocgen-link-primary"><span class="refdocgen-text-tertiary">namespace</span>
+                    <span>Serilog.Formatting.Display</span></a></samp></h1>
+
+        <button class="btn" data-bs-toggle="collapse" data-bs-target="#Serilog.Formatting.Display-collapse" aria-expanded="false" aria-controls="Serilog.Formatting.Display-collapse"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"></path></svg></button></div>
+
+    <hr class="my-2">
+
+    <div class="collapse show multi-collapse" id="Serilog.Formatting.Display-collapse"><div data-id="namespace-types"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./Serilog.Formatting.Display.MessageTemplateTextFormatter.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">MessageTemplateTextFormatter</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            A <code class="refdocgen-see-cref-not-found">ITextFormatter</code> that supports the Serilog
+            message template format. Formatting log events for display
+            has a different set of requirements and expectations from
+            rendering the data within them. To meet this, the formatter
+            overrides some behavior: First, strings are always output
+            as literals (not quoted) unless some other format is applied
+            to them. Second, tokens without matching properties are skipped
+            rather than being written as raw text.
+            </div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./Serilog.Formatting.Display.OutputProperties.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">OutputProperties</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Describes the properties available in standard message template-based
+            output format strings.
+            </div></div>
+<hr class="my-2"></div></div></div><div data-id="namespace-section" id="Serilog.Formatting.Json"><div class="d-flex justify-content-between align-items-center pt-2 pb-1"><h1 class="display-6" data-id="namespace-name"><samp><a href="./Serilog.Formatting.Json.html" class="refdocgen-link-primary"><span class="refdocgen-text-tertiary">namespace</span>
+                    <span>Serilog.Formatting.Json</span></a></samp></h1>
+
+        <button class="btn" data-bs-toggle="collapse" data-bs-target="#Serilog.Formatting.Json-collapse" aria-expanded="false" aria-controls="Serilog.Formatting.Json-collapse"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"></path></svg></button></div>
+
+    <hr class="my-2">
+
+    <div class="collapse show multi-collapse" id="Serilog.Formatting.Json-collapse"><div data-id="namespace-types"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./Serilog.Formatting.Json.JsonFormatter.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">JsonFormatter</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Formats log events in a simple JSON structure. Instances of this class
+            are safe for concurrent access by multiple threads.
+            </div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./Serilog.Formatting.Json.JsonValueFormatter.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">JsonValueFormatter</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Converts Serilog's structured property value format into JSON.
+            </div></div>
+<hr class="my-2"></div></div></div><div data-id="namespace-section" id="Serilog.Parsing"><div class="d-flex justify-content-between align-items-center pt-2 pb-1"><h1 class="display-6" data-id="namespace-name"><samp><a href="./Serilog.Parsing.html" class="refdocgen-link-primary"><span class="refdocgen-text-tertiary">namespace</span>
+                    <span>Serilog.Parsing</span></a></samp></h1>
+
+        <button class="btn" data-bs-toggle="collapse" data-bs-target="#Serilog.Parsing-collapse" aria-expanded="false" aria-controls="Serilog.Parsing-collapse"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"></path></svg></button></div>
+
+    <hr class="my-2">
+
+    <div class="collapse show multi-collapse" id="Serilog.Parsing-collapse"><div data-id="namespace-types"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./Serilog.Parsing.Alignment.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">struct</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">Alignment</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            A structure representing the alignment settings to apply when rendering a property.
+            </div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./Serilog.Parsing.AlignmentDirection.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">enum</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">AlignmentDirection</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Defines the direction of the alignment.
+            </div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./Serilog.Parsing.Destructuring.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">enum</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">Destructuring</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Instructs the logger on how to store information about provided
+            parameters.
+            </div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./Serilog.Parsing.MessageTemplateParser.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">MessageTemplateParser</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Parses message template strings into sequences of text or property
+            tokens.
+            </div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./Serilog.Parsing.MessageTemplateToken.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">MessageTemplateToken</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            An element parsed from a message template string.
+            </div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./Serilog.Parsing.PropertyToken.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">PropertyToken</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            A message template token representing a log event property.
+            </div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./Serilog.Parsing.TextToken.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">TextToken</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            A message template token representing literal text.
+            </div></div>
+<hr class="my-2"></div></div></div></div><nav class="navbar fixed-bottom menu-bg"><div class="container"><div class="dropup"><button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">v-serilog-public</button>
+            <div id="current-version">v-serilog-public</div>
+            <div id="version-list">[&quot;v-serilog-private&quot;,&quot;v-serilog-public&quot;]</div>
+            <ul class="dropdown-menu" id="version-selector" data-id="version-selector"></ul></div></div></nav><script src="../Static/bootstrap-5.3.5-dist.bundle.min.js"></script>
+
+    
+    <script src="../Static/script.js"></script></body></html>
