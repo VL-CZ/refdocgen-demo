@@ -1,0 +1,1394 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Reference documentation</title>
+
+    <script>
+
+        // use IIFE in order to avoid polluting global context with functions & variables
+        // https://developer.mozilla.org/en-US/docs/Glossary/IIFE
+        (function() {
+            const isLocalFile = location.protocol === "file:";
+            const defaultTheme = "dark";
+            const defaultLang = "csharp-lang";
+
+            if(isLocalFile){
+                const urlParams = new URLSearchParams(window.location.search);
+
+                let redirect = false;
+
+                // set 'theme' URL param if not found
+                if(!urlParams.has("theme")){
+                    urlParams.set("theme", defaultTheme);
+                    redirect = true;
+                }
+
+                // set 'lang' URL param if not found
+                if(!urlParams.has("lang")){
+                    urlParams.set("lang", defaultLang);
+                    redirect = true;
+                }
+
+                // redirect, if some of the URL parameters are missing
+                if(redirect){
+                    const newUrl = new URL(window.location.href);
+                    newUrl.search = urlParams.toString();
+
+                    window.location.href = newUrl;
+                }
+                else {
+                    document.documentElement.setAttribute("data-bs-theme", urlParams.get("theme")); // set the 'data-bs-theme' attribute
+                    document.documentElement.setAttribute("data-language", urlParams.get("lang")); // set the 'data-language' attribute
+                }
+            }
+            else { // no local file -> use localStorage
+                if (!localStorage.getItem("refdocgen-theme")) {
+                    localStorage.setItem("refdocgen-theme", defaultTheme);
+                }
+
+                if (!localStorage.getItem("refdocgen-language")) {
+                    localStorage.setItem("refdocgen-language", defaultLang);
+                }
+
+                document.documentElement.setAttribute("data-bs-theme", localStorage.getItem("refdocgen-theme")); // set the 'data-bs-theme' attribute
+                document.documentElement.setAttribute("data-language", localStorage.getItem("refdocgen-language")); // set the 'data-language' attribute
+            }
+        })();
+    </script>
+
+    
+    <link href="../Static/styles.css" rel="stylesheet"><style>html[data-language="csharp-lang"] [data-language="csharp-lang"] { display: inline !important; }
+html[data-language="todo-lang"] [data-language="todo-lang"] { display: inline !important; }
+</style></head>
+
+<body><nav class="navbar navbar-expand-lg sticky-top menu-bg"><div class="container"><a class="navbar-brand" href="../index.html">Project name</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup"><ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="../api/index.html">API</a></li></ul>
+            <ul class="navbar-nav ms-auto"><li class="nav-item d-flex align-items-center"><form class="me-2 mb-2 mb-lg-0"><select class="form-select" id="language-selector" aria-label="language"><option class="lang-option" value="csharp-lang">C#</option><option class="lang-option" value="todo-lang">TODO</option></select></form></li>
+
+                
+                <li class="nav-item d-flex align-items-center"><form role="search" class="me-2"><input class="form-control" autocomplete="off" type="search" placeholder="Search" aria-label="Search" id="menu-search-bar" url-target="../search.html" readonly=""></form></li>
+
+                
+                <li class="nav-item" id="theme-switcher"><button class="nav-link"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-brightness-high" viewBox="0 0 16 16"><path d="M8 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6m0 1a4 4 0 1 0 0-8 4 4 0 0 0 0 8M8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0m0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13m8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5M3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8m10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0m-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0m9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707M4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708"></path></svg></button></li></ul></div></div></nav>
+
+    <div class="container my-4" data-id="page-body"><h1 class="display-4" data-id="assembly-name"><samp><a href="RefDocGen-DLL.html" class="refdocgen-link-primary"><span class="refdocgen-text-tertiary">assembly</span>
+                                <span class="refdocgen-text-primary">RefDocGen</span></a></samp></h1><hr><div data-id="namespace-section" id="RefDocGen"><div class="d-flex justify-content-between align-items-center pt-2 pb-1"><h1 class="display-6" data-id="namespace-name"><samp><a href="./RefDocGen.html" class="refdocgen-link-primary"><span class="refdocgen-text-tertiary">namespace</span>
+                    <span>RefDocGen</span></a></samp></h1>
+
+        <button class="btn" data-bs-toggle="collapse" data-bs-target="#RefDocGen-collapse" aria-expanded="false" aria-controls="RefDocGen-collapse"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"></path></svg></button></div>
+
+    <hr class="my-2">
+
+    <div class="collapse show multi-collapse" id="RefDocGen-collapse"><div data-id="namespace-types"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.DocGenerator.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">DocGenerator</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Class responsible for generating the reference documentation using the provided DLL and XML doc comments file.
+            </div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.Program.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">Program</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Program class, containing main method.
+            </div></div>
+<hr class="my-2"></div></div></div><div data-id="namespace-section" id="RefDocGen.AssemblyAnalysis"><div class="d-flex justify-content-between align-items-center pt-2 pb-1"><h1 class="display-6" data-id="namespace-name"><samp><a href="./RefDocGen.AssemblyAnalysis.html" class="refdocgen-link-primary"><span class="refdocgen-text-tertiary">namespace</span>
+                    <span>RefDocGen.AssemblyAnalysis</span></a></samp></h1>
+
+        <button class="btn" data-bs-toggle="collapse" data-bs-target="#RefDocGen.AssemblyAnalysis-collapse" aria-expanded="false" aria-controls="RefDocGen.AssemblyAnalysis-collapse"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"></path></svg></button></div>
+
+    <hr class="my-2">
+
+    <div class="collapse show multi-collapse" id="RefDocGen.AssemblyAnalysis-collapse"><div data-id="namespace-types"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.AssemblyAnalysis.AssemblyDataConfiguration.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">AssemblyDataConfiguration</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc"></div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.AssemblyAnalysis.MemberInheritanceMode.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">enum</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">MemberInheritanceMode</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Defines the inheritance rules for members.
+            </div></div>
+<hr class="my-2"></div></div></div><div data-id="namespace-section" id="RefDocGen.CodeElements"><div class="d-flex justify-content-between align-items-center pt-2 pb-1"><h1 class="display-6" data-id="namespace-name"><samp><a href="./RefDocGen.CodeElements.html" class="refdocgen-link-primary"><span class="refdocgen-text-tertiary">namespace</span>
+                    <span>RefDocGen.CodeElements</span></a></samp></h1>
+
+        <button class="btn" data-bs-toggle="collapse" data-bs-target="#RefDocGen.CodeElements-collapse" aria-expanded="false" aria-controls="RefDocGen.CodeElements-collapse"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"></path></svg></button></div>
+
+    <hr class="my-2">
+
+    <div class="collapse show multi-collapse" id="RefDocGen.CodeElements-collapse"><div data-id="namespace-types"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.CodeElements.AccessModifier.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">enum</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">AccessModifier</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Represents access modifier of a member.
+            Note that the values are sorted from the most restrictive to the least restrictive.
+            </div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.CodeElements.AssemblyData.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">AssemblyData</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Represents a .NET assembly.
+            </div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.CodeElements.CodeElementKind.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">enum</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">CodeElementKind</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Represents kind of a code element.
+            </div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.CodeElements.NamespaceData.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">NamespaceData</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Represents a namespace together with the types contained in it.
+            </div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.CodeElements.SpecialTypeConstraint.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">enum</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">SpecialTypeConstraint</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Represents special constraints that can be applied to generic type parameters.
+            </div></div>
+<hr class="my-2"></div></div></div><div data-id="namespace-section" id="RefDocGen.CodeElements.Members"><div class="d-flex justify-content-between align-items-center pt-2 pb-1"><h1 class="display-6" data-id="namespace-name"><samp><a href="./RefDocGen.CodeElements.Members.html" class="refdocgen-link-primary"><span class="refdocgen-text-tertiary">namespace</span>
+                    <span>RefDocGen.CodeElements.Members</span></a></samp></h1>
+
+        <button class="btn" data-bs-toggle="collapse" data-bs-target="#RefDocGen.CodeElements.Members-collapse" aria-expanded="false" aria-controls="RefDocGen.CodeElements.Members-collapse"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"></path></svg></button></div>
+
+    <hr class="my-2">
+
+    <div class="collapse show multi-collapse" id="RefDocGen.CodeElements.Members-collapse"><div data-id="namespace-types"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.CodeElements.Members.OperatorKind.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">enum</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">OperatorKind</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Represents the kind of an operator.
+            </div></div>
+<hr class="my-2"></div></div></div><div data-id="namespace-section" id="RefDocGen.CodeElements.Members.Abstract"><div class="d-flex justify-content-between align-items-center pt-2 pb-1"><h1 class="display-6" data-id="namespace-name"><samp><a href="./RefDocGen.CodeElements.Members.Abstract.html" class="refdocgen-link-primary"><span class="refdocgen-text-tertiary">namespace</span>
+                    <span>RefDocGen.CodeElements.Members.Abstract</span></a></samp></h1>
+
+        <button class="btn" data-bs-toggle="collapse" data-bs-target="#RefDocGen.CodeElements.Members.Abstract-collapse" aria-expanded="false" aria-controls="RefDocGen.CodeElements.Members.Abstract-collapse"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"></path></svg></button></div>
+
+    <hr class="my-2">
+
+    <div class="collapse show multi-collapse" id="RefDocGen.CodeElements.Members.Abstract-collapse"><div data-id="namespace-types"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.CodeElements.Members.Abstract.ICallableMemberData.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">interface</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">ICallableMemberData</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+             Represents data of a callable type member (such as a method, property or an event).
+            
+             
+             Note that these members can typically be declared in an interface or possibly overriden by child classes.
+             
+             </div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.CodeElements.Members.Abstract.IConstructorData.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">interface</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">IConstructorData</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Represents data of a constructor.
+            </div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.CodeElements.Members.Abstract.IEventData.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">interface</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">IEventData</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Represents data of an event.
+            </div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.CodeElements.Members.Abstract.IFieldData.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">interface</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">IFieldData</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Represents data of a field.
+            </div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.CodeElements.Members.Abstract.IIndexerData.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">interface</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">IIndexerData</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Represents data of an indexer.
+            </div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.CodeElements.Members.Abstract.IMemberData.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">interface</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">IMemberData</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Represents data of a type member (such as a field, property or a method).
+            </div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.CodeElements.Members.Abstract.IMethodData.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">interface</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">IMethodData</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Represents data of a method.
+            </div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.CodeElements.Members.Abstract.IOperatorData.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">interface</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">IOperatorData</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Represents data of an operator.
+            </div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.CodeElements.Members.Abstract.IParameterData.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">interface</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">IParameterData</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Represents data of a method/constructor parameter.
+            </div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.CodeElements.Members.Abstract.IParameterizedMemberData.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">interface</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">IParameterizedMemberData</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Represents data of a type member that may have parameters (such as a method, constructor or indexer).
+            </div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.CodeElements.Members.Abstract.IPropertyData.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">interface</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">IPropertyData</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Represents data of a property.
+            </div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.CodeElements.Members.Abstract.IValueMemberData.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">interface</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">IValueMemberData</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Represents a type member storing a value; i.e. a field or a property.
+            </div></div>
+<hr class="my-2"></div></div></div><div data-id="namespace-section" id="RefDocGen.CodeElements.Members.Abstract.Enum"><div class="d-flex justify-content-between align-items-center pt-2 pb-1"><h1 class="display-6" data-id="namespace-name"><samp><a href="./RefDocGen.CodeElements.Members.Abstract.Enum.html" class="refdocgen-link-primary"><span class="refdocgen-text-tertiary">namespace</span>
+                    <span>RefDocGen.CodeElements.Members.Abstract.Enum</span></a></samp></h1>
+
+        <button class="btn" data-bs-toggle="collapse" data-bs-target="#RefDocGen.CodeElements.Members.Abstract.Enum-collapse" aria-expanded="false" aria-controls="RefDocGen.CodeElements.Members.Abstract.Enum-collapse"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"></path></svg></button></div>
+
+    <hr class="my-2">
+
+    <div class="collapse show multi-collapse" id="RefDocGen.CodeElements.Members.Abstract.Enum-collapse"><div data-id="namespace-types"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.CodeElements.Members.Abstract.Enum.IEnumMemberData.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">interface</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">IEnumMemberData</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Represents data of an enum member.
+            </div></div>
+<hr class="my-2"></div></div></div><div data-id="namespace-section" id="RefDocGen.CodeElements.TypeRegistry"><div class="d-flex justify-content-between align-items-center pt-2 pb-1"><h1 class="display-6" data-id="namespace-name"><samp><a href="./RefDocGen.CodeElements.TypeRegistry.html" class="refdocgen-link-primary"><span class="refdocgen-text-tertiary">namespace</span>
+                    <span>RefDocGen.CodeElements.TypeRegistry</span></a></samp></h1>
+
+        <button class="btn" data-bs-toggle="collapse" data-bs-target="#RefDocGen.CodeElements.TypeRegistry-collapse" aria-expanded="false" aria-controls="RefDocGen.CodeElements.TypeRegistry-collapse"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"></path></svg></button></div>
+
+    <hr class="my-2">
+
+    <div class="collapse show multi-collapse" id="RefDocGen.CodeElements.TypeRegistry-collapse"><div data-id="namespace-types"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.CodeElements.TypeRegistry.ITypeRegistry.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">interface</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">ITypeRegistry</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Represents a registry of the declared types.
+            </div></div>
+<hr class="my-2"></div></div></div><div data-id="namespace-section" id="RefDocGen.CodeElements.Types"><div class="d-flex justify-content-between align-items-center pt-2 pb-1"><h1 class="display-6" data-id="namespace-name"><samp><a href="./RefDocGen.CodeElements.Types.html" class="refdocgen-link-primary"><span class="refdocgen-text-tertiary">namespace</span>
+                    <span>RefDocGen.CodeElements.Types</span></a></samp></h1>
+
+        <button class="btn" data-bs-toggle="collapse" data-bs-target="#RefDocGen.CodeElements.Types-collapse" aria-expanded="false" aria-controls="RefDocGen.CodeElements.Types-collapse"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"></path></svg></button></div>
+
+    <hr class="my-2">
+
+    <div class="collapse show multi-collapse" id="RefDocGen.CodeElements.Types-collapse"><div data-id="namespace-types"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.CodeElements.Types.ObjectTypeKind.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">enum</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">ObjectTypeKind</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Represents kind of an object type.
+            </div></div>
+<hr class="my-2"></div></div></div><div data-id="namespace-section" id="RefDocGen.CodeElements.Types.Abstract"><div class="d-flex justify-content-between align-items-center pt-2 pb-1"><h1 class="display-6" data-id="namespace-name"><samp><a href="./RefDocGen.CodeElements.Types.Abstract.html" class="refdocgen-link-primary"><span class="refdocgen-text-tertiary">namespace</span>
+                    <span>RefDocGen.CodeElements.Types.Abstract</span></a></samp></h1>
+
+        <button class="btn" data-bs-toggle="collapse" data-bs-target="#RefDocGen.CodeElements.Types.Abstract-collapse" aria-expanded="false" aria-controls="RefDocGen.CodeElements.Types.Abstract-collapse"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"></path></svg></button></div>
+
+    <hr class="my-2">
+
+    <div class="collapse show multi-collapse" id="RefDocGen.CodeElements.Types.Abstract-collapse"><div data-id="namespace-types"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.CodeElements.Types.Abstract.IObjectTypeData.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">interface</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">IObjectTypeData</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Represents data of a value, reference or interface type; including its members.
+            
+            Note: This interface doesn't represent enum types - see <code class="refdocgen-see-cref-not-found">IEnumTypeData</code>.
+            
+            </div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.CodeElements.Types.Abstract.ITypeDeclaration.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">interface</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">ITypeDeclaration</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Represents a type declared in any of the assemblies analyzed.
+            </div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.CodeElements.Types.Abstract.ITypeParameterData.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">interface</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">ITypeParameterData</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Represents declaration of a generic type parameter.
+            </div></div>
+<hr class="my-2"></div></div></div><div data-id="namespace-section" id="RefDocGen.CodeElements.Types.Abstract.Attribute"><div class="d-flex justify-content-between align-items-center pt-2 pb-1"><h1 class="display-6" data-id="namespace-name"><samp><a href="./RefDocGen.CodeElements.Types.Abstract.Attribute.html" class="refdocgen-link-primary"><span class="refdocgen-text-tertiary">namespace</span>
+                    <span>RefDocGen.CodeElements.Types.Abstract.Attribute</span></a></samp></h1>
+
+        <button class="btn" data-bs-toggle="collapse" data-bs-target="#RefDocGen.CodeElements.Types.Abstract.Attribute-collapse" aria-expanded="false" aria-controls="RefDocGen.CodeElements.Types.Abstract.Attribute-collapse"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"></path></svg></button></div>
+
+    <hr class="my-2">
+
+    <div class="collapse show multi-collapse" id="RefDocGen.CodeElements.Types.Abstract.Attribute-collapse"><div data-id="namespace-types"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.CodeElements.Types.Abstract.Attribute.IAttributeData.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">interface</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">IAttributeData</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Represents an attribute assigned to a type or member.
+            </div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.CodeElements.Types.Abstract.Attribute.NamedAttributeArgument.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">struct</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">NamedAttributeArgument</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Represents a named argument of an attribute.
+            </div></div>
+<hr class="my-2"></div></div></div><div data-id="namespace-section" id="RefDocGen.CodeElements.Types.Abstract.Delegate"><div class="d-flex justify-content-between align-items-center pt-2 pb-1"><h1 class="display-6" data-id="namespace-name"><samp><a href="./RefDocGen.CodeElements.Types.Abstract.Delegate.html" class="refdocgen-link-primary"><span class="refdocgen-text-tertiary">namespace</span>
+                    <span>RefDocGen.CodeElements.Types.Abstract.Delegate</span></a></samp></h1>
+
+        <button class="btn" data-bs-toggle="collapse" data-bs-target="#RefDocGen.CodeElements.Types.Abstract.Delegate-collapse" aria-expanded="false" aria-controls="RefDocGen.CodeElements.Types.Abstract.Delegate-collapse"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"></path></svg></button></div>
+
+    <hr class="my-2">
+
+    <div class="collapse show multi-collapse" id="RefDocGen.CodeElements.Types.Abstract.Delegate-collapse"><div data-id="namespace-types"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.CodeElements.Types.Abstract.Delegate.IDelegateTypeData.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">interface</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">IDelegateTypeData</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Represents data of a delegate.
+            </div></div>
+<hr class="my-2"></div></div></div><div data-id="namespace-section" id="RefDocGen.CodeElements.Types.Abstract.Enum"><div class="d-flex justify-content-between align-items-center pt-2 pb-1"><h1 class="display-6" data-id="namespace-name"><samp><a href="./RefDocGen.CodeElements.Types.Abstract.Enum.html" class="refdocgen-link-primary"><span class="refdocgen-text-tertiary">namespace</span>
+                    <span>RefDocGen.CodeElements.Types.Abstract.Enum</span></a></samp></h1>
+
+        <button class="btn" data-bs-toggle="collapse" data-bs-target="#RefDocGen.CodeElements.Types.Abstract.Enum-collapse" aria-expanded="false" aria-controls="RefDocGen.CodeElements.Types.Abstract.Enum-collapse"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"></path></svg></button></div>
+
+    <hr class="my-2">
+
+    <div class="collapse show multi-collapse" id="RefDocGen.CodeElements.Types.Abstract.Enum-collapse"><div data-id="namespace-types"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.CodeElements.Types.Abstract.Enum.IEnumTypeData.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">interface</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">IEnumTypeData</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Represents data of an enum type.
+            </div></div>
+<hr class="my-2"></div></div></div><div data-id="namespace-section" id="RefDocGen.CodeElements.Types.Abstract.Exception"><div class="d-flex justify-content-between align-items-center pt-2 pb-1"><h1 class="display-6" data-id="namespace-name"><samp><a href="./RefDocGen.CodeElements.Types.Abstract.Exception.html" class="refdocgen-link-primary"><span class="refdocgen-text-tertiary">namespace</span>
+                    <span>RefDocGen.CodeElements.Types.Abstract.Exception</span></a></samp></h1>
+
+        <button class="btn" data-bs-toggle="collapse" data-bs-target="#RefDocGen.CodeElements.Types.Abstract.Exception-collapse" aria-expanded="false" aria-controls="RefDocGen.CodeElements.Types.Abstract.Exception-collapse"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"></path></svg></button></div>
+
+    <hr class="my-2">
+
+    <div class="collapse show multi-collapse" id="RefDocGen.CodeElements.Types.Abstract.Exception-collapse"><div data-id="namespace-types"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.CodeElements.Types.Abstract.Exception.IExceptionDocumentation.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">interface</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">IExceptionDocumentation</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Represents a user-documented exception (using the <code class="refdocgen-inline-code">exception</code> tag) that can be thrown by a member.
+            </div></div>
+<hr class="my-2"></div></div></div><div data-id="namespace-section" id="RefDocGen.CodeElements.Types.Abstract.TypeName"><div class="d-flex justify-content-between align-items-center pt-2 pb-1"><h1 class="display-6" data-id="namespace-name"><samp><a href="./RefDocGen.CodeElements.Types.Abstract.TypeName.html" class="refdocgen-link-primary"><span class="refdocgen-text-tertiary">namespace</span>
+                    <span>RefDocGen.CodeElements.Types.Abstract.TypeName</span></a></samp></h1>
+
+        <button class="btn" data-bs-toggle="collapse" data-bs-target="#RefDocGen.CodeElements.Types.Abstract.TypeName-collapse" aria-expanded="false" aria-controls="RefDocGen.CodeElements.Types.Abstract.TypeName-collapse"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"></path></svg></button></div>
+
+    <hr class="my-2">
+
+    <div class="collapse show multi-collapse" id="RefDocGen.CodeElements.Types.Abstract.TypeName-collapse"><div data-id="namespace-types"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.CodeElements.Types.Abstract.TypeName.ITypeNameBaseData.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">interface</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">ITypeNameBaseData</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Represents name-related data of any type, including its name, namespace.
+            
+            Doesn't include any type parameters nor member data (such as fields, methods, etc.)
+            
+            </div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.CodeElements.Types.Abstract.TypeName.ITypeNameData.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">interface</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">ITypeNameData</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Represents name-related data of any type, including its name, namespace, and generic parameters (if present).
+            
+            Doesn't include any type member data (such as fields, methods, etc.)
+            
+            
+            Note that this interface can represent also 'void', even though it's technically not a type.
+            
+            </div></div>
+<hr class="my-2"></div></div></div><div data-id="namespace-section" id="RefDocGen.TemplateProcessors"><div class="d-flex justify-content-between align-items-center pt-2 pb-1"><h1 class="display-6" data-id="namespace-name"><samp><a href="./RefDocGen.TemplateProcessors.html" class="refdocgen-link-primary"><span class="refdocgen-text-tertiary">namespace</span>
+                    <span>RefDocGen.TemplateProcessors</span></a></samp></h1>
+
+        <button class="btn" data-bs-toggle="collapse" data-bs-target="#RefDocGen.TemplateProcessors-collapse" aria-expanded="false" aria-controls="RefDocGen.TemplateProcessors-collapse"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"></path></svg></button></div>
+
+    <hr class="my-2">
+
+    <div class="collapse show multi-collapse" id="RefDocGen.TemplateProcessors-collapse"><div data-id="namespace-types"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.TemplateProcessors.ITemplateModelWithId.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">interface</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">ITemplateModelWithId</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Represents any template model that can be identified by its ID.
+            </div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.TemplateProcessors.ITemplateProcessor.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">interface</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">ITemplateProcessor</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Defines methods for processing templates using the <code class="refdocgen-see-cref-not-found">ITypeRegistry</code> data.
+            </div></div>
+<hr class="my-2"></div></div></div><div data-id="namespace-section" id="RefDocGen.TemplateProcessors.Default.Templates"><div class="d-flex justify-content-between align-items-center pt-2 pb-1"><h1 class="display-6" data-id="namespace-name"><samp><a href="./RefDocGen.TemplateProcessors.Default.Templates.html" class="refdocgen-link-primary"><span class="refdocgen-text-tertiary">namespace</span>
+                    <span>RefDocGen.TemplateProcessors.Default.Templates</span></a></samp></h1>
+
+        <button class="btn" data-bs-toggle="collapse" data-bs-target="#RefDocGen.TemplateProcessors.Default.Templates-collapse" aria-expanded="false" aria-controls="RefDocGen.TemplateProcessors.Default.Templates-collapse"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"></path></svg></button></div>
+
+    <hr class="my-2">
+
+    <div class="collapse show multi-collapse" id="RefDocGen.TemplateProcessors.Default.Templates-collapse"><div data-id="namespace-types"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.TemplateProcessors.Default.Templates._Imports.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">_Imports</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc"></div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.TemplateProcessors.Default.Templates.ApiHomePage.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">ApiHomePage</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc"></div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.TemplateProcessors.Default.Templates.AssemblyPage.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">AssemblyPage</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc"></div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.TemplateProcessors.Default.Templates.DelegateTypePage.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">DelegateTypePage</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc"></div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.TemplateProcessors.Default.Templates.EnumTypePage.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">EnumTypePage</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc"></div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.TemplateProcessors.Default.Templates.NamespacePage.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">NamespacePage</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc"></div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.TemplateProcessors.Default.Templates.ObjectTypePage.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">ObjectTypePage</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc"></div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.TemplateProcessors.Default.Templates.SearchPage.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">SearchPage</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc"></div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.TemplateProcessors.Default.Templates.StaticPage.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">StaticPage</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc"></div></div>
+<hr class="my-2"></div></div></div><div data-id="namespace-section" id="RefDocGen.TemplateProcessors.Default.Templates.Components.Declarations"><div class="d-flex justify-content-between align-items-center pt-2 pb-1"><h1 class="display-6" data-id="namespace-name"><samp><a href="./RefDocGen.TemplateProcessors.Default.Templates.Components.Declarations.html" class="refdocgen-link-primary"><span class="refdocgen-text-tertiary">namespace</span>
+                    <span>RefDocGen.TemplateProcessors.Default.Templates.Components.Declarations</span></a></samp></h1>
+
+        <button class="btn" data-bs-toggle="collapse" data-bs-target="#RefDocGen.TemplateProcessors.Default.Templates.Components.Declarations-collapse" aria-expanded="false" aria-controls="RefDocGen.TemplateProcessors.Default.Templates.Components.Declarations-collapse"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"></path></svg></button></div>
+
+    <hr class="my-2">
+
+    <div class="collapse show multi-collapse" id="RefDocGen.TemplateProcessors.Default.Templates.Components.Declarations-collapse"><div data-id="namespace-types"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.TemplateProcessors.Default.Templates.Components.Declarations.AttributeDeclaration.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">AttributeDeclaration</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc"></div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.TemplateProcessors.Default.Templates.Components.Declarations.TypeParameterDeclaration.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">TypeParameterDeclaration</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc"></div></div>
+<hr class="my-2"></div></div></div><div data-id="namespace-section" id="RefDocGen.TemplateProcessors.Default.Templates.Components.Declarations.Members"><div class="d-flex justify-content-between align-items-center pt-2 pb-1"><h1 class="display-6" data-id="namespace-name"><samp><a href="./RefDocGen.TemplateProcessors.Default.Templates.Components.Declarations.Members.html" class="refdocgen-link-primary"><span class="refdocgen-text-tertiary">namespace</span>
+                    <span>RefDocGen.TemplateProcessors.Default.Templates.Components.Declarations.Members</span></a></samp></h1>
+
+        <button class="btn" data-bs-toggle="collapse" data-bs-target="#RefDocGen.TemplateProcessors.Default.Templates.Components.Declarations.Members-collapse" aria-expanded="false" aria-controls="RefDocGen.TemplateProcessors.Default.Templates.Components.Declarations.Members-collapse"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"></path></svg></button></div>
+
+    <hr class="my-2">
+
+    <div class="collapse show multi-collapse" id="RefDocGen.TemplateProcessors.Default.Templates.Components.Declarations.Members-collapse"><div data-id="namespace-types"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.TemplateProcessors.Default.Templates.Components.Declarations.Members.ConstructorDeclaration.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">ConstructorDeclaration</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc"></div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.TemplateProcessors.Default.Templates.Components.Declarations.Members.DelegateMethodDeclaration.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">DelegateMethodDeclaration</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc"></div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.TemplateProcessors.Default.Templates.Components.Declarations.Members.EnumMemberDeclaration.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">EnumMemberDeclaration</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc"></div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.TemplateProcessors.Default.Templates.Components.Declarations.Members.EventDeclaration.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">EventDeclaration</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc"></div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.TemplateProcessors.Default.Templates.Components.Declarations.Members.FieldDeclaration.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">FieldDeclaration</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc"></div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.TemplateProcessors.Default.Templates.Components.Declarations.Members.IndexerDeclaration.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">IndexerDeclaration</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc"></div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.TemplateProcessors.Default.Templates.Components.Declarations.Members.MethodDeclaration.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">MethodDeclaration</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc"></div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.TemplateProcessors.Default.Templates.Components.Declarations.Members.OperatorDeclaration.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">OperatorDeclaration</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc"></div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.TemplateProcessors.Default.Templates.Components.Declarations.Members.ParameterDeclaration.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">ParameterDeclaration</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc"></div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.TemplateProcessors.Default.Templates.Components.Declarations.Members.PropertyDeclaration.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">PropertyDeclaration</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc"></div></div>
+<hr class="my-2"></div></div></div><div data-id="namespace-section" id="RefDocGen.TemplateProcessors.Default.Templates.Components.Declarations.Types"><div class="d-flex justify-content-between align-items-center pt-2 pb-1"><h1 class="display-6" data-id="namespace-name"><samp><a href="./RefDocGen.TemplateProcessors.Default.Templates.Components.Declarations.Types.html" class="refdocgen-link-primary"><span class="refdocgen-text-tertiary">namespace</span>
+                    <span>RefDocGen.TemplateProcessors.Default.Templates.Components.Declarations.Types</span></a></samp></h1>
+
+        <button class="btn" data-bs-toggle="collapse" data-bs-target="#RefDocGen.TemplateProcessors.Default.Templates.Components.Declarations.Types-collapse" aria-expanded="false" aria-controls="RefDocGen.TemplateProcessors.Default.Templates.Components.Declarations.Types-collapse"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"></path></svg></button></div>
+
+    <hr class="my-2">
+
+    <div class="collapse show multi-collapse" id="RefDocGen.TemplateProcessors.Default.Templates.Components.Declarations.Types-collapse"><div data-id="namespace-types"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.TemplateProcessors.Default.Templates.Components.Declarations.Types.TypeDeclaration.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">TypeDeclaration</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc"></div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.TemplateProcessors.Default.Templates.Components.Declarations.Types.TypeNameRow.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">TypeNameRow</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc"></div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.TemplateProcessors.Default.Templates.Components.Declarations.Types.TypeNameTitle.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">TypeNameTitle</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc"></div></div>
+<hr class="my-2"></div></div></div><div data-id="namespace-section" id="RefDocGen.TemplateProcessors.Default.Templates.Components.Documentation"><div class="d-flex justify-content-between align-items-center pt-2 pb-1"><h1 class="display-6" data-id="namespace-name"><samp><a href="./RefDocGen.TemplateProcessors.Default.Templates.Components.Documentation.html" class="refdocgen-link-primary"><span class="refdocgen-text-tertiary">namespace</span>
+                    <span>RefDocGen.TemplateProcessors.Default.Templates.Components.Documentation</span></a></samp></h1>
+
+        <button class="btn" data-bs-toggle="collapse" data-bs-target="#RefDocGen.TemplateProcessors.Default.Templates.Components.Documentation-collapse" aria-expanded="false" aria-controls="RefDocGen.TemplateProcessors.Default.Templates.Components.Documentation-collapse"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"></path></svg></button></div>
+
+    <hr class="my-2">
+
+    <div class="collapse show multi-collapse" id="RefDocGen.TemplateProcessors.Default.Templates.Components.Documentation-collapse"><div data-id="namespace-types"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.TemplateProcessors.Default.Templates.Components.Documentation.ExceptionDocs.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">ExceptionDocs</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc"></div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.TemplateProcessors.Default.Templates.Components.Documentation.ParameterDocs.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">ParameterDocs</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc"></div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.TemplateProcessors.Default.Templates.Components.Documentation.RemarksDoc.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">RemarksDoc</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc"></div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.TemplateProcessors.Default.Templates.Components.Documentation.ReturnValueDoc.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">ReturnValueDoc</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc"></div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.TemplateProcessors.Default.Templates.Components.Documentation.SeeAlsoDocs.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">SeeAlsoDocs</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc"></div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.TemplateProcessors.Default.Templates.Components.Documentation.SummaryDoc.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">SummaryDoc</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc"></div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.TemplateProcessors.Default.Templates.Components.Documentation.TypeParameterDocs.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">TypeParameterDocs</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc"></div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.TemplateProcessors.Default.Templates.Components.Documentation.ValueDoc.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">ValueDoc</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc"></div></div>
+<hr class="my-2"></div></div></div><div data-id="namespace-section" id="RefDocGen.TemplateProcessors.Default.Templates.Components.LanguageSpecific"><div class="d-flex justify-content-between align-items-center pt-2 pb-1"><h1 class="display-6" data-id="namespace-name"><samp><a href="./RefDocGen.TemplateProcessors.Default.Templates.Components.LanguageSpecific.html" class="refdocgen-link-primary"><span class="refdocgen-text-tertiary">namespace</span>
+                    <span>RefDocGen.TemplateProcessors.Default.Templates.Components.LanguageSpecific</span></a></samp></h1>
+
+        <button class="btn" data-bs-toggle="collapse" data-bs-target="#RefDocGen.TemplateProcessors.Default.Templates.Components.LanguageSpecific-collapse" aria-expanded="false" aria-controls="RefDocGen.TemplateProcessors.Default.Templates.Components.LanguageSpecific-collapse"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"></path></svg></button></div>
+
+    <hr class="my-2">
+
+    <div class="collapse show multi-collapse" id="RefDocGen.TemplateProcessors.Default.Templates.Components.LanguageSpecific-collapse"><div data-id="namespace-types"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.TemplateProcessors.Default.Templates.Components.LanguageSpecific.LanguageFragments.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">LanguageFragments</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc"></div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.TemplateProcessors.Default.Templates.Components.LanguageSpecific.LanguageSpecificStrings.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">LanguageSpecificStrings</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc"></div></div>
+<hr class="my-2"></div></div></div><div data-id="namespace-section" id="RefDocGen.TemplateProcessors.Default.Templates.Components.LanguageSpecific.CSharp"><div class="d-flex justify-content-between align-items-center pt-2 pb-1"><h1 class="display-6" data-id="namespace-name"><samp><a href="./RefDocGen.TemplateProcessors.Default.Templates.Components.LanguageSpecific.CSharp.html" class="refdocgen-link-primary"><span class="refdocgen-text-tertiary">namespace</span>
+                    <span>RefDocGen.TemplateProcessors.Default.Templates.Components.LanguageSpecific.CSharp</span></a></samp></h1>
+
+        <button class="btn" data-bs-toggle="collapse" data-bs-target="#RefDocGen.TemplateProcessors.Default.Templates.Components.LanguageSpecific.CSharp-collapse" aria-expanded="false" aria-controls="RefDocGen.TemplateProcessors.Default.Templates.Components.LanguageSpecific.CSharp-collapse"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"></path></svg></button></div>
+
+    <hr class="my-2">
+
+    <div class="collapse show multi-collapse" id="RefDocGen.TemplateProcessors.Default.Templates.Components.LanguageSpecific.CSharp-collapse"><div data-id="namespace-types"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.TemplateProcessors.Default.Templates.Components.LanguageSpecific.CSharp.CSharpAttributeDeclaration.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">CSharpAttributeDeclaration</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc"></div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.TemplateProcessors.Default.Templates.Components.LanguageSpecific.CSharp.CSharpConstructorDeclaration.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">CSharpConstructorDeclaration</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc"></div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.TemplateProcessors.Default.Templates.Components.LanguageSpecific.CSharp.CSharpDelegateMethodDeclaration.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">CSharpDelegateMethodDeclaration</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc"></div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.TemplateProcessors.Default.Templates.Components.LanguageSpecific.CSharp.CSharpEnumMemberDeclaration.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">CSharpEnumMemberDeclaration</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc"></div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.TemplateProcessors.Default.Templates.Components.LanguageSpecific.CSharp.CSharpEventDeclaration.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">CSharpEventDeclaration</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc"></div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.TemplateProcessors.Default.Templates.Components.LanguageSpecific.CSharp.CSharpFieldDeclaration.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">CSharpFieldDeclaration</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc"></div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.TemplateProcessors.Default.Templates.Components.LanguageSpecific.CSharp.CSharpGenericTypeLink.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">CSharpGenericTypeLink</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc"></div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.TemplateProcessors.Default.Templates.Components.LanguageSpecific.CSharp.CSharpIndexerDeclaration.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">CSharpIndexerDeclaration</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc"></div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.TemplateProcessors.Default.Templates.Components.LanguageSpecific.CSharp.CSharpMethodDeclaration.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">CSharpMethodDeclaration</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc"></div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.TemplateProcessors.Default.Templates.Components.LanguageSpecific.CSharp.CSharpOperatorDeclaration.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">CSharpOperatorDeclaration</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc"></div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.TemplateProcessors.Default.Templates.Components.LanguageSpecific.CSharp.CSharpParameterDeclaration.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">CSharpParameterDeclaration</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc"></div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.TemplateProcessors.Default.Templates.Components.LanguageSpecific.CSharp.CSharpPropertyDeclaration.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">CSharpPropertyDeclaration</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc"></div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.TemplateProcessors.Default.Templates.Components.LanguageSpecific.CSharp.CSharpTypeDeclaration.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">CSharpTypeDeclaration</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc"></div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.TemplateProcessors.Default.Templates.Components.LanguageSpecific.CSharp.CSharpTypeParameterConstraints.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">CSharpTypeParameterConstraints</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc"></div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.TemplateProcessors.Default.Templates.Components.LanguageSpecific.CSharp.CSharpTypeParameterDeclaration.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">CSharpTypeParameterDeclaration</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc"></div></div>
+<hr class="my-2"></div></div></div><div data-id="namespace-section" id="RefDocGen.TemplateProcessors.Default.Templates.Components.LanguageSpecific.CSharp.Utils"><div class="d-flex justify-content-between align-items-center pt-2 pb-1"><h1 class="display-6" data-id="namespace-name"><samp><a href="./RefDocGen.TemplateProcessors.Default.Templates.Components.LanguageSpecific.CSharp.Utils.html" class="refdocgen-link-primary"><span class="refdocgen-text-tertiary">namespace</span>
+                    <span>RefDocGen.TemplateProcessors.Default.Templates.Components.LanguageSpecific.CSharp.Utils</span></a></samp></h1>
+
+        <button class="btn" data-bs-toggle="collapse" data-bs-target="#RefDocGen.TemplateProcessors.Default.Templates.Components.LanguageSpecific.CSharp.Utils-collapse" aria-expanded="false" aria-controls="RefDocGen.TemplateProcessors.Default.Templates.Components.LanguageSpecific.CSharp.Utils-collapse"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"></path></svg></button></div>
+
+    <hr class="my-2">
+
+    <div class="collapse show multi-collapse" id="RefDocGen.TemplateProcessors.Default.Templates.Components.LanguageSpecific.CSharp.Utils-collapse"><div data-id="namespace-types"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.TemplateProcessors.Default.Templates.Components.LanguageSpecific.CSharp.Utils.AccessorMethods.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">AccessorMethods</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc"></div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.TemplateProcessors.Default.Templates.Components.LanguageSpecific.CSharp.Utils.LiteralValueSuffix.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">LiteralValueSuffix</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc"></div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.TemplateProcessors.Default.Templates.Components.LanguageSpecific.CSharp.Utils.ParametersString.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">ParametersString</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc"></div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.TemplateProcessors.Default.Templates.Components.LanguageSpecific.CSharp.Utils.TypeParametersString.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">TypeParametersString</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc"></div></div>
+<hr class="my-2"></div></div></div><div data-id="namespace-section" id="RefDocGen.TemplateProcessors.Default.Templates.Components.LanguageSpecific.Todo"><div class="d-flex justify-content-between align-items-center pt-2 pb-1"><h1 class="display-6" data-id="namespace-name"><samp><a href="./RefDocGen.TemplateProcessors.Default.Templates.Components.LanguageSpecific.Todo.html" class="refdocgen-link-primary"><span class="refdocgen-text-tertiary">namespace</span>
+                    <span>RefDocGen.TemplateProcessors.Default.Templates.Components.LanguageSpecific.Todo</span></a></samp></h1>
+
+        <button class="btn" data-bs-toggle="collapse" data-bs-target="#RefDocGen.TemplateProcessors.Default.Templates.Components.LanguageSpecific.Todo-collapse" aria-expanded="false" aria-controls="RefDocGen.TemplateProcessors.Default.Templates.Components.LanguageSpecific.Todo-collapse"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"></path></svg></button></div>
+
+    <hr class="my-2">
+
+    <div class="collapse show multi-collapse" id="RefDocGen.TemplateProcessors.Default.Templates.Components.LanguageSpecific.Todo-collapse"><div data-id="namespace-types"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.TemplateProcessors.Default.Templates.Components.LanguageSpecific.Todo.TodoAttributeDeclaration.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">TodoAttributeDeclaration</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc"></div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.TemplateProcessors.Default.Templates.Components.LanguageSpecific.Todo.TodoConstructorDeclaration.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">TodoConstructorDeclaration</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc"></div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.TemplateProcessors.Default.Templates.Components.LanguageSpecific.Todo.TodoDelegateMethodDeclaration.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">TodoDelegateMethodDeclaration</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc"></div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.TemplateProcessors.Default.Templates.Components.LanguageSpecific.Todo.TodoEnumMemberDeclaration.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">TodoEnumMemberDeclaration</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc"></div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.TemplateProcessors.Default.Templates.Components.LanguageSpecific.Todo.TodoEventDeclaration.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">TodoEventDeclaration</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc"></div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.TemplateProcessors.Default.Templates.Components.LanguageSpecific.Todo.TodoFieldDeclaration.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">TodoFieldDeclaration</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc"></div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.TemplateProcessors.Default.Templates.Components.LanguageSpecific.Todo.TodoGenericTypeLink.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">TodoGenericTypeLink</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc"></div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.TemplateProcessors.Default.Templates.Components.LanguageSpecific.Todo.TodoIndexerDeclaration.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">TodoIndexerDeclaration</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc"></div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.TemplateProcessors.Default.Templates.Components.LanguageSpecific.Todo.TodoMethodDeclaration.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">TodoMethodDeclaration</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc"></div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.TemplateProcessors.Default.Templates.Components.LanguageSpecific.Todo.TodoOperatorDeclaration.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">TodoOperatorDeclaration</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc"></div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.TemplateProcessors.Default.Templates.Components.LanguageSpecific.Todo.TodoParameterDeclaration.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">TodoParameterDeclaration</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc"></div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.TemplateProcessors.Default.Templates.Components.LanguageSpecific.Todo.TodoPropertyDeclaration.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">TodoPropertyDeclaration</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc"></div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.TemplateProcessors.Default.Templates.Components.LanguageSpecific.Todo.TodoTypeDeclaration.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">TodoTypeDeclaration</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc"></div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.TemplateProcessors.Default.Templates.Components.LanguageSpecific.Todo.TodoTypeParameterConstraints.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">TodoTypeParameterConstraints</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc"></div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.TemplateProcessors.Default.Templates.Components.LanguageSpecific.Todo.TodoTypeParameterDeclaration.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">TodoTypeParameterDeclaration</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc"></div></div>
+<hr class="my-2"></div></div></div><div data-id="namespace-section" id="RefDocGen.TemplateProcessors.Default.Templates.Components.Links"><div class="d-flex justify-content-between align-items-center pt-2 pb-1"><h1 class="display-6" data-id="namespace-name"><samp><a href="./RefDocGen.TemplateProcessors.Default.Templates.Components.Links.html" class="refdocgen-link-primary"><span class="refdocgen-text-tertiary">namespace</span>
+                    <span>RefDocGen.TemplateProcessors.Default.Templates.Components.Links</span></a></samp></h1>
+
+        <button class="btn" data-bs-toggle="collapse" data-bs-target="#RefDocGen.TemplateProcessors.Default.Templates.Components.Links-collapse" aria-expanded="false" aria-controls="RefDocGen.TemplateProcessors.Default.Templates.Components.Links-collapse"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"></path></svg></button></div>
+
+    <hr class="my-2">
+
+    <div class="collapse show multi-collapse" id="RefDocGen.TemplateProcessors.Default.Templates.Components.Links-collapse"><div data-id="namespace-types"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.TemplateProcessors.Default.Templates.Components.Links.AnchorLink.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">AnchorLink</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc"></div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.TemplateProcessors.Default.Templates.Components.Links.AssemblyLink.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">AssemblyLink</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc"></div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.TemplateProcessors.Default.Templates.Components.Links.CodeLink.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">CodeLink</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc"></div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.TemplateProcessors.Default.Templates.Components.Links.GenericTypeLink.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">GenericTypeLink</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc"></div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.TemplateProcessors.Default.Templates.Components.Links.NamespaceLink.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">NamespaceLink</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc"></div></div>
+<hr class="my-2"></div></div></div><div data-id="namespace-section" id="RefDocGen.TemplateProcessors.Default.Templates.Components.Menu"><div class="d-flex justify-content-between align-items-center pt-2 pb-1"><h1 class="display-6" data-id="namespace-name"><samp><a href="./RefDocGen.TemplateProcessors.Default.Templates.Components.Menu.html" class="refdocgen-link-primary"><span class="refdocgen-text-tertiary">namespace</span>
+                    <span>RefDocGen.TemplateProcessors.Default.Templates.Components.Menu</span></a></samp></h1>
+
+        <button class="btn" data-bs-toggle="collapse" data-bs-target="#RefDocGen.TemplateProcessors.Default.Templates.Components.Menu-collapse" aria-expanded="false" aria-controls="RefDocGen.TemplateProcessors.Default.Templates.Components.Menu-collapse"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"></path></svg></button></div>
+
+    <hr class="my-2">
+
+    <div class="collapse show multi-collapse" id="RefDocGen.TemplateProcessors.Default.Templates.Components.Menu-collapse"><div data-id="namespace-types"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.TemplateProcessors.Default.Templates.Components.Menu.BottomMenu.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">BottomMenu</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc"></div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.TemplateProcessors.Default.Templates.Components.Menu.TopMenu.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">TopMenu</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc"></div></div>
+<hr class="my-2"></div></div></div><div data-id="namespace-section" id="RefDocGen.TemplateProcessors.Default.Templates.Components.Search"><div class="d-flex justify-content-between align-items-center pt-2 pb-1"><h1 class="display-6" data-id="namespace-name"><samp><a href="./RefDocGen.TemplateProcessors.Default.Templates.Components.Search.html" class="refdocgen-link-primary"><span class="refdocgen-text-tertiary">namespace</span>
+                    <span>RefDocGen.TemplateProcessors.Default.Templates.Components.Search</span></a></samp></h1>
+
+        <button class="btn" data-bs-toggle="collapse" data-bs-target="#RefDocGen.TemplateProcessors.Default.Templates.Components.Search-collapse" aria-expanded="false" aria-controls="RefDocGen.TemplateProcessors.Default.Templates.Components.Search-collapse"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"></path></svg></button></div>
+
+    <hr class="my-2">
+
+    <div class="collapse show multi-collapse" id="RefDocGen.TemplateProcessors.Default.Templates.Components.Search-collapse"><div data-id="namespace-types"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.TemplateProcessors.Default.Templates.Components.Search.SearchResult.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">SearchResult</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc"></div></div>
+<hr class="my-2"></div></div></div><div data-id="namespace-section" id="RefDocGen.TemplateProcessors.Default.Templates.Components.Sections"><div class="d-flex justify-content-between align-items-center pt-2 pb-1"><h1 class="display-6" data-id="namespace-name"><samp><a href="./RefDocGen.TemplateProcessors.Default.Templates.Components.Sections.html" class="refdocgen-link-primary"><span class="refdocgen-text-tertiary">namespace</span>
+                    <span>RefDocGen.TemplateProcessors.Default.Templates.Components.Sections</span></a></samp></h1>
+
+        <button class="btn" data-bs-toggle="collapse" data-bs-target="#RefDocGen.TemplateProcessors.Default.Templates.Components.Sections-collapse" aria-expanded="false" aria-controls="RefDocGen.TemplateProcessors.Default.Templates.Components.Sections-collapse"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"></path></svg></button></div>
+
+    <hr class="my-2">
+
+    <div class="collapse show multi-collapse" id="RefDocGen.TemplateProcessors.Default.Templates.Components.Sections-collapse"><div data-id="namespace-types"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.TemplateProcessors.Default.Templates.Components.Sections.AttributeList.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">AttributeList</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc"></div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.TemplateProcessors.Default.Templates.Components.Sections.AttributesSection.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">AttributesSection</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc"></div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.TemplateProcessors.Default.Templates.Components.Sections.BaseTypeSection.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">BaseTypeSection</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc"></div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.TemplateProcessors.Default.Templates.Components.Sections.DeclaringTypeSection.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">DeclaringTypeSection</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc"></div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.TemplateProcessors.Default.Templates.Components.Sections.ImplementedInterfacesSection.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">ImplementedInterfacesSection</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc"></div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.TemplateProcessors.Default.Templates.Components.Sections.NamespaceTypeList.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">NamespaceTypeList</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc"></div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.TemplateProcessors.Default.Templates.Components.Sections.NestedTypesSection.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">NestedTypesSection</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc"></div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.TemplateProcessors.Default.Templates.Components.Sections.TypeParametersConstraintsSection.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">TypeParametersConstraintsSection</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc"></div></div>
+<hr class="my-2"></div></div></div><div data-id="namespace-section" id="RefDocGen.TemplateProcessors.Default.Templates.Components.Sections.Members"><div class="d-flex justify-content-between align-items-center pt-2 pb-1"><h1 class="display-6" data-id="namespace-name"><samp><a href="./RefDocGen.TemplateProcessors.Default.Templates.Components.Sections.Members.html" class="refdocgen-link-primary"><span class="refdocgen-text-tertiary">namespace</span>
+                    <span>RefDocGen.TemplateProcessors.Default.Templates.Components.Sections.Members</span></a></samp></h1>
+
+        <button class="btn" data-bs-toggle="collapse" data-bs-target="#RefDocGen.TemplateProcessors.Default.Templates.Components.Sections.Members-collapse" aria-expanded="false" aria-controls="RefDocGen.TemplateProcessors.Default.Templates.Components.Sections.Members-collapse"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"></path></svg></button></div>
+
+    <hr class="my-2">
+
+    <div class="collapse show multi-collapse" id="RefDocGen.TemplateProcessors.Default.Templates.Components.Sections.Members-collapse"><div data-id="namespace-types"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.TemplateProcessors.Default.Templates.Components.Sections.Members.ConstructorsSection.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">ConstructorsSection</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc"></div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.TemplateProcessors.Default.Templates.Components.Sections.Members.EventsSection.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">EventsSection</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc"></div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.TemplateProcessors.Default.Templates.Components.Sections.Members.FieldsSection.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">FieldsSection</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc"></div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.TemplateProcessors.Default.Templates.Components.Sections.Members.IndexersSection.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">IndexersSection</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc"></div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.TemplateProcessors.Default.Templates.Components.Sections.Members.MethodsSection.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">MethodsSection</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc"></div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.TemplateProcessors.Default.Templates.Components.Sections.Members.OperatorsSection.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">OperatorsSection</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc"></div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.TemplateProcessors.Default.Templates.Components.Sections.Members.PropertiesSection.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">PropertiesSection</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc"></div></div>
+<hr class="my-2"></div></div></div><div data-id="namespace-section" id="RefDocGen.TemplateProcessors.Default.Templates.Components.Sections.Members.Additional"><div class="d-flex justify-content-between align-items-center pt-2 pb-1"><h1 class="display-6" data-id="namespace-name"><samp><a href="./RefDocGen.TemplateProcessors.Default.Templates.Components.Sections.Members.Additional.html" class="refdocgen-link-primary"><span class="refdocgen-text-tertiary">namespace</span>
+                    <span>RefDocGen.TemplateProcessors.Default.Templates.Components.Sections.Members.Additional</span></a></samp></h1>
+
+        <button class="btn" data-bs-toggle="collapse" data-bs-target="#RefDocGen.TemplateProcessors.Default.Templates.Components.Sections.Members.Additional-collapse" aria-expanded="false" aria-controls="RefDocGen.TemplateProcessors.Default.Templates.Components.Sections.Members.Additional-collapse"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"></path></svg></button></div>
+
+    <hr class="my-2">
+
+    <div class="collapse show multi-collapse" id="RefDocGen.TemplateProcessors.Default.Templates.Components.Sections.Members.Additional-collapse"><div data-id="namespace-types"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.TemplateProcessors.Default.Templates.Components.Sections.Members.Additional.MemberExplicitlyImplements.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">MemberExplicitlyImplements</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc"></div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.TemplateProcessors.Default.Templates.Components.Sections.Members.Additional.MemberImplements.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">MemberImplements</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc"></div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.TemplateProcessors.Default.Templates.Components.Sections.Members.Additional.MemberInheritedFrom.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">MemberInheritedFrom</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc"></div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.TemplateProcessors.Default.Templates.Components.Sections.Members.Additional.MemberOverrides.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">MemberOverrides</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc"></div></div>
+<hr class="my-2"></div></div></div><div data-id="namespace-section" id="RefDocGen.TemplateProcessors.Default.Templates.Layout"><div class="d-flex justify-content-between align-items-center pt-2 pb-1"><h1 class="display-6" data-id="namespace-name"><samp><a href="./RefDocGen.TemplateProcessors.Default.Templates.Layout.html" class="refdocgen-link-primary"><span class="refdocgen-text-tertiary">namespace</span>
+                    <span>RefDocGen.TemplateProcessors.Default.Templates.Layout</span></a></samp></h1>
+
+        <button class="btn" data-bs-toggle="collapse" data-bs-target="#RefDocGen.TemplateProcessors.Default.Templates.Layout-collapse" aria-expanded="false" aria-controls="RefDocGen.TemplateProcessors.Default.Templates.Layout-collapse"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"></path></svg></button></div>
+
+    <hr class="my-2">
+
+    <div class="collapse show multi-collapse" id="RefDocGen.TemplateProcessors.Default.Templates.Layout-collapse"><div data-id="namespace-types"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.TemplateProcessors.Default.Templates.Layout.AppLayout.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">AppLayout</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc"></div></div>
+<hr class="my-2"></div></div></div><div data-id="namespace-section" id="RefDocGen.TemplateProcessors.Shared.Languages"><div class="d-flex justify-content-between align-items-center pt-2 pb-1"><h1 class="display-6" data-id="namespace-name"><samp><a href="./RefDocGen.TemplateProcessors.Shared.Languages.html" class="refdocgen-link-primary"><span class="refdocgen-text-tertiary">namespace</span>
+                    <span>RefDocGen.TemplateProcessors.Shared.Languages</span></a></samp></h1>
+
+        <button class="btn" data-bs-toggle="collapse" data-bs-target="#RefDocGen.TemplateProcessors.Shared.Languages-collapse" aria-expanded="false" aria-controls="RefDocGen.TemplateProcessors.Shared.Languages-collapse"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"></path></svg></button></div>
+
+    <hr class="my-2">
+
+    <div class="collapse show multi-collapse" id="RefDocGen.TemplateProcessors.Shared.Languages-collapse"><div data-id="namespace-types"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.TemplateProcessors.Shared.Languages.LanguageSpecificData-1.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">LanguageSpecificData&lt;T&gt;</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Represents data stored in multiple programming languages (e.g., C#, VB.NET, F#).
+            </div></div>
+<hr class="my-2"></div></div></div><div data-id="namespace-section" id="RefDocGen.TemplateProcessors.Shared.TemplateModels.Assemblies"><div class="d-flex justify-content-between align-items-center pt-2 pb-1"><h1 class="display-6" data-id="namespace-name"><samp><a href="./RefDocGen.TemplateProcessors.Shared.TemplateModels.Assemblies.html" class="refdocgen-link-primary"><span class="refdocgen-text-tertiary">namespace</span>
+                    <span>RefDocGen.TemplateProcessors.Shared.TemplateModels.Assemblies</span></a></samp></h1>
+
+        <button class="btn" data-bs-toggle="collapse" data-bs-target="#RefDocGen.TemplateProcessors.Shared.TemplateModels.Assemblies-collapse" aria-expanded="false" aria-controls="RefDocGen.TemplateProcessors.Shared.TemplateModels.Assemblies-collapse"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"></path></svg></button></div>
+
+    <hr class="my-2">
+
+    <div class="collapse show multi-collapse" id="RefDocGen.TemplateProcessors.Shared.TemplateModels.Assemblies-collapse"><div data-id="namespace-types"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.TemplateProcessors.Shared.TemplateModels.Assemblies.AssemblyTM.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">AssemblyTM</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Represents template model for an assembly.
+            </div></div>
+<hr class="my-2"></div></div></div><div data-id="namespace-section" id="RefDocGen.TemplateProcessors.Shared.TemplateModels.Language"><div class="d-flex justify-content-between align-items-center pt-2 pb-1"><h1 class="display-6" data-id="namespace-name"><samp><a href="./RefDocGen.TemplateProcessors.Shared.TemplateModels.Language.html" class="refdocgen-link-primary"><span class="refdocgen-text-tertiary">namespace</span>
+                    <span>RefDocGen.TemplateProcessors.Shared.TemplateModels.Language</span></a></samp></h1>
+
+        <button class="btn" data-bs-toggle="collapse" data-bs-target="#RefDocGen.TemplateProcessors.Shared.TemplateModels.Language-collapse" aria-expanded="false" aria-controls="RefDocGen.TemplateProcessors.Shared.TemplateModels.Language-collapse"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"></path></svg></button></div>
+
+    <hr class="my-2">
+
+    <div class="collapse show multi-collapse" id="RefDocGen.TemplateProcessors.Shared.TemplateModels.Language-collapse"><div data-id="namespace-types"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.TemplateProcessors.Shared.TemplateModels.Language.LanguageTM.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">LanguageTM</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Template model representing a language used for displaying syntax.
+            </div></div>
+<hr class="my-2"></div></div></div><div data-id="namespace-section" id="RefDocGen.TemplateProcessors.Shared.TemplateModels.Links"><div class="d-flex justify-content-between align-items-center pt-2 pb-1"><h1 class="display-6" data-id="namespace-name"><samp><a href="./RefDocGen.TemplateProcessors.Shared.TemplateModels.Links.html" class="refdocgen-link-primary"><span class="refdocgen-text-tertiary">namespace</span>
+                    <span>RefDocGen.TemplateProcessors.Shared.TemplateModels.Links</span></a></samp></h1>
+
+        <button class="btn" data-bs-toggle="collapse" data-bs-target="#RefDocGen.TemplateProcessors.Shared.TemplateModels.Links-collapse" aria-expanded="false" aria-controls="RefDocGen.TemplateProcessors.Shared.TemplateModels.Links-collapse"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"></path></svg></button></div>
+
+    <hr class="my-2">
+
+    <div class="collapse show multi-collapse" id="RefDocGen.TemplateProcessors.Shared.TemplateModels.Links-collapse"><div data-id="namespace-types"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.TemplateProcessors.Shared.TemplateModels.Links.CodeLinkTM.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">CodeLinkTM</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            The template model representing a link to type or member definition, including its URL.
+            </div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.TemplateProcessors.Shared.TemplateModels.Links.GenericTypeLinkTM.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">GenericTypeLinkTM</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            The template model representing a link to generic type definition, including a URL to the definition of all generic parameters.
+            </div></div>
+<hr class="my-2"></div></div></div><div data-id="namespace-section" id="RefDocGen.TemplateProcessors.Shared.TemplateModels.Members"><div class="d-flex justify-content-between align-items-center pt-2 pb-1"><h1 class="display-6" data-id="namespace-name"><samp><a href="./RefDocGen.TemplateProcessors.Shared.TemplateModels.Members.html" class="refdocgen-link-primary"><span class="refdocgen-text-tertiary">namespace</span>
+                    <span>RefDocGen.TemplateProcessors.Shared.TemplateModels.Members</span></a></samp></h1>
+
+        <button class="btn" data-bs-toggle="collapse" data-bs-target="#RefDocGen.TemplateProcessors.Shared.TemplateModels.Members-collapse" aria-expanded="false" aria-controls="RefDocGen.TemplateProcessors.Shared.TemplateModels.Members-collapse"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"></path></svg></button></div>
+
+    <hr class="my-2">
+
+    <div class="collapse show multi-collapse" id="RefDocGen.TemplateProcessors.Shared.TemplateModels.Members-collapse"><div data-id="namespace-types"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.TemplateProcessors.Shared.TemplateModels.Members.ConstructorTM.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">ConstructorTM</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Represents the template model of a constructor.
+            </div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.TemplateProcessors.Shared.TemplateModels.Members.EnumMemberTM.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">EnumMemberTM</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Represents the template model for an enum member.
+            </div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.TemplateProcessors.Shared.TemplateModels.Members.EventTM.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">EventTM</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Represents the template model for an event.
+            </div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.TemplateProcessors.Shared.TemplateModels.Members.FieldTM.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">FieldTM</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Represents the template model for a field.
+            </div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.TemplateProcessors.Shared.TemplateModels.Members.IndexerTM.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">IndexerTM</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Represents the template model for an indexer.
+            </div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.TemplateProcessors.Shared.TemplateModels.Members.MethodTM.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">MethodTM</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Represents the template model for a method.
+            </div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.TemplateProcessors.Shared.TemplateModels.Members.OperatorTM.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">OperatorTM</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Represents the template model for a operator.
+            </div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.TemplateProcessors.Shared.TemplateModels.Members.ParameterTM.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">ParameterTM</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Represents the template model for a method parameter.
+            </div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.TemplateProcessors.Shared.TemplateModels.Members.PropertyTM.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">PropertyTM</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Represents the template model for a property.
+            </div></div>
+<hr class="my-2"></div></div></div><div data-id="namespace-section" id="RefDocGen.TemplateProcessors.Shared.TemplateModels.Menu"><div class="d-flex justify-content-between align-items-center pt-2 pb-1"><h1 class="display-6" data-id="namespace-name"><samp><a href="./RefDocGen.TemplateProcessors.Shared.TemplateModels.Menu.html" class="refdocgen-link-primary"><span class="refdocgen-text-tertiary">namespace</span>
+                    <span>RefDocGen.TemplateProcessors.Shared.TemplateModels.Menu</span></a></samp></h1>
+
+        <button class="btn" data-bs-toggle="collapse" data-bs-target="#RefDocGen.TemplateProcessors.Shared.TemplateModels.Menu-collapse" aria-expanded="false" aria-controls="RefDocGen.TemplateProcessors.Shared.TemplateModels.Menu-collapse"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"></path></svg></button></div>
+
+    <hr class="my-2">
+
+    <div class="collapse show multi-collapse" id="RefDocGen.TemplateProcessors.Shared.TemplateModels.Menu-collapse"><div data-id="namespace-types"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.TemplateProcessors.Shared.TemplateModels.Menu.MenuFolderTM.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">MenuFolderTM</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Represents a folder in the top menu.
+            </div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.TemplateProcessors.Shared.TemplateModels.Menu.MenuPageLinkTM.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">MenuPageLinkTM</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Represents a page link in the top menu.
+            </div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.TemplateProcessors.Shared.TemplateModels.Menu.TopMenuDataTM.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">TopMenuDataTM</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Template model representing the page links and folders contained in the top menu.
+            </div></div>
+<hr class="my-2"></div></div></div><div data-id="namespace-section" id="RefDocGen.TemplateProcessors.Shared.TemplateModels.Namespaces"><div class="d-flex justify-content-between align-items-center pt-2 pb-1"><h1 class="display-6" data-id="namespace-name"><samp><a href="./RefDocGen.TemplateProcessors.Shared.TemplateModels.Namespaces.html" class="refdocgen-link-primary"><span class="refdocgen-text-tertiary">namespace</span>
+                    <span>RefDocGen.TemplateProcessors.Shared.TemplateModels.Namespaces</span></a></samp></h1>
+
+        <button class="btn" data-bs-toggle="collapse" data-bs-target="#RefDocGen.TemplateProcessors.Shared.TemplateModels.Namespaces-collapse" aria-expanded="false" aria-controls="RefDocGen.TemplateProcessors.Shared.TemplateModels.Namespaces-collapse"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"></path></svg></button></div>
+
+    <hr class="my-2">
+
+    <div class="collapse show multi-collapse" id="RefDocGen.TemplateProcessors.Shared.TemplateModels.Namespaces-collapse"><div data-id="namespace-types"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.TemplateProcessors.Shared.TemplateModels.Namespaces.NamespaceTM.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">NamespaceTM</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Represents the template model for a namespace.
+            </div></div>
+<hr class="my-2"></div></div></div><div data-id="namespace-section" id="RefDocGen.TemplateProcessors.Shared.TemplateModels.Types"><div class="d-flex justify-content-between align-items-center pt-2 pb-1"><h1 class="display-6" data-id="namespace-name"><samp><a href="./RefDocGen.TemplateProcessors.Shared.TemplateModels.Types.html" class="refdocgen-link-primary"><span class="refdocgen-text-tertiary">namespace</span>
+                    <span>RefDocGen.TemplateProcessors.Shared.TemplateModels.Types</span></a></samp></h1>
+
+        <button class="btn" data-bs-toggle="collapse" data-bs-target="#RefDocGen.TemplateProcessors.Shared.TemplateModels.Types-collapse" aria-expanded="false" aria-controls="RefDocGen.TemplateProcessors.Shared.TemplateModels.Types-collapse"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"></path></svg></button></div>
+
+    <hr class="my-2">
+
+    <div class="collapse show multi-collapse" id="RefDocGen.TemplateProcessors.Shared.TemplateModels.Types-collapse"><div data-id="namespace-types"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.TemplateProcessors.Shared.TemplateModels.Types.AttributeTM.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">AttributeTM</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Represents the template model for an attribute assigned to a type or member.
+            </div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.TemplateProcessors.Shared.TemplateModels.Types.DelegateTypeTM.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">DelegateTypeTM</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Represents the template model for a delegate.
+            </div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.TemplateProcessors.Shared.TemplateModels.Types.EnumTypeTM.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">EnumTypeTM</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Represents the template model for an enum, including its members.
+            </div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.TemplateProcessors.Shared.TemplateModels.Types.ExceptionTM.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">ExceptionTM</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Represents the template model for a user-documented exception (using the <code class="refdocgen-inline-code">exception</code> XML tag).
+            </div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.TemplateProcessors.Shared.TemplateModels.Types.ITypeDeclarationNameTM.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">interface</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">ITypeDeclarationNameTM</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Represents the template model for a type declaration name.
+            </div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.TemplateProcessors.Shared.TemplateModels.Types.NamedAttributeArgumentTM.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">NamedAttributeArgumentTM</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Represents the template model for an attribute's named argument.
+            </div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.TemplateProcessors.Shared.TemplateModels.Types.ObjectTypeTM.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">ObjectTypeTM</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Represents the template model for a type.
+            </div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.TemplateProcessors.Shared.TemplateModels.Types.SearchResultTM.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">SearchResultTM</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Template model representing a search result displayed at the <code class="refdocgen-inline-code">search</code> page.
+            </div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.TemplateProcessors.Shared.TemplateModels.Types.TypeNameTM.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">TypeNameTM</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Represents the template model for a type, including its name and other data.
+            </div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.TemplateProcessors.Shared.TemplateModels.Types.TypeParameterTM.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">TypeParameterTM</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Represents the template model for a generic type parameter declaration.
+            </div></div>
+<hr class="my-2"></div></div></div><div data-id="namespace-section" id="RefDocGen.TemplateProcessors.Shared.TemplateTools"><div class="d-flex justify-content-between align-items-center pt-2 pb-1"><h1 class="display-6" data-id="namespace-name"><samp><a href="./RefDocGen.TemplateProcessors.Shared.TemplateTools.html" class="refdocgen-link-primary"><span class="refdocgen-text-tertiary">namespace</span>
+                    <span>RefDocGen.TemplateProcessors.Shared.TemplateTools</span></a></samp></h1>
+
+        <button class="btn" data-bs-toggle="collapse" data-bs-target="#RefDocGen.TemplateProcessors.Shared.TemplateTools-collapse" aria-expanded="false" aria-controls="RefDocGen.TemplateProcessors.Shared.TemplateTools-collapse"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"></path></svg></button></div>
+
+    <hr class="my-2">
+
+    <div class="collapse show multi-collapse" id="RefDocGen.TemplateProcessors.Shared.TemplateTools-collapse"><div data-id="namespace-types"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.TemplateProcessors.Shared.TemplateTools.LanguageSpecificComponent.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">enum</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">LanguageSpecificComponent</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Enum representing the language specific fragment types.
+            </div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.TemplateProcessors.Shared.TemplateTools.LanguageSpecificComponentExtensions.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">LanguageSpecificComponentExtensions</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Class containing extension methods for the <code class="refdocgen-see-cref-not-found">LanguageSpecificComponent</code> enum.
+            </div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.TemplateProcessors.Shared.TemplateTools.UrlHelper.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">UrlHelper</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Helper class for URL manipulation, specifically for generating relative URIs.
+            </div></div>
+<hr class="my-2"></div></div></div><div data-id="namespace-section" id="RefDocGen.TemplateProcessors.Shared.Tools.Names"><div class="d-flex justify-content-between align-items-center pt-2 pb-1"><h1 class="display-6" data-id="namespace-name"><samp><a href="./RefDocGen.TemplateProcessors.Shared.Tools.Names.html" class="refdocgen-link-primary"><span class="refdocgen-text-tertiary">namespace</span>
+                    <span>RefDocGen.TemplateProcessors.Shared.Tools.Names</span></a></samp></h1>
+
+        <button class="btn" data-bs-toggle="collapse" data-bs-target="#RefDocGen.TemplateProcessors.Shared.Tools.Names-collapse" aria-expanded="false" aria-controls="RefDocGen.TemplateProcessors.Shared.Tools.Names-collapse"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"></path></svg></button></div>
+
+    <hr class="my-2">
+
+    <div class="collapse show multi-collapse" id="RefDocGen.TemplateProcessors.Shared.Tools.Names-collapse"><div data-id="namespace-types"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.TemplateProcessors.Shared.Tools.Names.CSharpOperatorName.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">CSharpOperatorName</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Static class used for retrieving operator names in C# format.
+            </div></div>
+<hr class="my-2"></div></div></div><div data-id="namespace-section" id="RefDocGen.TemplateProcessors.Todo.Templates"><div class="d-flex justify-content-between align-items-center pt-2 pb-1"><h1 class="display-6" data-id="namespace-name"><samp><a href="./RefDocGen.TemplateProcessors.Todo.Templates.html" class="refdocgen-link-primary"><span class="refdocgen-text-tertiary">namespace</span>
+                    <span>RefDocGen.TemplateProcessors.Todo.Templates</span></a></samp></h1>
+
+        <button class="btn" data-bs-toggle="collapse" data-bs-target="#RefDocGen.TemplateProcessors.Todo.Templates-collapse" aria-expanded="false" aria-controls="RefDocGen.TemplateProcessors.Todo.Templates-collapse"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"></path></svg></button></div>
+
+    <hr class="my-2">
+
+    <div class="collapse show multi-collapse" id="RefDocGen.TemplateProcessors.Todo.Templates-collapse"><div data-id="namespace-types"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.TemplateProcessors.Todo.Templates.ApiHomePage.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">ApiHomePage</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc"></div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.TemplateProcessors.Todo.Templates.AssemblyPage.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">AssemblyPage</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc"></div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.TemplateProcessors.Todo.Templates.DelegateTypePage.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">DelegateTypePage</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc"></div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.TemplateProcessors.Todo.Templates.EnumTypePage.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">EnumTypePage</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc"></div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.TemplateProcessors.Todo.Templates.NamespacePage.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">NamespacePage</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc"></div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.TemplateProcessors.Todo.Templates.ObjectTypePage.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">ObjectTypePage</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc"></div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.TemplateProcessors.Todo.Templates.SearchPage.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">SearchPage</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc"></div></div>
+<hr class="my-2"><div class="row align-items-center mx-2" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.TemplateProcessors.Todo.Templates.StaticPage.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">StaticPage</span><span class="not-visible" data-language="todo-lang"></span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc"></div></div>
+<hr class="my-2"></div></div></div></div><nav class="navbar fixed-bottom menu-bg"><div class="container"><div class="dropup"><button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">v-refdocgen</button>
+            <div id="current-version">v-refdocgen</div>
+            <div id="version-list">["v-newtonsoft-public","v-newtonsoft-private","v-yamldotnet-private","v-yamldotnet-public","v-serilog-private","v-serilog-public","v-refdocgen","v-refdocgen2.0"]</div>
+            <ul class="dropdown-menu" id="version-selector" data-id="version-selector"></ul></div></div></nav><script src="../Static/bootstrap-5.3.5-dist.bundle.min.js"></script>
+
+    
+    <script src="../Static/script.js"></script></body></html>
