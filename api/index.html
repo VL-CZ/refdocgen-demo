@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>RefDocGen documentation</title>
+
+    <script>
+
+        // use IIFE in order to avoid polluting global context with functions & variables
+        // https://developer.mozilla.org/en-US/docs/Glossary/IIFE
+        (function() {
+            const isLocalFile = location.protocol === "file:";
+            const defaultTheme = "dark";
+            const defaultLang = "csharp-lang";
+
+            if(isLocalFile){
+                const urlParams = new URLSearchParams(window.location.search);
+
+                let redirect = false;
+
+                // set 'theme' URL param if not found
+                if(!urlParams.has("theme")){
+                    urlParams.set("theme", defaultTheme);
+                    redirect = true;
+                }
+
+                // set 'lang' URL param if not found
+                if(!urlParams.has("lang")){
+                    urlParams.set("lang", defaultLang);
+                    redirect = true;
+                }
+
+                // redirect, if some of the URL parameters are missing
+                if(redirect){
+                    const newUrl = new URL(window.location.href);
+                    newUrl.search = urlParams.toString();
+
+                    window.location.href = newUrl;
+                }
+                else {
+                    document.documentElement.setAttribute("data-bs-theme", urlParams.get("theme")); // set the 'data-bs-theme' attribute
+                    document.documentElement.setAttribute("data-language", urlParams.get("lang")); // set the 'data-language' attribute
+                }
+            }
+            else { // no local file -> use localStorage
+                if (!localStorage.getItem("refdocgen-theme")) {
+                    localStorage.setItem("refdocgen-theme", defaultTheme);
+                }
+
+                if (!localStorage.getItem("refdocgen-language")) {
+                    localStorage.setItem("refdocgen-language", defaultLang);
+                }
+
+                document.documentElement.setAttribute("data-bs-theme", localStorage.getItem("refdocgen-theme")); // set the 'data-bs-theme' attribute
+                document.documentElement.setAttribute("data-language", localStorage.getItem("refdocgen-language")); // set the 'data-language' attribute
+            }
+        })();
+    </script>
+
+    
+    <link href="../Static/styles.css" rel="stylesheet" /><style>html[data-language="csharp-lang"] [data-language="csharp-lang"] { display: inline !important; }
+</style></head>
+
+<body><nav class="navbar navbar-expand-lg sticky-top menu-bg"><div class="container"><a class="navbar-brand" href="../index.html">RefDocGen</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup"><ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="../api/index.html">API</a></li><li class="nav-item"><a class="nav-link" href="../contact.html">Contact</a></li><li class="nav-item"><a class="nav-link" href="../FAQ.html">FAQ</a></li><li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Tutorial</a>
+                        <ul class="dropdown-menu"><li><a class="dropdown-item" href="../Tutorial\installation.html">Installation</a></li></ul></li></ul>
+            <ul class="navbar-nav ms-auto"><li class="nav-item d-flex align-items-center"><form class="me-2 mb-2 mb-lg-0"><select class="form-select" id="language-selector" aria-label="language"><option class="lang-option" value="csharp-lang">C#</option></select></form></li>
+
+                
+                <li class="nav-item d-flex align-items-center"><form role="search" class="me-2"><input class="form-control" autocomplete="off" type="search" placeholder="Search" aria-label="Search" id="menu-search-bar" data-url-target="../search.html" readonly /></form></li>
+
+                
+                <li class="nav-item" id="theme-switcher"><button class="nav-link"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-brightness-high" viewBox="0 0 16 16"><path d="M8 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6m0 1a4 4 0 1 0 0-8 4 4 0 0 0 0 8M8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0m0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13m8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5M3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8m10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0m-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0m9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707M4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708"></path></svg></button></li></ul></div></div></nav>
+
+    <div class="container my-4" data-id="page-body"><div class="d-flex justify-content-between align-items-center"><h1 class="display-3 refdocgen-text-primary" data-id="api-homepage-title">RefDocGen API
+                        </h1>
+
+                        <button class="btn btn-sm" id="toggleAllBtn"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-double-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 6.646a.5.5 0 0 1 .708 0L8 12.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"></path>
+        <path fill-rule="evenodd" d="M1.646 2.646a.5.5 0 0 1 .708 0L8 8.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"></path></svg></button>
+
+<script>
+    window.addEventListener('load', function(){
+        const toggleBtn = document.getElementById('toggleAllBtn');
+        const namespaces = Array.from(document.getElementsByClassName('multi-collapse'));
+
+        toggleBtn.addEventListener('click', () => {
+          const allShown = namespaces.every(ns => ns.classList.contains('show'));
+
+          namespaces.forEach(el => {
+            let instance = bootstrap.Collapse.getInstance(el);
+            if (!instance) {
+                // Ensure toggle: false to prevent auto-toggling on creation
+                instance = new bootstrap.Collapse(el, { toggle: false });
+            }
+
+            if (allShown) {
+              instance.hide(); // Collapse if all were shown
+            } else {
+              instance.show(); // Otherwise expand all
+            }
+          });
+        });
+    });
+</script></div>
+
+                    <hr class="my-2"><div class="d-flex justify-content-between align-items-center"><h1 class="display-5 my-2" data-id="assembly-name"><samp><a href="RefDocGen.ExampleFSharpLibrary-DLL.html" class="refdocgen-link-primary"><span class="refdocgen-text-tertiary">assembly</span>
+                                        <span class="refdocgen-text-primary">RefDocGen.<wbr />ExampleFSharpLibrary</span></a></samp></h1>
+
+                            <button class="btn btn-sm" data-bs-toggle="collapse" data-bs-target="#RefDocGen.ExampleFSharpLibrary-DLL-collapse" aria-expanded="false" aria-controls="RefDocGen.ExampleFSharpLibrary-DLL-collapse"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"></path></svg></button></div><hr class="my-2"><div class="collapse show multi-collapse" id="RefDocGen.ExampleFSharpLibrary-DLL-collapse"><div data-id="namespace-section" id="RefDocGen.ExampleFSharpLibrary"><div class="d-flex justify-content-between align-items-center"><h1 class="display-6 my-1 text-break ms-3" data-id="namespace-name"><samp><a href="./RefDocGen.ExampleFSharpLibrary.html" class="refdocgen-link-primary"><span class="refdocgen-text-tertiary">namespace</span>
+                    <span>RefDocGen.<wbr />ExampleFSharpLibrary</span></a></samp></h1>
+
+        <button class="btn btn-sm" data-bs-toggle="collapse" data-bs-target="#RefDocGen.ExampleFSharpLibrary-collapse" aria-expanded="false" aria-controls="RefDocGen.ExampleFSharpLibrary-collapse"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"></path></svg></button></div>
+
+    <hr class="my-2">
+
+    <div class="collapse show multi-collapse" id="RefDocGen.ExampleFSharpLibrary-collapse"><div data-id="namespace-types"><div class="row align-items-center ms-4" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.ExampleFSharpLibrary.FSharpMathTools.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">FSharpMathTools</span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+ Performs mathematical operations.
+ </div></div>
+<hr class="my-2"></div></div></div></div><div class="d-flex justify-content-between align-items-center"><h1 class="display-5 my-2" data-id="assembly-name"><samp><a href="RefDocGen.ExampleLibrary-DLL.html" class="refdocgen-link-primary"><span class="refdocgen-text-tertiary">assembly</span>
+                                        <span class="refdocgen-text-primary">RefDocGen.<wbr />ExampleLibrary</span></a></samp></h1>
+
+                            <button class="btn btn-sm" data-bs-toggle="collapse" data-bs-target="#RefDocGen.ExampleLibrary-DLL-collapse" aria-expanded="false" aria-controls="RefDocGen.ExampleLibrary-DLL-collapse"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"></path></svg></button></div><hr class="my-2"><div class="collapse show multi-collapse" id="RefDocGen.ExampleLibrary-DLL-collapse"><div data-id="namespace-section" id="RefDocGen.ExampleLibrary"><div class="d-flex justify-content-between align-items-center"><h1 class="display-6 my-1 text-break ms-3" data-id="namespace-name"><samp><a href="./RefDocGen.ExampleLibrary.html" class="refdocgen-link-primary"><span class="refdocgen-text-tertiary">namespace</span>
+                    <span>RefDocGen.<wbr />ExampleLibrary</span></a></samp></h1>
+
+        <button class="btn btn-sm" data-bs-toggle="collapse" data-bs-target="#RefDocGen.ExampleLibrary-collapse" aria-expanded="false" aria-controls="RefDocGen.ExampleLibrary-collapse"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"></path></svg></button></div>
+
+    <hr class="my-2">
+
+    <div class="collapse show multi-collapse" id="RefDocGen.ExampleLibrary-collapse"><div data-id="namespace-types"><div class="row align-items-center ms-4" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.ExampleLibrary.Animal.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">Animal</span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Abstract class representing an animal.
+            </div></div>
+<hr class="my-2"><div class="row align-items-center ms-4" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.ExampleLibrary.Dog.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">Dog</span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Represents a dog; i.e. a specific type of animal.
+            </div></div>
+<hr class="my-2"><div class="row align-items-center ms-4" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.ExampleLibrary.User.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">User</span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Class representing an user of our app.
+            </div></div>
+<hr class="my-2"></div></div></div><div data-id="namespace-section" id="RefDocGen.ExampleLibrary.CyclicDoc"><div class="d-flex justify-content-between align-items-center"><h1 class="display-6 my-1 text-break ms-3" data-id="namespace-name"><samp><a href="./RefDocGen.ExampleLibrary.CyclicDoc.html" class="refdocgen-link-primary"><span class="refdocgen-text-tertiary">namespace</span>
+                    <span>RefDocGen.<wbr />ExampleLibrary.<wbr />CyclicDoc</span></a></samp></h1>
+
+        <button class="btn btn-sm" data-bs-toggle="collapse" data-bs-target="#RefDocGen.ExampleLibrary.CyclicDoc-collapse" aria-expanded="false" aria-controls="RefDocGen.ExampleLibrary.CyclicDoc-collapse"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"></path></svg></button></div>
+
+    <hr class="my-2">
+
+    <div class="collapse show multi-collapse" id="RefDocGen.ExampleLibrary.CyclicDoc-collapse"><div data-id="namespace-types"><div class="row align-items-center ms-4" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.ExampleLibrary.CyclicDoc.Cycle1.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">Cycle1</span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc"></div></div>
+<hr class="my-2"><div class="row align-items-center ms-4" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.ExampleLibrary.CyclicDoc.Cycle2.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">Cycle2</span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc"></div></div>
+<hr class="my-2"><div class="row align-items-center ms-4" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.ExampleLibrary.CyclicDoc.CycleReference.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">CycleReference</span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc"></div></div>
+<hr class="my-2"></div></div></div><div data-id="namespace-section" id="RefDocGen.ExampleLibrary.Hierarchy"><div class="d-flex justify-content-between align-items-center"><h1 class="display-6 my-1 text-break ms-3" data-id="namespace-name"><samp><a href="./RefDocGen.ExampleLibrary.Hierarchy.html" class="refdocgen-link-primary"><span class="refdocgen-text-tertiary">namespace</span>
+                    <span>RefDocGen.<wbr />ExampleLibrary.<wbr />Hierarchy</span></a></samp></h1>
+
+        <button class="btn btn-sm" data-bs-toggle="collapse" data-bs-target="#RefDocGen.ExampleLibrary.Hierarchy-collapse" aria-expanded="false" aria-controls="RefDocGen.ExampleLibrary.Hierarchy-collapse"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"></path></svg></button></div>
+
+    <hr class="my-2">
+
+    <div class="collapse show multi-collapse" id="RefDocGen.ExampleLibrary.Hierarchy-collapse"><div data-id="namespace-types"><div class="row align-items-center ms-4" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.ExampleLibrary.Hierarchy.Child.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">Child</span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Parent class.
+            </div></div>
+<hr class="my-2"><div class="row align-items-center ms-4" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.ExampleLibrary.Hierarchy.ChildChild.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">ChildChild</span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            IChild Print the object.
+            </div></div>
+<hr class="my-2"><div class="row align-items-center ms-4" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.ExampleLibrary.Hierarchy.ChildChildChild.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">ChildChildChild</span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Before parent.
+            
+            
+            Parent class.
+            
+         
+            After parent.
+            </div></div>
+<hr class="my-2"><div class="row align-items-center ms-4" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.ExampleLibrary.Hierarchy.IChild.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">interface</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">IChild</span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            IChild interface.
+            </div></div>
+<hr class="my-2"><div class="row align-items-center ms-4" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.ExampleLibrary.Hierarchy.Parent.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">Parent</span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Parent class.
+            </div></div>
+<hr class="my-2"></div></div></div><div data-id="namespace-section" id="RefDocGen.ExampleLibrary.Tools"><div class="d-flex justify-content-between align-items-center"><h1 class="display-6 my-1 text-break ms-3" data-id="namespace-name"><samp><a href="./RefDocGen.ExampleLibrary.Tools.html" class="refdocgen-link-primary"><span class="refdocgen-text-tertiary">namespace</span>
+                    <span>RefDocGen.<wbr />ExampleLibrary.<wbr />Tools</span></a></samp></h1>
+
+        <button class="btn btn-sm" data-bs-toggle="collapse" data-bs-target="#RefDocGen.ExampleLibrary.Tools-collapse" aria-expanded="false" aria-controls="RefDocGen.ExampleLibrary.Tools-collapse"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"></path></svg></button></div>
+
+    <hr class="my-2">
+
+    <div class="collapse show multi-collapse" id="RefDocGen.ExampleLibrary.Tools-collapse"><div data-id="namespace-types"><div class="row align-items-center ms-4" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.ExampleLibrary.Tools.HarvestingSeason.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">enum</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">HarvestingSeason</span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc"></div></div>
+<hr class="my-2"><div class="row align-items-center ms-4" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.ExampleLibrary.Tools.IContravariant-1.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">interface</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">IContravariant&lt;T&gt;</span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            An interface with a contravariant type.
+            </div></div>
+<hr class="my-2"><div class="row align-items-center ms-4" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.ExampleLibrary.Tools.ICovariant-1.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">interface</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">ICovariant&lt;T&gt;</span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            An interface with a covariant type.
+            </div></div>
+<hr class="my-2"><div class="row align-items-center ms-4" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.ExampleLibrary.Tools.MyPredicate-1.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">delegate</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">MyPredicate&lt;T&gt;</span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Predicate about a generic type T.
+            </div></div>
+<hr class="my-2"><div class="row align-items-center ms-4" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.ExampleLibrary.Tools.ObjectPredicate.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">delegate</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">ObjectPredicate</span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Predicate about an object.
+            </div></div>
+<hr class="my-2"><div class="row align-items-center ms-4" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.ExampleLibrary.Tools.Point.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">struct</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">Point</span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Struct representing a point.
+            </div></div>
+<hr class="my-2"><div class="row align-items-center ms-4" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.ExampleLibrary.Tools.Season.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">enum</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">Season</span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Represents season of a year.
+            </div></div>
+<hr class="my-2"><div class="row align-items-center ms-4" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.ExampleLibrary.Tools.StringExtensions.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">StringExtensions</span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Extension class for <code class="refdocgen-see-cref-not-found">string</code> type.
+            </div></div>
+<hr class="my-2"><div class="row align-items-center ms-4" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.ExampleLibrary.Tools.WeatherStation.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">WeatherStation</span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Weather station class
+            </div></div>
+<hr class="my-2"></div></div></div><div data-id="namespace-section" id="RefDocGen.ExampleLibrary.Tools.Collections"><div class="d-flex justify-content-between align-items-center"><h1 class="display-6 my-1 text-break ms-3" data-id="namespace-name"><samp><a href="./RefDocGen.ExampleLibrary.Tools.Collections.html" class="refdocgen-link-primary"><span class="refdocgen-text-tertiary">namespace</span>
+                    <span>RefDocGen.<wbr />ExampleLibrary.<wbr />Tools.<wbr />Collections</span></a></samp></h1>
+
+        <button class="btn btn-sm" data-bs-toggle="collapse" data-bs-target="#RefDocGen.ExampleLibrary.Tools.Collections-collapse" aria-expanded="false" aria-controls="RefDocGen.ExampleLibrary.Tools.Collections-collapse"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"></path></svg></button></div>
+
+    <hr class="my-2">
+
+    <div class="collapse show multi-collapse" id="RefDocGen.ExampleLibrary.Tools.Collections-collapse"><div data-id="namespace-types"><div class="row align-items-center ms-4" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.ExampleLibrary.Tools.Collections.IMyCollection-1.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">interface</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">IMyCollection&lt;T&gt;</span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            My collection interface.
+            </div></div>
+<hr class="my-2"><div class="row align-items-center ms-4" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.ExampleLibrary.Tools.Collections.IMyDictionary-2.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">interface</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">IMyDictionary&lt;TKey, TValue&gt;</span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Interface representing a custom dictionary.
+            </div></div>
+<hr class="my-2"><div class="row align-items-center ms-4" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.ExampleLibrary.Tools.Collections.INonGenericCollection.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">interface</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">INonGenericCollection</span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Non generic collection interface.
+            </div></div>
+<hr class="my-2"><div class="row align-items-center ms-4" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.ExampleLibrary.Tools.Collections.MyCollection-1.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">MyCollection&lt;T&gt;</span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Represents a custom collection containing the items of type <code class="refdocgen-typeparamref">T</code>
+            </div></div>
+<hr class="my-2"><div class="row align-items-center ms-4" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.ExampleLibrary.Tools.Collections.MyCollection-1.GenericEnumerator-1.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">MyCollection&lt;T&gt;.GenericEnumerator&lt;T2&gt;</span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Generic collection enumerator.
+            </div></div>
+<hr class="my-2"><div class="row align-items-center ms-4" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.ExampleLibrary.Tools.Collections.MyCollection-1.MyCollectionEnumerator.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">MyCollection&lt;T&gt;.MyCollectionEnumerator</span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Custom collection enumerator.
+            </div></div>
+<hr class="my-2"><div class="row align-items-center ms-4" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.ExampleLibrary.Tools.Collections.MyCollection-1.Status.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">enum</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">MyCollection&lt;T&gt;.Status</span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Status of the collection.
+            </div></div>
+<hr class="my-2"><div class="row align-items-center ms-4" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.ExampleLibrary.Tools.Collections.MyDictionary-2.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">MyDictionary&lt;TKey, TValue&gt;</span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            A simple custom dictionary.
+            </div></div>
+<hr class="my-2"><div class="row align-items-center ms-4" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.ExampleLibrary.Tools.Collections.MySortedList-1.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">MySortedList&lt;T&gt;</span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc"></div></div>
+<hr class="my-2"><div class="row align-items-center ms-4" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.ExampleLibrary.Tools.Collections.MyStringCollection.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">MyStringCollection</span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Custom string collection.
+            </div></div>
+<hr class="my-2"><div class="row align-items-center ms-4" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.ExampleLibrary.Tools.Collections.NonGenericCollection.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">NonGenericCollection</span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+            Non generic collection class.
+            </div></div>
+<hr class="my-2"></div></div></div></div><div class="d-flex justify-content-between align-items-center"><h1 class="display-5 my-2" data-id="assembly-name"><samp><a href="RefDocGen.ExampleVbLibrary-DLL.html" class="refdocgen-link-primary"><span class="refdocgen-text-tertiary">assembly</span>
+                                        <span class="refdocgen-text-primary">RefDocGen.<wbr />ExampleVbLibrary</span></a></samp></h1>
+
+                            <button class="btn btn-sm" data-bs-toggle="collapse" data-bs-target="#RefDocGen.ExampleVbLibrary-DLL-collapse" aria-expanded="false" aria-controls="RefDocGen.ExampleVbLibrary-DLL-collapse"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"></path></svg></button></div><hr class="my-2"><div class="collapse show multi-collapse" id="RefDocGen.ExampleVbLibrary-DLL-collapse"><div data-id="namespace-section" id="RefDocGen.ExampleVbLibrary"><div class="d-flex justify-content-between align-items-center"><h1 class="display-6 my-1 text-break ms-3" data-id="namespace-name"><samp><a href="./RefDocGen.ExampleVbLibrary.html" class="refdocgen-link-primary"><span class="refdocgen-text-tertiary">namespace</span>
+                    <span>RefDocGen.<wbr />ExampleVbLibrary</span></a></samp></h1>
+
+        <button class="btn btn-sm" data-bs-toggle="collapse" data-bs-target="#RefDocGen.ExampleVbLibrary-collapse" aria-expanded="false" aria-controls="RefDocGen.ExampleVbLibrary-collapse"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"></path></svg></button></div>
+
+    <hr class="my-2">
+
+    <div class="collapse show multi-collapse" id="RefDocGen.ExampleVbLibrary-collapse"><div data-id="namespace-types"><div class="row align-items-center ms-4" data-id="type-row-element"><div class="col-md-6" data-id="type-row-name"><samp><a href="./RefDocGen.ExampleVbLibrary.VbMathTools.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">class</span>
+                <span></span>
+
+                <span class="not-visible" data-language="csharp-lang">VbMathTools</span></a></samp></div>
+    <div class="col-md-6 text-body-secondary fst-italic text-truncate" data-id="type-row-doc">
+ Performs mathematical operations.
+ </div></div>
+<hr class="my-2"></div></div></div></div></div><script src="../Static/bootstrap-5.3.5-dist.bundle.min.js"></script>
+
+    
+    <script src="../Static/script.js"></script></body></html>

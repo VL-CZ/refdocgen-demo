@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>RefDocGen documentation</title>
+
+    <script>
+
+        // use IIFE in order to avoid polluting global context with functions & variables
+        // https://developer.mozilla.org/en-US/docs/Glossary/IIFE
+        (function() {
+            const isLocalFile = location.protocol === "file:";
+            const defaultTheme = "dark";
+            const defaultLang = "csharp-lang";
+
+            if(isLocalFile){
+                const urlParams = new URLSearchParams(window.location.search);
+
+                let redirect = false;
+
+                // set 'theme' URL param if not found
+                if(!urlParams.has("theme")){
+                    urlParams.set("theme", defaultTheme);
+                    redirect = true;
+                }
+
+                // set 'lang' URL param if not found
+                if(!urlParams.has("lang")){
+                    urlParams.set("lang", defaultLang);
+                    redirect = true;
+                }
+
+                // redirect, if some of the URL parameters are missing
+                if(redirect){
+                    const newUrl = new URL(window.location.href);
+                    newUrl.search = urlParams.toString();
+
+                    window.location.href = newUrl;
+                }
+                else {
+                    document.documentElement.setAttribute("data-bs-theme", urlParams.get("theme")); // set the 'data-bs-theme' attribute
+                    document.documentElement.setAttribute("data-language", urlParams.get("lang")); // set the 'data-language' attribute
+                }
+            }
+            else { // no local file -> use localStorage
+                if (!localStorage.getItem("refdocgen-theme")) {
+                    localStorage.setItem("refdocgen-theme", defaultTheme);
+                }
+
+                if (!localStorage.getItem("refdocgen-language")) {
+                    localStorage.setItem("refdocgen-language", defaultLang);
+                }
+
+                document.documentElement.setAttribute("data-bs-theme", localStorage.getItem("refdocgen-theme")); // set the 'data-bs-theme' attribute
+                document.documentElement.setAttribute("data-language", localStorage.getItem("refdocgen-language")); // set the 'data-language' attribute
+            }
+        })();
+    </script>
+
+    
+    <link href="../Static/styles.css" rel="stylesheet" /><style>html[data-language="csharp-lang"] [data-language="csharp-lang"] { display: inline !important; }
+</style></head>
+
+<body><nav class="navbar navbar-expand-lg sticky-top menu-bg"><div class="container"><a class="navbar-brand" href="../index.html">RefDocGen</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup"><ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="../api/index.html">API</a></li><li class="nav-item"><a class="nav-link" href="../contact.html">Contact</a></li><li class="nav-item"><a class="nav-link" href="../FAQ.html">FAQ</a></li><li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Tutorial</a>
+                        <ul class="dropdown-menu"><li><a class="dropdown-item" href="../Tutorial\installation.html">Installation</a></li></ul></li></ul>
+            <ul class="navbar-nav ms-auto"><li class="nav-item d-flex align-items-center"><form class="me-2 mb-2 mb-lg-0"><select class="form-select" id="language-selector" aria-label="language"><option class="lang-option" value="csharp-lang">C#</option></select></form></li>
+
+                
+                <li class="nav-item d-flex align-items-center"><form role="search" class="me-2"><input class="form-control" autocomplete="off" type="search" placeholder="Search" aria-label="Search" id="menu-search-bar" data-url-target="../search.html" readonly /></form></li>
+
+                
+                <li class="nav-item" id="theme-switcher"><button class="nav-link"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-brightness-high" viewBox="0 0 16 16"><path d="M8 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6m0 1a4 4 0 1 0 0-8 4 4 0 0 0 0 8M8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0m0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13m8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5M3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8m10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0m-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0m9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707M4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708"></path></svg></button></li></ul></div></div></nav>
+
+    <div class="container my-4" data-id="page-body"><div data-id="declared-type-data"><div class="d-flex justify-content-between align-items-center"><h1 class="display-4 text-break" data-id="type-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">public class</span>
+<span class="refdocgen-text-primary">User</span></span></samp></h1>
+
+    <button class="btn btn-sm" id="toggleAllBtn"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-double-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 6.646a.5.5 0 0 1 .708 0L8 12.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"></path>
+        <path fill-rule="evenodd" d="M1.646 2.646a.5.5 0 0 1 .708 0L8 8.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"></path></svg></button>
+
+<script>
+    window.addEventListener('load', function(){
+        const toggleBtn = document.getElementById('toggleAllBtn');
+        const namespaces = Array.from(document.getElementsByClassName('multi-collapse'));
+
+        toggleBtn.addEventListener('click', () => {
+          const allShown = namespaces.every(ns => ns.classList.contains('show'));
+
+          namespaces.forEach(el => {
+            let instance = bootstrap.Collapse.getInstance(el);
+            if (!instance) {
+                // Ensure toggle: false to prevent auto-toggling on creation
+                instance = new bootstrap.Collapse(el, { toggle: false });
+            }
+
+            if (allShown) {
+              instance.hide(); // Collapse if all were shown
+            } else {
+              instance.show(); // Otherwise expand all
+            }
+          });
+        });
+    });
+</script></div>
+
+                        
+
+                        <h6><samp data-id="type-assembly"><a href="RefDocGen.ExampleLibrary-DLL.html" class="refdocgen-link-secondary"><span class="refdocgen-text-tertiary">assembly</span>
+            <span class="refdocgen-text-secondary">RefDocGen.ExampleLibrary</span></a></samp></h6>
+
+                        <h6><samp data-id="type-namespace"><a href="RefDocGen.ExampleLibrary.html" class="refdocgen-link-secondary text-break"><span class="refdocgen-text-tertiary">namespace</span>
+            <span class="refdocgen-text-secondary">RefDocGen.ExampleLibrary</span></a></samp></h6>
+
+                        <div data-id="base-type"><i>Base type:&nbsp;</i>
+        <samp class="refdocgen-text-secondary text-break"><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.object" class="refdocgen-link-secondary">object</a></span></span></samp></div>
+
+                        
+
+                        
+
+                        <hr>
+
+                        
+                        <div class="text-body-secondary fst-italic mb-0" data-id="summary-doc"><div>
+            Class representing an user of our app.
+            </div></div><hr>
+
+                        <div class="mt-3"><div class="lead">Attributes</div>
+        <div class="mx-3" data-id="attributes-section"><div data-id="attribute-data" class="text-break"><samp><span class="not-visible" data-language="csharp-lang">
+
+[<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.serializableattribute" class="refdocgen-link-secondary">Serializable</a></span><span>]</span></span></samp></div><div data-id="attribute-data" class="text-break"><samp><span class="not-visible" data-language="csharp-lang">
+
+[<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.text.json.serialization.jsonserializableattribute" class="refdocgen-link-secondary">JsonSerializable</a></span><span>(</span><span class="refdocgen-text-green">typeof(RefDocGen.ExampleLibrary.User)</span><span>, </span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.text.json.serialization.jsonserializableattribute.generationmode" class="refdocgen-link-secondary">GenerationMode</a></span>
+        <span> = </span>
+    <span class="refdocgen-text-green">2</span><span>)</span><span>]</span></span></samp></div></div></div>
+
+                        
+
+                        
+                        
+
+                        
+
+                        <hr></div><h2 class="display-5 mt-2">Constructors</h2>
+<div class="row" data-id="constructors-section"><div class="col-md-12"><div class="border px-2 py-1 mb-2" id=".ctor" data-id="member-data"><div class="d-flex justify-content-between align-items-center"><h6 class="mb-0 text-break" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">public</span>
+<span class="refdocgen-text-primary">User</span><span>(</span><wbr><span>)</span></span>
+
+                            <a class="anchor-link" href="#.ctor">#</a></samp></h6>
+
+                    <button class="btn btn-sm" data-bs-toggle="collapse" data-bs-target="#ctor-0-collapse" aria-expanded="false" aria-controls="ctor-0-collapse"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"></path></svg></button></div>
+
+                <div class="collapse show multi-collapse" id="ctor-0-collapse"><div class="text-body-secondary fst-italic mb-0" data-id="summary-doc"><div>
+            Default constructor.
+            </div></div>
+
+                    
+
+                    
+
+                    
+                    
+
+                    
+
+                    
+
+                    
+
+                    <div class="mt-1"></div></div></div><div class="border px-2 py-1 mb-2" id=".ctor(System.String,System.Int32)" data-id="member-data"><div class="d-flex justify-content-between align-items-center"><h6 class="mb-0 text-break" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">public</span>
+<span class="refdocgen-text-primary">User</span><span>(</span><wbr><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.string" class="refdocgen-link-secondary">string</a></span><span>&#xA0;username</span><span>, </span>
+            <wbr><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.int32" class="refdocgen-link-secondary">int</a></span><span>&#xA0;age</span><span>)</span></span>
+
+                            <a class="anchor-link" href="#.ctor(System.String,System.Int32)">#</a></samp></h6>
+
+                    <button class="btn btn-sm" data-bs-toggle="collapse" data-bs-target="#ctor-1-collapse" aria-expanded="false" aria-controls="ctor-1-collapse"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"></path></svg></button></div>
+
+                <div class="collapse show multi-collapse" id="ctor-1-collapse"><div class="text-body-secondary fst-italic mb-0" data-id="summary-doc"><div>
+            Initializes a new user using the provided <code class="refdocgen-paramref">username</code> and <code class="refdocgen-paramref">age</code>.
+            </div></div>
+
+                    <div class="mt-3"><div class="lead">Parameters</div>
+        <div class="mx-3" data-id="parameters-section"><div data-id="parameter-data">
+
+                    <div data-id="parameter-declaration" class="text-break"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.string" class="refdocgen-link-secondary">string</a></span><span>&#xA0;username</span></span></samp></div>
+
+                    <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"><div>The name of the user.</div></div></div><div data-id="parameter-data">
+
+                    <div data-id="parameter-declaration" class="text-break"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.int32" class="refdocgen-link-secondary">int</a></span><span>&#xA0;age</span></span></samp></div>
+
+                    <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"><div>Age of the user.</div></div></div></div></div>
+
+                    
+
+                    
+                    
+
+                    
+
+                    
+
+                    
+
+                    <div class="mt-1"></div></div></div></div></div><h2 class="display-5 mt-2">Fields</h2>
+<div class="row" data-id="fields-section"><div class="col-md-12"><div class="border px-2 py-1 mb-2" id="MaxAge" data-id="member-data"><div class="d-flex justify-content-between align-items-center"><h6 class="mb-0 text-break" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">private const</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.int32" class="refdocgen-link-secondary">int</a></span>
+
+<span class="refdocgen-text-primary">MaxAge</span>
+
+<span> = </span>
+    <span class="refdocgen-text-green">150</span></span>
+
+                            <a class="anchor-link" href="#MaxAge">#</a></samp></h6>
+
+                    <button class="btn btn-sm" data-bs-toggle="collapse" data-bs-target="#field-0-collapse" aria-expanded="false" aria-controls="field-0-collapse"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"></path></svg></button></div>
+
+                <div class="collapse show multi-collapse" id="field-0-collapse">
+
+                    <div class="text-body-secondary fst-italic mb-0" data-id="summary-doc"><div>
+            Maximum age of the user.
+            </div></div>
+
+                    
+
+                    
+
+                    
+
+                    
+
+                    <div class="mt-1"></div></div></div><div class="border px-2 py-1 mb-2" id="username" data-id="member-data"><div class="d-flex justify-content-between align-items-center"><h6 class="mb-0 text-break" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">protected readonly</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.string" class="refdocgen-link-secondary">string</a></span>
+
+<span class="refdocgen-text-primary">username</span>
+
+</span>
+
+                            <a class="anchor-link" href="#username">#</a></samp></h6>
+
+                    <button class="btn btn-sm" data-bs-toggle="collapse" data-bs-target="#field-1-collapse" aria-expanded="false" aria-controls="field-1-collapse"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"></path></svg></button></div>
+
+                <div class="collapse show multi-collapse" id="field-1-collapse">
+
+                    <div class="text-body-secondary fst-italic mb-0" data-id="summary-doc"><div>
+             Name of the user. <code class="refdocgen-inline-code">var name = user.username</code>
+            
+             <pre><code class="refdocgen-code-block">
+             var name = user.username;
+             var userValidator = new UserValidator();
+            
+             var isValid = userValidator.Validate(name);
+             Console.WriteLine($"Valid: {isValid}");
+             </code></pre>
+             <div class="refdocgen-paragraph">
+             Paragraph
+             </div>
+             <ul class="refdocgen-bullet-list">
+               <li class="refdocgen-list-item">ABC</li>
+               <li class="refdocgen-list-item">
+                 <span class="refdocgen-list-term">ddd</span>
+                 <span class="refdocgen-list-description">DEF</span>
+               </li>
+             </ul>
+             <ol class="refdocgen-number-list">
+               <li class="refdocgen-list-item">First</li>
+               <li class="refdocgen-list-item">Second</li>
+             </ol>
+            
+             <table class="refdocgen-table">
+             <thead class="refdocgen-table-header">
+             <td class="refdocgen-table-term">name</td>
+             <td class="refdocgen-table-term">age</td>
+             </thead>
+             <tr class="refdocgen-table-item">
+             <td class="refdocgen-table-term">John Smith</td>
+             <td class="refdocgen-table-element">10</td>
+             </tr>
+             <tr class="refdocgen-table-item">
+             <td class="refdocgen-table-term">Jane Anderson</td>
+             <td class="refdocgen-table-element">15</td>
+             </tr>
+             </table>
+             <a class="refdocgen-see-href" href="http://www.google.com">Google</a>
+             <code class="refdocgen-see-langword">true</code>
+             </div></div>
+
+                    
+
+                    
+
+                    
+
+                    <div class="mt-3" data-id="seealso-section"><div class="lead">See also</div><div class="text-body-secondary fst-italic" data-id="seealso-item"><a class="refdocgen-see-href" href="http://www.google.com">http://www.google.com</a></div><div class="text-body-secondary fst-italic" data-id="seealso-item"><a class="refdocgen-see-cref" href="./RefDocGen.ExampleLibrary.User.html#MaxAge">max age constant</a></div><div class="text-body-secondary fst-italic" data-id="seealso-item"><a class="refdocgen-see-cref" href="https://learn.microsoft.com/dotnet/api/system.reflection.fieldinfo.isliteral">FieldInfo.IsLiteral</a></div><div class="text-body-secondary fst-italic" data-id="seealso-item"><a class="refdocgen-see-cref" href="./RefDocGen.ExampleLibrary.Tools.Point.html">Point</a></div><div class="text-body-secondary fst-italic" data-id="seealso-item"><code class="refdocgen-see-cref-not-found">!:notFound</code></div></div>
+
+                    <div class="mt-1"></div></div></div></div></div><h2 class="display-5 mt-2">Properties</h2>
+<div class="row" data-id="properties-section"><div class="col-md-12"><div class="border px-2 py-1 mb-2" id="Age" data-id="member-data"><div class="d-flex justify-content-between align-items-center"><h6 class="mb-0 text-break" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">public</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.nullable-1" class="refdocgen-link-secondary">Nullable</a></span><span class="text-body-secondary">&lt;</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.int32" class="refdocgen-link-secondary">int</a></span><span class="text-body-secondary">&gt;</span>
+
+<span class="refdocgen-text-primary">Age</span>
+
+<span> { </span><span class="refdocgen-text-tertiary"> get<span class="text-body">; </span></span><span> }</span>
+
+</span>
+
+                            <a class="anchor-link" href="#Age">#</a></samp></h6>
+
+                    <button class="btn btn-sm" data-bs-toggle="collapse" data-bs-target="#property-0-collapse" aria-expanded="false" aria-controls="property-0-collapse"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"></path></svg></button></div>
+
+                <div class="collapse show multi-collapse" id="property-0-collapse">
+
+                    
+
+                    
+
+                    
+
+                    <div class="text-body-secondary fst-italic mb-0" data-id="summary-doc"><div>
+            Gets the age of the user (nullable).
+            </div></div>
+
+                    <div class="mt-3"><div class="lead">Value</div>
+        <div data-id="value-doc" class="fst-italic text-body-secondary"><div>The age of the user.</div></div></div>
+
+                    
+
+                    
+                    
+
+                    
+
+                    
+
+                    
+
+                    <div class="mt-1"></div></div></div><div class="border px-2 py-1 mb-2" id="Animals" data-id="member-data"><div class="d-flex justify-content-between align-items-center"><h6 class="mb-0 text-break" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">public</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1" class="refdocgen-link-secondary">List</a></span><span class="text-body-secondary">&lt;</span><span class="refdocgen-text-secondary"><a href="./RefDocGen.ExampleLibrary.Animal.html" class="refdocgen-link-secondary">Animal</a></span><span class="text-body-secondary">&gt;</span>
+
+<span class="refdocgen-text-primary">Animals</span>
+
+<span> { </span><span class="refdocgen-text-tertiary"> get<span class="text-body">; </span></span><span> }</span>
+
+</span>
+
+                            <a class="anchor-link" href="#Animals">#</a></samp></h6>
+
+                    <button class="btn btn-sm" data-bs-toggle="collapse" data-bs-target="#property-1-collapse" aria-expanded="false" aria-controls="property-1-collapse"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"></path></svg></button></div>
+
+                <div class="collapse show multi-collapse" id="property-1-collapse">
+
+                    
+
+                    
+
+                    
+
+                    <div class="text-body-secondary fst-italic mb-0" data-id="summary-doc"><div>
+            List of owned animals.
+            </div></div>
+
+                    
+
+                    
+
+                    
+                    
+
+                    
+
+                    
+
+                    
+
+                    <div class="mt-1"></div></div></div><div class="border px-2 py-1 mb-2" id="FirstName" data-id="member-data"><div class="d-flex justify-content-between align-items-center"><h6 class="mb-0 text-break" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">public</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.string" class="refdocgen-link-secondary">string</a></span>
+
+<span class="refdocgen-text-primary">FirstName</span>
+
+<span> { </span><span class="refdocgen-text-tertiary"> get<span class="text-body">; </span></span><span class="refdocgen-text-tertiary">internal set<span class="text-body">; </span></span><span> }</span>
+
+</span>
+
+                            <a class="anchor-link" href="#FirstName">#</a></samp></h6>
+
+                    <button class="btn btn-sm" data-bs-toggle="collapse" data-bs-target="#property-2-collapse" aria-expanded="false" aria-controls="property-2-collapse"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"></path></svg></button></div>
+
+                <div class="collapse show multi-collapse" id="property-2-collapse">
+
+                    
+
+                    
+
+                    
+
+                    <div class="text-body-secondary fst-italic mb-0" data-id="summary-doc"><div>
+            First name of the user.
+            </div></div>
+
+                    
+
+                    
+
+                    
+                    
+
+                    
+
+                    
+
+                    
+
+                    <div class="mt-1"></div></div></div><div class="border px-2 py-1 mb-2" id="LastName" data-id="member-data"><div class="d-flex justify-content-between align-items-center"><h6 class="mb-0 text-break" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">public</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.string" class="refdocgen-link-secondary">string</a></span>
+
+<span class="refdocgen-text-primary">LastName</span>
+
+<span> { </span><span class="refdocgen-text-tertiary"> get<span class="text-body">; </span></span><span class="refdocgen-text-tertiary"> init<span class="text-body">; </span></span><span> }</span>
+
+</span>
+
+                            <a class="anchor-link" href="#LastName">#</a></samp></h6>
+
+                    <button class="btn btn-sm" data-bs-toggle="collapse" data-bs-target="#property-3-collapse" aria-expanded="false" aria-controls="property-3-collapse"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"></path></svg></button></div>
+
+                <div class="collapse show multi-collapse" id="property-3-collapse">
+
+                    
+
+                    
+
+                    
+
+                    <div class="text-body-secondary fst-italic mb-0" data-id="summary-doc"><div>
+            Last name of the user.
+            </div></div>
+
+                    
+
+                    
+
+                    
+                    
+
+                    
+
+                    
+
+                    
+
+                    <div class="mt-1"></div></div></div></div></div><h2 class="display-5 mt-2">Methods</h2>
+<div class="row" data-id="methods-section"><div class="col-md-12"><div class="border px-2 py-1 mb-2" id="AddAnimals(RefDocGen.ExampleLibrary.Animal())" data-id="member-data"><div class="d-flex justify-content-between align-items-center"><h6 class="mb-0 text-break" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">public</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.void" class="refdocgen-link-secondary">void</a></span>
+
+<span class="refdocgen-text-primary">AddAnimals</span><span>(</span><wbr><span class="refdocgen-text-tertiary">params</span>
+    <span></span><span class="refdocgen-text-secondary"><a href="./RefDocGen.ExampleLibrary.Animal.html" class="refdocgen-link-secondary">Animal[]</a></span><span>&#xA0;animals</span><span>)</span></span>
+
+                            <a class="anchor-link" href="#AddAnimals(RefDocGen.ExampleLibrary.Animal())">#</a></samp></h6>
+
+                    <button class="btn btn-sm" data-bs-toggle="collapse" data-bs-target="#method-0-collapse" aria-expanded="false" aria-controls="method-0-collapse"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"></path></svg></button></div>
+
+                <div class="collapse show multi-collapse" id="method-0-collapse">
+
+                    
+
+                    
+
+                    
+
+                    
+
+                    <div class="text-body-secondary fst-italic mb-0" data-id="summary-doc"><div>
+            Add animals to the user.
+            </div></div>
+
+                    
+
+                    <div class="mt-3"><div class="lead">Parameters</div>
+        <div class="mx-3" data-id="parameters-section"><div data-id="parameter-data">
+
+                    <div data-id="parameter-declaration" class="text-break"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">params</span>
+    <span></span><span class="refdocgen-text-secondary"><a href="./RefDocGen.ExampleLibrary.Animal.html" class="refdocgen-link-secondary">Animal[]</a></span><span>&#xA0;animals</span></span></samp></div>
+
+                    <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"><div>Animals to add.</div></div></div></div></div>
+
+                    
+                    
+
+                    
+
+                    
+
+                    
+
+                    <div class="mt-1"></div></div></div><div class="border px-2 py-1 mb-2" id="AddAnimalsByType(System.Collections.Generic.Dictionary(System.String,System.Collections.Generic.List(RefDocGen.ExampleLibrary.Animal)))" data-id="member-data"><div class="d-flex justify-content-between align-items-center"><h6 class="mb-0 text-break" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">public</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.void" class="refdocgen-link-secondary">void</a></span>
+
+<span class="refdocgen-text-primary">AddAnimalsByType</span><span>(</span><wbr><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2" class="refdocgen-link-secondary">Dictionary</a></span><span class="text-body-secondary">&lt;</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.string" class="refdocgen-link-secondary">string</a></span><span class="text-body-secondary">, </span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1" class="refdocgen-link-secondary">List</a></span><span class="text-body-secondary">&lt;</span><span class="refdocgen-text-secondary"><a href="./RefDocGen.ExampleLibrary.Animal.html" class="refdocgen-link-secondary">Animal</a></span><span class="text-body-secondary">&gt;</span><span class="text-body-secondary">&gt;</span><span>&#xA0;animals</span><span>)</span></span>
+
+                            <a class="anchor-link" href="#AddAnimalsByType(System.Collections.Generic.Dictionary(System.String,System.Collections.Generic.List(RefDocGen.ExampleLibrary.Animal)))">#</a></samp></h6>
+
+                    <button class="btn btn-sm" data-bs-toggle="collapse" data-bs-target="#method-1-collapse" aria-expanded="false" aria-controls="method-1-collapse"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"></path></svg></button></div>
+
+                <div class="collapse show multi-collapse" id="method-1-collapse">
+
+                    
+
+                    
+
+                    
+
+                    
+
+                    <div class="text-body-secondary fst-italic mb-0" data-id="summary-doc"><div>
+            Make the animals user-owned.
+            </div></div>
+
+                    
+
+                    <div class="mt-3"><div class="lead">Parameters</div>
+        <div class="mx-3" data-id="parameters-section"><div data-id="parameter-data">
+
+                    <div data-id="parameter-declaration" class="text-break"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2" class="refdocgen-link-secondary">Dictionary</a></span><span class="text-body-secondary">&lt;</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.string" class="refdocgen-link-secondary">string</a></span><span class="text-body-secondary">, </span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1" class="refdocgen-link-secondary">List</a></span><span class="text-body-secondary">&lt;</span><span class="refdocgen-text-secondary"><a href="./RefDocGen.ExampleLibrary.Animal.html" class="refdocgen-link-secondary">Animal</a></span><span class="text-body-secondary">&gt;</span><span class="text-body-secondary">&gt;</span><span>&#xA0;animals</span></span></samp></div>
+
+                    <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"><div>Animals to add. Key: animal type, Value: list of animals of the given type.</div></div></div></div></div>
+
+                    
+                    
+
+                    
+
+                    
+
+                    
+
+                    <div class="mt-1"></div></div></div><div class="border px-2 py-1 mb-2" id="GetAnimalsByType" data-id="member-data"><div class="d-flex justify-content-between align-items-center"><h6 class="mb-0 text-break" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">public</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2" class="refdocgen-link-secondary">Dictionary</a></span><span class="text-body-secondary">&lt;</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.string" class="refdocgen-link-secondary">string</a></span><span class="text-body-secondary">, </span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1" class="refdocgen-link-secondary">List</a></span><span class="text-body-secondary">&lt;</span><span class="refdocgen-text-secondary"><a href="./RefDocGen.ExampleLibrary.Animal.html" class="refdocgen-link-secondary">Animal</a></span><span class="text-body-secondary">&gt;</span><span class="text-body-secondary">&gt;</span>
+
+<span class="refdocgen-text-primary">GetAnimalsByType</span><span>(</span><wbr><span>)</span></span>
+
+                            <a class="anchor-link" href="#GetAnimalsByType">#</a></samp></h6>
+
+                    <button class="btn btn-sm" data-bs-toggle="collapse" data-bs-target="#method-2-collapse" aria-expanded="false" aria-controls="method-2-collapse"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"></path></svg></button></div>
+
+                <div class="collapse show multi-collapse" id="method-2-collapse">
+
+                    
+
+                    
+
+                    
+
+                    
+
+                    <div class="text-body-secondary fst-italic mb-0" data-id="summary-doc"><div>
+            Get dictionary of animals, whose keys are of animal type and values are the <a class="refdocgen-see-cref" href="./RefDocGen.ExampleLibrary.Animal.html">Animal</a> objects of given type.
+            </div></div>
+
+                    
+
+                    <div class="mt-3"><div class="lead">Returns</div>
+    <div class="mx-3" data-id="returns-section"><samp data-id="return-type-name"><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2" class="refdocgen-link-secondary">Dictionary</a></span><span class="text-body-secondary">&lt;</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.string" class="refdocgen-link-secondary">string</a></span><span class="text-body-secondary">, </span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1" class="refdocgen-link-secondary">List</a></span><span class="text-body-secondary">&lt;</span><span class="refdocgen-text-secondary"><a href="./RefDocGen.ExampleLibrary.Animal.html" class="refdocgen-link-secondary">Animal</a></span><span class="text-body-secondary">&gt;</span><span class="text-body-secondary">&gt;</span></span></samp>
+        <div class="text-body-secondary fst-italic" data-id="returns-doc"><div>Dictionary of animals, indexed by their type.</div></div></div></div>
+
+                    
+                    
+
+                    
+
+                    
+
+                    
+
+                    <div class="mt-1"></div></div></div><div class="border px-2 py-1 mb-2" id="IsAdult" data-id="member-data"><div class="d-flex justify-content-between align-items-center"><h6 class="mb-0 text-break" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">public</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.boolean" class="refdocgen-link-secondary">bool</a></span>
+
+<span class="refdocgen-text-primary">IsAdult</span><span>(</span><wbr><span>)</span></span>
+
+                            <a class="anchor-link" href="#IsAdult">#</a></samp></h6>
+
+                    <button class="btn btn-sm" data-bs-toggle="collapse" data-bs-target="#method-3-collapse" aria-expanded="false" aria-controls="method-3-collapse"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"></path></svg></button></div>
+
+                <div class="collapse show multi-collapse" id="method-3-collapse">
+
+                    
+
+                    
+
+                    
+
+                    
+
+                    <div class="text-body-secondary fst-italic mb-0" data-id="summary-doc"><div>
+            Checks if the user is adult.
+            </div></div>
+
+                    
+
+                    <div class="mt-3"><div class="lead">Returns</div>
+    <div class="mx-3" data-id="returns-section"><samp data-id="return-type-name"><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.boolean" class="refdocgen-link-secondary">bool</a></span></span></samp>
+        <div class="text-body-secondary fst-italic" data-id="returns-doc"><div>True if adult, false otherwise.</div></div></div></div>
+
+                    
+                    
+
+                    
+
+                    
+
+                    
+
+                    <div class="mt-1"></div></div></div><div class="border px-2 py-1 mb-2" id="PrintProfile" data-id="member-data"><div class="d-flex justify-content-between align-items-center"><h6 class="mb-0 text-break" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">public</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.void" class="refdocgen-link-secondary">void</a></span>
+
+<span class="refdocgen-text-primary">PrintProfile</span><span>(</span><wbr><span>)</span></span>
+
+                            <a class="anchor-link" href="#PrintProfile">#</a></samp></h6>
+
+                    <button class="btn btn-sm" data-bs-toggle="collapse" data-bs-target="#method-4-collapse" aria-expanded="false" aria-controls="method-4-collapse"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"></path></svg></button></div>
+
+                <div class="collapse show multi-collapse" id="method-4-collapse">
+
+                    
+
+                    
+
+                    
+
+                    
+
+                    <div class="text-body-secondary fst-italic mb-0" data-id="summary-doc"><div>
+            Print user's profile.
+            </div></div>
+
+                    
+
+                    
+
+                    
+                    
+
+                    
+
+                    
+
+                    
+
+                    <div class="mt-1"></div></div></div><div class="border px-2 py-1 mb-2" id="PrintProfile(System.String)" data-id="member-data"><div class="d-flex justify-content-between align-items-center"><h6 class="mb-0 text-break" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">public</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.void" class="refdocgen-link-secondary">void</a></span>
+
+<span class="refdocgen-text-primary">PrintProfile</span><span>(</span><wbr><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.string" class="refdocgen-link-secondary">string</a></span><span>&#xA0;format</span><span> = </span>
+    <span class="refdocgen-text-green">&quot;json&quot;</span><span>)</span></span>
+
+                            <a class="anchor-link" href="#PrintProfile(System.String)">#</a></samp></h6>
+
+                    <button class="btn btn-sm" data-bs-toggle="collapse" data-bs-target="#method-5-collapse" aria-expanded="false" aria-controls="method-5-collapse"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"></path></svg></button></div>
+
+                <div class="collapse show multi-collapse" id="method-5-collapse">
+
+                    
+
+                    
+
+                    
+
+                    
+
+                    <div class="text-body-secondary fst-italic mb-0" data-id="summary-doc"><div>
+            Print user's profile in the given format
+            </div></div>
+
+                    
+
+                    <div class="mt-3"><div class="lead">Parameters</div>
+        <div class="mx-3" data-id="parameters-section"><div data-id="parameter-data"><div data-id="attribute-data" class="text-break"><samp><span class="not-visible" data-language="csharp-lang">
+
+[<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.diagnostics.codeanalysis.notnullattribute" class="refdocgen-link-secondary">NotNull</a></span><span>]</span></span></samp></div>
+
+                    <div data-id="parameter-declaration" class="text-break"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.string" class="refdocgen-link-secondary">string</a></span><span>&#xA0;format</span></span></samp></div>
+
+                    <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"><div>Format used for printing the profile.</div></div></div></div></div><div class="mt-3"><div class="lead">Attributes</div>
+        <div class="mx-3" data-id="attributes-section"><div data-id="attribute-data" class="text-break"><samp><span class="not-visible" data-language="csharp-lang">
+
+[<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.obsoleteattribute" class="refdocgen-link-secondary">Obsolete</a></span><span>]</span></span></samp></div></div></div>
+
+                    
+                    
+
+                    
+
+                    
+
+                    
+
+                    <div class="mt-1"></div></div></div><div class="border px-2 py-1 mb-2" id="PrintProfile(System.String,System.Collections.Generic.List(System.String))" data-id="member-data"><div class="d-flex justify-content-between align-items-center"><h6 class="mb-0 text-break" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">public</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.void" class="refdocgen-link-secondary">void</a></span>
+
+<span class="refdocgen-text-primary">PrintProfile</span><span>(</span><wbr><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.string" class="refdocgen-link-secondary">string</a></span><span>&#xA0;format</span><span>, </span>
+            <wbr><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1" class="refdocgen-link-secondary">List</a></span><span class="text-body-secondary">&lt;</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.string" class="refdocgen-link-secondary">string</a></span><span class="text-body-secondary">&gt;</span><span>&#xA0;keywords</span><span> = </span>
+    <span class="refdocgen-text-green">null</span><span>)</span></span>
+
+                            <a class="anchor-link" href="#PrintProfile(System.String,System.Collections.Generic.List(System.String))">#</a></samp></h6>
+
+                    <button class="btn btn-sm" data-bs-toggle="collapse" data-bs-target="#method-6-collapse" aria-expanded="false" aria-controls="method-6-collapse"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"></path></svg></button></div>
+
+                <div class="collapse show multi-collapse" id="method-6-collapse">
+
+                    
+
+                    
+
+                    
+
+                    
+
+                    <div class="text-body-secondary fst-italic mb-0" data-id="summary-doc"><div>
+            Print user's profile in the given format
+            </div></div>
+
+                    
+
+                    <div class="mt-3"><div class="lead">Parameters</div>
+        <div class="mx-3" data-id="parameters-section"><div data-id="parameter-data">
+
+                    <div data-id="parameter-declaration" class="text-break"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.string" class="refdocgen-link-secondary">string</a></span><span>&#xA0;format</span></span></samp></div>
+
+                    <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"><div>Format used for printing the profile.</div></div></div><div data-id="parameter-data">
+
+                    <div data-id="parameter-declaration" class="text-break"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1" class="refdocgen-link-secondary">List</a></span><span class="text-body-secondary">&lt;</span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.string" class="refdocgen-link-secondary">string</a></span><span class="text-body-secondary">&gt;</span><span>&#xA0;keywords</span></span></samp></div>
+
+                    <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"><div>List of keywords.</div></div></div></div></div>
+
+                    
+                    
+
+                    
+
+                    
+
+                    
+
+                    <div class="mt-1"></div></div></div><div class="border px-2 py-1 mb-2" id="ProcessValues(System.Int32-,System.Int32-,System.String,System.Int32-,System.Double)" data-id="member-data"><div class="d-flex justify-content-between align-items-center"><h6 class="mb-0 text-break" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">internal static</span>
+
+<span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.void" class="refdocgen-link-secondary">void</a></span>
+
+<span class="refdocgen-text-primary">ProcessValues</span><span>(</span><wbr><span class="refdocgen-text-tertiary">in</span>
+    <span></span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.int32" class="refdocgen-link-secondary">int</a></span><span>&#xA0;inValue</span><span>, </span>
+            <wbr><span class="refdocgen-text-tertiary">ref</span>
+    <span></span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.int32" class="refdocgen-link-secondary">int</a></span><span>&#xA0;refValue</span><span>, </span>
+            <wbr><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.string" class="refdocgen-link-secondary">string</a></span><span>&#xA0;s1</span><span>, </span>
+            <wbr><span class="refdocgen-text-tertiary">out</span>
+    <span></span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.int32" class="refdocgen-link-secondary">int</a></span><span>&#xA0;outValue</span><span>, </span>
+            <wbr><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.double" class="refdocgen-link-secondary">double</a></span><span>&#xA0;d2</span><span> = </span>
+    <span class="refdocgen-text-green">150</span><span>)</span></span>
+
+                            <a class="anchor-link" href="#ProcessValues(System.Int32-,System.Int32-,System.String,System.Int32-,System.Double)">#</a></samp></h6>
+
+                    <button class="btn btn-sm" data-bs-toggle="collapse" data-bs-target="#method-7-collapse" aria-expanded="false" aria-controls="method-7-collapse"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"></path></svg></button></div>
+
+                <div class="collapse show multi-collapse" id="method-7-collapse">
+
+                    
+
+                    
+
+                    
+
+                    
+
+                    <div class="text-body-secondary fst-italic mb-0" data-id="summary-doc"><div>
+            A method with ref, in, and out parameters for testing purposes.
+            </div></div>
+
+                    
+
+                    <div class="mt-3"><div class="lead">Parameters</div>
+        <div class="mx-3" data-id="parameters-section"><div data-id="parameter-data">
+
+                    <div data-id="parameter-declaration" class="text-break"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">in</span>
+    <span></span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.int32" class="refdocgen-link-secondary">int</a></span><span>&#xA0;inValue</span></span></samp></div>
+
+                    <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"><div>An input value.</div></div></div><div data-id="parameter-data">
+
+                    <div data-id="parameter-declaration" class="text-break"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">ref</span>
+    <span></span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.int32" class="refdocgen-link-secondary">int</a></span><span>&#xA0;refValue</span></span></samp></div>
+
+                    <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"><div>A reference value.</div></div></div><div data-id="parameter-data">
+
+                    <div data-id="parameter-declaration" class="text-break"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.string" class="refdocgen-link-secondary">string</a></span><span>&#xA0;s1</span></span></samp></div>
+
+                    <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div><div data-id="parameter-data">
+
+                    <div data-id="parameter-declaration" class="text-break"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">out</span>
+    <span></span><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.int32" class="refdocgen-link-secondary">int</a></span><span>&#xA0;outValue</span></span></samp></div>
+
+                    <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"><div>An output value.</div></div></div><div data-id="parameter-data">
+
+                    <div data-id="parameter-declaration" class="text-break"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary"><a href="https://learn.microsoft.com/dotnet/api/system.double" class="refdocgen-link-secondary">double</a></span><span>&#xA0;d2</span></span></samp></div>
+
+                    <div class="text-body-secondary fst-italic mb-2" data-id="parameter-doc"></div></div></div></div>
+
+                    
+                    
+
+                    
+
+                    
+
+                    
+
+                    <div class="mt-1"></div></div></div><div class="border px-2 py-1 mb-2" id="ToYaml" data-id="member-data"><div class="d-flex justify-content-between align-items-center"><h6 class="mb-0 text-break" data-id="member-declaration"><samp><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-tertiary">public</span>
+
+<span class="refdocgen-text-secondary">YamlDotNet.RepresentationModel.YamlNode</span>
+
+<span class="refdocgen-text-primary">ToYaml</span><span>(</span><wbr><span>)</span></span>
+
+                            <a class="anchor-link" href="#ToYaml">#</a></samp></h6>
+
+                    <button class="btn btn-sm" data-bs-toggle="collapse" data-bs-target="#method-8-collapse" aria-expanded="false" aria-controls="method-8-collapse"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"></path></svg></button></div>
+
+                <div class="collapse show multi-collapse" id="method-8-collapse">
+
+                    
+
+                    
+
+                    
+
+                    
+
+                    <div class="text-body-secondary fst-italic mb-0" data-id="summary-doc"><div>
+            Gets YAML representation of the user.
+            </div></div>
+
+                    
+
+                    <div class="mt-3"><div class="lead">Returns</div>
+    <div class="mx-3" data-id="returns-section"><samp data-id="return-type-name"><span class="not-visible" data-language="csharp-lang"><span class="refdocgen-text-secondary">YamlDotNet.RepresentationModel.YamlNode</span></span></samp>
+        <div class="text-body-secondary fst-italic" data-id="returns-doc"><div>
+  <code class="refdocgen-see-cref-not-found">YamlDotNet.RepresentationModel.YamlNode</code> representation of the user.</div></div></div></div>
+
+                    
+                    
+
+                    <div class="mt-3" data-id="example-section"><div class="lead">Example</div>
+        <div class="text-body-secondary fst-italic" data-id="example-doc"><div class="refdocgen-example">
+            user.ToYaml()
+            </div></div></div>
+
+                    
+
+                    
+
+                    <div class="mt-1"></div></div></div></div></div></div><script src="../Static/bootstrap-5.3.5-dist.bundle.min.js"></script>
+
+    
+    <script src="../Static/script.js"></script></body></html>
